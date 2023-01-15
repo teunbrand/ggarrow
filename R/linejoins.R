@@ -2,9 +2,6 @@
 
 extrude_line <- function(x, y, id, width, gp = gpar()) {
 
-  if (anyNA(width)) {
-    width <- interpolate_width(x, y, id, width)
-  }
   width <- width / 2
   width <- rep_len(width, sum(field(id, "length")))
 

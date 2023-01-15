@@ -2,6 +2,7 @@
 
 S3method(makeContent,arrow_path)
 export(grob_arrow)
+import(ggplot2)
 import(grid)
 import(rlang)
 import(scales)

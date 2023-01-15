@@ -1,5 +1,5 @@
 place_arrow <- function(
-  arrow = arrow_head(),
+  arrow = NULL,
   x, y, id, size, angle, type = "head", force = FALSE
 ) {
   if (is.null(arrow)) {

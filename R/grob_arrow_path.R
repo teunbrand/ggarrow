@@ -35,8 +35,8 @@
 #'   x = unit(c(0.2, 0.5, 0.8, 0.2, 0.5, 0.8), "npc"),
 #'   y = unit(c(0.2, 0.8, 0.2, 0.8, 0.2, 0.8), "npc"),
 #'   id.lengths  = c(3, 3),
-#'   arrow_head  = arrow_wings(),
-#'   arrow_fins  = arrow_feather(),
+#'   arrow_head  = arrow_head_wings(),
+#'   arrow_fins  = arrow_fins_feather(),
 #'   fins_length = 8,
 #'   shaft_width = 1,
 #'   gp = gpar(fill = c("dodgerblue", "tomato"), col = "black")

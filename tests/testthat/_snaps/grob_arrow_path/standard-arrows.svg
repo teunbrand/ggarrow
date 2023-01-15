@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<path d='M 256.09 271.53 L 256.77 279.33 L 265.95 259.65 L 246.27 268.83 L 254.07 269.51 L 236.60 287.00 L 237.60 288.00 L 238.60 289.00 Z' style='fill-rule: evenodd; fill: #1E90FF; stroke-width: 0.75;' />
+<path d='M 493.69 271.53 L 494.37 279.33 L 503.55 259.65 L 483.87 268.83 L 491.67 269.51 L 474.20 287.00 L 475.20 288.00 L 476.20 289.00 Z' style='fill-rule: evenodd; fill: #FF6347; stroke-width: 0.75;' />
+</g>
+</svg>

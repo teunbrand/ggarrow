@@ -1,11 +1,51 @@
 # Ornament functions ------------------------------------------------------
 
+#' Arrow ornament functions
+#'
+#' There are two types of arrow ornament functions: functions for arrow heads,
+#' and functions for arrow fins. The heads and fins can be used interchangeably,
+#' but the name makes it clearer what is suitable.
+#'
+#' @param offset,angle A `numeric(1)` giving an angle in degrees for the angle
+#'   between the line and tip.
+#' @param inset A `numeric(1)` giving an angle in degrees for the angle inside
+#'   the tip of the arrowhead.
+#' @param asp A `numeric(1)` ratio between the length of the feathers and the
+#'   height of the feathers.
+#' @param indent,outdent A `numeric(1)` giving the fraction of the feather
+#'   feather length to offset the notch and the end respectively.
+#'
+#' @details
+#' The convention for these functions is that the arrow shaft is fused to the
+#' ornament at the (0,0) point and the ornaments ends at the (1,0) point.
+#'
+#' @return A `<matrix[n, 2]>` with `x` and `y` columns describing a polygon.
+#'   It has a `notch_angle` attribute that is used fusing the fins/head to the
+#'   shaft of the arrow. They can be given to an arrow plotting function.
+#' @name arrow_ornaments
+#'
+#' @examples
+#' # Plotting winged head
+#' plot(c(-0.5, 1), c(-0.6, 0.6), type = "n")
+#' polygon(arrow_head_wings(), col = "gray")
+#'
+#' # Plotting feather fins
+#' plot(c(0, 1), c(-0.25, 0.25), type = "n")
+#' polygon(arrow_fins_feather(), col = "gray")
+NULL
 
-
+#' @export
+#' @describeIn arrow_ornaments
+#' Places two triangles at either side of the line. Let ABC be a triangle,
+#' where A is at the end of the line, B is on the line and C is the arrow
+#' wingtip. Then `offset` is the angle at corner A and `inset` is the angle at
+#' corner C.
 arrow_head_wings <- function(
-  offset = 20 * .deg2rad,
-  inset  = 30 * .deg2rad
+  offset = 20,
+  inset  = 30
 ) {
+  offset <- offset * .deg2rad
+  inset  <- inset  * .deg2rad
 
   wing_angle   <- c(-1, 1) * offset
   inner_angle  <- wing_angle + pi + c(-1, 1) * inset
@@ -31,13 +71,20 @@ arrow_head_wings <- function(
   ans * mult
 }
 
+#' @export
+#' @describeIn arrow_ornaments
+#' Places trapezoids at either side of the line. Let ABCD be a quadrilateral
+#' shape, where A is at the end of the line, B is on the line, and CD is
+#' parallel to AB, but offset from the line. Then, `indent` is the distance
+#' along the line between A and D and `outdent` is the distance along the line
+#' between B and C.
 arrow_fins_feather <- function(
-  inset  = 0.3,
-  outset = inset,
+  indent  = 0.3,
+  outdent = indent,
   asp    = 0.5
 ) {
 
-  x <- c(1 - inset, 1, 0 + outset, 0, 0 + outset, 1)
+  x <- c(1 - indent, 1, 0 + outdent, 0, 0 + outdent, 1)
   y <- c(0, 1, 1, 0, -1, -1) * asp / 2
 
   ans <- cbind(x = x, y = y)
@@ -46,13 +93,25 @@ arrow_fins_feather <- function(
   ans
 }
 
-arrow_head_minimal <- function(angle = 45 * .deg2rad) {
+#' @export
+#' @describeIn arrow_ornaments
+#' This is a 'fake' arrow head who in practice doesn't draw anything, but
+#' sets the `notch_angle` attribute such that the arrow shaft is whittled into
+#' a triangular point.
+arrow_head_minimal <- function(angle = 45) {
+  angle <- angle * .deg2rad
   ans <- cbind(x = c(0, 0), y = c(1, -1))
   attr(ans, "notch_angle") <- angle
   ans
 }
 
-arrow_fins_minimal <- function(angle = 45 * .deg2rad) {
+#' @export
+#' @describeIn arrow_ornaments
+#' This is a 'fake' arrow head who in practise doesn't draw anything, but
+#' sets the `notch_angle` attribute such that a triangle is taken out of the
+#' arrow shaft.
+arrow_fins_minimal <- function(angle = 45) {
+  angle <- angle * .deg2rad
   ans <- cbind(x = c(0, 0), y = c(1, -1))
   attr(ans, "notch_angle") <- angle + .halfpi
   ans

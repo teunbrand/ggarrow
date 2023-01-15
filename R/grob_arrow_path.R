@@ -8,9 +8,11 @@
 #' beginning of an arrow line.
 #'
 #' @inheritParams grid::polylineGrob
-#' @param arrow_head,arrow_fins A `<matrix[n, 2]>` giving arrow shapes.
-#'   The matrix can have the `notch_angle` attribute that will be used to fuse
-#'   the shaft to the arrow ornaments. If `NULL`, no ornament will be drawn.
+#' @param arrow_head,arrow_fins A `<matrix[n, 2]>`, such as those returned by
+#'   [arrow ornament][arrow_ornaments] functions, giving arrow shapes.
+#'   The matrix can (should) have the `notch_angle` attribute that will be used
+#'   to fuse the shaft to the arrow ornaments. If `NULL`, no ornament will be
+#'   drawn.
 #' @param head_length,fins_length A `<`[unit][grid::unit]`>` object controlling
 #'   the size of the arrow ornaments.
 #' @param shaft_width A `<`[unit][grid::unit]`>` object controlling the width

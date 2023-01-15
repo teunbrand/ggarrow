@@ -22,6 +22,7 @@ Imports:
     polyclip,
     rlang,
     scales,
+    utils,
     vctrs
 Suggests: 
     testthat (>= 3.0.0),

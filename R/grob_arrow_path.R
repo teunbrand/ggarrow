@@ -21,10 +21,10 @@
 #'   can be used to create an offset between the endings of the coordinates
 #'   and where the arrow will be displayed visually. `resect_fins` and
 #'   `resect_head` control this offset at the start and end of the arrow
-#'   respectively and default to `resect`.
-#' @param force_arrow A `logical(1)` which, if `TRUE`, will draw an arrow even
-#'   when the entire shaft is resected. If `FALSE`, will not draw an arrow if
-#'   a shaft has disappeared.
+#'   respectively and both default to `resect`.
+#' @param force_arrow A `logical(1)` which, if `TRUE` an arrow will be drawn
+#'   even when the length of the arrow is shorter than the arrow heads and fins.
+#'   If `FALSE`, will drop such arrows.
 #'
 #' @return A `<arrow_path>` [graphical object][grid::grob].
 #' @export
@@ -89,6 +89,8 @@ grob_arrow <- function(
   )
 }
 
+# Draw method -------------------------------------------------------------
+
 #' @export
 makeContent.arrow_path <- function(x) {
 
@@ -104,8 +106,9 @@ makeContent.arrow_path <- function(x) {
 
   # Trim line to make place for arrow pieces
   resect <- lapply(x$resect, as_mm)
+  resect$fins <- resect$fins + fins$length
+  resect$head <- resect$head + head$length
   line <- resect_line(xmm, ymm, id, resect$head, resect$fins)
-  line <- resect_line(line$x, line$y, line$id, head$length, fins$length)
 
   # Extrude and notch path
   shaft <- shape_shaft(

@@ -53,31 +53,29 @@ resect_line <- function(x, y, id, end, begin) {
 # The actual workhorse function for line resection:
 resect_end <- function(x, y, id, resect) {
 
+  # Calculate default angle
+  id_end <- rle_end(id)
+  angle  <- atan2(y[id_end] - y[id_end - 1], x[id_end] - x[id_end - 1])
+
+  # Early exit when no resection needs to be performed
   if (!any(resect > 0)) {
-    end <- rle_end(id)
-    ans <- list(
-      x = x, y = y, id = id,
-      angle = atan2(y[end] - y[end - 1], x[end] - x[end - 1])
-    )
+    ans <- list(x = x, y = y, id = id, angle = angle)
     return(ans)
   }
 
-  resect <- abs(resect)
-  start  <- rle_start(id)
-  end    <- rle_end(id)
-  leng   <- field(id, "length")
+  resect   <- abs(resect)
+  id_start <- rle_start(id)
+  id_leng  <- field(id, "length")
 
-  # Distance to end point
-  cx <- rep.int(x[end], leng)
-  cy <- rep.int(y[end], leng)
-  dist <- sqrt((x - cx)^2 + (y - cy)^2)
-  angle <- atan2(y[end] - y[end - 1], x[end] - x[end - 1])
+  # Find runs that are within resection distance
+  dist   <- dist_to_end(x, y, id_end, id_leng)
+  resect <- rep.int(resect, id_leng)
+  cut    <- dist < resect
+  runs   <- vec_group_rle(data_frame0(x = cut, y = rle_inv(id)))
+  final  <- rle_end(runs)
+  cut    <- cut[final]
 
-  # Find runs that are within 'resect' of end
-  long_resect <- rep.int(resect, field(id, "length"))
-  rle <- rle(dist < long_resect)
-
-  if (all(rle$values)) {
+  if (all(cut)) {
     # Early exit if all values are within range
     id <- new_rle(lengths = field(id, "length"))
     field(id, "group") <- rep(NA, length(id))
@@ -85,45 +83,49 @@ resect_end <- function(x, y, id, resect) {
     return(ans)
   }
 
-  ends    <- cumsum(rle$lengths)
-  starts  <- (ends - rle$lengths + 1)[rle$values]
+  first <- rle_start(runs)[cut]
+  final <- final[cut]
 
-  if (any(start %in% starts)) {
+  if (any(id_start %in% first)) {
     # This happens when an entire line is within distance
     # Mark line as defunct and exclude its starting point from calculations
-    delete <- which(start %in% starts)
+    delete <- which(id_start %in% first)
     field(id, "group")[delete] <- rep(NA, length(delete))
-    starts <- setdiff(starts, start)
+    keep  <- !(first %in% id_start)
+    first <- first[keep]
+    final <- final[keep]
+    cut   <- cut[final]
+  } else {
+    keep <- rep(TRUE, length(first))
   }
 
-  if (length(starts) > 0) {
+  if (length(first) > 0) {
 
     # Interpolate points
-    resect <- long_resect[starts]
-    d      <- (resect - dist[starts - 1]) / (dist[starts] - dist[starts - 1])
-    newx   <- x[starts - 1] * (1 - d) + x[starts] * d
-    newy   <- y[starts - 1] * (1 - d) + y[starts] * d
-    angle  <- atan2(y[end] - newy, x[end] - newx)
+    resect <- resect[first]
+    dist   <- (resect - dist[first - 1]) / (dist[first] - dist[first - 1])
+    newx   <- x[first - 1] * (1 - dist) + x[first] * dist
+    newy   <- y[first - 1] * (1 - dist) + y[first] * dist
+    angle[keep] <- atan2(y[final] - newy, x[final] - newx)
 
-    # Delete out-of-bound points
-    oob <- which(starts != end)
+    # Mark out-of-bound points as NA
+    oob <- which(first != final)
     if (length(oob)) {
-      starts <- intersect(starts, oob)
-      end <- intersect(end, oob)
-      oob <- unlist0(Map(`:`, starts, end))
+      first  <- intersect(first, oob)
+      oob    <- unlist0(Map(`:`, first, intersect(final, oob)))
       x[oob] <- NA
       y[oob] <- NA
     }
 
     # Replace with intersecting point
-    x[starts] <- newx
-    y[starts] <- newy
+    x[first] <- newx
+    y[first] <- newy
 
     # Throw out NA (out-of-bounds point)
-    is_na <- is.na(x)
-    x  <- x[!is_na]
-    y  <- y[!is_na]
-    id <- rle_subset(id, !is_na)
+    oob <- is.na(x)
+    x   <- x[!oob]
+    y   <- y[!oob]
+    id  <- rle_subset(id, !oob)
   }
 
   list(
@@ -147,4 +149,10 @@ resect_start <- function(x, y, id, resect) {
   line   <- resect_end(rev(x), rev(y), rev(id), rev(resect))
   line[] <- lapply(line, rev)
   line
+}
+
+# Helpers -----------------------------------------------------------------
+
+dist_to_end <- function(x, y, end, length) {
+  sqrt((x - rep.int(x[end], length))^2 + (y - rep.int(y[end], length))^2)
 }

@@ -106,13 +106,13 @@ resect_end <- function(x, y, id, resect) {
     dist   <- (resect - dist[first - 1]) / (dist[first] - dist[first - 1])
     newx   <- x[first - 1] * (1 - dist) + x[first] * dist
     newy   <- y[first - 1] * (1 - dist) + y[first] * dist
-    angle[keep] <- atan2(y[final] - newy, x[final] - newx)
+    angle[which(keep)] <- atan2(y[final] - newy, x[final] - newx)
 
     # Mark out-of-bound points as NA
     oob <- which(first != final)
     if (length(oob)) {
-      first  <- intersect(first, oob)
-      oob    <- unlist0(Map(`:`, first, intersect(final, oob)))
+      # first  <- intersect(first, oob)
+      oob    <- unlist0(Map(`:`, intersect(first, oob), intersect(final, oob)))
       x[oob] <- NA
       y[oob] <- NA
     }

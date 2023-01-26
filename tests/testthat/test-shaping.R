@@ -87,3 +87,35 @@ test_that("arrows can have variable widths", {
     }
   )
 })
+
+test_that("inner arrows can be drawn at positions", {
+
+  my_arrow <- arrow
+  my_arrow$arrow_inner <- arrow_head_wings()
+  my_arrow$inner_length <- unit(10, "mm")
+  my_arrow$inner_just <- c(0.25, 0.5, 0.75)
+
+  vdiffr::expect_doppelganger(
+    "inner position",
+    function() {
+      grid.newpage()
+      grid.draw(my_arrow)
+    }
+  )
+})
+
+test_that("inner arrows can be drawn at distance", {
+
+  my_arrow <- arrow
+  my_arrow$arrow_inner <- arrow_head_wings()
+  my_arrow$inner_length <- unit(10, "mm")
+  my_arrow$inner_just <- unit(2, "cm")
+
+  vdiffr::expect_doppelganger(
+    "inner distance",
+    function() {
+      grid.newpage()
+      grid.draw(my_arrow)
+    }
+  )
+})

@@ -154,5 +154,5 @@ resect_start <- function(x, y, id, resect) {
 # Helpers -----------------------------------------------------------------
 
 dist_to_end <- function(x, y, end, length) {
-  sqrt((x - rep.int(x[end], length))^2 + (y - rep.int(y[end], length))^2)
+  dist_length(x - rep.int(x[end], length), y - rep.int(y[end], length))
 }

@@ -53,9 +53,12 @@ grob_arrow <- function(
   id.lengths    = NULL,
   arrow_head    = arrow_head_wings(),
   arrow_fins    = NULL,
+  arrow_inner   = NULL,
   head_length   = unit(5, "mm"),
-  fins_length   = unit(5, "mm"),
+  fins_length   = NULL,
+  inner_length  = NULL,
   shaft_width   = unit(1, "mm"),
+  inner_just    = 0.5,
   resect        = unit(0, "mm"),
   resect_fins   = NULL,
   resect_head   = NULL,
@@ -77,9 +80,12 @@ grob_arrow <- function(
     id_rle      = id,
     arrow_head  = arrow_head,
     arrow_fins  = arrow_fins,
+    arrow_inner = arrow_inner,
     shaft_width = as_unit(shaft_width, default.units),
     head_length = as_unit(head_length, default.units),
-    fins_length = as_unit(fins_length, default.units),
+    fins_length = as_unit(fins_length %||% head_length, default.units),
+    inner_length = inner_length %||% as_unit(head_length, default.units),
+    inner_just   = inner_just,
     resect      = resect,
     force_arrow = force_arrow,
     name = name,
@@ -106,9 +112,16 @@ makeContent.arrow_path <- function(x) {
 
   # Trim line to make place for arrow pieces
   resect <- lapply(x$resect, as_mm)
-  resect$fins <- resect$fins + fins$length
-  resect$head <- resect$head + head$length
+  resect$fins <- resect$fins + fins$resect
+  resect$head <- resect$head + head$resect
   line <- resect_line(xmm, ymm, id, resect$head, resect$fins)
+
+  # Inner arrows
+  inner <- resolve_inner(
+    x$arrow_inner, x$inner_length,
+    line$x, line$y, line$id, width,
+    placement = x$inner_just
+  )
 
   # Extrude and notch path
   shaft <- shape_shaft(
@@ -119,16 +132,18 @@ makeContent.arrow_path <- function(x) {
 
   # Place arrow pieces
   head <- place_arrow(
-    head$ornament, line$x, line$y, line$id, head$length, line$angle$last,
+    head$ornament, line$x, line$y, line$id,
+    head$scale, line$angle$last,
     type = "head", force = x$force_arrow %||% FALSE
   )
   fins <- place_arrow(
-    fins$ornament, line$x, line$y, line$id, fins$length, line$angle$first,
+    fins$ornament, line$x, line$y, line$id,
+    fins$scale, line$angle$first,
     type = "fins", force = x$force_arrow %||% FALSE
   )
 
   # Finish arrow
-  arrow <- combine_arrow(head, fins, shaft)
+  arrow <- combine_arrow(head, fins, shaft, inner)
 
   if (length(arrow$x) == 0) {
     ans <- gList(zeroGrob())

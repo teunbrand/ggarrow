@@ -28,3 +28,23 @@ rotate_scale <- function(xy, angle = 0) {
 
   Map(tcrossprod, x = xy, y = lapply(seq_len(dim[3]), function(i) rot[, , i]))
 }
+
+scale_translate <- function(xy_list, x_offset, y_offset, scale) {
+  Map(
+    function(xy, x, y, s) {
+      xy * s + c(rep(x, nrow(xy)), rep(y, nrow(xy)))
+    },
+    xy = xy_list, x = x_offset, y = y_offset, s = scale
+  )
+}
+
+dist_length <- function(x, y) {
+  sqrt(x ^ 2 + y ^ 2)
+}
+
+arc_length <- function(x, y, start, length) {
+  dist   <- c(0, dist_length(diff(x), diff(y)))
+  dist[start] <- 0
+  dist <- cumsum(dist)
+  dist - dist[rep.int(start, length)]
+}

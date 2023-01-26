@@ -88,10 +88,11 @@ notch_shaft <- function(
   offset
 }
 
-combine_arrow <- function(head, fins, shaft) {
+combine_arrow <- function(head, fins, shaft, inner = NULL) {
 
-  arrow <- polygon_union(head, shaft)
-  arrow <- polygon_union(fins, arrow)
+  arrow <- polygon_union(head,  shaft)
+  arrow <- polygon_union(fins,  arrow)
+  arrow <- polygon_union(inner, arrow)
 
   if (is_named(arrow[[1]])) {
     x <- lapply(arrow, `[[`, "x")

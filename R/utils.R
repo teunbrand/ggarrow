@@ -110,3 +110,18 @@ is_constant <- function(x) {
   }
   FALSE
 }
+
+interpol_dist <- function(x, index, ref) {
+  rindex <- ref[index]
+  (x - rindex) / (ref[index + 1] - rindex)
+}
+
+linear_interpol <- function(x, index, d) {
+  x[index] * (1 - d) + x[index + 1] * d
+}
+
+polygonise <- function(xy_list) {
+  lapply(xy_list, function(mtx) {
+    list(x = mtx[, 1], y = mtx[, 2])
+  })
+}

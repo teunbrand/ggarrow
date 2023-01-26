@@ -95,6 +95,66 @@ arrow_fins_feather <- function(
 
 #' @export
 #' @describeIn arrow_ornaments
+#'
+arrow_head_line <- function(angle = 30) {
+  angle <- angle * .deg2rad
+
+  function(length, width) {
+
+    x <- 1 - cos(angle) * length
+    y <- 0 - sin(angle) * length
+
+    x <- c(x, x + cos(angle + .halfpi) * width)
+    y <- c(y, y + sin(angle + .halfpi) * width)
+
+    next_len <- y[2] / sin(angle)
+
+    x <- c(x, x[2] + cos(angle - pi) * next_len)
+    y <- c(y, y[2] + sin(angle - pi) * next_len)
+
+    x <- c(1, x, x[2:1])
+    y <- c(0, y, -y[2:1])
+
+    ans <- cbind(x = x, y = y)
+    attr(ans, "notch_angle") <- angle
+    attr(ans, "resect") <- (1 - x[4])
+    ans[, "x"] <- ans[, "x"] - x[4]
+
+    ans
+  }
+}
+
+arrow_fins_line <- function(angle = 30) {
+  angle <- pi + angle * .deg2rad
+
+  function(length, width) {
+
+    x <- 1 - cos(angle) * length
+    y <- 0 - sin(angle) * length
+
+    x <- c(x, x + cos(angle + .halfpi) * width)
+    y <- c(y, y + sin(angle + .halfpi) * width)
+
+    next_len <- y[2] / sin(angle)
+
+    x <- c(x, x[2] + cos(angle - pi) * next_len)
+    y <- c(y, y[2] + sin(angle - pi) * next_len)
+
+    x <- c(1, x, x[2:1])
+    y <- c(0, y, -y[2:1])
+
+    ans <- cbind(x = x, y = y)
+    attr(ans, "notch_angle") <- -angle
+    attr(ans, "resect") <- max(x) - 1
+    ans[, "x"] <- ans[, "x"] - 1
+    vv <<- ans
+
+    ans
+  }
+}
+
+#' @export
+#' @describeIn arrow_ornaments
 #' This is a 'fake' arrow head who in practice doesn't draw anything, but
 #' sets the `notch_angle` attribute such that the arrow shaft is whittled into
 #' a triangular point.
@@ -116,4 +176,3 @@ arrow_fins_minimal <- function(angle = 45) {
   attr(ans, "notch_angle") <- angle + .halfpi
   ans
 }
-

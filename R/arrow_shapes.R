@@ -117,26 +117,3 @@ arrow_fins_minimal <- function(angle = 45) {
   ans
 }
 
-# Resolve ornaments -------------------------------------------------------
-
-resolve_ornament <- function(ornament, length, id, width, type = "head") {
-
-  if (is.null(ornament)) {
-    ans <- list(ornament = NULL, length = rep(0, length(id)), angle = NULL)
-    return(ans)
-  }
-  if (type == "head") {
-    i <- rle_end(id)
-  } else {
-    i <- rle_start(id)
-  }
-  length <- pmax(as_mm(length), width[i] / diff(range(ornament[, "y"])))
-  length <- max(ornament[, "x"]) * length
-  angle  <- attr(ornament, "notch_angle") %||% .halfpi
-  list(ornament = ornament, length = length, angle = angle)
-}
-
-
-
-
-

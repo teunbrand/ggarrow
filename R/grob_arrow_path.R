@@ -13,8 +13,8 @@
 #'   The matrix can (should) have the `notch_angle` attribute that will be used
 #'   to fuse the shaft to the arrow ornaments. If `NULL`, no ornament will be
 #'   drawn.
-#' @param head_length,fins_length A `<`[unit][grid::unit]`>` object controlling
-#'   the size of the arrow ornaments.
+#' @param length_head,length_fins,length_mid A `<`[unit][grid::unit]`>` object
+#'   controlling the size of the arrow ornaments.
 #' @param shaft_width A `<`[unit][grid::unit]`>` object controlling the width
 #'   of the arrow's shaft.
 #' @param resect,resect_fins,resect_head A `<`[unit][grid::unit]`>` object that
@@ -39,7 +39,7 @@
 #'   id.lengths  = c(3, 3),
 #'   arrow_head  = arrow_head_wings(),
 #'   arrow_fins  = arrow_fins_feather(),
-#'   fins_length = 8,
+#'   length_fins = 8,
 #'   shaft_width = 1,
 #'   gp = gpar(fill = c("dodgerblue", "tomato"), col = "black")
 #' )
@@ -53,12 +53,13 @@ grob_arrow <- function(
   id.lengths    = NULL,
   arrow_head    = arrow_head_wings(),
   arrow_fins    = NULL,
-  arrow_inner   = NULL,
-  head_length   = unit(5, "mm"),
-  fins_length   = NULL,
-  inner_length  = NULL,
+  arrow_mid     = NULL,
+  length_head   = unit(5, "mm"),
+  length_fins   = NULL,
+  length_mid    = NULL,
+  justify       = 0,
   shaft_width   = unit(1, "mm"),
-  inner_just    = 0.5,
+  mid_place     = 0.5,
   resect        = unit(0, "mm"),
   resect_fins   = NULL,
   resect_head   = NULL,
@@ -80,12 +81,13 @@ grob_arrow <- function(
     id_rle      = id,
     arrow_head  = arrow_head,
     arrow_fins  = arrow_fins,
-    arrow_inner = arrow_inner,
+    arrow_mid   = arrow_mid,
     shaft_width = as_unit(shaft_width, default.units),
-    head_length = as_unit(head_length, default.units),
-    fins_length = as_unit(fins_length %||% head_length, default.units),
-    inner_length = inner_length %||% as_unit(head_length, default.units),
-    inner_just   = inner_just,
+    length_head = as_unit(length_head, default.units),
+    length_fins = as_unit(length_fins %||% length_head, default.units),
+    length_mid  = length_mid %||% as_unit(length_head,  default.units),
+    justify     = pmax(pmin(justify, 1), 0),
+    mid_place   = mid_place,
     resect      = resect,
     force_arrow = force_arrow,
     name = name,
@@ -107,21 +109,14 @@ makeContent.arrow_path <- function(x) {
   width  <- along_rle(as_mm(x$shaft_width), id)
 
   # Set arrow ornaments
-  head <- resolve_ornament(x$arrow_head, x$head_length, id, width, "head")
-  fins <- resolve_ornament(x$arrow_fins, x$fins_length, id, width, "fins")
+  head <- resolve_ornament(x$arrow_head, x$length_head, id, width, "head")
+  fins <- resolve_ornament(x$arrow_fins, x$length_fins, id, width, "fins")
 
   # Trim line to make place for arrow pieces
   resect <- lapply(x$resect, as_mm)
-  resect$fins <- resect$fins + fins$resect
-  resect$head <- resect$head + head$resect
+  resect$fins <- resect$fins + fins$resect * (1 - x$justify)
+  resect$head <- resect$head + head$resect * (1 - x$justify)
   line <- resect_line(xmm, ymm, id, resect$head, resect$fins)
-
-  # Inner arrows
-  inner <- resolve_inner(
-    x$arrow_inner, x$inner_length,
-    line$x, line$y, line$id, width,
-    placement = x$inner_just
-  )
 
   # Extrude and notch path
   shaft <- shape_shaft(
@@ -140,6 +135,11 @@ makeContent.arrow_path <- function(x) {
     fins$ornament, line$x, line$y, line$id,
     fins$scale, line$angle$first,
     type = "fins", force = x$force_arrow %||% FALSE
+  )
+  inner <- resolve_inner(
+    x$arrow_mid, x$length_mid,
+    line$x, line$y, line$id, width,
+    placement = x$mid_place
   )
 
   # Finish arrow

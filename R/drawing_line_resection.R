@@ -112,7 +112,7 @@ resect_end <- function(x, y, id, resect) {
     oob <- which(first != final)
     if (length(oob)) {
       # first  <- intersect(first, oob)
-      oob    <- unlist0(Map(`:`, intersect(first, oob), intersect(final, oob)))
+      oob    <- unlist0(Map(`:`, first[oob], final[oob]))
       x[oob] <- NA
       y[oob] <- NA
     }

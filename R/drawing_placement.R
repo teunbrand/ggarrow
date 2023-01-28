@@ -96,7 +96,7 @@ resolve_inner <- function(
       x = placement, all.inside = TRUE
     )
     place_lens <- rep.int(seq_along(id), lengths(place_idx))
-    place_idx  <- unlist0(place_idx) + start[place_lens] - 1L
+    place_idx <- unlist0(place_idx) + start[place_lens] - 1L
 
     # Interpolate
     placement <- rep(placement, length(id))
@@ -156,12 +156,12 @@ resolve_inner <- function(
     sum_length <- length + placement
     arc_end    <- arc_length[end]
     n_arrow    <- arc_end %/% sum_length
-    remain     <- arc_end - sum_length * n_arrow
+    remain     <- arc_end - sum_length * (n_arrow - 1) + length
 
     split_arc <- rle_chop(arc_length, id)
     pos <- lapply(seq_along(id), function(i) {
       pos <- sum_length[i] * 0:(n_arrow[i] - 1) + 0.5 * remain[i]
-      unname(cbind(pos, pos + 0.5 * length[i], pos + length[i]))
+      unname(cbind(pos - 0.5 * length[i], pos, pos + 0.5 * length[i]))
     })
 
     index <- lapply(seq_along(id), function(i) {

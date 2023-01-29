@@ -17,7 +17,7 @@
 #'   \describe{
 #'     \item{A `numeric(1)` (default)}{to set the ornament size relative to
 #'     the linewidth of the shaft.}
-#'     \item{A `<`[`unit`][grid::unit]>`}{to control the size in an absolute
+#'     \item{A `<`[`unit`][grid::unit]`>`}{to control the size in an absolute
 #'     manner. Behaviour of relative units such as `"npc"` or `"null"` is
 #'     undefined.}
 #'   }

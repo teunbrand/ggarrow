@@ -56,20 +56,14 @@ resolve_ornament <- function(ornament, length, id, width, type = "head") {
     resect <- vapply(ornament, attr, numeric(1), "resect")
     angle  <- vapply(ornament, attr, numeric(1), "notch_angle")
     scale  <- rep(1, length(id))
-    length <- resect
-    if (type == "head") {
-      vv <<- ornament
-    } else {
-      ww <<- ornament
-    }
   } else {
     length <- pmax(as_mm(length), width[i] / diff(range(ornament[, "y"])))
-    length <- max(ornament[, "x"]) * length
-    resect <- attr(ornament, "resect") %||% length
+    length <- (attr(ornament, "length") %||% max(ornament[, "x"])) * length
+    resect <- (attr(ornament, "resect") %||% 1) * length
     angle  <- attr(ornament, "notch_angle") %||% .halfpi
     scale  <- length
   }
-  list(ornament = ornament, length = length, scale = scale,
+  list(ornament = ornament, length = resect, scale = scale,
        resect = resect, angle = angle)
 }
 

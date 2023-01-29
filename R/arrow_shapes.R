@@ -104,6 +104,7 @@ arrow_fins_feather <- function(
 
 #' @export
 #' @describeIn arrow_ornaments
+#' A line as an arrow head.
 arrow_head_line <- function(angle = 30, lineend = "butt") {
   angle <- angle * .deg2rad
   lineend  <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
@@ -152,6 +153,7 @@ arrow_head_line <- function(angle = 30, lineend = "butt") {
 
 #' @export
 #' @describeIn arrow_ornaments
+#' A line as an arrow fin.
 arrow_fins_line <- function(angle = 30, lineend = "butt") {
   angle <- pi + angle * .deg2rad
   lineend  <- arg_match0(lineend, c("butt", "round", "parallel", "square"))

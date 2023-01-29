@@ -18,23 +18,28 @@
 #' @family arrow geoms
 #'
 #' @examples
-#' # For more examples about arrows generally, see ?geom_arrow
-#'
+#' # Setup dummy data
 #' set.seed(42)
 #' df <- data.frame(
 #'   x = LETTERS[1:6],
 #'   y = 6:1 + rnorm(6)
 #' )
 #'
-#' # Relative to `geom_segment()`, we can drop either xend or yend
+#' # We can omit either `xend` or `yend` for this segment geom
 #' p <- ggplot(df, aes(x, y = 0, yend = y, colour = x))
 #' p + geom_arrow_segment()
 #'
-#' # The linewidth can be set in general
-#' p + geom_arrow_segment(aes(linewidth = I(y)))
+#' # We can set the linewidth globally
+#' p + geom_arrow_segment(aes(linewidth = y))
 #'
 #' # Or seperately for the head and fins
 #' p + geom_arrow_segment(aes(linewidth_head = y, linewidth_fins = 0))
+#'
+#' # We can also place arrows in the middle
+#' p + geom_arrow_segment(
+#'   arrow_mid = arrow_head_line(), mid_place = c(0.33, 0.66),
+#'   arrow_head = NULL # Turn off head
+#' )
 geom_arrow_segment <- function(
   mapping   = NULL,
   data      = NULL,

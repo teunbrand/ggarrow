@@ -34,7 +34,7 @@
 #'   \describe{
 #'     \item{A `numeric` vector}{with values between \[0-1\] to set middle
 #'     arrows at relative positions along the arc-length of a path.}
-#'     \item{A `<`[`unit`][grid::unit]`>` to fill a path with arrows with
+#'     \item{A `<`[`unit`][grid::unit]`>`}{to fill a path with arrows with
 #'     the provided unit as distance between one arrow to the next.}
 #'   }
 #'

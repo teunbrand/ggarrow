@@ -81,15 +81,24 @@ arrow_head_wings <- function(
 arrow_fins_feather <- function(
   indent  = 0.3,
   outdent = indent,
-  asp    = 0.5
+  height  = 0.5
 ) {
+  dent <- c(
+    pmin(indent, c(0, 0, 0)),
+    -pmin(outdent, c(0, 0, 0))
+  )[c(1:2, 4:6, 3)]
 
-  x <- c(1 - indent, 1, 0 + outdent, 0, 0 + outdent, 1)
-  y <- c(0, 1, 1, 0, -1, -1) * asp / 2
+  x <- c(1 - indent, 1, 0 + outdent, 0, 0 + outdent, 1) + dent
+  y <- c(0, 1, 1, 0, -1, -1) * height / 2
 
-  ans <- cbind(x = x, y = y)
-  attr(ans, "front_angle") <- atan2(asp, x[3] - x[4])
-  attr(ans, "notch_angle") <- atan2(asp / 2, x[1] - x[2])
+  resect <- x[4]
+  ans <- cbind(x = x - resect, y = y)
+  attr(ans, "front_angle") <- atan2(height, x[3] - x[4])
+  angle <- xy_angle(x[c(3, 4, 5)], y[c(3, 4, 5)])
+  angle <- ((diff(angle) + pi) %% (2 * pi)) + pi
+  attr(ans, "notch_angle") <- angle / 2 + .halfpi
+  attr(ans, "resect") <- 1 - resect
+  attr(ans, "length") <- 1
   ans
 }
 
@@ -209,8 +218,8 @@ arrow_head_minimal <- function(angle = 45) {
 #' sets the `notch_angle` attribute such that a triangle is taken out of the
 #' arrow shaft.
 arrow_fins_minimal <- function(angle = 45) {
-  angle <- angle * .deg2rad
+  angle <- (angle * .deg2rad) + .halfpi
   ans <- cbind(x = c(0, 0), y = c(1, -1))
-  attr(ans, "notch_angle") <- angle + .halfpi
+  attr(ans, "notch_angle") <- angle
   ans
 }

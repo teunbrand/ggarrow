@@ -41,16 +41,10 @@ shape_shaft <- function(
     type = "fins"
   )
 
-  Map(
-    function(start, end, L, R) {
-      list(
-        x = c(offset$x_left[L], x[end], offset$x_right[R], x[start]),
-        y = c(offset$y_left[L], y[end], offset$y_right[R], y[start])
-      )
-    },
-    start = rle_start(id), end = rle_end(id),
-    L = rle_idx(offset$id_left),
-    R = rle_idx(offset$id_right, rev = TRUE)
+  close_offset(
+    offset, x, y, angle_line,
+    is.null(first_angle), is.null(last_angle),
+    id, gp
   )
 }
 
@@ -110,6 +104,73 @@ combine_arrow <- function(head, fins, shaft, inner = NULL) {
     y  = unlist(y, recursive = TRUE, use.names = FALSE),
     id = unlist0(lens),
     path_id = vapply(lens, sum, 1L)
+  )
+}
+
+# Helpers -----------------------------------------------------------------
+
+close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
+                         id, gp) {
+
+  lineend <- gp$lineend %||% "butt"
+
+  end   <- rle_end(id)
+  start <- rle_start(id)
+
+  xend <- x[end]
+  yend <- y[end]
+
+  xstart <- x[start]
+  ystart <- y[start]
+
+  if (empty_start && lineend == "round") {
+    cx <- xstart
+    cy <- ystart
+    angle <- outer(
+      norm_angle(angle_line$first),
+      seq(-.halfpi, .halfpi, length.out = 30),
+      FUN = `+`
+    )
+    left  <- rle_start(offset$id_left)
+    right <- rle_start(offset$id_right)
+    width <- dist_length(
+      offset$x_left[left] - offset$x_right[right],
+      offset$y_left[left] - offset$y_right[right]
+    )
+    idrep  <- rep(seq_along(id), 30)
+    xstart <- split(cx + cos(angle) * width / 2, idrep)
+    ystart <- split(cy + sin(angle) * width / 2, idrep)
+  }
+
+  if (empty_end && lineend == "round") {
+    cx <- xend
+    cy <- yend
+    angle <- outer(
+      norm_angle(angle_line$last),
+      seq(-.halfpi, .halfpi, length.out = 30),
+      FUN = `+`
+    )
+    left  <- rle_end(offset$id_left)
+    right <- rle_end(offset$id_right)
+    width <- dist_length(
+      offset$x_left[left] - offset$x_right[right],
+      offset$y_left[left] - offset$y_right[right]
+    )
+    idrep <- rep(seq_along(id), 30)
+    xend <- split(cx + cos(angle) * width / 2, idrep)
+    yend <- split(cy + sin(angle) * width / 2, idrep)
+  }
+
+  Map(
+    function(xend, yend, xstart, ystart, L, R) {
+      list(
+        x = c(offset$x_left[L], xend, offset$x_right[R], xstart),
+        y = c(offset$y_left[L], yend, offset$y_right[R], ystart)
+      )
+    },
+    xend = xend, yend = yend, xstart = xstart, ystart = ystart,
+    L = rle_idx(offset$id_left),
+    R = rle_idx(offset$id_right, rev = TRUE)
   )
 }
 

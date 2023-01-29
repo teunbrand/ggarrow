@@ -61,3 +61,21 @@ test_that("linejoin_bevel works", {
     }
   )
 })
+
+test_that("can use rounded lineends", {
+  my_arrow <- arrow
+  my_line <- line
+
+  my_arrow$arrow_head <- NULL
+  my_arrow$gp$lineend  <- my_line$gp$lineend  <- "round"
+  my_arrow$gp$linejoin <- my_line$gp$linejoin <- "mitre"
+
+  vdiffr::expect_doppelganger(
+    "lineend round",
+    function() {
+      grid.newpage()
+      grid.draw(my_arrow)
+      grid.draw(my_line)
+    }
+  )
+})

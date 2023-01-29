@@ -2,6 +2,7 @@
 .rad2deg <- 180 / pi
 .deg2rad <- pi / 180
 .halfpi  <- pi / 2
+.twopi   <- 2 * pi
 
 xy_angle <- function(x, y, norm = FALSE) {
   atan2(diff(y), diff(x)) + .halfpi * as.numeric(norm)
@@ -48,3 +49,5 @@ arc_length <- function(x, y, start, length) {
   dist <- cumsum(dist)
   dist - dist[rep.int(start, length)]
 }
+
+norm_angle <- function(angle) angle %% .twopi

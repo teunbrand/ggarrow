@@ -40,7 +40,7 @@ linejoin_round <- function(x, y, id, lwd, min_arc = 0.1) {
 
   # Calculate angles
   delta <- before - after
-  delta <- (delta + pi) %% (2 * pi) - pi
+  delta <- norm_angle(delta + pi) - pi
 
   # Initialise segments
   n_seg <- pmax(min_arc, delta) %/% min_arc

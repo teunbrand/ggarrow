@@ -1,0 +1,582 @@
+---
+title: "Arrow Ornaments"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Arrow Ornaments}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Arrow ornaments come in two main varieties: head ornaments and fins ornaments.
+These are respectively placed at the end and start of a line. 
+This vignette introduces the built-in arrow ornaments.
+
+```{r setup, echo=FALSE}
+suppressPackageStartupMessages({
+  library(ggarrow)
+  library(grid)
+})
+```
+
+## Head ornaments
+
+Head ornaments are the 'arrowhead' ornaments at the end of a line.
+
+```{r illustrate_head, echo = FALSE}
+arrow_grob <- grob_arrow(
+  x = unit(c(0.2, 0.8), "npc"),
+  y = unit(c(0.5, 0.5), "npc"),
+  arrow_head = arrow_head_wings(),
+  arrow_fins = arrow_fins_feather(),
+  length_head = unit(10, "mm"),
+  length_fins = unit(14.4, "mm"),
+  shaft_width = unit(2, "mm")
+)
+
+grid.newpage()
+grid.draw(arrow_grob)
+grid.lines(
+  x = unit(0.8, "npc") - unit(c(0, 0, 1.44, 1.44), "cm"),
+  y = unit(0.5, "npc") + unit(1, "cm") + unit(c(-0.2, 0, 0, -0.2), "cm")
+)
+grid.text(
+  c("start", "end", "arrow_head"),
+  x = unit(c(0.1, 0.9, 0.8), "npc") - unit(c(0, 0, 0.72), "cm"),
+  y = unit(c(0.5, 0.5, 0.5), "npc") + unit(c(0, 0, 1.5), "cm")
+)
+```
+
+### Wings
+
+The 'wings' ornament places two symmetric triangles on either side of the line, and can be called using the `arrow_head_wings()` function. 
+The `offset` parameter determines at what angle the triangle departs from the line end. 
+The `inset` parameter determines the angle inside the corner that is not on the line. 
+If you ensure that `inset + offset` equals 90, you can mimic `grid::arrow(..., type = "closed")` (2nd example). 
+The `length_head` arguments determines the distance between the red line at the arrow tip and the blue line, where the triangle re-joins the line.
+
+```{r illustrate_head_wings, echo = FALSE}
+
+arr <- arrow_head_wings() * 40
+arr[, "x"] <- arr[, "x"] - 11.2
+arrow_grob <- grob_arrow(
+  x = unit(0.5, "npc") + unit(c(-28.8, 28.8), "mm"),
+  y = unit(c(0.5, 0.5), "npc"),
+  length_head = unit(40, "mm"),
+  shaft_width = unit(5, "mm"),
+  gp = gpar(fill = NA)
+)
+
+grid.newpage()
+grid.points(
+  x = unit(0.5, "npc") + unit(c(-11.2, 28.8), "mm"),
+  y = unit(c(0.5, 0.5), "npc"), pch = 16, gp = gpar(col = alpha(2, 0.5))
+)
+grid.lines(
+  x = unit(0.5, "npc") + unit(c(-11.2, -11.2, 28.8, 28.8), "mm"),
+  y = unit(0.5, "npc") + unit(c(0, -2, -2, 0), "cm"),
+  gp = gpar(col = alpha(2, 0.5))
+)
+grid.text(
+  x = unit(0.5, "npc") + unit(8.8, "mm"),
+  y = unit(0.5, "npc") - unit(2, "cm"), 
+  label = "length_head", gp = gpar(col = 2),
+  vjust = 2
+)
+grid.lines(
+  x = unit(0.5, "npc") + unit(c(0, 28.8), "mm"),
+  y = unit(c(0.5, 0.5), "npc"),
+  gp = gpar(col = 3)
+)
+arc <- seq(pi, pi - 20 * pi / 180, length.out = 30)
+grid.polyline(
+  x = unit(0.5, "npc") + unit(28.8, "mm") + unit(cos(arc) * 16, "mm"),
+  y = unit(0.5, "npc") + unit(sin(arc) * 16, "mm"),
+  gp = gpar(col = 3)
+)
+grid.text(
+  x = unit(0.5, "npc") + unit(9.4, "mm"),
+  y = unit(0.5, "npc"), label = "offset", gp = gpar(col = 3),
+  vjust = -0.5, hjust = 1
+)
+arc <- seq(2 * pi - 20 * pi / 180, 2 * pi - 50 * pi / 180, length.out = 30)
+grid.polyline(
+  x = unit(0.5, "npc") + unit(cos(arc) * 10, "mm") + unit(arr[2, "x"], "mm"),
+  y = unit(0.5, "npc") + unit(sin(arc) * 10, "mm") + unit(arr[2, "y"], "mm"),
+  gp = gpar(col = 4)
+)
+grid.text(
+  x = unit(0.5, "npc") + unit(arr[2, "x"], "mm"),
+  y = unit(0.5, "npc") + unit(arr[2, "y"], "mm"),
+  label = "inset", gp = gpar(col = 4), hjust = -0.5, vjust = -0.5
+)
+grid.draw(arrow_grob)
+```
+
+Below you can get an impression what kinds of shapes you can make with the wings arrowhead.
+
+```{r, echo=FALSE}
+offset <- c(20, 30, 90, 45, 135)
+inset  <- c(30, 60, 60, 90, 30)
+y      <- 4:0
+descr  <- c(" (default)", "", "", "", "")
+
+example_plot <- ggplot(mapping = aes(x = c(0, 1))) +
+  coord_cartesian(clip = "off") +
+  scale_y_continuous(limits = c(-0.5, 4.5)) +
+  scale_x_continuous(limits = c(-0.1, 1.1)) +
+  theme_void()
+
+example_plot +
+  geom_vline(xintercept = 1, colour = "tomato") +
+  annotation_custom(
+    grid::segmentsGrob(
+      x0 = unit(0, "npc") - unit(10, "mm"),
+      x1 = unit(0, "npc") - unit(10, "mm"),
+      gp = grid::gpar(col = "dodgerblue")
+    ), 
+    xmin = 1, xmax = 1
+  ) +
+  lapply(seq_along(y), function(i) {
+    geom_arrow(
+      aes(y = c(y[i], y[i])), linewidth = 2,
+      arrow_head = arrow_head_wings(offset = offset[i], inset = inset[i]),
+      length_head = unit(10, "mm")
+    )
+  }) +
+  annotate(
+    "text", x = 0.5, y = y + 0.5, label = paste0(
+      "offset = ", offset, ", inset = ", inset, descr
+    )
+  )
+```
+
+### Line
+
+The 'line' ornament draws two line segments departing from the line end, and can be set using the `arrow_head_line()` argument. 
+The `linewidth` aesthetic determines the thickness of the departing line, in that the line width is the same between the path and the ornament. 
+The size of the arrow is once again determined by the `length_head` argument, but now encompasses the length of the protruding lines instead of the reconnection point back on the path.
+
+```{r illustrate_head_line, echo = FALSE}
+arr <- arrow_head_line()
+arr <- arr(40, 5)
+arr[, "x"] <- arr[, "x"] + 18.8
+arrow_grob <- grob_arrow(
+  x = unit(0.5, "npc") + unit(c(-28.8, 28.8), "mm"),
+  y = unit(c(0.5, 0.5), "npc"),
+  length_head = unit(40, "mm"),
+  shaft_width = unit(5, "mm"),
+  arrow_head = arrow_head_line(),
+  gp = gpar(fill = NA)
+)
+arrow1 <- arrow2 <- arrow3 <- arrow_grob
+arrow1$arrow_head <- arrow_head_line(lineend = "square")
+arrow2$arrow_head <- arrow_head_line(lineend = "parallel")
+arrow3$arrow_head <- arrow_head_line(lineend = "round")
+arrow2$gp <- arrow3$gp <- arrow1$gp <- gpar(lwd = 0.5, col = 3, fill = NA)
+
+grid.newpage()
+
+grid.points(
+  x = unit(0.5, "npc") + unit(arr[1:2, "x"], "mm"),
+  y = unit(0.5, "npc") + unit(arr[1:2, "y"], "mm"),
+  gp = gpar(col = 2, alpha = 0.5), pch = 16
+)
+
+angle <- 30 * pi / 180 - 0.5 * pi
+grid.lines(
+  x = unit(0.5, "npc") + unit(arr[c(1,1,2,2), "x"], "mm") +
+    unit(cos(angle) * c(0, 1, 1, 0) * 0.5, "cm"),
+  y = unit(0.5, "npc") + unit(arr[c(1,1,2,2), "y"], "mm") +
+    unit(sin(angle) * c(0, 1, 1, 0) * 0.5, "cm"),
+  gp = gpar(col = 2, alpha = 0.5)
+)
+
+grid.draw(arrow1)
+grid.draw(arrow2)
+grid.draw(arrow3)
+
+grid.text(
+  x = unit(0.5, "npc") + unit(arr[6, "x"], "mm"),
+  y = unit(0.5, "npc") + unit(arr[6, "y"], "mm"),
+  label = "lineend", gp = gpar(col = 3), vjust = -0.5
+)
+grid.text(
+  x = unit(0.5, "npc") + unit(mean(arr[1:2, "x"]), "mm") +
+    unit(cos(angle) * 0.5, "cm"),
+  y = unit(0.5, "npc") + unit(mean(arr[1:2, "y"]), "mm") +
+    unit(sin(angle) * 0.5, "cm"),
+  label = "length_head", rot = 30, gp = gpar(col = 2), vjust = 1.5
+)
+angle <- pi - 30 * pi / 180
+grid.lines(
+  x = unit(0.5, "npc") + unit(cos(c(angle, angle, pi)) * c(30, 0, 30), "mm") +
+    unit(28.8 - 2.5 / sin(angle), "mm"),
+  y = unit(0.5, "npc") + unit(sin(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
+  gp = gpar(col = 4)
+)
+angle <- seq(angle, pi, length.out = 30)
+grid.lines(
+  x = unit(0.5, "npc") + unit(cos(angle) * 20, "mm") + 
+    unit(28.8 - 2.5 / sin(angle[1]), "mm"),
+  y = unit(0.5, "npc") + unit(sin(angle) * 20, "mm"),
+  gp = gpar(col = 4)
+)
+grid.text(
+  x = unit(0.5, "npc") - unit(10, "mm"),
+  y = unit(0.5, "npc"), label = "angle", gp = gpar(col = 4),
+  vjust = -1.5, hjust = 0
+)
+
+grid.draw(arrow_grob)
+```
+
+```{r, echo=FALSE}
+angle   <- c(30, 30, 90, 30, 135)
+lineend <- c("butt", "round", "square", "parallel", "butt")
+y      <- 4:0
+descr  <- c(" (default)", "", "", "", "")
+
+example_plot + 
+  geom_vline(xintercept = 1, colour = "tomato") +
+  lapply(seq_along(y), function(i) {
+    geom_arrow(
+      aes(y = c(y[i], y[i])), linewidth = 2,
+      arrow_head = arrow_head_line(angle = angle[i], lineend = lineend[i]),
+      length_head = unit(10, "mm")
+    )
+  }) +
+  annotate(
+    "text", x = 0.5, y = y + 0.5, label = paste0(
+      "angle = ", angle, ", lineend = ", lineend, descr
+    )
+  )
+```
+
+### Minimal
+
+The 'minimal' ornament isn't truly an ornament, but determines how the arrow shaft gets notched. Therefore, it is independent of any `length_head` you might set, and is only dependent on the `angle` argument and the `linewidth` aesthetic.
+
+```{r illustrate_head_minimal, echo = FALSE}
+arrow_grob <- grob_arrow(
+  x = unit(0.5, "npc") + unit(c(-28.8, 28.8), "mm"),
+  y = unit(c(0.5, 0.5), "npc"),
+  arrow_head = arrow_head_minimal(),
+  length_head = unit(40, "mm"),
+  shaft_width = unit(10, "mm"),
+  gp = gpar(fill = NA)
+)
+
+grid.newpage()
+
+angle <- pi - 45 / 180 * pi
+grid.lines(
+  x = unit(0.5, "npc") + unit(28.8, "mm") + 
+    unit(cos(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
+  y = unit(0.5, "npc") + unit(sin(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
+  gp = gpar(col = alpha(2, 0.5))
+)
+angle <- seq(angle, pi, length.out = 30)
+grid.lines(
+  x = unit(0.5, "npc") + unit(cos(angle) * 20, "mm") + unit(28.8, "mm"),
+  y = unit(0.5, "npc") + unit(sin(angle) * 20, "mm"),
+  gp = gpar(col = alpha(2, 0.5))
+)
+grid.text(
+  x = unit(0.5, "npc") - unit(10, "mm"),
+  y = unit(0.5, "npc"), label = "angle", gp = gpar(col = 2),
+  vjust = -3, hjust = -0.5
+)
+
+grid.draw(arrow_grob)
+```
+
+```{r, echo=FALSE}
+angle   <- c(45, 45, 90, 135, 5)
+width   <- c(5, 2, 5, 5, 5)
+y      <- 4:0
+descr  <- c(" (default)", "", "", "", "")
+
+example_plot + 
+  geom_vline(xintercept = 1, colour = "tomato") +
+  lapply(seq_along(y), function(i) {
+    geom_arrow(
+      aes(y = c(y[i], y[i])), linewidth = width[i],
+      arrow_head = arrow_head_minimal(angle = angle[i]),
+      length_head = unit(0, "mm")
+    )
+  }) +
+  annotate(
+    "text", x=  0.5, y = y + 0.5, label = paste0(
+      "angle = ", angle, ", linewidth = ", width, descr
+    )
+  )
+```
+
+## Fins ornaments
+
+I haven't bothered writing the vignette on these other ones yet.
+
+```{r illustrate_fins, echo = FALSE}
+arrow_grob <- grob_arrow(
+  x = unit(c(0.2, 0.8), "npc"),
+  y = unit(c(0.5, 0.5), "npc"),
+  arrow_head = arrow_head_wings(),
+  arrow_fins = arrow_fins_feather(),
+  length_head = unit(10, "mm"),
+  length_fins = unit(14.4, "mm"),
+  shaft_width = unit(2, "mm")
+)
+
+grid.newpage()
+grid.draw(arrow_grob)
+grid.lines(
+  x = unit(0.2, "npc") + unit(c(0, 0, 1.44, 1.44), "cm"),
+  y = unit(0.5, "npc") + unit(1, "cm") + unit(c(-0.2, 0, 0, -0.2), "cm")
+)
+grid.text(
+  c("start", "end", "arrow_fins"),
+  x = unit(c(0.1, 0.9, 0.2), "npc") + unit(c(0, 0, 0.72), "cm"),
+  y = unit(c(0.5, 0.5, 0.5), "npc") + unit(c(0, 0, 1.5), "cm")
+)
+```
+
+### Feather
+
+```{r illustrate_fins_feather, echo = FALSE}
+arr <- arrow_fins_feather()
+arr <- arr * 50
+arr[, "x"] <- -1 * arr[, "x"] + 21.2
+arrow_grob <- grob_arrow(
+  x = unit(0.5, "npc") + unit(c(-28.8, 28.8), "mm"),
+  y = unit(c(0.5, 0.5), "npc"),
+  arrow_head = NULL, arrow_fins = arrow_fins_feather(),
+  length_fins = unit(50, "mm"),
+  shaft_width = unit(5, "mm"),
+  gp = gpar(fill = NA)
+)
+mc <- makeContent(arrow_grob)
+
+grid.newpage()
+
+grid.points(
+  x = unit(0.5, "npc") + unit(arr[4:5, "x"], "mm"),
+  y = unit(0.5, "npc") + unit(arr[4:5, "y"], "mm"),
+  gp = gpar(col = 3, alpha = 0.5), pch = 16
+)
+grid.lines(
+  x = unit(0.5, "npc") + unit(arr[c(4,4,5,5), "x"], "mm"),
+  y = unit(0.5, "npc") + unit(c(arr[4, "y"], c(-20, -20), arr[5, "y"]), "mm"),
+  gp = gpar(col = 3, alpha = 0.5)
+)
+grid.text(
+  x = unit(0.5, "npc") + unit(mean(arr[4:5, "x"]), "mm"),
+  y = unit(0.5, "npc") + unit(-20, "mm"),
+  label = "outdent", gp = gpar(col = 3), vjust = 1.5
+)
+
+
+grid.points(
+  x = unit(0.5, "npc") + unit(arr[c(1, 6), "x"], "mm"),
+  y = unit(0.5, "npc") + unit(arr[c(1, 6), "y"], "mm"),
+  gp = gpar(col = 4, alpha = 0.5), pch = 16
+)
+grid.lines(
+  x = unit(0.5, "npc") + unit(arr[c(1,1,6,6), "x"], "mm"),
+  y = unit(0.5, "npc") + unit(c(arr[1, "y"], c(-20, -20), arr[6, "y"]), "mm"),
+  gp = gpar(col = 4, alpha = 0.5)
+)
+grid.text(
+  x = unit(0.5, "npc") + unit(mean(arr[c(1,6), "x"]), "mm"),
+  y = unit(0.5, "npc") + unit(-20, "mm"),
+  label = "indent", gp = gpar(col = 4), vjust = 1.5
+)
+
+grid.points(
+  x = unit(0.5, "npc") + unit(arr[c(2, 4), "x"], "mm"),
+  y = unit(0.5, "npc") + unit(arr[c(2, 4), "y"], "mm"),
+  gp = gpar(col = 2, alpha = 0.5), pch = 16
+)
+grid.lines(
+  x = unit(0.5, "npc") + unit(arr[c(2,2,4,4), "x"], "mm"),
+  y = unit(0.5, "npc") + unit(c(arr[2, "y"], c(20, 20), arr[4, "y"]), "mm"),
+  gp = gpar(col = 2, alpha = 0.5)
+)
+grid.text(
+  x = unit(0.5, "npc") + unit(mean(arr[c(2,4), "x"]), "mm"),
+  y = unit(0.5, "npc") + unit(20, "mm"),
+  label = "length_fins", gp = gpar(col = 2), vjust = -0.5
+)
+
+grid.points(
+  x = unit(0.5, "npc") + unit(arr[1:2, "x"], "mm"),
+  y = unit(0.5, "npc") + unit(arr[1:2, "y"], "mm"),
+  gp = gpar(col = 6, alpha = 0.5), pch = 16
+)
+grid.lines(
+  x = unit(0.5, "npc") + unit(c(arr[1, "x"], -35, -35, arr[2, "x"]), "mm"),
+  y = unit(0.5, "npc") + unit(arr[c(1,1,2,2), "y"], "mm"),
+  gp = gpar(col = 6, alpha = 0.5)
+)
+grid.text(
+  x = unit(0.5, "npc") - unit(35, "mm"),
+  y = unit(0.5, "npc") + unit(mean(arr[1:2, "y"]), "mm"), rot = 90,
+  label = "height", gp = gpar(col = 6), vjust = -0.5
+)
+
+
+grid.draw(arrow_grob)
+```
+
+```{r, echo=FALSE}
+indent  <- c(0.3, 0, 0.3, 0.3, -0.3)
+outdent <- c(0.3, 0.3, 0, 0.3, -0.3)
+height  <- c(0.5, 0.5, 0.5, 1, 0.5)
+y      <- 4:0
+descr  <- c(" (default)", "", "", "", "")
+
+example_plot +
+  geom_vline(xintercept = 0, colour = "tomato") +
+  annotation_custom(
+    grid::segmentsGrob(
+      x0 = unit(0, "npc") + unit(10, "mm"),
+      x1 = unit(0, "npc") + unit(10, "mm"),
+      gp = grid::gpar(col = "dodgerblue")
+    ), 
+    xmin = 0, xmax = 0
+  ) +
+  lapply(seq_along(y), function(i) {
+    geom_arrow(
+      aes(y = c(y[i], y[i])), linewidth = 2, arrow_head = NULL,
+      arrow_fins = arrow_fins_feather(
+        indent = indent[i], outdent = outdent[i], height = height[i]
+      ),
+      length_fins = unit(10, "mm")
+    )
+  }) +
+  annotate(
+    "text", x = 0.5, y = y + 0.5, label = paste0(
+      "indent = ", indent, ", outdent = ", outdent, ", height = ", height, descr
+    )
+  )
+```
+
+### Line
+
+```{r, echo=FALSE}
+angle   <- c(30, 30, 30, 30, 135)
+lineend <- c("butt", "round", "square", "parallel", "butt")
+y      <- 4:0
+descr  <- c(" (default)", "", "", "", "")
+
+example_plot +
+  geom_vline(xintercept = 0, colour = "tomato") +
+  lapply(seq_along(y), function(i) {
+    geom_arrow(
+      aes(y = c(y[i], y[i])), linewidth = 2, arrow_head = NULL,
+      arrow_fins = arrow_fins_line(angle = angle[i], lineend = lineend[i]),
+      length_fins = unit(10, "mm")
+    )
+  }) +
+  annotate(
+    "text", x = 0.5, y = y + 0.5, label = paste0(
+      "angle = ", angle, ", lineend = ", lineend, descr
+    )
+  )
+```
+
+### Minimal
+
+```{r, echo=FALSE}
+ggplot(mapping = aes(x = c(0, 1))) +
+  geom_vline(xintercept = 0, colour = "tomato") +
+  geom_arrow(
+    aes(y = c(4, 4)), linewidth = 5, arrow_head = NULL,
+    arrow_fins = arrow_fins_minimal(angle = 45)
+  ) +
+  annotate(
+    "text", x = 0.5, y = 4.5, label = "angle = 45 (default)"
+  ) +
+  geom_arrow(
+    aes(y = c(3, 3)), linewidth = 2, arrow_head = NULL,
+    arrow_fins = arrow_fins_minimal(angle = 45)
+  ) +
+  annotate(
+    "text", x = 0.5, y = 3.5, label = "angle = 45, linewidth = 2"
+  ) +
+  geom_arrow(
+    aes(y = c(2, 2)), linewidth = 5, arrow_head = NULL,
+    arrow_fins = arrow_fins_minimal(angle = 0)
+  ) +
+  annotate(
+    "text", x = 0.5, y = 2.5, label = "angle = 0"
+  ) +
+  geom_arrow(
+    aes(y = c(1, 1)), linewidth = 5, arrow_head = NULL,
+    arrow_fins = arrow_fins_minimal(angle = 135)
+  ) +
+  annotate(
+    "text", x = 0.5, y = 1.5, label = "angle = 135"
+  ) +
+  geom_arrow(
+    aes(y = c(0, 0)), linewidth = 5, arrow_head = NULL,
+    arrow_fins = arrow_fins_minimal(angle = 70)
+  ) +
+  annotate(
+    "text", x = 0.5, y = 0.5, label = "angle = 70"
+  ) +
+  coord_cartesian(clip = "off") +
+  scale_y_continuous(limits = c(-0.5, 4.5)) +
+  scale_x_continuous(limits = c(-0.1, 1.1)) +
+  theme_void()
+```
+
+## Extending ornaments
+
+In principle, extending ornaments is as straightforward as being able to construct a polygon in an xy-coordinate matrix with `x` as the first column and `y` as the second column.
+
+```{r}
+my_ornament <- function(n = 5) {
+  t <- seq(0, 2 * pi, length.out = n * 2 + 1)[-(n * 2 + 1)]
+  l <- rep(c(1, 0.4), length.out = length(t))
+  
+  cbind(
+    x = cos(t) * l,
+    y = sin(t) * l
+  )
+}
+```
+
+We can inspect the coordinates of our new ornament. It is ggarrow's convention that the line joins the ornament at the (0,0) coordinate. Also, the tip of the ornament is expected to be at the (1,0) coordinate.
+
+```{r}
+orn <- my_ornament(5)
+
+# Plot ornament
+par(pty = "s")
+plot(orn, type = 'n', xlim = c(-1, 1), ylim = c(-1, 1))
+polygon(orn[, "x"], orn[, "y"])
+
+# Incoming line
+lines(debug_notching(orn, 0.2), col = 2)
+# Length measurement
+lines(x = c(0, 1), y = c(0, 0), col = 4)
+text(x = 0.5, y = 0.1, labels = "Length", col = 4)
+text(x = -0.5, y = 0, labels = "Incoming line", col = 2)
+```
+
+You can now use your ornament as the `arrow_head`, `arrow_fins` and `arrow_mid` arguments.
+
+```{r}
+ggplot(data = data.frame(x = c(0, 1)), aes(x = x)) +
+  geom_arrow(aes(y = c(1, 3)), arrow_head = orn) +
+  geom_arrow(aes(y = c(2, 2)), arrow_fins = orn) +
+  geom_arrow(aes(y = c(3, 1)), arrow_mid  = orn, mid_place = c(0.33, 0.66))
+```
+

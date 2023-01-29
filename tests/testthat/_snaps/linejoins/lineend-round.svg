@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<path d='M 147.27 463.52 L 429.63 124.68 L 504.00 481.65 L 580.16 116.07 L 580.16 116.07 L 580.23 115.61 L 580.25 115.15 L 580.22 114.69 L 580.14 114.24 L 580.01 113.80 L 579.84 113.37 L 579.62 112.97 L 579.36 112.59 L 579.05 112.24 L 578.72 111.93 L 578.35 111.65 L 577.95 111.42 L 577.53 111.23 L 577.09 111.09 L 576.64 111.00 L 576.18 110.95 L 575.72 110.96 L 575.26 111.01 L 574.82 111.12 L 574.38 111.27 L 573.97 111.47 L 573.57 111.71 L 573.21 111.99 L 572.88 112.31 L 572.59 112.67 L 572.33 113.05 L 572.12 113.46 L 571.96 113.89 L 571.84 114.33 L 571.84 114.33 L 504.00 439.95 L 434.37 105.72 L 140.73 458.08 L 140.73 458.08 L 140.46 458.45 L 140.22 458.84 L 140.04 459.26 L 139.89 459.70 L 139.80 460.15 L 139.75 460.61 L 139.76 461.07 L 139.81 461.53 L 139.91 461.98 L 140.07 462.41 L 140.26 462.83 L 140.50 463.22 L 140.79 463.58 L 141.11 463.91 L 141.46 464.21 L 141.84 464.46 L 142.25 464.68 L 142.68 464.84 L 143.13 464.96 L 143.58 465.03 L 144.04 465.05 L 144.50 465.02 L 144.95 464.94 L 145.40 464.82 L 145.82 464.64 L 146.23 464.42 L 146.60 464.16 L 146.95 463.86 L 147.27 463.52 Z' style='fill-rule: evenodd; fill: #1E90FF; stroke-width: 0.75; stroke: none; stroke-linejoin: miter;' />
+<polyline points='144.00,115.20 432.00,460.80 504.00,115.20 576.00,460.80 ' style='stroke-width: 8.50; stroke: #FF6347; stroke-linejoin: miter;' />
+</g>
+</svg>

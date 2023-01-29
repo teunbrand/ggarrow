@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<line x1='576.00' y1='576.00' x2='576.00' y2='0.00' style='stroke-width: 0.75; stroke: #DF536B;' />
+<line x1='547.65' y1='576.00' x2='547.65' y2='0.00' style='stroke-width: 0.75; stroke: #61D04F;' />
+<path d='M 576.00 480.00 L 535.19 465.15 L 545.26 477.14 L 144.00 477.17 L 144.00 482.83 L 545.26 482.86 L 535.19 494.85 Z' style='fill-rule: evenodd; stroke-width: 0.75;' />
+<path d='M 576.00 384.00 L 547.65 367.63 L 547.65 381.17 L 144.00 381.17 L 144.00 386.83 L 547.65 386.83 L 547.65 400.37 Z' style='fill-rule: evenodd; stroke-width: 0.75;' />
+<path d='M 576.00 271.63 L 552.48 285.21 L 144.00 285.17 L 144.00 290.83 L 552.48 290.79 L 576.00 304.37 Z' style='fill-rule: evenodd; stroke-width: 0.75;' />
+<path d='M 576.00 192.00 L 561.83 177.83 L 550.46 189.19 L 144.00 189.17 L 144.00 194.83 L 550.46 194.81 L 561.83 206.17 Z' style='fill-rule: evenodd; stroke-width: 0.75;' />
+<path d='M 576.00 96.00 L 590.17 81.83 L 547.46 93.27 L 144.00 93.17 L 144.00 98.83 L 547.46 98.73 L 590.17 110.17 Z' style='fill-rule: evenodd; stroke-width: 0.75;' />
+<text x='360.00' y='436.13' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='115.43px' lengthAdjust='spacingAndGlyphs'>offset = 20, inset = 30</text>
+<text x='360.00' y='340.13' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='115.43px' lengthAdjust='spacingAndGlyphs'>offset = 30, inset = 60</text>
+<text x='360.00' y='244.13' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='115.43px' lengthAdjust='spacingAndGlyphs'>offset = 90, inset = 60</text>
+<text x='360.00' y='148.13' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='115.43px' lengthAdjust='spacingAndGlyphs'>offset = 45, inset = 90</text>
+<text x='360.00' y='52.13' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='122.10px' lengthAdjust='spacingAndGlyphs'>offset = 135, inset = 30</text>
+</g>
+</svg>

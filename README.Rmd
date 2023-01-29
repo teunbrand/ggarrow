@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/ggarrow)](https://CRAN.R-project.org/package=ggarrow)
+[![R-CMD-check](https://github.com/teunbrand/ggarrow/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/teunbrand/ggarrow/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/teunbrand/ggarrow/branch/main/graph/badge.svg)](https://app.codecov.io/gh/teunbrand/ggarrow?branch=main)
 <!-- badges: end -->
 
 The goal of ggarrow is to draw arrows in [{ggplot2}](https://ggplot2.tidyverse.org/). It is a [{ggplot2} extension](https://exts.ggplot2.tidyverse.org/gallery/) package that focusses on specialised geometry layers to expand the toolkit of arrows. While you're reading this, I'll take this opportunity to inform you that while this package probably works, it is not very polished.

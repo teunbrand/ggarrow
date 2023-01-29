@@ -9,16 +9,21 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  fig.align = "center",
+  out.width = "80%",
+  dev       = "ragg_png",
+  dpi       = 132
 )
 ```
 
 # ggarrow
 
 <!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/ggarrow)](https://CRAN.R-project.org/package=ggarrow)
 <!-- badges: end -->
 
-The goal of ggarrow is to ...
+The goal of ggarrow is to draw arrows in [{ggplot2}](https://ggplot2.tidyverse.org/). It is a [{ggplot2} extension](https://exts.ggplot2.tidyverse.org/gallery/) package that focusses on specialised geometry layers to expand the toolkit of arrows. While you're reading this, I'll take this opportunity to inform you that while this package probably works, it is not very polished.
 
 ## Installation
 
@@ -29,27 +34,94 @@ You can install the development version of ggarrow from [GitHub](https://github.
 devtools::install_github("teunbrand/ggarrow")
 ```
 
-## Example
+## Arrows
 
-This is a basic example which shows you how to solve a common problem:
+They're made for pointing at things. The workhorse functionality is in the `geom_arrow()` function that, unsurprisingly, draws arrows. Arrows, in contrast to vanilla lines, can have variable widths.
 
-```{r example}
+```{r basic_example}
 library(ggarrow)
-## basic example code
+
+p <- ggplot(whirlpool(5), aes(x, y, colour = group)) +
+  coord_equal() +
+  guides(colour = "none")
+p + geom_arrow(aes(linewidth = I(arc))) # Identity scale for linewidth
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+Besides varying linewidths, there is also an option to place arrows along the path. 
+You could draw arbitrarily many of these, but I doubt that will look pretty.
 
-```{r cars}
-summary(cars)
+```{r}
+p + geom_arrow(arrow_mid = arrow_head_wings(), mid_place = c(0.25, 0.5, 0.75))
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+You can also tweak what the arrows should look like.
+The example below is a bit verbose, but gives an impression of the available options by combining different styles of arrow heads and what are termed 'arrow fins'.
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r show_ornaments}
+p + 
+  geom_arrow(
+    data = ~ subset(.x, group == 1),
+    linewidth = 2, 
+    arrow_head = arrow_head_wings(),
+    arrow_fins = arrow_fins_feather(),
+    length_fins = unit(10, "mm")
+  ) +
+  geom_arrow(
+    data = ~ subset(.x, group == 2),
+    linewidth = 2, 
+    arrow_head = arrow_head_wings(offset = 20, inset = 70),
+    arrow_fins = arrow_fins_feather(indent = 0, outdent = 0, height = 1)
+  ) +
+  geom_arrow(
+    data = ~ subset(.x, group == 3),
+    linewidth = 2, 
+    arrow_head = arrow_head_line(lineend = "parallel"),
+    arrow_fins = arrow_fins_line()
+  ) +
+  geom_arrow(
+    data = ~ subset(.x, group == 4),
+    linewidth = 2, 
+    arrow_head = arrow_head_line(45, lineend = "round"),
+    arrow_fins = arrow_fins_line(90)
+  ) +
+  geom_arrow(
+    data = ~ subset(.x, group == 4),
+    linewidth = 2, 
+    arrow_head = arrow_head_line(45, lineend = "round"),
+    arrow_fins = arrow_fins_line(90)
+  ) +
+  geom_arrow(
+    data = ~ subset(.x, group == 5),
+    linewidth = 5, 
+    arrow_head = arrow_head_minimal(),
+    arrow_fins = arrow_fins_minimal()
+  )
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+There are some other geoms that mimic bread-and-butter ggplot2 layers, such as `geom_arrow_segment()` and `geom_arrow_curve()`, that add the same arrow functionality on top of the `geom_segment()` and `geom_curve()` layers.
+
+Aside from these, there is also `geom_arrow_chain()`, which has no equivalent in vanilla ggplot2. It adds arrows in between points, and dodges the endpoints a bit so that they don't seem to touch. In the example below, we can see that we can dodge points of different sizes.
+
+```{r}
+t <- seq(0, 2 * pi, length.out = 11)
+l <- rep(c(1, 0.4), length.out = 11)
+
+df <- data.frame(
+  x = cos(t) * l,
+  y = sin(t) * l,
+  size = l
+)
+
+ggplot(df, aes(x, y, size = size)) +
+  geom_point(colour = 2) +
+  geom_arrow_chain() +
+  coord_equal()
+```
+
+## Related work
+
+Of course, the {grid} package, on which {ggplot2} is build upon, offers some options for arrows.
+Both the [{gggenes}](https://wilkox.org/gggenes/) and [{gggenomes}](https://thackl.github.io/gggenomes/) packages use arrows in a domain-specific context.
+For vector field visualisation, there is the [{ggquiver}](http://pkg.mitchelloharawild.com/ggquiver/) package.
+The [{ggarchery}](https://github.com/mdhall272/ggarchery) package also provides extended options for the `geom_segment()` parametrisation of lines.
+

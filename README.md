@@ -54,7 +54,7 @@ that will look pretty.
 p + geom_arrow(arrow_mid = arrow_head_wings(), mid_place = c(0.25, 0.5, 0.75))
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-middle_arrows-1.png" width="80%" style="display: block; margin: auto;" />
 
 You can also tweak what the arrows should look like. The example below
 is a bit verbose, but gives an impression of the available options by
@@ -130,7 +130,7 @@ ggplot(df, aes(x, y, size = size)) +
   coord_equal()
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-arrow_chain-1.png" width="80%" style="display: block; margin: auto;" />
 
 ## Related work
 

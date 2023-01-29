@@ -50,7 +50,7 @@ p + geom_arrow(aes(linewidth = I(arc))) # Identity scale for linewidth
 Besides varying linewidths, there is also an option to place arrows along the path. 
 You could draw arbitrarily many of these, but I doubt that will look pretty.
 
-```{r}
+```{r middle_arrows}
 p + geom_arrow(arrow_mid = arrow_head_wings(), mid_place = c(0.25, 0.5, 0.75))
 ```
 
@@ -102,7 +102,7 @@ There are some other geoms that mimic bread-and-butter ggplot2 layers, such as `
 
 Aside from these, there is also `geom_arrow_chain()`, which has no equivalent in vanilla ggplot2. It adds arrows in between points, and dodges the endpoints a bit so that they don't seem to touch. In the example below, we can see that we can dodge points of different sizes.
 
-```{r}
+```{r arrow_chain}
 t <- seq(0, 2 * pi, length.out = 11)
 l <- rep(c(1, 0.4), length.out = 11)
 

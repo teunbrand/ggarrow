@@ -95,59 +95,97 @@ arrow_fins_feather <- function(
 
 #' @export
 #' @describeIn arrow_ornaments
-#'
-arrow_head_line <- function(angle = 30) {
+arrow_head_line <- function(angle = 30, lineend = "butt") {
   angle <- angle * .deg2rad
+  lineend  <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
 
   function(length, width) {
+
+    if (lineend == "square") {
+      length <- length + 0.5 * width
+    }
 
     x <- 1 - cos(angle) * length
     y <- 0 - sin(angle) * length
 
-    x <- c(x, x + cos(angle + .halfpi) * width)
-    y <- c(y, y + sin(angle + .halfpi) * width)
+    norm <- angle + .halfpi
+    if (lineend == "parallel") {
+      x <- c(x, x + width / sin(angle))
+      y <- c(y, y)
+    } else if (lineend == "round") {
+      cx <- x + cos(norm) * width / 2
+      cy <- y + sin(norm) * width / 2
+      norm <- seq(norm + pi, norm, length.out = 30)
+      x <- c(x, cx + cos(norm) * width / 2)
+      y <- c(y, cy + sin(norm) * width / 2)
+    } else {
+      x <- c(x, x + cos(norm) * width)
+      y <- c(y, y + sin(norm) * width)
+    }
 
-    next_len <- y[2] / sin(angle)
+    n <- length(x)
+    next_len <- y[n] / sin(angle)
 
-    x <- c(x, x[2] + cos(angle - pi) * next_len)
-    y <- c(y, y[2] + sin(angle - pi) * next_len)
+    x <- c(x, x[n] + cos(angle - pi) * next_len)
+    y <- c(y, y[n] + sin(angle - pi) * next_len)
 
-    x <- c(1, x, x[2:1])
-    y <- c(0, y, -y[2:1])
+    x <- c(1, x, x[rev(seq_len(n))])
+    y <- c(0, y, -y[rev(seq_len(n))])
 
     ans <- cbind(x = x, y = y)
     attr(ans, "notch_angle") <- angle
-    attr(ans, "resect") <- (1 - x[4])
-    ans[, "x"] <- ans[, "x"] - x[4]
+    attr(ans, "resect") <- (1 - x[n + 2])
+    ans[, "x"] <- ans[, "x"] - x[n + 2]
 
     ans
   }
 }
 
-arrow_fins_line <- function(angle = 30) {
+#' @export
+#' @describeIn arrow_ornaments
+arrow_fins_line <- function(angle = 30, lineend = "butt") {
   angle <- pi + angle * .deg2rad
+  lineend  <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
 
   function(length, width) {
+
+    if (lineend == "square") {
+      length <- length + 0.5 * width
+    }
 
     x <- 1 - cos(angle) * length
     y <- 0 - sin(angle) * length
 
-    x <- c(x, x + cos(angle + .halfpi) * width)
-    y <- c(y, y + sin(angle + .halfpi) * width)
+    norm <- angle + .halfpi
 
-    next_len <- y[2] / sin(angle)
+    if (lineend == "parallel") {
+      x <- c(x, x + width / sin(angle))
+      y <- c(y, y)
+    } else if (lineend == "round") {
+      cx <- x + cos(norm) * width / 2
+      cy <- y + sin(norm) * width / 2
+      norm <- seq(norm + pi, norm, length.out = 30)
+      x <- c(x, cx + cos(norm) * width / 2)
+      y <- c(y, cy + sin(norm) * width / 2)
+    } else {
+      x <- c(x, x + cos(norm) * width)
+      y <- c(y, y + sin(norm) * width)
+    }
 
-    x <- c(x, x[2] + cos(angle - pi) * next_len)
-    y <- c(y, y[2] + sin(angle - pi) * next_len)
+    n <- length(x)
+    next_len <- y[n] / sin(angle)
 
-    x <- c(1, x, x[2:1])
-    y <- c(0, y, -y[2:1])
+    x <- c(x, x[n] + cos(angle - pi) * next_len)
+    y <- c(y, y[n] + sin(angle - pi) * next_len)
+
+    x <- c(1, x, x[rev(seq_len(n))])
+    y <- c(0, y, -y[rev(seq_len(n))])
 
     ans <- cbind(x = x, y = y)
     attr(ans, "notch_angle") <- -angle
     attr(ans, "resect") <- max(x) - 1
     ans[, "x"] <- ans[, "x"] - 1
-    vv <<- ans
+    attr(ans, "length") <- 1
 
     ans
   }

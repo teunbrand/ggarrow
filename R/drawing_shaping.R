@@ -1,6 +1,6 @@
 shape_shaft <- function(
   x, y, id, width,
-  last_angle, first_angle, angle_line,
+  last_angle = NULL, first_angle = NULL, angle_line,
   gp = gpar()
 ) {
 
@@ -131,4 +131,18 @@ inner_polygon_union <- function(A, B) {
     return(A)
   }
   polyclip::polyclip(A, B, op = "union", fillB = "nonzero", fillA = "nonzero")
+}
+
+#' @export
+#' @noRd
+debug_notching <- function(ornament, width = 0.2) {
+  line <- resect_line(
+    x = c(-2, 0), y = c(0, 0), new_rle(lengths = 2),
+    end = attr(ornament, "resect")
+  )
+  shape_shaft(
+    x = line$x, y = line$y, id = line$id,
+    width = rep(width, 2), angle_line = line$angle,
+    last_angle = attr(ornament, "notch_angle")
+  )[[1]]
 }

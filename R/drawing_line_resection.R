@@ -30,7 +30,7 @@
 #'   begin = c(0.5, 0.2)
 #' )
 #' grid.polyline(new$x, new$y, rle_inv(new$id))
-resect_line <- function(x, y, id, end, begin) {
+resect_line <- function(x, y, id, end = NULL, begin = NULL) {
 
   # Initialise line and angles
   line      <- list(x = x, y = y, id = id)
@@ -103,9 +103,9 @@ resect_end <- function(x, y, id, resect) {
 
     # Interpolate points
     resect <- resect[first]
-    dist   <- (resect - dist[first - 1]) / (dist[first] - dist[first - 1])
-    newx   <- x[first - 1] * (1 - dist) + x[first] * dist
-    newy   <- y[first - 1] * (1 - dist) + y[first] * dist
+    dist   <- interpol_dist(resect, first - 1, dist)
+    newx   <- linear_interpol(x, first - 1, dist)
+    newy   <- linear_interpol(y, first - 1, dist)
     angle[which(keep)] <- atan2(y[final] - newy, x[final] - newx)
 
     # Mark out-of-bound points as NA

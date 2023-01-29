@@ -116,6 +116,7 @@ linejoin_mitre <- function(x, y, id, lwd, mitre = 1) {
   delta  <- before - after
 
   should_bevel <- (bislen / lwd) > mitre
+  should_bevel[lwd <= 0] <- FALSE
   should_bevel[se] <- FALSE
 
   ## Join clockwise -------------------------------------------------------

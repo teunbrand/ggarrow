@@ -30,20 +30,20 @@
 #'   begin = c(0.5, 0.2)
 #' )
 #' grid.polyline(new$x, new$y, rle_inv(new$id))
-resect_line <- function(x, y, id, end = NULL, begin = NULL) {
+resect_line <- function(x, y, id, end = NULL, begin = NULL, width = NULL) {
 
   # Initialise line and angles
-  line      <- list(x = x, y = y, id = id)
+  line      <- list(x = x, y = y, id = id, width = width)
   end_angle <- begin_angle <- NULL
 
   # Don't resect negative numbers
   end   <- pmax(end, 0)
   begin <- pmax(begin, 0)
 
-  line <- resect_end(line$x, line$y, line$id, end)
+  line <- resect_end(line$x, line$y, line$id, end, line$width)
   end_angle <- line$angle
 
-  line <- resect_start(line$x, line$y, line$id, begin)
+  line <- resect_start(line$x, line$y, line$id, begin, line$width)
   begin_angle <- line$angle
 
   line$angle <- list(first = begin_angle, last = end_angle)
@@ -51,7 +51,7 @@ resect_line <- function(x, y, id, end = NULL, begin = NULL) {
 }
 
 # The actual workhorse function for line resection:
-resect_end <- function(x, y, id, resect) {
+resect_end <- function(x, y, id, resect, width) {
 
   # Calculate default angle
   id_end <- rle_end(id)
@@ -59,7 +59,7 @@ resect_end <- function(x, y, id, resect) {
 
   # Early exit when no resection needs to be performed
   if (!any(resect > 0)) {
-    ans <- list(x = x, y = y, id = id, angle = angle)
+    ans <- list(x = x, y = y, id = id, width = width, angle = angle)
     return(ans)
   }
 
@@ -79,7 +79,7 @@ resect_end <- function(x, y, id, resect) {
     # Early exit if all values are within range
     id <- new_rle(lengths = field(id, "length"))
     field(id, "group") <- rep(NA, length(id))
-    ans <- list(x = x, y = y, id = id, angle = angle)
+    ans <- list(x = x, y = y, id = id, width = width, angle = angle)
     return(ans)
   }
 
@@ -125,6 +125,7 @@ resect_end <- function(x, y, id, resect) {
     oob <- is.na(x)
     x   <- x[!oob]
     y   <- y[!oob]
+    width <- width[!oob]
     id  <- rle_subset(id, !oob)
   }
 
@@ -132,21 +133,22 @@ resect_end <- function(x, y, id, resect) {
     x  = x,
     y  = y,
     id = id,
+    width = width,
     angle = angle
   )
 }
 
 # Resecting the start is the same as resecting the end in reverse
-resect_start <- function(x, y, id, resect) {
+resect_start <- function(x, y, id, resect, width) {
   if (!any(resect > 0)) {
     start <- rle_start(id)
     ans <- list(
-      x = x, y = y, id = id,
+      x = x, y = y, id = id, width = width,
       angle = atan2(y[start] - y[start + 1], x[start] - x[start + 1])
     )
     return(ans)
   }
-  line   <- resect_end(rev(x), rev(y), rev(id), rev(resect))
+  line   <- resect_end(rev(x), rev(y), rev(id), rev(resect), rev(width))
   line[] <- lapply(line, rev)
   line
 }

@@ -116,11 +116,11 @@ makeContent.arrow_path <- function(x) {
   resect <- lapply(x$resect, as_mm)
   resect$fins <- resect$fins + fins$resect * (1 - x$justify)
   resect$head <- resect$head + head$resect * (1 - x$justify)
-  line <- resect_line(xmm, ymm, id, resect$head, resect$fins)
+  line <- resect_line(xmm, ymm, id, resect$head, resect$fins, width)
 
   # Extrude and notch path
   shaft <- shape_shaft(
-    line$x, line$y, line$id, width,
+    line$x, line$y, line$id, line$width,
     head$angle, fins$angle, line$angle,
     x$gp
   )

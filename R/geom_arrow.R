@@ -182,10 +182,10 @@ GeomArrow <- ggproto(
 
     width <- unit(data$linewidth * .pt / .stroke, "mm")
     if (!is.unit(length$head)) {
-      length$head <- length$head * width[end]
+      length$head <- (length$head %||% 4) * width[end]
     }
     if (!is.unit(length$fins)) {
-      length$fins <- length$fins * width[start]
+      length$fins <- (length$fins %||% 4) * width[start]
     }
 
     id <- match(data$group, unique(data$group))
@@ -198,7 +198,7 @@ GeomArrow <- ggproto(
       arrow_mid   = arrow$mid,
       length_head = length$head,
       length_fins = length$fins,
-      length_mid  = length$mid,
+      length_mid  = length$mid %||% 4,
       justify     = justify,
       force_arrow = force_arrow,
       mid_place   = mid_place,

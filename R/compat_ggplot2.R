@@ -72,4 +72,18 @@ is_complete <- function(x) {
   }
 }
 
+empty <- function(df) {
+  is.null(df) || prod(dim(df)) == 0 || inherits(df, "waiver")
+}
 
+rename <- function(x, replace) {
+  current  <- names(x)
+  previous <- names(replace)
+  missing  <- setdiff(previous, current)
+  if (length(missing) > 0) {
+    replace  <- replace[!previous %in% missing]
+    previous <- names(replace)
+  }
+  names(x)[match(previous, current)] <- as.vector(replace)
+  x
+}

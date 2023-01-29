@@ -6,6 +6,8 @@
 #' to be issued when they don't have length 1.
 #'
 #' @inheritParams ggplot2::annotate
+#' @param x,y,xmin,ymin,xmax,ymax,xend,yend Positioning aesthetics. At least
+#'   one of these must be specified.
 #'
 #' @inherit geom_arrow return
 #' @export
@@ -33,6 +35,8 @@ annotate_arrow <- function(
   xmax = NULL,
   ymin = NULL,
   ymax = NULL,
+  xend = NULL,
+  yend = NULL,
   ...,
   na.rm = FALSE
 ) {
@@ -42,8 +46,8 @@ annotate_arrow <- function(
       i = "Please use {.fnn {paste0('geom_', geom)}} directly instead."
     ))
   }
-  position <- list(x = x, xmin = xmin, xmax = xmax,
-                   y = y, ymin = ymin, ymax = ymax)
+  position <- list(x = x, xmin = xmin, xmax = xmax, xend = xend,
+                   y = y, ymin = ymin, ymax = ymax, yend = yend)
   position <- position[lengths(position) > 0]
 
   aesthetics <- c(position, list2(...))

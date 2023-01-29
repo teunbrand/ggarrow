@@ -37,6 +37,9 @@
 #'     \item{A `<`[`unit`][grid::unit]`>`}{to fill a path with arrows with
 #'     the provided unit as distance between one arrow to the next.}
 #'   }
+#' @param force_arrow A `logical(1)` which, if `TRUE` an arrow will be drawn
+#'   even when the length of the arrow is shorter than the arrow heads and fins.
+#'   If `FALSE`, will drop such arrows.
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "arrow")
 #' @return A `<Layer>` ggproto object that can be added to a plot.

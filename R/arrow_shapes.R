@@ -10,10 +10,12 @@
 #'   between the line and tip.
 #' @param inset A `numeric(1)` giving an angle in degrees for the angle inside
 #'   the tip of the arrowhead.
-#' @param asp A `numeric(1)` ratio between the length of the feathers and the
+#' @param height A `numeric(1)` ratio between the length of the feathers and the
 #'   height of the feathers.
 #' @param indent,outdent A `numeric(1)` giving the fraction of the feather
 #'   feather length to offset the notch and the end respectively.
+#' @param lineend A `character(1)`, one of `"butt"`, `"square"`, `"round"` or
+#'   `"parallel"`.
 #'
 #' @details
 #' The convention for these functions is that the arrow shaft is fused to the

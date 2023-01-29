@@ -118,7 +118,7 @@ GeomArrowSegment <- ggproto(
     arrow       = list(head = arrow_head_wings(), fins = NULL, mid = NULL),
     length      = list(head = 4, fins = 4, mid = 4),
     justify     = 0,
-    force_arrow = force_arrow,
+    force_arrow = FALSE,
     mid_place   = 0.5,
     resect_head = 0,
     resect_fins = 0

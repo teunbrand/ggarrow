@@ -194,8 +194,21 @@ inner_polygon_union <- function(A, B) {
   polyclip::polyclip(A, B, op = "union", fillB = "nonzero", fillA = "nonzero")
 }
 
+
+#' Debug tool for shaft notching
+#'
+#' This is a low-level tool to debug the notching of arrow ornaments onto
+#' arrow shafts.
+#'
+#' @param ornament An [arrow ornament][arrow_ornaments].
+#' @param width A `numeric(1)` value for the line's width.
+#'
+#' @return A `list` with `x` and `y` elements.
 #' @export
-#' @noRd
+#' @keywords internal
+#'
+#' @examples
+#' NULL
 debug_notching <- function(ornament, width = 0.2) {
   line <- resect_line(
     x = c(-2, 0), y = c(0, 0), new_rle(lengths = 2),

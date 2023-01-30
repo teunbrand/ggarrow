@@ -83,6 +83,10 @@ resolve_inner <- function(
   n_places <- length(placement)
 
   if (!is.unit(placement)) {
+    placement <- placement[order(abs(placement))]
+    sign <- sign(placement)
+    placement <- abs(placement)
+
     norm <- arc_length / arc_length[rep.int(end, id_length)]
     n_arrow <- rep(n_places, length(id))
     place_idx <- lapply(
@@ -128,6 +132,9 @@ resolve_inner <- function(
       `dim<-`(x, c(length(idx), 3)) + start[i] - 1L
     })
   } else {
+    sign <- sign(as.numeric(placement))
+    placement <- abs(placement)
+
     temp_width <- (width[start] + width[end]) / 2
     if (!is.unit(length)) {
       length <- length * temp_width
@@ -173,6 +180,9 @@ resolve_inner <- function(
   dx <- new_x[, 3] - new_x[, 1]
   dy <- new_y[, 3] - new_y[, 1]
   angle <- atan2(dy, dx)
+  if (!is.null(sign)) {
+    angle[sign == -1] <- norm_angle(angle[sign == -1] + pi)
+  }
 
   arrow <- rotate_scale(ornament, angle)
   arrow <- scale_translate(arrow, new_x[, 2], new_y[, 2], scale)

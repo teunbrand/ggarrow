@@ -135,6 +135,13 @@ ggplot(df, aes(x, y, size = size)) +
 
 <img src="man/figures/README-arrow_chain-1.png" width="80%" style="display: block; margin: auto;" />
 
+## Dependency statement
+
+The {ggarrow} package largely takes on the same dependencies as
+{ggplot2} to keep it on the lightweight side. However, this package
+wouldn’t work at all without the {polyclip} dependency, which is the
+only one outside {ggplot2}’s imports.
+
 ## Related work
 
 Of course, the {grid} package, on which {ggplot2} is build upon, offers

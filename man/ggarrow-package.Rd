@@ -6,7 +6,16 @@
 \alias{ggarrow-package}
 \title{ggarrow: Arrows for 'ggplot2'}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 A 'ggplot2' extension that adds specialised arrow geometry layers (geoms). It offers more arrow options than the standard 'grid' arrows that are built-in many line-based geom layers.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://teunbrand.github.io/ggarrow/}
+}
+
 }
 \author{
 \strong{Maintainer}: Teun van den Brand \email{tahvdbrand@gmail.com} (\href{https://orcid.org/0000-0002-9335-7468}{ORCID})

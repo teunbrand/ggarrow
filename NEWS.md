@@ -34,6 +34,18 @@ The function `grob_arrow()` creates a grid grob that largely mimics the
 The `arrow_{head/fins/mid}` have been promoted from parameters to aesthetics.
 Correspondingly, there are now 3 discrete scales for these 3 aesthetics.
 
+## Arrow shapes
+
+Added the following shapes for ornaments:
+
+* `arrow_head_wings()` that looks like a classic arrow.
+* `arrow_head_line()` that are two line protruding from the tip of the line.
+* `arrow_head_minimal()` that is just a stumpy line-end.
+* `arrow_fins_feather()` two stacked parallelograms.
+* `arrow_fins_line()` also two lines but in opposite direction.
+* `arrow_fins_minimal()` that is just a line-end with a triangle taken out.
+* `arrow_cup()` that forms an arc around a point.
+
 ## Other
 
 An `annotate_arrow()` layer to specifically do arrow annotations.

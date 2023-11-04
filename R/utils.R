@@ -59,13 +59,11 @@ validate_id <- function(id = NULL, id.lengths = NULL, alt = NULL,
   if (anyDuplicated(field(id, "group"))) {
     is_dup     <- which(duplicated(field(id, "group")))
     dup_groups <- field(id, "group")[is_dup]
-    cli::cli_warn(c(
-      paste0(
-        "{.fn {fun_nm}} needs sorted groups. The following group{?s} ",
-        "{?has/have} duplicate runs: {.and {print_head(dup_groups)}}."
-      ),
+    warn(
+      "{.fn {fun_nm}} needs sorted groups. The following group{?s} ",
+      "{?has/have} duplicate runs: {.and {print_head(dup_groups)}}.",
       i = "These runs are now considered unique."
-    ))
+    )
     field(id, "group") <- seq_along(id)
   }
 
@@ -135,7 +133,21 @@ abort <- function(..., i = character(0), bullets = character(0), call = .envir,
   }
   if (length(bullets) > 0) {
     names(bullets) <- "*"
-    mesage <- c(message, bullets)
+    message <- c(message, bullets)
   }
   cli::cli_abort(c(message, i), call = call, .envir = .envir, .frame = .frame)
+}
+
+warn <- function(..., i = character(0), bullets = character(0),
+                 .envir = parent.frame()) {
+  message <- paste0(..., collapse = "")
+  if (length(i) > 0) {
+    names(i) <- "i"
+    message <- c(message, i)
+  }
+  if (length(bullets) > 0) {
+    names(bullets) <- "*"
+    message <- c(message, bullets)
+  }
+  cli::cli_warn(message, .envir = .envir)
 }

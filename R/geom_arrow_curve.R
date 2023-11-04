@@ -134,7 +134,7 @@ GeomArrowCurve <- ggproto(
     data$linewidth <- NULL
 
     if (!coord$is_linear()) {
-      cli::cli_warn(
+      warn(
         "{.fn geom_arrow_curve} is not implemented for non-linear coordinates."
       )
     }

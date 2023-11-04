@@ -37,6 +37,9 @@
     <loc>https://teunbrand.github.io/ggarrow/reference/debug_notching.html</loc>
   </url>
   <url>
+    <loc>https://teunbrand.github.io/ggarrow/reference/discrete_arrow_scales.html</loc>
+  </url>
+  <url>
     <loc>https://teunbrand.github.io/ggarrow/reference/draw_key_arrow.html</loc>
   </url>
   <url>
@@ -44,6 +47,9 @@
   </url>
   <url>
     <loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_chain.html</loc>
+  </url>
+  <url>
+    <loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_curve.html</loc>
   </url>
   <url>
     <loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_segment.html</loc>

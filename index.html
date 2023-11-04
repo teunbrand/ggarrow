@@ -94,6 +94,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://teunbrand.github.io/ggarrow/">ggarrow</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span>
+<span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.3.2</span></span>
 <span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="reference/whirlpool.html">whirlpool</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, colour <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -106,46 +107,23 @@
 <p><img src="reference/figures/README-middle_arrows-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>You can also tweak what the arrows should look like. The example below is a bit verbose, but gives an impression of the available options by combining different styles of arrow heads and what are termed ‘arrow fins’.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    arrow_head <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    arrow_fins <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_feather</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    length_fins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">10</span>, <span class="st">"mm"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    arrow_head <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">20</span>, inset <span class="op">=</span> <span class="fl">70</span><span class="op">)</span>,</span>
-<span>    arrow_fins <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_feather</a></span><span class="op">(</span>indent <span class="op">=</span> <span class="fl">0</span>, outdent <span class="op">=</span> <span class="fl">0</span>, height <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">group</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    arrow_head <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_line</a></span><span class="op">(</span>lineend <span class="op">=</span> <span class="st">"parallel"</span><span class="op">)</span>,</span>
-<span>    arrow_fins <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_line</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">group</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    arrow_head <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_line</a></span><span class="op">(</span><span class="fl">45</span>, lineend <span class="op">=</span> <span class="st">"round"</span><span class="op">)</span>,</span>
-<span>    arrow_fins <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_line</a></span><span class="op">(</span><span class="fl">90</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">group</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>    arrow_head <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_line</a></span><span class="op">(</span><span class="fl">45</span>, lineend <span class="op">=</span> <span class="st">"round"</span><span class="op">)</span>,</span>
-<span>    arrow_fins <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_line</a></span><span class="op">(</span><span class="fl">90</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">group</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span>    linewidth <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>    arrow_head <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_minimal</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    arrow_fins <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>arrow_head <span class="op">=</span> <span class="va">group</span>, arrow_fins <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/discrete_arrow_scales.html">scale_arrow_head_discrete</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"head_wings"</span>,</span>
+<span>    <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">20</span>, inset <span class="op">=</span> <span class="fl">70</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_line</a></span><span class="op">(</span>lineend <span class="op">=</span> <span class="st">"parallel"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_line</a></span><span class="op">(</span><span class="fl">45</span>, lineend <span class="op">=</span> <span class="st">"round"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"head_minimal"</span></span>
+<span>  <span class="op">)</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/discrete_arrow_scales.html">scale_arrow_fins_discrete</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="st">"fins_feather"</span>,</span>
+<span>    <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_feather</a></span><span class="op">(</span>indent <span class="op">=</span> <span class="fl">0</span>, outdent <span class="op">=</span> <span class="fl">0</span>, height <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    <span class="st">"fins_line"</span>,</span>
+<span>    <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_line</a></span><span class="op">(</span><span class="fl">90</span><span class="op">)</span>,</span>
+<span>    <span class="st">"fins_minimal"</span></span>
+<span>  <span class="op">)</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-show_ornaments-1.png" width="80%" style="display: block; margin: auto;"></p>
-<p>There are some other geoms that mimic bread-and-butter ggplot2 layers, such as <code><a href="reference/geom_arrow_segment.html">geom_arrow_segment()</a></code> and <code>geom_arrow_curve()</code>, that add the same arrow functionality on top of the <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_curve()</a></code> layers.</p>
+<p>There are some other geoms that mimic bread-and-butter ggplot2 layers, such as <code><a href="reference/geom_arrow_segment.html">geom_arrow_segment()</a></code> and <code><a href="reference/geom_arrow_curve.html">geom_arrow_curve()</a></code>, that add the same arrow functionality on top of the <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_curve()</a></code> layers.</p>
 <p>Aside from these, there is also <code><a href="reference/geom_arrow_chain.html">geom_arrow_chain()</a></code>, which has no equivalent in vanilla ggplot2. It adds arrows in between points, and dodges the endpoints a bit so that they don’t seem to touch. In the example below, we can see that we can dodge points of different sizes.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
@@ -171,7 +149,7 @@
 <div class="section level2">
 <h2 id="related-work">Related work<a class="anchor" aria-label="anchor" href="#related-work"></a>
 </h2>
-<p>Of course, the {grid} package, on which {ggplot2} is build upon, offers some options for arrows. Both the <a href="https://wilkox.org/gggenes/" class="external-link">{gggenes}</a> and <a href="https://thackl.github.io/gggenomes/" class="external-link">{gggenomes}</a> packages use arrows in a domain-specific context. For vector field visualisation, there is the <a href="http://pkg.mitchelloharawild.com/ggquiver/" class="external-link">{ggquiver}</a> package. The <a href="https://github.com/mdhall272/ggarchery" class="external-link">{ggarchery}</a> package also provides extended options for the <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment()</a></code> parametrisation of lines.</p>
+<p>Of course, the {grid} package, on which {ggplot2} is build upon, offers some options for arrows. The <a href="https://github.com/wjschne/arrowheadr" class="external-link">{arrowheadr}</a> package provides some great extensions for arrowheads. The <a href="https://cran.r-project.org/package=vwline" class="external-link">{vwlines}</a> package that handles variable widths lines much more graciously than this package. Both the <a href="https://wilkox.org/gggenes/" class="external-link">{gggenes}</a> and <a href="https://thackl.github.io/gggenomes/" class="external-link">{gggenomes}</a> packages use arrows in a domain-specific context. For vector field visualisation, there is the <a href="http://pkg.mitchelloharawild.com/ggquiver/" class="external-link">{ggquiver}</a> package. The <a href="https://github.com/mdhall272/ggarchery" class="external-link">{ggarchery}</a> package also provides extended options for the <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment()</a></code> parametrisation of lines.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">

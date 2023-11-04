@@ -43,7 +43,7 @@ shape_shaft <- function(
 
   close_offset(
     offset, x, y, angle_line,
-    is.null(first_angle), is.null(last_angle),
+    is.na(first_angle), is.na(last_angle),
     id, gp
   )
 }
@@ -56,7 +56,10 @@ notch_shaft <- function(
   if (length(angle_notch) < 1) {
     return(offset)
   }
-  angle    <- angle_line + pi
+  i <- !is.na(angle_notch)
+  angle <- angle_line[i] + pi
+  angle_notch <- angle_notch[i]
+
   if (type == "head") {
     index_fun <- rle_end
     positive  <- angle - angle_notch - buffer
@@ -67,9 +70,9 @@ notch_shaft <- function(
     negative  <- angle - angle_notch - buffer
   }
 
-  index <- index_fun(id)
-  left  <- index_fun(offset$id_left)
-  right <- index_fun(offset$id_right)
+  index <- index_fun(id)[i]
+  left  <- index_fun(offset$id_left)[i]
+  right <- index_fun(offset$id_right)[i]
 
   leng  <- 0.5 * width[index] / sin(angle_notch)
 
@@ -123,42 +126,46 @@ close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
   xstart <- x[start]
   ystart <- y[start]
 
-  if (empty_start && lineend == "round") {
-    cx <- xstart
-    cy <- ystart
+  if (any(empty_start) && lineend == "round") {
+    cx <- xstart[empty_start]
+    cy <- ystart[empty_start]
     angle <- outer(
-      norm_angle(angle_line$first),
+      norm_angle(angle_line$first[empty_start]),
       seq(-.halfpi, .halfpi, length.out = 30),
       FUN = `+`
     )
-    left  <- rle_start(offset$id_left)
-    right <- rle_start(offset$id_right)
+    left  <- rle_start(offset$id_left)[empty_start]
+    right <- rle_start(offset$id_right)[empty_start]
     width <- dist_length(
       offset$x_left[left] - offset$x_right[right],
       offset$y_left[left] - offset$y_right[right]
     )
-    idrep  <- rep(seq_along(id), 30)
-    xstart <- split(cx + cos(angle) * width / 2, idrep)
-    ystart <- split(cy + sin(angle) * width / 2, idrep)
+    idrep  <- rep(seq_along(id)[empty_start], 30)
+    xstart <- as.list(xstart)
+    ystart <- as.list(ystart)
+    xstart[empty_start] <- split(cx + cos(angle) * width / 2, idrep)
+    ystart[empty_start] <- split(cy + sin(angle) * width / 2, idrep)
   }
 
-  if (empty_end && lineend == "round") {
-    cx <- xend
-    cy <- yend
+  if (any(empty_end) && lineend == "round") {
+    cx <- xend[empty_end]
+    cy <- yend[empty_end]
     angle <- outer(
-      norm_angle(angle_line$last),
+      norm_angle(angle_line$last[empty_end]),
       seq(-.halfpi, .halfpi, length.out = 30),
       FUN = `+`
     )
-    left  <- rle_end(offset$id_left)
-    right <- rle_end(offset$id_right)
+    left  <- rle_end(offset$id_left)[empty_end]
+    right <- rle_end(offset$id_right)[empty_end]
     width <- dist_length(
       offset$x_left[left] - offset$x_right[right],
       offset$y_left[left] - offset$y_right[right]
     )
-    idrep <- rep(seq_along(id), 30)
-    xend <- split(cx + cos(angle) * width / 2, idrep)
-    yend <- split(cy + sin(angle) * width / 2, idrep)
+    idrep <- rep(seq_along(id)[empty_end], 30)
+    xend <- as.list(xend)
+    yend <- as.list(yend)
+    xend[empty_end] <- split(cx + cos(angle) * width / 2, idrep)
+    yend[empty_end] <- split(cy + sin(angle) * width / 2, idrep)
   }
 
   Map(
@@ -181,7 +188,13 @@ polygon_union <- function(A, B) {
   if (is.null(B)) {
     return(A)
   }
-  Map(inner_polygon_union, A = A, B = B)
+  list <- Map(inner_polygon_union, A = A, B = B)
+  named <- vapply(list, is_named, logical(1))
+  if (all(named) || all(!named)) {
+    return(list)
+  }
+  list[named] <- lapply(list[named], list)
+  list
 }
 
 inner_polygon_union <- function(A, B) {

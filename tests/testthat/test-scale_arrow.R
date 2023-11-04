@@ -27,6 +27,49 @@ test_that("continuous arrow scales throw correct errors", {
   )
 })
 
+test_that("arrow_pal works as intended", {
+  # Can find functions in ggarrow
+  expect_equal(
+    arrow_pal("head_wings"),
+    list(arrow_head_wings())
+  )
+
+  # Cannot find non existing functions
+  expect_error(
+    arrow_pal("foobar"),
+    "Cannot find function"
+  )
+
+  on.exit(env_unbind(global_env(), "arrow_foobar"), add = TRUE)
+
+  # Can find functions in global environment
+  env_bind(global_env(), arrow_foobar = function() matrix(1:4, ncol = 2))
+  expect_equal(
+    arrow_pal("foobar"),
+    list(matrix(1:4, ncol = 2))
+  )
+
+  env_bind(global_env(), arrow_foobar = function() array(1:24, 2:4))
+  expect_error(
+    arrow_pal("foobar"),
+    "not a matrix"
+  )
+
+  env_bind(global_env(), arrow_foobar = function() matrix(1:2, ncol = 1))
+  expect_error(
+    arrow_pal("foobar"),
+    "does not have dimension"
+  )
+
+  env_bind(global_env(), arrow_foobar = function() matrix(LETTERS[1:4], ncol = 2))
+  expect_error(
+    arrow_pal("foobar"),
+    "does not have the type"
+  )
+})
+
+# Visual tests ------------------------------------------------------------
+
 df <- data.frame(
   x = c(0, 1, 0, 1, 0, 1),
   y = c(1, 1, 2, 2, 3, 3),

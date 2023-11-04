@@ -130,6 +130,7 @@ GeomArrow <- ggproto(
     alpha     = NA,
     arrow_head = NULL,
     arrow_fins = NULL,
+    arrow_mid  = NULL,
     stroke_colour = NA,
     stroke_width  = 0.25
   ),
@@ -200,7 +201,7 @@ GeomArrow <- ggproto(
       id = id,
       arrow_head  = data$arrow_head[start] %||% arrow$head,
       arrow_fins  = data$arrow_fins[end]   %||% arrow$fins,
-      arrow_mid   = arrow$mid,
+      arrow_mid   = data$arrow_mid[start]  %||% arrow$mid,
       length_head = length$head,
       length_fins = length$fins,
       length_mid  = length$mid %||% 4,

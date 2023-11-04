@@ -173,11 +173,11 @@ makeContent.arrow_path <- function(x) {
   width  <- along_rle(as_mm(x$shaft_width), id)
 
   # Set arrow ornaments
-  head <- resolve_ornament(x$arrow_head, x$length_head, id, width, "head")
-  fins <- resolve_ornament(x$arrow_fins, x$length_fins, id, width, "fins")
+  resect <- lapply(x$resect, as_mm)
+  head <- resolve_ornament(x$arrow_head, x$length_head, id, width, resect$head, "head")
+  fins <- resolve_ornament(x$arrow_fins, x$length_fins, id, width, resect$fins, "fins")
 
   # Trim line to make place for arrow pieces
-  resect <- lapply(x$resect, as_mm)
   resect$fins <- resect$fins + fins$resect * (1 - x$justify)
   resect$head <- resect$head + head$resect * (1 - x$justify)
   line <- resect_line(xmm, ymm, id, resect$head, resect$fins, width)

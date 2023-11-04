@@ -45,7 +45,7 @@ place_arrow <- function(
   polygonise(arrow)
 }
 
-resolve_ornament <- function(ornament, length, id, width, type = "head") {
+resolve_ornament <- function(ornament, length, id, width, resect, type = "head") {
 
   if (is.null(ornament)) {
     ans <- list(ornament = NULL, length = rep(0, length(id)),
@@ -59,6 +59,7 @@ resolve_ornament <- function(ornament, length, id, width, type = "head") {
       length = split(length, seq_along(length)),
       id = id,
       width = rle_chop(width, id),
+      resect = resect,
       MoreArgs = list(type = type)
     )
     ornament <- list(
@@ -83,7 +84,10 @@ resolve_ornament <- function(ornament, length, id, width, type = "head") {
     i <- rle_start(id)
   }
   if (is.function(ornament)) {
-    ornament <- Map(ornament, length = as_mm(length), width = width[i])
+    ornament <- Map(
+      ornament,
+      length = as_mm(length), width = width[i], resect = resect
+    )
     resect <- vapply(ornament, attr, numeric(1), "resect")
     angle  <- vapply(ornament, attr, numeric(1), "notch_angle")
     scale  <- rep(1, length(id))

@@ -1,4 +1,33 @@
-
+#' Curves with arrows
+#'
+#' This arrow geom can be used to draw curves from one point to oneanother with
+#' arrow heads or fins.
+#'
+#' @inheritParams ggplot2::geom_curve
+#' @inheritParams geom_arrow
+#'
+#' @return A `<Layer>` ggproto object that can be added to a plot.
+#' @export
+#' @eval ggplot2:::rd_aesthetics("geom", "arrow")
+#' @family arrow geoms
+#'
+#' @examples
+#' curve_data <- data.frame(
+#'   x1 = c(2.62, 1.835),
+#'   x2 = c(3.57, 5.250),
+#'   y1 = c(21.0, 33.9),
+#'   y2 = c(15.0, 10.4),
+#'   group = c("A", "B")
+#' )
+#'
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   geom_arrow_curve(
+#'     aes(x = x1, y = y1, xend = x2, yend = y2,
+#'         colour = group, arrow_head = group),
+#'     data = curve_data,
+#'     curvature = -0.2, length_head = 10
+#'   )
 geom_arrow_curve <- function(
     mapping   = NULL,
     data      = NULL,
@@ -75,6 +104,9 @@ GeomArrowCurve <- ggproto(
     linewidth = 1,
     linewidth_head = NULL,
     linewidth_fins = NULL,
+    arrow_head     = NULL,
+    arrow_fins     = NULL,
+    arrow_mid      = NULL,
     alpha          = NA,
     stroke_colour  = NA,
     stroke_width   = 0.25
@@ -126,9 +158,9 @@ GeomArrowCurve <- ggproto(
       curvature = curvature, angle = angle, ncp = ncp,
       square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
       # Arrow parameters
-      arrow_head  = arrow$head,
-      arrow_fins  = arrow$fins,
-      arrow_mid   = arrow$mid,
+      arrow_head  = data$arrow_head %||% arrow$head,
+      arrow_fins  = data$arrow_fins %||% arrow$fins,
+      arrow_mid   = data$arrow_mid  %||% arrow$mid,
       length_head = length$head,
       length_fins = length$fins,
       length_mid  = length$mid %||% 4,

@@ -66,6 +66,8 @@ but the name makes it clearer what is suitable.</p>
 <span></span>
 <span><span class="fu">arrow_fins_line</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">30</span>, lineend <span class="op">=</span> <span class="st">"butt"</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">arrow_cup</span><span class="op">(</span>lineend <span class="op">=</span> <span class="st">"round"</span>, angle <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">arrow_head_minimal</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">arrow_fins_minimal</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></code></pre></div>
@@ -95,7 +97,7 @@ height of the feathers.</p></dd>
 
 <dt>lineend</dt>
 <dd><p>A <code>character(1)</code>, one of <code>"butt"</code>, <code>"square"</code>, <code>"round"</code> or
-<code>"parallel"</code>.</p></dd>
+<code>"parallel"</code>. For <code>arrow_cup()</code>, only <code>"butt"</code> and <code>"round"</code> are allowed.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -125,6 +127,8 @@ along the line between A and D and <code>outdent</code> is the distance along th
 between B and C.</p></li>
 <li><p><code>arrow_head_line()</code>: A line as an arrow head.</p></li>
 <li><p><code>arrow_fins_line()</code>: A line as an arrow fin.</p></li>
+<li><p><code>arrow_cup()</code>: A curved line some fixed distance away from the point to be resected,
+resembling a 'cup' shape.</p></li>
 <li><p><code>arrow_head_minimal()</code>: This is a 'fake' arrow head who in practice doesn't draw anything, but
 sets the <code>notch_angle</code> attribute such that the arrow shaft is whittled into
 a triangular point.</p></li>

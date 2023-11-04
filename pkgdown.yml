@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   ornaments: ornaments.html
   params: params.html
-last_built: 2023-11-04T19:36Z
+last_built: 2023-11-04T23:26Z
 urls:
   reference: https://teunbrand.github.io/ggarrow/reference
   article: https://teunbrand.github.io/ggarrow/articles

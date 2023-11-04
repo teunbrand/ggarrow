@@ -118,14 +118,17 @@ validate_ornament <- function(ornament, n,
   if (is.null(ornament) || is.function(ornament)) {
     return(ornament)
   }
+  if (is.list(ornament) && length(ornament) == 1L) {
+    ornament <- .subset2(ornament, 1L)
+  }
+  if (is.list(ornament)) {
+    ornament <- lapply(ornament, validate_ornament, n = 1, arg = arg, call = call)
+  }
   if (is.character(ornament)) {
     if (length(unique(ornament)) == 1) {
       ornament <- ornament[1]
     }
     ornament <- arrow_pal(ornament)
-  }
-  if (is.list(ornament) && length(ornament) == 1L) {
-    ornament <- .subset2(ornament, 1L)
   }
   if (is.matrix(ornament)) {
     if (ncol(ornament) != 2) {

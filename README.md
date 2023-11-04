@@ -40,6 +40,7 @@ in contrast to vanilla lines, can have variable widths.
 ``` r
 library(ggarrow)
 #> Loading required package: ggplot2
+#> Warning: package 'ggplot2' was built under R version 4.3.2
 
 p <- ggplot(whirlpool(5), aes(x, y, colour = group)) +
   coord_equal() +
@@ -65,44 +66,21 @@ combining different styles of arrow heads and what are termed ‘arrow
 fins’.
 
 ``` r
-p + 
-  geom_arrow(
-    data = ~ subset(.x, group == 1),
-    linewidth = 2, 
-    arrow_head = arrow_head_wings(),
-    arrow_fins = arrow_fins_feather(),
-    length_fins = unit(10, "mm")
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 2),
-    linewidth = 2, 
-    arrow_head = arrow_head_wings(offset = 20, inset = 70),
-    arrow_fins = arrow_fins_feather(indent = 0, outdent = 0, height = 1)
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 3),
-    linewidth = 2, 
-    arrow_head = arrow_head_line(lineend = "parallel"),
-    arrow_fins = arrow_fins_line()
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 4),
-    linewidth = 2, 
-    arrow_head = arrow_head_line(45, lineend = "round"),
-    arrow_fins = arrow_fins_line(90)
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 4),
-    linewidth = 2, 
-    arrow_head = arrow_head_line(45, lineend = "round"),
-    arrow_fins = arrow_fins_line(90)
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 5),
-    linewidth = 5, 
-    arrow_head = arrow_head_minimal(),
-    arrow_fins = arrow_fins_minimal()
-  )
+p + geom_arrow(aes(arrow_head = group, arrow_fins = group), linewidth = 2) +
+  scale_arrow_head_discrete(values = list(
+    "head_wings",
+    arrow_head_wings(offset = 20, inset = 70),
+    arrow_head_line(lineend = "parallel"),
+    arrow_head_line(45, lineend = "round"),
+    "head_minimal"
+  ), guide = "none") +
+  scale_arrow_fins_discrete(values = list(
+    "fins_feather",
+    arrow_fins_feather(indent = 0, outdent = 0, height = 1),
+    "fins_line",
+    arrow_fins_line(90),
+    "fins_minimal"
+  ), guide = "none")
 ```
 
 <img src="man/figures/README-show_ornaments-1.png" width="80%" style="display: block; margin: auto;" />
@@ -145,8 +123,12 @@ only one outside {ggplot2}’s imports.
 ## Related work
 
 Of course, the {grid} package, on which {ggplot2} is build upon, offers
-some options for arrows. Both the
-[{gggenes}](https://wilkox.org/gggenes/) and
+some options for arrows. The
+[{arrowheadr}](https://github.com/wjschne/arrowheadr) package provides
+some great extensions for arrowheads. The
+[{vwlines}](https://cran.r-project.org/package=vwline) package that
+handles variable widths lines much more graciously than this package.
+Both the [{gggenes}](https://wilkox.org/gggenes/) and
 [{gggenomes}](https://thackl.github.io/gggenomes/) packages use arrows
 in a domain-specific context. For vector field visualisation, there is
 the [{ggquiver}](http://pkg.mitchelloharawild.com/ggquiver/) package.

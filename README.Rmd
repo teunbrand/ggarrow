@@ -59,45 +59,22 @@ p + geom_arrow(arrow_mid = arrow_head_wings(), mid_place = c(0.25, 0.5, 0.75))
 You can also tweak what the arrows should look like.
 The example below is a bit verbose, but gives an impression of the available options by combining different styles of arrow heads and what are termed 'arrow fins'.
 
-```{r show_ornaments}
-p + 
-  geom_arrow(
-    data = ~ subset(.x, group == 1),
-    linewidth = 2, 
-    arrow_head = arrow_head_wings(),
-    arrow_fins = arrow_fins_feather(),
-    length_fins = unit(10, "mm")
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 2),
-    linewidth = 2, 
-    arrow_head = arrow_head_wings(offset = 20, inset = 70),
-    arrow_fins = arrow_fins_feather(indent = 0, outdent = 0, height = 1)
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 3),
-    linewidth = 2, 
-    arrow_head = arrow_head_line(lineend = "parallel"),
-    arrow_fins = arrow_fins_line()
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 4),
-    linewidth = 2, 
-    arrow_head = arrow_head_line(45, lineend = "round"),
-    arrow_fins = arrow_fins_line(90)
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 4),
-    linewidth = 2, 
-    arrow_head = arrow_head_line(45, lineend = "round"),
-    arrow_fins = arrow_fins_line(90)
-  ) +
-  geom_arrow(
-    data = ~ subset(.x, group == 5),
-    linewidth = 5, 
-    arrow_head = arrow_head_minimal(),
-    arrow_fins = arrow_fins_minimal()
-  )
+```{r, show_ornaments}
+p + geom_arrow(aes(arrow_head = group, arrow_fins = group), linewidth = 2) +
+  scale_arrow_head_discrete(values = list(
+    "head_wings",
+    arrow_head_wings(offset = 20, inset = 70),
+    arrow_head_line(lineend = "parallel"),
+    arrow_head_line(45, lineend = "round"),
+    "head_minimal"
+  ), guide = "none") +
+  scale_arrow_fins_discrete(values = list(
+    "fins_feather",
+    arrow_fins_feather(indent = 0, outdent = 0, height = 1),
+    "fins_line",
+    arrow_fins_line(90),
+    "fins_minimal"
+  ), guide = "none")
 ```
 
 There are some other geoms that mimic bread-and-butter ggplot2 layers, such as `geom_arrow_segment()` and `geom_arrow_curve()`, that add the same arrow functionality on top of the `geom_segment()` and `geom_curve()` layers.
@@ -127,6 +104,8 @@ The {ggarrow} package largely takes on the same dependencies as {ggplot2} to kee
 ## Related work
 
 Of course, the {grid} package, on which {ggplot2} is build upon, offers some options for arrows.
+The [{arrowheadr}](https://github.com/wjschne/arrowheadr) package provides some great extensions for arrowheads.
+The [{vwlines}](https://cran.r-project.org/package=vwline) package that handles variable widths lines much more graciously than this package.
 Both the [{gggenes}](https://wilkox.org/gggenes/) and [{gggenomes}](https://thackl.github.io/gggenomes/) packages use arrows in a domain-specific context.
 For vector field visualisation, there is the [{ggquiver}](http://pkg.mitchelloharawild.com/ggquiver/) package.
 The [{ggarchery}](https://github.com/mdhall272/ggarchery) package also provides extended options for the `geom_segment()` parametrisation of lines.

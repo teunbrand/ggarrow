@@ -29,6 +29,11 @@ The function `grob_arrow()` creates a grid grob that largely mimics the
 * The line is treated as a polygon, so `fill` controls the colour of the line,
   whereas `colour` controls the colour of an outline.
   
+# Arrow scales
+
+The `arrow_{head/fins/mid}` have been promoted from parameters to aesthetics.
+Correspondingly, there are now 3 discrete scales for these 3 aesthetics.
+
 ## Other
 
 An `annotate_arrow()` layer to specifically do arrow annotations.

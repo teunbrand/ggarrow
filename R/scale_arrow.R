@@ -1,3 +1,5 @@
+# Discrete scales ---------------------------------------------------------
+
 #' Discrete arrow scales
 #'
 #' These scales can map discrete input to various sorts of arrow shapes.
@@ -74,6 +76,126 @@ scale_arrow_mid_discrete <- function(
   )
 }
 
+# Continuous scales -------------------------------------------------------
+
+#' Continuous arrow scales
+#'
+#' These scales can map continuous input to an argument of an arrow generator.
+#' The arrow head, arrow fins and middle arrows have separate scales and
+#' by default use different generators.
+#'
+#' @inheritParams ggplot2::continuous_scale
+#' @param generator A `<function>` that can create an arrow ornament, such
+#'   as [ornamantation](arrow_ornament) functions.
+#' @param map_arg An argument of the `generator` function to map input to.
+#' @param other_args Additional, fixed, arguments to pass to the `generator`.
+#' @param range The range that `generator`'s `map_arg` may take
+#'
+#' @return A `<Scale>` that can be added to a plot.
+#' @name continuous_arrow_scales
+#' @export
+#'
+#' @examples
+#' base <- ggplot(whirlpool(5), aes(x, y, colour = group)) +
+#'   coord_fixed()
+#'
+#' p <- base +
+#'   geom_arrow(
+#'     aes(arrow_head = as.integer(group)),
+#'     length_head = 10
+#'   )
+#'
+#' # A typical scale
+#' p + scale_arrow_head_continuous()
+#'
+#' # Change other arguments passed to the generator
+#' p + scale_arrow_head_continuous(other_args = list(inset = 90))
+#'
+#' # Using another argument of the generator
+#' p + scale_arrow_head_continuous(name = "inset",  map_arg = "inset")
+#'
+#' # Using a different generator
+#' p + scale_arrow_head_continuous(
+#'   generator = arrow_head_line,
+#'   map_arg = "angle",
+#'   range = c(20, 80)
+#' )
+#'
+#' # The same goes for other arrow aesthetics, but the `generator()` might differ.
+#' base +
+#'   geom_arrow(
+#'     aes(arrow_fins = as.integer(group), arrow_mid = as.integer(group)),
+#'     length_fins = 10, arrow_head = NULL
+#'   ) +
+#'   scale_arrow_fins_continuous(map_arg = "height", range = c(0.1, 1)) +
+#'   scale_arrow_mid_continuous(map_arg = "inset")
+scale_arrow_head_continuous <- function(
+    name = waiver(),
+    breaks = waiver(),
+    labels = waiver(),
+    limits = NULL,
+    generator  = arrow_head_wings,
+    map_arg    = "offset",
+    other_args = list(),
+    range = c(10, 80),
+    trans = "identity",
+    guide = "legend"
+) {
+  continuous_scale(
+    "arrow_head", "arrowhead",
+    palette = arg_as_pal(generator, map_arg, other_args, range, caller_arg(generator)),
+    name = name, breaks = breaks, labels = labels, limits = limits,
+    trans = trans, guide = guide
+  )
+}
+
+#' @export
+#' @rdname continuous_arrow_scales
+scale_arrow_fins_continuous <- function(
+    name = waiver(),
+    breaks = waiver(),
+    labels = waiver(),
+    limits = NULL,
+    generator  = arrow_fins_feather,
+    map_arg    = "indent",
+    other_args = list(),
+    range = c(0, 1),
+    trans = "identity",
+    guide = "legend"
+) {
+  continuous_scale(
+    "arrow_fins", "arrowfins",
+    palette = arg_as_pal(generator, map_arg, other_args, range, caller_arg(generator)),
+    name = name, breaks = breaks, labels = labels, limits = limits,
+    trans = trans, guide = guide
+  )
+}
+
+#' @export
+#' @rdname continuous_arrow_scales
+scale_arrow_mid_continuous <- function(
+    name = waiver(),
+    breaks = waiver(),
+    labels = waiver(),
+    limits = NULL,
+    generator  = arrow_head_wings,
+    map_arg    = "offset",
+    other_args = list(),
+    range = c(10, 80),
+    trans = "identity",
+    guide = "legend"
+) {
+  continuous_scale(
+    "arrow_mid", "arrowhead",
+    palette = arg_as_pal(generator, map_arg, other_args, range, caller_arg(generator)),
+    name = name, breaks = breaks, labels = labels, limits = limits,
+    trans = trans, guide = guide
+  )
+}
+
+# Helpers -----------------------------------------------------------------
+
+# Mirror of un-exported `ggplot2:::manual_scale()`.
 new_manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
                              limits = NULL, call = caller_call()) {
 
@@ -126,6 +248,55 @@ new_manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
     args <- c(args, list(scale_name = "arrow_scale"))
   }
   inject(discrete_scale(!!!args))
+}
+
+arg_as_pal <- function(generator, map_arg, other_args,
+                       range = c(0, 1), gen_name,
+                       call = caller_env()) {
+  if (!is.function(generator)) {
+    cli::cli_abort("{.arg generator} must be a {.cls function}.", call = call)
+  }
+  arg_names <- fn_fmls_names(generator)
+  if (length(arg_names) == 0) {
+    cli::cli_abort("{.fn {gen_name}} must have arguments.", call = call)
+  }
+  if (!map_arg %in% arg_names) {
+    cli::cli_abort(
+      "{.arg {map_arg}} must be an argument to {.fn {gen_name}}.",
+      call = call
+    )
+  }
+  if (!"..." %in% arg_names) {
+    extra <- setdiff(names(other_args), arg_names)
+    other_args <- other_args[intersect(names(other_args), arg_names)]
+    if (length(extra) > 0) {
+      cli::cli_warn(c(
+        "{.arg other_args} has unknown arguments of {.fn {gen_name}}.",
+        i = "{.and {.field {extra}}} {?has/have} been dropped."
+      ))
+    }
+  }
+  if (!is.numeric(range) || length(range) != 2 || any(!is.finite(range))) {
+    cli::cli_abort(
+      "{.arg range} must be a finite numeric vector of length 2.",
+      call = call
+    )
+  }
+  force(other_args)
+
+  function(x) {
+    if (length(x) == 0) {
+      return(NULL)
+    }
+    x <- rescale(x, to = range, from = c(0, 1))
+    lapply(x, function(input) {
+      exec(
+        generator,
+        !!map_arg := input,
+        !!!other_args
+      )
+    })
+  }
 }
 
 arrow_pal <- function(x) {
@@ -225,3 +396,5 @@ validate_matrix_list <- function(
   }
   cli::cli_abort(msg, call = call)
 }
+
+

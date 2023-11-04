@@ -106,6 +106,9 @@ GeomArrowSegment <- ggproto(
     linewidth = 1,
     linewidth_head = NULL,
     linewidth_fins = NULL,
+    arrow_head     = NULL,
+    arrow_fins     = NULL,
+    arrow_mid      = NULL,
     alpha          = NA,
     stroke_colour  = NA,
     stroke_width   = 0.25

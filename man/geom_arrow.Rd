@@ -140,6 +140,9 @@ at the beginning of a line.
 \item \strong{\code{x}}
 \item \strong{\code{y}}
 \item \code{alpha}
+\item \code{arrow_fins}
+\item \code{arrow_head}
+\item \code{arrow_mid}
 \item \code{colour}
 \item \code{group}
 \item \code{linewidth}

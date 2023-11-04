@@ -59,6 +59,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() +
 \seealso{
 Other arrow geoms: 
 \code{\link{geom_arrow_chain}()},
+\code{\link{geom_arrow_curve}()},
 \code{\link{geom_arrow_segment}()},
 \code{\link{geom_arrow}()}
 }

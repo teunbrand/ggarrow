@@ -139,6 +139,9 @@ directed manner.
 \item \strong{\code{y}}
 \item \strong{\code{xend} \emph{or} \code{yend}}
 \item \code{alpha}
+\item \code{arrow_fins}
+\item \code{arrow_head}
+\item \code{arrow_mid}
 \item \code{colour}
 \item \code{group}
 \item \code{linewidth}
@@ -188,6 +191,7 @@ p + geom_arrow_chain(linewidth_fins = 0, linewidth_head = 3)
 \seealso{
 Other arrow geoms: 
 \code{\link{annotate_arrow}()},
+\code{\link{geom_arrow_curve}()},
 \code{\link{geom_arrow_segment}()},
 \code{\link{geom_arrow}()}
 }

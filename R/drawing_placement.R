@@ -8,6 +8,9 @@ place_arrow <- function(
   # Recycle size
   size  <- rep(size, length.out = length(id))
   valid <- rle_valid(id)
+  if (is.list(arrow)) {
+    valid <- valid & lengths(arrow) > 0
+  }
 
   # If there are invalid lines, try again without these
   if (any(!valid)) {
@@ -16,6 +19,9 @@ place_arrow <- function(
         return(NULL)
       }
       keep  <- rep(valid, field(id, "length"))
+      if (is.list(arrow)) {
+        arrow <- arrow[valid]
+      }
       retry <- place_arrow(
         arrow = arrow, x = x[keep], y = y[keep],
         id = id[valid], size = size[valid], angle = angle[valid],
@@ -43,7 +49,7 @@ resolve_ornament <- function(ornament, length, id, width, type = "head") {
 
   if (is.null(ornament)) {
     ans <- list(ornament = NULL, length = rep(0, length(id)),
-                resect = rep(0, length(id)), angle = NULL)
+                resect = rep(0, length(id)), angle = NA, scale = NA)
     return(ans)
   }
   if (is.list(ornament)) {
@@ -101,18 +107,18 @@ resolve_inner <- function(
     return(ornament)
   }
   if (is.list(ornament)) {
-    # browser()
     ornament <- Map(
       resolve_inner,
       ornament = ornament,
-      length = rep_len(length, length(ornament)),
+      length = split(rep_len(length, length(ornament)), seq_along(ornament)),
       x = rle_chop(x, id),
       y = rle_chop(y, id),
       id = id,
       width = rle_chop(width, id),
       MoreArgs = list(placement = placement)
     )
-    ornament <- unlist(ornament, recursive = FALSE)
+    i <- lengths(ornament) > 0
+    ornament[i] <- unlist(ornament[i], recursive = FALSE)
     return(ornament)
   }
 
@@ -144,7 +150,7 @@ resolve_inner <- function(
     arc   <- linear_interpol(arc_length, place_idx, d)
 
     if (is.function(ornament)) {
-      ornament <- Map(ornament, length = length, width = width)
+      ornament <- Map(ornament, length = as_mm(length), width = width)
       length   <- vapply(ornament, attr, numeric(1), "resect")
       ornament <- lapply(ornament, function(o) {
         o[, "x"] <- o[, 'x'] - 0.5 * (attr(o[, 'x'], "resect") %||% 1)

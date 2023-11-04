@@ -15,7 +15,7 @@
 #' @param indent,outdent A `numeric(1)` giving the fraction of the feather
 #'   feather length to offset the notch and the end respectively.
 #' @param lineend A `character(1)`, one of `"butt"`, `"square"`, `"round"` or
-#'   `"parallel"`.
+#'   `"parallel"`. For `arrow_cup()`, only `"butt"` and `"round"` are allowed.
 #'
 #' @details
 #' The convention for these functions is that the arrow shaft is fused to the
@@ -111,7 +111,7 @@ arrow_head_line <- function(angle = 30, lineend = "butt") {
   angle <- angle * .deg2rad
   lineend  <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
 
-  function(length, width) {
+  function(length, width, ...) {
 
     if (lineend == "square") {
       length <- length + 0.5 * width
@@ -160,7 +160,7 @@ arrow_fins_line <- function(angle = 30, lineend = "butt") {
   angle <- pi + angle * .deg2rad
   lineend  <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
 
-  function(length, width) {
+  function(length, width, ...) {
 
     if (lineend == "square") {
       length <- length + 0.5 * width
@@ -200,6 +200,57 @@ arrow_fins_line <- function(angle = 30, lineend = "butt") {
     ans[, "x"] <- ans[, "x"] - 1
     attr(ans, "length") <- 1
 
+    ans
+  }
+}
+
+#' @export
+#' @describeIn arrow_ornaments
+#' A curved line some fixed distance away from the point to be resected,
+#' resembling a 'cup' shape.
+arrow_cup <- function(lineend = "round", angle = NULL) {
+  if (!is.null(angle)) {
+    angle <- angle * .deg2rad
+  }
+  arg_match0(lineend, c("butt", "round"))
+  force(angle)
+
+  function(length, width, resect, ...) {
+
+    if (resect == 0) {
+      ans <- cbind(x = c(0, 0), y = c(1, -1))
+      attr(ans, "resect") <- resect
+      attr(ans, "notch_angle") <- .halfpi
+      return(ans)
+    }
+
+    angle <- angle %||% (length / resect)
+
+
+    theta <- seq(-0.5 * angle, 0.5 * angle, length.out = 60)
+
+    r <- resect + c(0, 1) * width
+
+    x <- resect - outer(cos(theta), r)
+    y <- outer(sin(theta), r)
+
+    if (lineend == "round") {
+      cx <- (x[1, 1] + x[1, 2]) / 2
+      cy <- (y[1, 1] + y[1, 2]) / 2
+      norm <- -0.5 * angle - .halfpi
+      norm <- seq(norm + pi, norm, length.out = 20)[-c(1, 20)]
+
+      cx <- cx + cos(norm) * width * 0.5
+      cy <- cy + sin(norm) * width * 0.5
+    } else {
+      cx <- cy <- numeric()
+    }
+    x <- c(x[, 1],  cx, rev(x[, 2]), rev(cx))
+    y <- c(y[, 1], -cy, rev(y[, 2]), rev(cy))
+
+    ans <- cbind(x = x, y = y)
+    attr(ans, "notch_angle") <- .halfpi
+    attr(ans, "resect") <- 0
     ans
   }
 }

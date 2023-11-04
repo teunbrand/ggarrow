@@ -6,6 +6,7 @@
 \alias{arrow_fins_feather}
 \alias{arrow_head_line}
 \alias{arrow_fins_line}
+\alias{arrow_cup}
 \alias{arrow_head_minimal}
 \alias{arrow_fins_minimal}
 \title{Arrow ornament functions}
@@ -17,6 +18,8 @@ arrow_fins_feather(indent = 0.3, outdent = indent, height = 0.5)
 arrow_head_line(angle = 30, lineend = "butt")
 
 arrow_fins_line(angle = 30, lineend = "butt")
+
+arrow_cup(lineend = "round", angle = NULL)
 
 arrow_head_minimal(angle = 45)
 
@@ -36,7 +39,7 @@ feather length to offset the notch and the end respectively.}
 height of the feathers.}
 
 \item{lineend}{A \code{character(1)}, one of \code{"butt"}, \code{"square"}, \code{"round"} or
-\code{"parallel"}.}
+\code{"parallel"}. For \code{arrow_cup()}, only \code{"butt"} and \code{"round"} are allowed.}
 }
 \value{
 A \verb{<matrix[n, 2]>} with \code{x} and \code{y} columns describing a polygon.
@@ -68,6 +71,9 @@ between B and C.
 \item \code{arrow_head_line()}: A line as an arrow head.
 
 \item \code{arrow_fins_line()}: A line as an arrow fin.
+
+\item \code{arrow_cup()}: A curved line some fixed distance away from the point to be resected,
+resembling a 'cup' shape.
 
 \item \code{arrow_head_minimal()}: This is a 'fake' arrow head who in practice doesn't draw anything, but
 sets the \code{notch_angle} attribute such that the arrow shaft is whittled into

@@ -25,8 +25,8 @@ draw_key_arrow <- function(data, params, size) {
   grob_arrow(
     x = unit(c(0.1, 0.9), "npc"),
     y = unit(c(0.1, 0.9), "npc"),
-    arrow_head  = params$arrow$head,
-    arrow_fins  = params$arrow$fins,
+    arrow_head  = data$arrow_head %||% params$arrow$head,
+    arrow_fins  = data$arrow_fins %||% params$arrow$fins,
     length_head = length_head,
     length_fins = length_fins,
     shaft_width = width,

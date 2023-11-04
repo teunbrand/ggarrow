@@ -20,7 +20,7 @@ lower_ascii <- paste0(letters, collapse = "")
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
   if (!is_bool(na.rm)) {
-    cli::cli_abort("{.arg na.rm} must be a logical scalar.")
+    abort("{.arg na.rm} must be a logical scalar.")
   }
 
   missing <- detect_missing(df, vars, finite)
@@ -124,10 +124,10 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
 
   pal <- function(n) {
     if (n > length(values)) {
-      cli::cli_abort(paste0(
+      abort(
         "Insufficient values in manual scale. ",
         "{n} needed but only {length(values)} provided."
-      ))
+      )
     }
     values
   }

@@ -141,10 +141,10 @@ validate_ornament <- function(ornament, n,
   # Check matrices
   if (is.matrix(ornament)) {
     if (ncol(ornament) != 2) {
-      cli::cli_abort("{.arg {arg}} must have 2 columns.", call = call)
+      abort("{.arg {arg}} must have 2 columns.", call = call)
     }
     if (!typeof(ornament) %in% c("integer", "double")) {
-      cli::cli_abort("{.arg {arg}} matrix must be {.cls numeric}.")
+      abort("{.arg {arg}} matrix must be {.cls numeric}.", call = call)
     }
     if (is.null(colnames(ornament))) {
       colnames(ornament) <- c("x", "y")
@@ -156,9 +156,9 @@ validate_ornament <- function(ornament, n,
     return(ornament)
   }
   if (n == 1) {
-    cli::cli_abort("{.arg {arg}} must have length 1.", call = call)
+    abort("{.arg {arg}} must have length 1.", call = call)
   }
-  cli::cli_abort("{.arg {arg}} must have length 1 or {n}", call = call)
+  abort("{.arg {arg}} must have length 1 or {n}", call = call)
 }
 
 # Draw method -------------------------------------------------------------

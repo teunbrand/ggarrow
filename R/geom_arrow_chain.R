@@ -166,11 +166,11 @@ GeomArrowChain <- ggproto(
     }, logical(1))
 
     if (!all(constant)) {
-      cli::cli_abort(paste0(
+      abort(
         "{.fn {snake_class(self)}} can't have varying {.field colour}, ",
         "{.field alpha}, {.field stroke_colour}, and/or {.field stroke_width} ",
         "along the line."
-      ))
+      )
     }
 
     n <- nrow(data)

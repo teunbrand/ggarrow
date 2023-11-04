@@ -199,14 +199,14 @@ arg_as_pal <- function(generator, map_arg, other_args,
                        range = c(0, 1), gen_name,
                        call = caller_env()) {
   if (!is.function(generator)) {
-    cli::cli_abort("{.arg generator} must be a {.cls function}.", call = call)
+    abort("{.arg generator} must be a {.cls function}.", call = call)
   }
   arg_names <- fn_fmls_names(generator)
   if (length(arg_names) == 0) {
-    cli::cli_abort("{.fn {gen_name}} must have arguments.", call = call)
+    abort("{.fn {gen_name}} must have arguments.", call = call)
   }
   if (!map_arg %in% arg_names) {
-    cli::cli_abort(
+    abort(
       "{.arg {map_arg}} must be an argument to {.fn {gen_name}}.",
       call = call
     )
@@ -222,7 +222,7 @@ arg_as_pal <- function(generator, map_arg, other_args,
     }
   }
   if (!is.numeric(range) || length(range) != 2 || any(!is.finite(range))) {
-    cli::cli_abort(
+    abort(
       "{.arg range} must be a finite numeric vector of length 2.",
       call = call
     )
@@ -264,7 +264,7 @@ arrow_pal <- function(x) {
       }
     }
     if (!is.function(fun)) {
-      cli::cli_abort("Cannot find function {.fun {pattern}} to draw arrows.")
+      abort("Cannot find function {.fun {pattern}} to draw arrows.")
     }
     fun()
   })
@@ -281,7 +281,7 @@ validate_matrix_list <- function(
     list <- list(list)
   }
   if (!is.list(list)) {
-    cli::cli_abort("{.arg {x_arg}} must be a {.cls list}.", call = call)
+    abort("{.arg {x_arg}} must be a {.cls list}.", call = call)
   }
 
   not_matrix <- integer()
@@ -339,7 +339,7 @@ validate_matrix_list <- function(
       "{cli::qty(n_not_typeof)}{?does/do} not have the type {.cls {typeof}}."
     ))
   }
-  cli::cli_abort(msg, call = call)
+  abort(msg, call = call)
 }
 
 

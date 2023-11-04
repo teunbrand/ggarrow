@@ -64,7 +64,7 @@ annotate_arrow <- function(
   if (length(n) > 1L) {
     bad <- lengths != 1L
     details <- paste0(names(aesthetics)[bad], " (", lengths[bad], ")")
-    cli::cli_abort("Unequal parameter lengths: {details}")
+    abort("Unequal parameter lengths: {details}")
   }
   args <- list2(...)
 

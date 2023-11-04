@@ -46,6 +46,31 @@ resolve_ornament <- function(ornament, length, id, width, type = "head") {
                 resect = rep(0, length(id)), angle = NULL)
     return(ans)
   }
+  if (is.list(ornament)) {
+    ornament <- Map(
+      resolve_ornament,
+      ornament = ornament,
+      length = split(length, seq_along(length)),
+      id = id,
+      width = rle_chop(width, id),
+      MoreArgs = list(type = type)
+    )
+    ornament <- list(
+      ornament = lapply(ornament, .subset2, "ornament"),
+      length   = vapply(ornament, .subset2, numeric(1), "length"),
+      scale    = vapply(ornament, .subset2, numeric(1), "scale"),
+      resect   = vapply(ornament, .subset2, numeric(1), "resect"),
+      angle    = vapply(ornament, .subset2, numeric(1), "angle")
+    )
+    ornament$ornament <- lapply(ornament$ornament, function(x) {
+      if (is.list(x) && length(x) == 1) {
+        return(.subset2(x, 1))
+      }
+      x
+    })
+    return(ornament)
+  }
+
   if (type == "head") {
     i <- rle_end(id)
   } else {

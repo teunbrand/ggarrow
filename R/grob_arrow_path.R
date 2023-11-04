@@ -84,8 +84,11 @@ grob_arrow <- function(
   force(arrow_head)
 
   id <- validate_id(id, id.lengths, length(x))
-
   resect <- validate_resect(resect, resect_head, resect_fins, default.units, id)
+  n <- length(id)
+  arrow_head <- validate_ornament(arrow_head, n)
+  arrow_fins <- validate_ornament(arrow_fins, n)
+  arrow_mid  <- validate_ornament(arrow_mid,  n)
 
   grid::gTree(
     x = as_unit(x, default.units),
@@ -107,6 +110,39 @@ grob_arrow <- function(
     vp   = vp,
     cl   = "arrow_path"
   )
+}
+
+validate_ornament <- function(ornament, n,
+                              arg = caller_arg(ornament),
+                              call = caller_env()) {
+  if (is.null(ornament) || is.function(ornament)) {
+    return(ornament)
+  }
+  if (is.character(ornament)) {
+    if (length(unique(ornament)) == 1) {
+      ornament <- ornament[1]
+    }
+    ornament <- arrow_pal(ornament)
+  }
+  if (is.list(ornament) && length(ornament) == 1L) {
+    ornament <- .subset2(ornament, 1L)
+  }
+  if (is.matrix(ornament)) {
+    if (ncol(ornament) != 2) {
+      cli::cli_abort("{.arg {arg}} must have 2 columns.", call = call)
+    }
+    if (!typeof(ornament) %in% c("integer", "double")) {
+      cli::cli_abort("{.arg {arg}} matrix must be {.cls numeric}.")
+    }
+    return(ornament)
+  }
+  if (length(ornament) %in% c(1, n)) {
+    return(ornament)
+  }
+  if (n == 1) {
+    cli::cli_abort("{.arg {arg}} must have length 1.", call = call)
+  }
+  cli::cli_abort("{.arg {arg}} must have length 1 or {n}", call = call)
 }
 
 # Draw method -------------------------------------------------------------

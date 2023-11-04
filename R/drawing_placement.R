@@ -100,6 +100,22 @@ resolve_inner <- function(
   if (is.null(ornament)) {
     return(ornament)
   }
+  if (is.list(ornament)) {
+    # browser()
+    ornament <- Map(
+      resolve_inner,
+      ornament = ornament,
+      length = rep_len(length, length(ornament)),
+      x = rle_chop(x, id),
+      y = rle_chop(y, id),
+      id = id,
+      width = rle_chop(width, id),
+      MoreArgs = list(placement = placement)
+    )
+    ornament <- unlist(ornament, recursive = FALSE)
+    return(ornament)
+  }
+
   start     <- rle_start(id)
   end       <- rle_end(id)
   id_length <- field(id, "length")

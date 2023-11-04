@@ -1,10 +1,39 @@
+test_that("continuous arrow scales throw correct errors", {
+
+  f <- "text"
+  expect_error(
+    scale_arrow_head_continuous(generator = f),
+    "must be a"
+  )
+  f <- function() "text"
+  expect_error(
+    scale_arrow_fins_continuous(generator = f),
+    "must have arguments"
+  )
+  f <- function(a, b) a + b
+  expect_error(
+    scale_arrow_mid_continuous(generator = f, map_arg = "x"),
+    "must be an argument"
+  )
+  expect_warning(
+    scale_arrow_head_continuous(
+      generator = f, map_arg = "a", other_args = list(foo = "bar")
+    ),
+    "has unknown arguments"
+  )
+  expect_error(
+    scale_arrow_head_continuous(range = c(-Inf, NA)),
+    "must be a finite numeric vector"
+  )
+})
+
 df <- data.frame(
   x = c(0, 1, 0, 1, 0, 1),
   y = c(1, 1, 2, 2, 3, 3),
   group = c("A", "A", "B", "B", "C", "C")
 )
 
-test_that("arrow_head scales work", {
+test_that("discrete arrow_head scales work", {
   p <- ggplot(df, aes(x, y, colour = group)) +
     geom_arrow(
       aes(arrow_head = group),
@@ -15,10 +44,10 @@ test_that("arrow_head scales work", {
       values = list("fins_feather", NULL, arrow_head_wings())
     )
 
-  vdiffr::expect_doppelganger("arrow_head scale", p)
+  vdiffr::expect_doppelganger("discrete arrow_head scale", p)
 })
 
-test_that("arrow_fins scales work", {
+test_that("discrete arrow_fins scales work", {
 
   p <- ggplot(df, aes(x, y, colour = group)) +
     geom_arrow(
@@ -30,10 +59,10 @@ test_that("arrow_fins scales work", {
       values = list("head_wings", NULL, arrow_fins_feather())
     )
 
-  vdiffr::expect_doppelganger("arrow_fins scale", p)
+  vdiffr::expect_doppelganger("discrete arrow_fins scale", p)
 })
 
-test_that("arrow_mid scales work", {
+test_that("discrete arrow_mid scales work", {
 
   p <- ggplot(df, aes(x, y, colour = group)) +
     geom_arrow(
@@ -45,6 +74,52 @@ test_that("arrow_mid scales work", {
       values = list("head_wings", NULL, arrow_head_line())
     )
 
-  vdiffr::expect_doppelganger("arrow_mid scale", p)
+  vdiffr::expect_doppelganger("discrete arrow_mid scale", p)
 })
 
+test_that("continuous arrow_head scales work", {
+  p <- ggplot(df, aes(x, y, colour = group)) +
+    geom_arrow(
+      aes(arrow_head = y),
+      length_head = unit(1, "cm"),
+      linewidth = 3
+    ) +
+    scale_arrow_head_continuous(
+      generator = arrow_head_line, map_arg = "angle",
+      range = c(30, 60)
+    )
+
+  vdiffr::expect_doppelganger("continuous arrow_head scale", p)
+})
+
+test_that("continuous arrow_fins scales work", {
+
+  p <- ggplot(df, aes(x, y, colour = group)) +
+    geom_arrow(
+      aes(arrow_fins = y),
+      length_fins = unit(1, "cm"),
+      linewidth = 3, arrow_head = NULL
+    ) +
+    scale_arrow_fins_continuous(
+      generator = arrow_fins_line, map_arg = "angle",
+      range = c(30, 60)
+    )
+
+  vdiffr::expect_doppelganger("continuous arrow_fins scale", p)
+})
+
+test_that("continuous arrow_mid scales work", {
+
+  p <- ggplot(df, aes(x, y, colour = group)) +
+    geom_arrow(
+      aes(arrow_mid = y),
+      length_mid = unit(1, "cm"),
+      linewidth = 3, arrow_head = NULL
+    ) +
+    scale_arrow_mid_continuous(
+      generator = arrow_fins_feather, map_arg = "height",
+      range = c(0.3, 0.9)
+    )
+
+  vdiffr::expect_doppelganger("continuous arrow_mid scale", p)
+})

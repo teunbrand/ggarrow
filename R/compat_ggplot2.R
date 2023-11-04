@@ -1,4 +1,4 @@
-
+# nocov start
 data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 
 unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
@@ -87,3 +87,58 @@ rename <- function(x, replace) {
   names(x)[match(previous, current)] <- as.vector(replace)
   x
 }
+
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
+                         limits = NULL, call = caller_call()) {
+
+  call <- call %||% current_call()
+  if (is_missing(values)) {
+    values <- NULL
+  } else {
+    force(values)
+  }
+
+  if (is.null(limits) && !is.null(names(values))) {
+    force(aesthetic)
+    limits <- function(x) {
+      x <- intersect(x, c(names(values), NA)) %||% character()
+      if (length(x) < 1) {
+        cli::cli_warn(paste0(
+          "No shared levels found between {.code names(values)} of the manual ",
+          "scale and the data's {.field {aesthetic}} values."
+        ))
+      }
+      x
+    }
+  }
+
+  if (is.vector(values) && is.null(names(values))
+      && !inherits(breaks, "waiver") && !is.null(breaks) &&
+      !is.function(breaks)) {
+    if (length(breaks) <= length(values)) {
+      names(values) <- breaks
+    } else {
+      names(values) <- breaks[1:length(values)]
+    }
+  }
+
+  pal <- function(n) {
+    if (n > length(values)) {
+      cli::cli_abort(paste0(
+        "Insufficient values in manual scale. ",
+        "{n} needed but only {length(values)} provided."
+      ))
+    }
+    values
+  }
+
+  args <- list2(aesthetics = aesthetic, palette = pal, breaks = breaks,
+                limits = limits, ...)
+  if ("call" %in% fn_fmls_names(discrete_scale)) {
+    args <- c(args, list(call = call))
+  } else {
+    args <- c(args, list(scale_name = "arrow_scale"))
+  }
+  inject(discrete_scale(!!!args))
+}
+# nocov end

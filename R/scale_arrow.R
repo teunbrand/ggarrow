@@ -46,7 +46,7 @@ scale_arrow_head_discrete <- function(
   values = NULL, aesthetics = "arrow_head", ...
 ) {
   values <- values %||% c("head_wings", "head_line", "head_minimal")
-  new_manual_scale(
+  manual_scale(
     aesthetic = aesthetics, values = values,
     ...
   )
@@ -58,7 +58,7 @@ scale_arrow_fins_discrete <- function(
   values = NULL, aesthetics = "arrow_fins", ...
 ) {
   values <- values %||% c("fins_feather", "fins_line", "fins_minimal")
-  new_manual_scale(
+  manual_scale(
     aesthetic = aesthetics, values = values,
     ...
   )
@@ -70,7 +70,7 @@ scale_arrow_mid_discrete <- function(
   values = NULL, aesthetics = "arrow_mid", ...
 ) {
   values <- values %||% c("head_wings", "head_line", "fins_feather", "fins_line")
-  new_manual_scale(
+  manual_scale(
     aesthetic = aesthetics, values = values,
     ...
   )
@@ -195,61 +195,6 @@ scale_arrow_mid_continuous <- function(
 
 # Helpers -----------------------------------------------------------------
 
-# Mirror of un-exported `ggplot2:::manual_scale()`.
-new_manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
-                             limits = NULL, call = caller_call()) {
-
-  call <- call %||% current_call()
-  if (is_missing(values)) {
-    values <- NULL
-  } else {
-    force(values)
-  }
-
-  if (is.null(limits) && !is.null(names(values))) {
-    force(aesthetic)
-    limits <- function(x) {
-      x <- intersect(x, c(names(values), NA)) %||% character()
-      if (length(x) < 1) {
-        cli::cli_warn(paste0(
-          "No shared levels found between {.code names(values)} of the manual ",
-          "scale and the data's {.field {aesthetic}} values."
-        ))
-      }
-      x
-    }
-  }
-
-  if (is.vector(values) && is.null(names(values))
-      && !inherits(breaks, "waiver") && !is.null(breaks) &&
-      !is.function(breaks)) {
-    if (length(breaks) <= length(values)) {
-      names(values) <- breaks
-    } else {
-      names(values) <- breaks[1:length(values)]
-    }
-  }
-
-  pal <- function(n) {
-    if (n > length(values)) {
-      cli::cli_abort(paste0(
-        "Insufficient values in manual scale. ",
-        "{n} needed but only {length(values)} provided."
-      ))
-    }
-    values
-  }
-
-  args <- list2(aesthetics = aesthetic, palette = pal, breaks = breaks,
-                limits = limits, ...)
-  if ("call" %in% fn_fmls_names(discrete_scale)) {
-    args <- c(args, list(call = call))
-  } else {
-    args <- c(args, list(scale_name = "arrow_scale"))
-  }
-  inject(discrete_scale(!!!args))
-}
-
 arg_as_pal <- function(generator, map_arg, other_args,
                        range = c(0, 1), gen_name,
                        call = caller_env()) {
@@ -324,7 +269,7 @@ arrow_pal <- function(x) {
     fun()
   })
 
-  validate_matrix_list(x, dim = c(NA, NA), typeof = c("integer", "double"))
+  validate_matrix_list(x, dim = c(NA, 2), typeof = c("integer", "double"))
 }
 
 validate_matrix_list <- function(

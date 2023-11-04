@@ -96,7 +96,7 @@ resect_end <- function(x, y, id, resect, width) {
     final <- final[keep]
     cut   <- cut[final]
   } else {
-    keep <- rep(TRUE, length(first))
+    keep <- rle_end(id) %in% final
   }
 
   if (length(first) > 0) {

@@ -142,19 +142,17 @@ to the paired geom/stat.</p></dd>
 of the arrow head, fins or middle (interior) arrows.</p></dd>
 
 
-<dt>length_head, length_fins, length_mid</dt>
-<dd><p>Determines the length of the arrow
-ornaments. Can be one of the following:</p><dl><dt>A <code>numeric(1)</code> (default)</dt>
-<dd><p>to set the ornament size relative to
-the linewidth of the shaft.</p></dd>
-
-<dt>A <code>&lt;</code><code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></code><code>&gt;</code></dt>
-<dd><p>to control the size in an absolute
+<dt>length, length_head, length_fins, length_mid</dt>
+<dd><p>Determines the size of
+the arrow ornaments. <code>length</code> sets the default length, whereas
+<code>length_head</code>, <code>length_fins</code> and <code>length_mid</code> set the lengths of the
+arrow head, arrow fins or middle arrows respectively. Can be one of the
+following:</p><ul><li><p>A <code>&lt;numeric&gt;</code> to set the ornament size relative to the <code>linewidth{_\*}</code>
+settings.</p></li>
+<li><p>A <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">&lt;unit&gt;</a></code> to control the ornament size in an absolute
 manner. Behaviour of relative units such as <code>"npc"</code> or <code>"null"</code> is
-undefined.</p></dd>
-
-
-</dl></dd>
+undefined.</p></li>
+</ul></dd>
 
 
 <dt>justify</dt>

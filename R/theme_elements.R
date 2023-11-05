@@ -188,15 +188,17 @@ element_grob.element_arrow <- function(
   resect_fins <- resect_fins %||% element$resect_fins %||% resect
 
   # Fill in length defaults
-  length      <- length      %||% element$length      %||% 4
-  length_head <- length_head %||% element$length_head %||% length
-  length_fins <- length_fins %||% element$length_fins %||% length
-  length_mid  <- length_mid  %||% element$length_mid  %||% length
-  if (!is.unit(length_head)) {
-    length_head <- length_head * width_head[rle_end(id)]
+  length <- validate_length(
+    base = length      %||% element$length,
+    head = length_head %||% element$length_head,
+    fins = length_fins %||% element$length_fins,
+    mid  = length_mid  %||% element$length_mid
+  )
+  if (!is.unit(length$head)) {
+    length$head <- length$head * width_head[rle_end(id)]
   }
-  if (!is.unit(length_fins)) {
-    length_fins <- length_fins * width_fins[rle_start(id)]
+  if (!is.unit(length$fins)) {
+    length$fins <- length$fins * width_fins[rle_start(id)]
   }
 
   grob_arrow(
@@ -206,9 +208,9 @@ element_grob.element_arrow <- function(
     arrow_head  = arrow_head  %||% element$arrow_head,
     arrow_fins  = arrow_fins  %||% element$arrow_fins,
     arrow_mid   = arrow_mid   %||% element$arrow_mid,
-    length_head = length_head,
-    length_fins = length_fins,
-    length_mid  = length_mid  %||% element$length_mid  %||% 4,
+    length_head = length$head,
+    length_fins = length$fins,
+    length_mid  = length$mid,
     justify     = justify     %||% element$justify     %||% 0,
     force_arrow = force_arrow %||% element$force_arrow,
     mid_place   = mid_place   %||% element$mid_place,

@@ -20,7 +20,7 @@ Imports:
     cli,
     grid,
     polyclip,
-    rlang,
+    rlang (>= 1.1.0),
     scales,
     utils,
     vctrs

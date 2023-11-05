@@ -74,9 +74,10 @@ geom_arrow <- function(
   arrow_head  = arrow_head_wings(),
   arrow_fins  = NULL,
   arrow_mid   = NULL,
-  length_head = 4,
-  length_fins = 4,
-  length_mid  = 4,
+  length      = 4,
+  length_head = NULL,
+  length_fins = NULL,
+  length_mid  = NULL,
   justify     = 0,
   force_arrow = FALSE,
   mid_place   = 0.5,
@@ -90,6 +91,9 @@ geom_arrow <- function(
   show.legend = NA,
   inherit.aes = TRUE
 ) {
+  length <- validate_length(
+    length, length_head, length_fins, length_mid
+  )
   layer(
     data        = data,
     mapping     = mapping,
@@ -100,7 +104,7 @@ geom_arrow <- function(
     inherit.aes = inherit.aes,
     params = list2(
       arrow  = list(head = arrow_head,  fins = arrow_fins,  mid  = arrow_mid),
-      length = list(head = length_head, fins = length_fins, mid  = length_mid),
+      length      = length,
       justify     = justify,
       force_arrow = force_arrow,
       mid_place   = mid_place,

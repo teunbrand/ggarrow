@@ -237,9 +237,7 @@ arrow_cup <- function(lineend = "round", angle = NULL) {
     if (lineend == "round") {
       cx <- (x[1, 1] + x[1, 2]) / 2
       cy <- (y[1, 1] + y[1, 2]) / 2
-      norm <- -0.5 * angle - .halfpi
-      norm <- seq(norm + pi, norm, length.out = 20)[-c(1, 20)]
-
+      norm <- seq(.twopi, pi, length.out = 20)[-c(1, 20)] + 0.5 * angle
       cx <- cx + cos(norm) * width * 0.5
       cy <- cy + sin(norm) * width * 0.5
     } else {

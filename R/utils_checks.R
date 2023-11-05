@@ -28,6 +28,20 @@ check_ornament_length <- function(x, arg_nm = caller_arg(x),
   )
 }
 
+check_ornament_matrix <- function(
+    x, arg_nm = caller_arg(x), call = caller_env()
+) {
+  if (!is.matrix(x)) {
+    return(x)
+  }
+  if (ncol(x) != 2) {
+    cli::cli_abort("{.arg {arg_nm}} must have 2 columns.", call = call)
+  }
+  if (!typeof(x) %in% c("integer", "double")) {
+    cli::cli_abort("{.arg {arg_nm}} must be {.cls numeric}", call = call)
+  }
+}
+
 # Validators --------------------------------------------------------------
 
 validate_length <- function(base = NULL, head = NULL, fins = NULL, mid = NULL,
@@ -88,6 +102,29 @@ validate_id <- function(id = NULL, id.lengths = NULL, alt = NULL,
   id
 }
 
+validate_ornament_character <- function(x) {
+  if (!is.character(x)) {
+    return(x)
+  }
+  if (length(unique(x)) == 1) {
+    x <- x[1]
+  }
+  arrow_pal(x)
+}
+
+validate_ornament_list <- function(
+    x, arg = caller_arg(x), call = caller_env()
+) {
+  if (!is.list(x)) {
+    return(x)
+  }
+  x <- lapply(x, validate_ornament, n = 1, arg = arg, call = call)
+  if (length(x) == 1L) {
+    x <- .subset2(x, 1L)
+  }
+  x
+}
+
 validate_ornament <- function(ornament, n,
                               arg = caller_arg(ornament),
                               call = caller_env()) {
@@ -95,36 +132,17 @@ validate_ornament <- function(ornament, n,
     return(ornament)
   }
 
-  # Check named ornaments
-  if (is.character(ornament)) {
-    if (length(unique(ornament)) == 1) {
-      ornament <- ornament[1]
-    }
-    ornament <- arrow_pal(ornament)
-  }
+  # Check character/list
+  ornament <- validate_ornament_character(ornament)
+  ornament <- validate_ornament_list(ornament, arg = arg, call = call)
 
-  # Check lists
-  if (is.list(ornament)) {
-    ornament <- lapply(
-      ornament, validate_ornament,
-      n = 1, arg = arg, call = call
-    )
-  }
-  if (is.list(ornament) && length(ornament) == 1L) {
-    ornament <- .subset2(ornament, 1L)
-    if (is.null(ornament) || is.function(ornament)) {
-      return(ornament)
-    }
+  if (is.null(ornament) || is.function(ornament)) {
+    return(ornament)
   }
 
   # Check matrices
+  check_ornament_matrix(ornament, arg_nm = arg, call = call)
   if (is.matrix(ornament)) {
-    if (ncol(ornament) != 2) {
-      cli::cli_abort("{.arg {arg}} must have 2 columns.", call = call)
-    }
-    if (!typeof(ornament) %in% c("integer", "double")) {
-      cli::cli_abort("{.arg {arg}} matrix must be {.cls numeric}.")
-    }
     if (is.null(colnames(ornament))) {
       colnames(ornament) <- c("x", "y")
     }

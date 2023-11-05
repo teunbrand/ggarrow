@@ -146,7 +146,7 @@ scale_arrow_head_continuous <- function(
 ) {
   continuous_scale(
     "arrow_head", "arrowhead",
-    palette = arg_as_pal(
+    palette = generator_pal(
       generator, map_arg, other_args, range, caller_arg(generator)
     ),
     name = name, breaks = breaks, labels = labels, limits = limits,
@@ -170,7 +170,7 @@ scale_arrow_fins_continuous <- function(
 ) {
   continuous_scale(
     "arrow_fins", "arrowfins",
-    palette = arg_as_pal(
+    palette = generator_pal(
       generator, map_arg, other_args, range, caller_arg(generator)
     ),
     name = name, breaks = breaks, labels = labels, limits = limits,
@@ -194,7 +194,7 @@ scale_arrow_mid_continuous <- function(
 ) {
   continuous_scale(
     "arrow_mid", "arrowhead",
-    palette = arg_as_pal(
+    palette = generator_pal(
       generator, map_arg, other_args, range, caller_arg(generator)
     ),
     name = name, breaks = breaks, labels = labels, limits = limits,
@@ -204,9 +204,11 @@ scale_arrow_mid_continuous <- function(
 
 # Helpers -----------------------------------------------------------------
 
-arg_as_pal <- function(generator, map_arg, other_args,
-                       range = c(0, 1), gen_name,
-                       call = caller_env()) {
+generator_pal <- function(
+  generator, map_arg, other_args,
+  range = c(0, 1), gen_name,
+  call = caller_env()
+) {
   check_function(generator)
   arg_names <- fn_fmls_names(generator)
   if (length(arg_names) == 0) {

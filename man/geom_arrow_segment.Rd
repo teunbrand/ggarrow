@@ -71,14 +71,17 @@ to the paired geom/stat.}
 \link[=arrow_ornaments]{arrow ornament} functions that can determine the shape
 of the arrow head, fins or middle (interior) arrows.}
 
-\item{length_head, length_fins, length_mid}{Determines the length of the arrow
-ornaments. Can be one of the following:
-\describe{
-\item{A \code{numeric(1)} (default)}{to set the ornament size relative to
-the linewidth of the shaft.}
-\item{A \code{<}\code{\link[grid:unit]{unit}}\code{>}}{to control the size in an absolute
+\item{length, length_head, length_fins, length_mid}{Determines the size of
+the arrow ornaments. \code{length} sets the default length, whereas
+\code{length_head}, \code{length_fins} and \code{length_mid} set the lengths of the
+arrow head, arrow fins or middle arrows respectively. Can be one of the
+following:
+\itemize{
+\item A \verb{<numeric>} to set the ornament size relative to the \verb{linewidth\{_\\*\}}
+settings.
+\item A \code{\link[grid:unit]{<unit>}} to control the ornament size in an absolute
 manner. Behaviour of relative units such as \code{"npc"} or \code{"null"} is
-undefined.}
+undefined.
 }}
 
 \item{justify}{A \code{numeric(1)} between [0-1] to control where the

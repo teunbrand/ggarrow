@@ -12,15 +12,16 @@
 #' @param arrow_head,arrow_fins,arrow_mid A function call to one of the
 #'   [arrow ornament][arrow_ornaments] functions that can determine the shape
 #'   of the arrow head, fins or middle (interior) arrows.
-#' @param length_head,length_fins,length_mid Determines the length of the arrow
-#'   ornaments. Can be one of the following:
-#'   \describe{
-#'     \item{A `numeric(1)` (default)}{to set the ornament size relative to
-#'     the linewidth of the shaft.}
-#'     \item{A `<`[`unit`][grid::unit]`>`}{to control the size in an absolute
-#'     manner. Behaviour of relative units such as `"npc"` or `"null"` is
-#'     undefined.}
-#'   }
+#' @param length,length_head,length_fins,length_mid Determines the size of
+#'   the arrow ornaments. `length` sets the default length, whereas
+#'   `length_head`, `length_fins` and `length_mid` set the lengths of the
+#'   arrow head, arrow fins or middle arrows respectively. Can be one of the
+#'   following:
+#'   * A `<numeric>` to set the ornament size relative to the `linewidth{_\*}`
+#'   settings.
+#'   * A [`<unit>`][grid::unit] to control the ornament size in an absolute
+#'   manner. Behaviour of relative units such as `"npc"` or `"null"` is
+#'   undefined.
 #' @param resect,resect_head,resect_fins A `numeric(1)` denoting millimetres or
 #'   `<`[`unit`][grid::unit]`>` to shorten the arrow. `resect_head` shortens
 #'   the arrow from the arrow head side, whereas `resect_fins` shortens the

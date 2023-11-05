@@ -50,10 +50,10 @@ validate_id <- function(id = NULL, id.lengths = NULL, alt = NULL,
 
   if (any(field(id, "length") < 2)) {
     n <- sum(field(id, "length") < 2)
-    abort(
+    cli::cli_abort(c(
       "{.fn {fun_nm}} cannot draw arrows with fewer than two points per group.",
       i = "There {?is/are} {n} group{?s} with fewer than two points."
-    )
+    ))
   }
 
   if (anyDuplicated(field(id, "group"))) {
@@ -124,18 +124,4 @@ polygonise <- function(xy_list) {
   lapply(xy_list, function(mtx) {
     list(x = mtx[, 1], y = mtx[, 2])
   })
-}
-
-abort <- function(..., i = character(0), bullets = character(0), call = .envir,
-                  .envir = parent.frame(), .frame = .envir) {
-  message <- paste0(..., collapse = "")
-  if (length(i) > 0) {
-    names(i) <- "i"
-    message <- c(message, i)
-  }
-  if (length(bullets) > 0) {
-    names(bullets) <- "*"
-    mesage <- c(message, bullets)
-  }
-  cli::cli_abort(c(message, i), call = call, .envir = .envir, .frame = .frame)
 }

@@ -112,55 +112,6 @@ grob_arrow <- function(
   )
 }
 
-validate_ornament <- function(ornament, n,
-                              arg = caller_arg(ornament),
-                              call = caller_env()) {
-  if (is.null(ornament) || is.function(ornament)) {
-    return(ornament)
-  }
-
-  # Check named ornaments
-  if (is.character(ornament)) {
-    if (length(unique(ornament)) == 1) {
-      ornament <- ornament[1]
-    }
-    ornament <- arrow_pal(ornament)
-  }
-
-  # Check lists
-  if (is.list(ornament)) {
-    ornament <- lapply(ornament, validate_ornament, n = 1, arg = arg, call = call)
-  }
-  if (is.list(ornament) && length(ornament) == 1L) {
-    ornament <- .subset2(ornament, 1L)
-    if (is.null(ornament) || is.function(ornament)) {
-      return(ornament)
-    }
-  }
-
-  # Check matrices
-  if (is.matrix(ornament)) {
-    if (ncol(ornament) != 2) {
-      cli::cli_abort("{.arg {arg}} must have 2 columns.", call = call)
-    }
-    if (!typeof(ornament) %in% c("integer", "double")) {
-      cli::cli_abort("{.arg {arg}} matrix must be {.cls numeric}.")
-    }
-    if (is.null(colnames(ornament))) {
-      colnames(ornament) <- c("x", "y")
-    }
-    return(ornament)
-  }
-  # Check lengths
-  if (length(ornament) %in% c(1, n)) {
-    return(ornament)
-  }
-  if (n == 1) {
-    cli::cli_abort("{.arg {arg}} must have length 1.", call = call)
-  }
-  cli::cli_abort("{.arg {arg}} must have length 1 or {n}", call = call)
-}
-
 # Draw method -------------------------------------------------------------
 
 #' @export

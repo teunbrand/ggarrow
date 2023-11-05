@@ -53,7 +53,7 @@ notch_shaft <- function(
   angle_line, angle_notch,
   type = "head", buffer = 0.01
 ) {
-  if ((length(angle_notch) == 1 && is.na(angle_notch)) || is.null(angle_notch)) {
+  if (all(is.na(angle_notch)) || is.null(angle_notch)) {
     return(offset)
   }
   i <- !is.na(angle_notch)

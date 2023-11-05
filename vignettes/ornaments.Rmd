@@ -159,7 +159,7 @@ example_plot +
 
 ### Line
 
-The 'line' ornament draws two line segments departing from the line end, and can be set using the `arrow_head_line()` argument. 
+The 'line' ornament draws two line segments departing from the line end, and can be set using the `arrow_head_line()` function. 
 The `linewidth` aesthetic determines the thickness of the departing line, in that the line width is the same between the path and the ornament. 
 The size of the arrow is once again determined by the `length_head` argument, but now encompasses the length of the protruding lines instead of the reconnection point back on the path.
 
@@ -349,6 +349,8 @@ grid.text(
 
 ### Feather
 
+The 'feather' ornament places two trapeziums on either side of the line, and can be called using the `arrow_fins_feather()` function. Contrary to many other ornaments, the feather ornament isn't defined by any angle. It is instead defined by the 'height' of the trapezium and the distances along the path from the inner start and end points to the outer ones called 'indent'  and 'outdent'. The `length_fins` argument determines the total width of the trapezium.
+
 ```{r illustrate_fins_feather, echo = FALSE}
 arr <- arrow_fins_feather()
 arr <- arr * 50
@@ -434,7 +436,9 @@ grid.text(
 grid.draw(arrow_grob)
 ```
 
-```{r, echo=FALSE}
+Below are some examples of what different settings look like with this ornament.
+
+```{r example_fins_feather, echo=FALSE}
 indent  <- c(0.3, 0, 0.3, 0.3, -0.3)
 outdent <- c(0.3, 0.3, 0, 0.3, -0.3)
 height  <- c(0.5, 0.5, 0.5, 1, 0.5)
@@ -469,6 +473,92 @@ example_plot +
 
 ### Line
 
+The 'line' fins ornament mirrors the 'line' head ornament: it draws two line segments departing from the line end and can be set using the `arrow_fins_line()` function. Again the `linewidth` aesthetic determines the thickness of the departing line, in that the line width is the same between the path and the ornament. This size of the arrow is determined by the `length_fins` argument, but in contrast to `arrow_fins_line()`, the `length_fins` argument applies to the inner edge. Also in contrast, the `angle` is measured from the extended path to the lines, rather than from the path itself.
+
+```{r illustrate_fins_line, echo = FALSE}
+arr <- arrow_fins_line()
+arr <- arr(40, 5)
+# arr <- arr * 50
+arrow_grob <- grob_arrow(
+  x = unit(c(0.5, 0.7), "npc"),
+  y = unit(c(0.5, 0.5), "npc"),
+  arrow_head = NULL, arrow_fins = arrow_fins_line(),
+  length_fins = unit(40, "mm"),
+  shaft_width = unit(5, "mm"),
+  justify = 1,
+  gp = gpar(fill = NA)
+)
+arrow1 <- arrow2 <- arrow3 <- arrow_grob
+arrow1$arrow_fins <- arrow_fins_line(lineend = "square")
+arrow2$arrow_fins <- arrow_fins_line(lineend = "parallel")
+arrow3$arrow_fins <- arrow_fins_line(lineend = "round")
+arrow2$x[1] <- arrow2$x[1] - unit(10, "mm")
+arrow2$gp <- arrow3$gp <- arrow1$gp <- gpar(lwd = 0.5, col = 3, fill = NA)
+
+grid.newpage()
+
+grid.points(
+  x = unit(0.5, "npc") - unit(arr[3:4, "x"], "mm"),
+  y = unit(0.5, "npc") - unit(arr[3:4, "y"], "mm"),
+  gp = gpar(col = 2, alpha = 0.5), pch = 16
+)
+
+angle <- 30 * pi / 180 
+
+grid.lines(
+  x = unit(0.5, "npc")- unit(cos(c(angle, angle, pi)) * c(30, 0, -30), "mm") -
+    unit(5, "mm"),
+  # x = unit(0.5, "npc") + unit(cos(c(angle, angle, pi)) * c(30, 0, 30), "mm") +
+    # unit(28.8 - 2.5 / sin(angle), "mm"),
+  y = unit(0.5, "npc") + unit(sin(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
+  gp = gpar(col = 4)
+)
+
+grid.draw(arrow1)
+grid.draw(arrow2)
+grid.draw(arrow3)
+
+grid.text(
+  x = unit(0.5, "npc") - unit(arr[6, "x"], "mm"),
+  y = unit(0.5, "npc") - unit(arr[6, "y"], "mm"),
+  label = "lineend", gp = gpar(col = 3), vjust = -1
+)
+
+angle <- seq(pi - angle, pi, length.out = 30)
+grid.lines(
+  x = unit(0.5, "npc") + unit((cos(angle) * 20) - 5, "mm"),
+  y = unit(0.5, "npc") + unit(sin(angle) * 20, "mm"),
+  gp = gpar(col = 4)
+)
+grid.text(
+  x = unit(0.5, "npc") - unit(33, "mm"),
+  y = unit(0.5, "npc"), label = "angle", gp = gpar(col = 4),
+  vjust = -1.5
+)
+.halfpi <- 0.5 * pi
+angle <- 30 * pi / 180 
+grid.lines(
+  x = unit(0.5, "npc") - unit(arr[c(3,3,4,4), "x"], "mm") +
+    unit(c(0, cos(.halfpi - angle[c(1, 1)]), 0), "cm"),
+  y = unit(0.5, "npc") - unit(arr[c(3,3,4,4), "y"], "mm") -
+    unit(c(0, sin(.halfpi - angle[c(1, 1)]), 0), "cm"),
+  gp = gpar(col = 2, alpha = 0.5)
+)
+
+grid.text(
+  x = unit(0.5, "npc") - unit(mean(arr[3:4, "x"]), "mm") + 
+    unit(cos(.halfpi - angle) * 1, "cm"),
+  y = unit(0.5, "npc") - unit(mean(arr[3:4, "y"]), "mm") -
+    unit(sin(.halfpi - angle) * 1, "cm"),
+  label = "length_fins", rot = 30,
+  gp = gpar(col = 2), vjust = 1.5
+)
+
+grid.draw(arrow_grob)
+``` 
+
+Another notable difference is that in `arrow_fins_line()` the most extreme parts are at the path's end and don't protrude beyond. For comparison, take a look at the 5th example in `arrow_head_line()` and the first 4 examples below:
+
 ```{r, echo=FALSE}
 angle   <- c(30, 30, 30, 30, 135)
 lineend <- c("butt", "round", "square", "parallel", "butt")
@@ -492,6 +582,45 @@ example_plot +
 ```
 
 ### Minimal
+
+The 'minimal' fin ornament again isn't truly an ornament, but it determines how the arrow shaft gets notched. Like `arrow_head_minimal()`, `arrow_fins_minimal()` doesn't depend on any `length_fins` you might set and only depends on the `angle` argument and the `linewidth` aesthetic. The only difference between `arrow_head_minimal()` and `arrow_fins_minimal()`, is what part is considered the `angle`.
+
+```{r illustrate_fins_minimal, echo = FALSE}
+angle <- 45
+arrow_grob <- grob_arrow(
+  x = unit(0.5, "npc") + unit(c(-0.1, 0.1), "npc"),
+  y = unit(c(0.5, 0.5), "npc"),
+  arrow_fins = arrow_fins_minimal(angle),
+  arrow_head = NULL,
+  length_fins = unit(40, "mm"),
+  shaft_width = unit(10, "mm"),
+  gp = gpar(fill = NA)
+)
+
+grid.newpage()
+grid.draw(arrow_grob)
+
+angle <- .halfpi + angle / 180 * pi
+grid.lines(
+  x = unit(0.4, "npc") + unit(c(0, 0, cos(angle)) * 30, "mm"),
+  y = unit(0.5, "npc") + unit(c(1, 0, sin(angle)) * 30, "mm"),
+  # x = unit(0.5, "npc") + unit(cos(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
+  # y = unit(0.5, "npc") + unit(sin(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
+  gp = gpar(col = alpha(2, 0.5))
+)
+angle <- seq(angle, .halfpi, length.out = 30)
+grid.lines(
+  x = unit(0.4, "npc") + unit(cos(angle) * 20, "mm"),
+  y = unit(0.5, "npc") + unit(sin(angle) * 20, "mm"),
+  gp = gpar(col = alpha(2, 0.5))
+)
+grid.text(
+  x = unit(0.4, "npc") - unit(10, "mm"),
+  y = unit(0.5, "npc") + unit(25, "mm"),
+  label = "angle", gp = gpar(col = 2)
+)
+
+```
 
 ```{r, echo=FALSE}
 ggplot(mapping = aes(x = c(0, 1))) +
@@ -535,6 +664,169 @@ ggplot(mapping = aes(x = c(0, 1))) +
   scale_y_continuous(limits = c(-0.5, 4.5)) +
   scale_x_continuous(limits = c(-0.1, 1.1)) +
   theme_void()
+```
+
+## Other ornaments
+
+### Cups
+
+Not more suitable for arrow head than for fins, the 'cup' ornament may fit both ends of a path. The cup shape can be specified using the `arrow_cup()` function and it follows a circular arc around the endpoint of a path at some distance given by the `resect` parameter. There are two ways these cups can be specified. The first one is by the angle or the arc, which can be given by using the `arrow_cup(angle = ...)` function. If the angle is left as `NULL`, the ornament looks for the `length_{head/fins}` and uses that as the arc-length to draw the arc, which is the second specification.
+
+
+```{r illustrate_cups, echo = FALSE}
+arr <- arrow_cup(angle = 90)
+arr <- arr(1, 4, 10)
+arrow_grob <- grob_arrow(
+  x = unit(c(0.1, 0.4), "npc"),
+  y = unit(c(0.5, 0.5), "npc"),
+  arrow_head = arrow_cup(angle = 90),
+  length_head = unit(30, "mm"),
+  resect_head = unit(20, "mm"),
+  shaft_width = unit(10, "mm"),
+  gp = gpar(fill = NA)
+)
+arrow1 <- arrow_grob
+arrow1$x <- unit(c(0.9, 0.6), "npc")
+arrow1$arrow_head <- arrow_cup(lineend = "butt")
+arrow2 <- arrow1
+arrow2$arrow_head <- arrow_cup(lineend = "round")
+arrow2$gp <- gpar(col = 3, fill = NA)
+
+grid.newpage()
+
+grid.points(
+  x = unit(c(0.4, 0.4, 0.6, 0.6), "npc") - unit(c(0, 20, 0, -20), "mm"),
+  y = unit(c(0.5, 0.5, 0.5, 0.5), "npc"),
+  gp = gpar(col = 2, alpha = 0.5), pch = 16
+)
+grid.polyline(
+  x = unit(c(0.4, 0.4, 0.6, 0.6), "npc") - unit(c(0, 20, 0, -20), "mm"),
+  y = unit(c(0.5, 0.5, 0.5, 0.5), "npc"), id.lengths = c(2,2),
+  gp = gpar(col = 2, alpha = 0.5)
+)
+grid.text(
+  x = unit(c(0.4, 0.6), "npc") - unit(c(10, -10), "mm"),
+  y = unit(c(0.5, 0.5), "npc"),
+  label = "resect",
+  vjust = -0.5,
+  gp = gpar(col = 2)
+)
+
+angle <- 90 / 180 * pi
+grid.lines(
+  x = unit(0.4, "npc") + unit(c(cos(0.5 * angle + pi) * 40, 0, 
+                                cos(-0.5 * angle + pi) * 40), "mm"),
+  y = unit(0.5, "npc") + unit(c(sin(0.5 * angle + pi) * 40, 0, 
+                                sin(-0.5 * angle + pi) * 40), "mm"),
+  gp = gpar(col = 4, alpha = 0.5)
+)
+angle <- seq(-0.5, 0.5, length.out = 20) * angle + pi
+grid.lines(
+  x = unit(0.4, "npc") + unit(cos(angle) * 35, "mm"),
+  y = unit(0.5, "npc") + unit(sin(angle) * 35, "mm"),
+  gp = gpar(col = 4, alpha = 0.5)
+)
+grid.text(
+  x = unit(0.4, "npc") + unit(cos(90 / 180 * pi * 0.25 + pi) * 40 - 5, "mm"),
+  y = unit(0.5, "npc") + unit(sin(90 / 180 * pi * 0.25 + pi) * 40, "mm"),
+  label = "angle", gp = gpar(col = 4)
+)
+
+angle <- 30 / 20
+angle <- seq(-0.5, 0.5, length.out = 20) * angle + pi
+grid.lines(
+  x = unit(0.6, "npc") - unit(cos(angle) * 25, "mm"),
+  y = unit(0.5, "npc") + unit(sin(angle) * 25, "mm"),
+  gp = gpar(col = 4, alpha = 0.5)
+)
+grid.text(
+  x = unit(0.6, "npc") + unit(25, "mm"),
+  y = unit(0.5, "npc") + unit(10, "mm"),
+  label = "length_head", gp = gpar(col = 4),
+  hjust = 0
+)
+
+grid.text(
+  x = unit(0.6, "npc") + unit(5, "mm"),
+  y = unit(0.3, "npc"),
+  label = "lineend",
+  gp = gpar(col = 3)
+)
+
+grid.draw(arrow2)
+grid.draw(arrow1)
+grid.draw(arrow_grob)
+```
+
+```{r}
+ggplot(mapping = aes(x = c(0, 1))) +
+  geom_vline(xintercept = 1, colour = "tomato") +
+  annotate(
+    "point", x = 1, y = 0:4, colour = "tomato", size = 5, shape = 16
+  ) +
+  geom_arrow(
+    aes(y = c(4, 4)), linewidth = 3,
+    arrow_head = arrow_cup(), resect_head = 5,
+    length_head = 5
+  ) +
+  annotate(
+    "text", x = 0.5, y = 4.5, label = "length_head = 5, resect_head = 5"
+  ) +
+  geom_arrow(
+    aes(y = c(3, 3)), linewidth = 3,
+    arrow_head = arrow_cup(), resect_head = 10,
+    length_head = 5
+  ) +
+  annotate(
+    "text", x = 0.5, y = 3.5, label = "length_head = 5, resect_head = 10"
+  ) +
+  geom_arrow(
+    aes(y = c(2, 2)), linewidth = 3,
+    arrow_head = arrow_cup(), resect_head = 2.5,
+    length_head = 5
+  ) +
+  annotate(
+    "text", x = 0.5, y = 2.5, label = "length_head = 5, resect_head = 2.5"
+  ) +
+  geom_arrow(
+    aes(y = c(1, 1)), linewidth = 3,
+    arrow_head = arrow_cup(angle = 90, lineend = "butt"), resect_head = 5,
+    length_head = 5
+  ) +
+  annotate(
+    "text", x = 0.5, y = 1.5, 
+    label = "angle = 90, resect_head = 2.5, lineend = 'butt'"
+  ) +
+  geom_arrow(
+    aes(y = c(0, 0)), linewidth = 3,
+    arrow_head = arrow_cup(angle = 360), resect_head = 2.5,
+    length_head = 5
+  ) +
+  annotate(
+    "text", x = 0.5, y = 0.5, 
+    label = "angle = 360, resect_head = 2.5"
+  ) +
+  coord_cartesian(clip = "off") +
+  scale_y_continuous(limits = c(-0.5, 4.5)) +
+  scale_x_continuous(limits = c(-0.1, 1.1)) +
+  theme_void()
+```
+
+The cup shape can make it easier to single out some observations from the rest.
+
+```{r}
+ggplot(mtcars, aes(disp, mpg)) +
+  geom_point(aes(colour = factor(cyl))) +
+  geom_arrow_curve(
+    data = ~ subset(.x, rownames(.x) == "Hornet 4 Drive"),
+    aes(xend = 300, yend = 25),
+    arrow_fins = arrow_cup(angle = 360), resect_fins = 1.5
+  ) +
+  annotate(
+    "text", x = 300, y = 25,
+    label = "Hornet 4 Drive",
+    vjust = -1
+  )
 ```
 
 ## Extending ornaments

@@ -36,7 +36,7 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
         if (finite) "non-finite" else "missing",
         "values", name, "."
       )
-      warn(msg)
+      cli::cli_warn(msg)
     }
   }
   df
@@ -103,10 +103,10 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
     limits <- function(x) {
       x <- intersect(x, c(names(values), NA)) %||% character()
       if (length(x) < 1) {
-        warn(
+        cli::cli_warn(paste0(
           "No shared levels found between {.code names(values)} of the manual ",
           "scale and the data's {.field {aesthetic}} values."
-        )
+        ))
       }
       x
     }

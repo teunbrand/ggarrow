@@ -41,10 +41,10 @@ annotate_arrow <- function(
   na.rm = FALSE
 ) {
   if (is.character(geom) && geom %in% c("abline", "hline", "vline")) {
-    warn(
+    cli::cli_warn(c(
       "{.arg geom} must not be {.val {geom}}.",
       i = "Please use {.fnn {paste0('geom_', geom)}} directly instead."
-    )
+    ))
   }
   position <- list(x = x, xmin = xmin, xmax = xmax, xend = xend,
                    y = y, ymin = ymin, ymax = ymax, yend = yend)

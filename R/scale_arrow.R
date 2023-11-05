@@ -215,10 +215,10 @@ arg_as_pal <- function(generator, map_arg, other_args,
     extra <- setdiff(names(other_args), arg_names)
     other_args <- other_args[intersect(names(other_args), arg_names)]
     if (length(extra) > 0) {
-      warn(
+      cli::cli_warn(c(
         "{.arg other_args} has unknown arguments of {.fn {gen_name}}.",
         i = "{.and {.field {extra}}} {?has/have} been dropped."
-      )
+      ))
     }
   }
   if (!is.numeric(range) || length(range) != 2 || any(!is.finite(range))) {

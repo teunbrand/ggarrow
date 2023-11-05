@@ -230,7 +230,7 @@ generator_pal <- function(
       ))
     }
   }
-  if (!is.numeric(range) || length(range) != 2 || any(!is.finite(range))) {
+  if (!is.numeric(range) || length(range) != 2 || !all(is.finite(range))) {
     cli::cli_abort(
       "{.arg range} must be a finite numeric vector of length 2.",
       call = call

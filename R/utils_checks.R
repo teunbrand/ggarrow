@@ -29,7 +29,7 @@ check_ornament_length <- function(x, arg_nm = caller_arg(x),
 }
 
 check_ornament_matrix <- function(
-    x, arg_nm = caller_arg(x), call = caller_env()
+  x, arg_nm = caller_arg(x), call = caller_env()
 ) {
   if (!is.matrix(x)) {
     return(x)
@@ -113,7 +113,7 @@ validate_ornament_character <- function(x) {
 }
 
 validate_ornament_list <- function(
-    x, arg = caller_arg(x), call = caller_env()
+  x, arg = caller_arg(x), call = caller_env()
 ) {
   if (!is.list(x)) {
     return(x)
@@ -200,7 +200,7 @@ validate_matrix_list <- function(
   if (sum(length(not_matrix), length(not_dim), length(not_typeof)) == 0) {
     return(list)
   }
-  msg <- c("{.arg {x_arg}} is not a list of valid matrices.")
+  msg <- "{.arg {x_arg}} is not a list of valid matrices."
   n_not_matrix <- length(not_matrix)
   if (n_not_matrix > 0) {
     msg <- c(msg, i = paste0(

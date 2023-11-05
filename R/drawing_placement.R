@@ -12,24 +12,22 @@ place_arrow <- function(
   }
 
   # If there are invalid lines, try again without these
-  if (any(!valid)) {
-    if (!force) {
-      if (all(!valid)) {
-        return(NULL)
-      }
-      keep  <- rep(valid, field(id, "length"))
-      if (is.list(arrow)) {
-        arrow <- arrow[valid]
-      }
-      retry <- place_arrow(
-        arrow = arrow, x = x[keep], y = y[keep],
-        id = id[valid], size = size[valid], angle = angle[valid],
-        type = type, force = force
-      )
-      ans <- vector("list", length(id))
-      ans[valid] <- retry
-      return(ans)
+  if (!all(valid) && !force) {
+    if (!any(valid)) {
+      return(NULL)
     }
+    keep  <- rep(valid, field(id, "length"))
+    if (is.list(arrow)) {
+      arrow <- arrow[valid]
+    }
+    retry <- place_arrow(
+      arrow = arrow, x = x[keep], y = y[keep],
+      id = id[valid], size = size[valid], angle = angle[valid],
+      type = type, force = force
+    )
+    ans <- vector("list", length(id))
+    ans[valid] <- retry
+    return(ans)
   }
 
   # Get ends of paths

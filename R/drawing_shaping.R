@@ -6,8 +6,8 @@ shape_shaft <- function(
 
   valid <- rle_valid(id)
 
-  if (any(!valid)) {
-    if (all(!valid)) {
+  if (!all(valid)) {
+    if (!any(valid)) {
       return(NULL)
     }
     keep <- rep(valid, field(id, "length"))
@@ -187,7 +187,7 @@ polygon_union <- function(A, B) {
   }
   list <- Map(inner_polygon_union, A = A, B = B)
   named <- vapply(list, is_named, logical(1))
-  if (all(named) || all(!named)) {
+  if (all(named) || !any(named)) {
     return(list)
   }
   list[named] <- lapply(list[named], list)

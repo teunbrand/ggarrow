@@ -49,3 +49,4 @@ Added the following shapes for ornaments:
 ## Other
 
 An `annotate_arrow()` layer to specifically do arrow annotations.
+An `element_arrow()` to replace line elements in the `theme()` by arrows.

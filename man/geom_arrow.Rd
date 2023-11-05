@@ -13,9 +13,10 @@ geom_arrow(
   arrow_head = arrow_head_wings(),
   arrow_fins = NULL,
   arrow_mid = NULL,
-  length_head = 4,
-  length_fins = 4,
-  length_mid = 4,
+  length = 4,
+  length_head = NULL,
+  length_fins = NULL,
+  length_mid = NULL,
   justify = 0,
   force_arrow = FALSE,
   mid_place = 0.5,
@@ -170,7 +171,10 @@ p + geom_arrow(aes(linewidth = arc), length_head = unit(10, "mm"))
 p + geom_arrow(arrow_head = arrow_head_line(), length_head = unit(10, "mm"))
 
 # This works similarly for the arrow fins
-p + geom_arrow(arrow_fins = arrow_fins_feather(), length_fins = unit(7, "mm"))
+p + geom_arrow(
+  arrow_fins = arrow_fins_feather(),
+  length_fins = unit(7, "mm")
+)
 }
 \seealso{
 Other arrow geoms: 

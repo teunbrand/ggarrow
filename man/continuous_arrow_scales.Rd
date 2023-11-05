@@ -146,7 +146,8 @@ p + scale_arrow_head_continuous(
   range = c(20, 80)
 )
 
-# The same goes for other arrow aesthetics, but the `generator()` might differ.
+# The same goes for other arrow aesthetics, but the `generator()` might
+# differ.
 base +
   geom_arrow(
     aes(arrow_fins = as.integer(group), arrow_mid = as.integer(group)),

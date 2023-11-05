@@ -25,6 +25,10 @@ whirlpool <- function(n = 5, detail = 100) {
     group = factor(rep(seq_len(n), each = detail))
   )
   id <- new_rle(out$group)
-  out$arc <- arc_length(out$x, out$y, rle_start(id), length = field(id, "length"))
+  out$arc <- arc_length(
+    out$x, out$y,
+    rle_start(id),
+    length = field(id, "length")
+  )
   out
 }

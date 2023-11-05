@@ -1,6 +1,5 @@
 place_arrow <- function(
-    arrow = NULL,
-    x, y, id, size, angle, type = "head", force = FALSE
+  arrow = NULL, x, y, id, size, angle, type = "head", force = FALSE
 ) {
   if (is.null(arrow)) {
     return(arrow)
@@ -45,7 +44,9 @@ place_arrow <- function(
   polygonise(arrow)
 }
 
-resolve_ornament <- function(ornament, length, id, width, resect, type = "head") {
+resolve_ornament <- function(
+  ornament, length, id, width, resect, type = "head"
+) {
 
   if (is.null(ornament)) {
     ans <- list(ornament = NULL, length = rep(0, length(id)),
@@ -103,9 +104,9 @@ resolve_ornament <- function(ornament, length, id, width, resect, type = "head")
 }
 
 resolve_inner <- function(
-    ornament, length,
-    x, y, id, width,
-    placement
+  ornament, length,
+  x, y, id, width,
+  placement
 ) {
   if (is.null(ornament)) {
     return(ornament)
@@ -157,7 +158,7 @@ resolve_inner <- function(
       ornament <- Map(ornament, length = as_mm(length), width = width)
       length   <- vapply(ornament, attr, numeric(1), "resect")
       ornament <- lapply(ornament, function(o) {
-        o[, "x"] <- o[, 'x'] - 0.5 * (attr(o[, 'x'], "resect") %||% 1)
+        o[, "x"] <- o[, "x"] - 0.5 * (attr(o[, "x"], "resect") %||% 1)
         o
       })
       scale <- 1
@@ -194,7 +195,7 @@ resolve_inner <- function(
       ornament <- Map(ornament, length = length, width = temp_width)
       length   <- vapply(ornament, attr, numeric(1), "resect")
       ornament <- lapply(ornament, function(o) {
-        o[, "x"] <- o[, 'x'] - 0.5 * (attr(o[, 'x'], "resect") %||% 1)
+        o[, "x"] <- o[, "x"] - 0.5 * (attr(o[, "x"], "resect") %||% 1)
         o
       })
       scale <- 1

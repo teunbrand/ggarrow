@@ -85,7 +85,7 @@ grid.lines(
 )
 grid.text(
   x = unit(0.5, "npc") + unit(8.8, "mm"),
-  y = unit(0.5, "npc") - unit(2, "cm"), 
+  y = unit(0.5, "npc") - unit(2, "cm"),
   label = "length_head", gp = gpar(col = 2),
   vjust = 2
 )
@@ -140,7 +140,7 @@ example_plot +
       x0 = unit(0, "npc") - unit(10, "mm"),
       x1 = unit(0, "npc") - unit(10, "mm"),
       gp = grid::gpar(col = "dodgerblue")
-    ), 
+    ),
     xmin = 1, xmax = 1
   ) +
   lapply(seq_along(y), function(i) {
@@ -191,9 +191,9 @@ grid.points(
 
 angle <- 30 * pi / 180 - 0.5 * pi
 grid.lines(
-  x = unit(0.5, "npc") + unit(arr[c(1,1,2,2), "x"], "mm") +
+  x = unit(0.5, "npc") + unit(arr[c(1, 1, 2, 2), "x"], "mm") +
     unit(cos(angle) * c(0, 1, 1, 0) * 0.5, "cm"),
-  y = unit(0.5, "npc") + unit(arr[c(1,1,2,2), "y"], "mm") +
+  y = unit(0.5, "npc") + unit(arr[c(1, 1, 2, 2), "y"], "mm") +
     unit(sin(angle) * c(0, 1, 1, 0) * 0.5, "cm"),
   gp = gpar(col = 2, alpha = 0.5)
 )
@@ -223,7 +223,7 @@ grid.lines(
 )
 angle <- seq(angle, pi, length.out = 30)
 grid.lines(
-  x = unit(0.5, "npc") + unit(cos(angle) * 20, "mm") + 
+  x = unit(0.5, "npc") + unit(cos(angle) * 20, "mm") +
     unit(28.8 - 2.5 / sin(angle[1]), "mm"),
   y = unit(0.5, "npc") + unit(sin(angle) * 20, "mm"),
   gp = gpar(col = 4)
@@ -243,7 +243,7 @@ lineend <- c("butt", "round", "square", "parallel", "butt")
 y      <- 4:0
 descr  <- c(" (default)", "", "", "", "")
 
-example_plot + 
+example_plot +
   geom_vline(xintercept = 1, colour = "tomato") +
   lapply(seq_along(y), function(i) {
     geom_arrow(
@@ -277,7 +277,7 @@ grid.newpage()
 
 angle <- pi - 45 / 180 * pi
 grid.lines(
-  x = unit(0.5, "npc") + unit(28.8, "mm") + 
+  x = unit(0.5, "npc") + unit(28.8, "mm") +
     unit(cos(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
   y = unit(0.5, "npc") + unit(sin(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
   gp = gpar(col = alpha(2, 0.5))
@@ -303,7 +303,7 @@ width   <- c(5, 2, 5, 5, 5)
 y      <- 4:0
 descr  <- c(" (default)", "", "", "", "")
 
-example_plot + 
+example_plot +
   geom_vline(xintercept = 1, colour = "tomato") +
   lapply(seq_along(y), function(i) {
     geom_arrow(
@@ -313,7 +313,7 @@ example_plot +
     )
   }) +
   annotate(
-    "text", x=  0.5, y = y + 0.5, label = paste0(
+    "text", x =  0.5, y = y + 0.5, label = paste0(
       "angle = ", angle, ", linewidth = ", width, descr
     )
   )
@@ -371,7 +371,7 @@ grid.points(
   gp = gpar(col = 3, alpha = 0.5), pch = 16
 )
 grid.lines(
-  x = unit(0.5, "npc") + unit(arr[c(4,4,5,5), "x"], "mm"),
+  x = unit(0.5, "npc") + unit(arr[c(4, 4, 5, 5), "x"], "mm"),
   y = unit(0.5, "npc") + unit(c(arr[4, "y"], c(-20, -20), arr[5, "y"]), "mm"),
   gp = gpar(col = 3, alpha = 0.5)
 )
@@ -388,12 +388,12 @@ grid.points(
   gp = gpar(col = 4, alpha = 0.5), pch = 16
 )
 grid.lines(
-  x = unit(0.5, "npc") + unit(arr[c(1,1,6,6), "x"], "mm"),
+  x = unit(0.5, "npc") + unit(arr[c(1, 1, 6, 6), "x"], "mm"),
   y = unit(0.5, "npc") + unit(c(arr[1, "y"], c(-20, -20), arr[6, "y"]), "mm"),
   gp = gpar(col = 4, alpha = 0.5)
 )
 grid.text(
-  x = unit(0.5, "npc") + unit(mean(arr[c(1,6), "x"]), "mm"),
+  x = unit(0.5, "npc") + unit(mean(arr[c(1, 6), "x"]), "mm"),
   y = unit(0.5, "npc") + unit(-20, "mm"),
   label = "indent", gp = gpar(col = 4), vjust = 1.5
 )
@@ -404,12 +404,12 @@ grid.points(
   gp = gpar(col = 2, alpha = 0.5), pch = 16
 )
 grid.lines(
-  x = unit(0.5, "npc") + unit(arr[c(2,2,4,4), "x"], "mm"),
+  x = unit(0.5, "npc") + unit(arr[c(2, 2, 4, 4), "x"], "mm"),
   y = unit(0.5, "npc") + unit(c(arr[2, "y"], c(20, 20), arr[4, "y"]), "mm"),
   gp = gpar(col = 2, alpha = 0.5)
 )
 grid.text(
-  x = unit(0.5, "npc") + unit(mean(arr[c(2,4), "x"]), "mm"),
+  x = unit(0.5, "npc") + unit(mean(arr[c(2, 4), "x"]), "mm"),
   y = unit(0.5, "npc") + unit(20, "mm"),
   label = "length_fins", gp = gpar(col = 2), vjust = -0.5
 )
@@ -421,7 +421,7 @@ grid.points(
 )
 grid.lines(
   x = unit(0.5, "npc") + unit(c(arr[1, "x"], -35, -35, arr[2, "x"]), "mm"),
-  y = unit(0.5, "npc") + unit(arr[c(1,1,2,2), "y"], "mm"),
+  y = unit(0.5, "npc") + unit(arr[c(1, 1, 2, 2), "y"], "mm"),
   gp = gpar(col = 6, alpha = 0.5)
 )
 grid.text(
@@ -448,7 +448,7 @@ example_plot +
       x0 = unit(0, "npc") + unit(10, "mm"),
       x1 = unit(0, "npc") + unit(10, "mm"),
       gp = grid::gpar(col = "dodgerblue")
-    ), 
+    ),
     xmin = 0, xmax = 0
   ) +
   lapply(seq_along(y), function(i) {
@@ -545,7 +545,7 @@ In principle, extending ornaments is as straightforward as being able to constru
 my_ornament <- function(n = 5) {
   t <- seq(0, 2 * pi, length.out = n * 2 + 1)[-(n * 2 + 1)]
   l <- rep(c(1, 0.4), length.out = length(t))
-  
+
   cbind(
     x = cos(t) * l,
     y = sin(t) * l
@@ -560,7 +560,7 @@ orn <- my_ornament(5)
 
 # Plot ornament
 par(pty = "s")
-plot(orn, type = 'n', xlim = c(-1, 1), ylim = c(-1, 1))
+plot(orn, type = "n", xlim = c(-1, 1), ylim = c(-1, 1))
 polygon(orn[, "x"], orn[, "y"])
 
 # Incoming line

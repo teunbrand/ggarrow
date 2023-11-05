@@ -64,7 +64,10 @@
 #' p + geom_arrow(arrow_head = arrow_head_line(), length_head = unit(10, "mm"))
 #'
 #' # This works similarly for the arrow fins
-#' p + geom_arrow(arrow_fins = arrow_fins_feather(), length_fins = unit(7, "mm"))
+#' p + geom_arrow(
+#'   arrow_fins = arrow_fins_feather(),
+#'   length_fins = unit(7, "mm")
+#' )
 geom_arrow <- function(
   mapping   = NULL,
   data      = NULL,
@@ -228,4 +231,3 @@ GeomArrow <- ggproto(
 
   draw_key = draw_key_arrow
 )
-

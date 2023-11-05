@@ -9,4 +9,3 @@ test_that("arrow keys work", {
     "arrow key", key
   )
 })
-

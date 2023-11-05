@@ -8,7 +8,7 @@ test_that("arrow_head_wings displays as intended", {
     length_head = unit(10, "mm"), shaft_width = unit(2, "mm"),
     gp = gpar(fill = NA)
   )
-  y <- 1/6
+  y <- 1 / 6
 
   offset <- c(20, 30, 90, 45, 135)
   inset  <- c(30, 60, 60, 90, 30)
@@ -52,7 +52,7 @@ test_that("arrow_head_line displays as intended", {
     length_head = unit(10, "mm"), shaft_width = unit(2, "mm"),
     gp = gpar(fill = NA)
   )
-  y <- 1/6
+  y <- 1 / 6
 
   angle <- c(30, 30, 90, 135, 30)
   linewidth <- unit(c(2, 1, 2, 2, 2), "mm")
@@ -62,7 +62,9 @@ test_that("arrow_head_line displays as intended", {
   arrows <- lapply(seq_along(angle), function(i) {
     my_arrow <- arrow
     my_arrow$y <- unit(c(y, y) * i, "npc")
-    my_arrow$arrow_head <- arrow_head_line(angle = angle[i], lineend = lineend[i])
+    my_arrow$arrow_head <- arrow_head_line(
+      angle = angle[i], lineend = lineend[i]
+    )
     my_arrow$length_head <- length[i]
     my_arrow$shaft_width <- linewidth[i]
     my_arrow
@@ -71,7 +73,7 @@ test_that("arrow_head_line displays as intended", {
   labs <- textGrob(
     y = unit(1:5 * y + 0.5 * y, "npc"),
     label = paste0("angle = ", angle, ", width = ", linewidth, ", length = ",
-                   length,", lineend = ", lineend)
+                   length, ", lineend = ", lineend)
   )
 
   lines <- segmentsGrob(
@@ -99,7 +101,7 @@ test_that("arrow_head_minimal displays as intended", {
     length_head = unit(10, "mm"), shaft_width = unit(2, "mm"),
     gp = gpar(fill = NA)
   )
-  y <- 1/6
+  y <- 1 / 6
 
   angle <- c(45, 30, 90, 135, 5)
   width <- c(4, 2, 4, 4, 4)
@@ -146,7 +148,7 @@ test_that("arrow_fins_feather displays as intended", {
     shaft_width = unit(2, "mm"),
     gp = gpar(fill = NA)
   )
-  y <- 1/6
+  y <- 1 / 6
 
   indent  <- c(0.3, 0, 0.3, 0.3, -0.3)
   outdent <- c(0.3, 0.3, 0, 0.3, -0.3)
@@ -195,7 +197,7 @@ test_that("arrow_fins_line displays as intended", {
     shaft_width = unit(2, "mm"),
     gp = gpar(fill = NA)
   )
-  y <- 1/6
+  y <- 1 / 6
 
   angle  <- c(30, 30, 90, 135, 30)
   width  <- c(2, 1, 2, 2, 2)
@@ -205,7 +207,9 @@ test_that("arrow_fins_line displays as intended", {
   arrows <- lapply(seq_along(angle), function(i) {
     my_arrow <- arrow
     my_arrow$y <- unit(c(y, y) * i, "npc")
-    my_arrow$arrow_fins <- arrow_fins_line(angle = angle[i], lineend = lineend[i])
+    my_arrow$arrow_fins <- arrow_fins_line(
+      angle = angle[i], lineend = lineend[i]
+    )
     my_arrow$shaft_width <- unit(width[i], "mm")
     my_arrow$length_fins <- unit(length[i], "mm")
     my_arrow$name <- paste0(my_arrow$name, i)
@@ -215,7 +219,7 @@ test_that("arrow_fins_line displays as intended", {
   labs <- textGrob(
     y = unit(1:5 * y + 0.5 * y, "npc"),
     label = paste0("angle = ", angle, ", width = ", width, ", length = ",
-                   length, ', lineend = ', lineend)
+                   length, ", lineend = ", lineend)
   )
 
   lines <- segmentsGrob(
@@ -234,5 +238,3 @@ test_that("arrow_fins_line displays as intended", {
     }
   )
 })
-
-

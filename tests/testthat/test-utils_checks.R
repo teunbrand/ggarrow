@@ -15,4 +15,3 @@ test_that("validate_length works as intended", {
     "must be a number"
   )
 })
-

@@ -13,7 +13,8 @@ test_that("geom_arrow_curve draws curves correctly", {
 
   vdiffr::expect_doppelganger(
     "geom_arrow_curve with curves",
-    p + geom_arrow_curve(linewidth_fins = 0, linewidth_head = 3, curvature = 0.66)
+    p + geom_arrow_curve(linewidth_fins = 0, linewidth_head = 3,
+                         curvature = 0.66)
   )
 
   vdiffr::expect_doppelganger(

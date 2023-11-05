@@ -61,7 +61,10 @@ test_that("arrow_pal works as intended", {
     "does not have dimension"
   )
 
-  env_bind(global_env(), arrow_foobar = function() matrix(LETTERS[1:4], ncol = 2))
+  env_bind(
+    global_env(),
+    arrow_foobar = function() matrix(LETTERS[1:4], ncol = 2)
+  )
   expect_error(
     arrow_pal("foobar"),
     "does not have the type"

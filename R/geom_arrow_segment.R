@@ -169,4 +169,3 @@ GeomArrowSegment <- ggproto(
 
   draw_key = draw_key_arrow
 )
-

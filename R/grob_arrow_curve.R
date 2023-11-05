@@ -79,7 +79,7 @@ makeContent.curve_arrow <- function(x) {
   curve  <- makeContent(curve)$children[[1]]
 
   # Get points from curve
-  if (inherits(curve, 'xspline')) {
+  if (inherits(curve, "xspline")) {
     pts <- xsplinePoints(curve)
     pts <- if (all(c("x", "y") %in% names(pts))) list(pts) else pts
     xx  <- do.call(unit.c, lapply(pts, `[[`, i = "x"))

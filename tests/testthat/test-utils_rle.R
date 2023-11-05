@@ -66,12 +66,12 @@ test_that("rle subsetting works", {
   expect_equal(field(test, "length"), 1:3)
 
   test <- rle_subset(x, c(4, 6))
-  expect_equal(field(test, 'length'), c(0, 2, 0))
+  expect_equal(field(test, "length"), c(0, 2, 0))
 
   # Test 0-length fields are handled appropriately
   x <- new_rle(lengths = c(0, 3, 0, 3))
   test <- rle_subset(x, c(2, 4, 5))
-  expect_equal(field(test, 'length'), c(0, 1, 0, 2))
+  expect_equal(field(test, "length"), c(0, 1, 0, 2))
 
   expect_error(
     rle_subset(x, 8),

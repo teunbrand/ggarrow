@@ -3,7 +3,7 @@ unlist0  <- function(x) unlist(x, FALSE, FALSE)
 vapply0  <- function(..., USE.NAMES = FALSE) vapply(..., USE.NAMES = USE.NAMES)
 lengths0 <- function(x) lengths(x, use.names = FALSE)
 
-match_id_group = function(x, id, nm = caller_arg(x)) {
+match_id_group <- function(x, id, nm = caller_arg(x)) {
   n <- length(id)
   m <- length(x)
   if (m == n) {

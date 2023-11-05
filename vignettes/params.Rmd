@@ -22,7 +22,10 @@ library(ggarrow)
 
 p <- ggplot(data.frame(x = c(0, 1), y = 0), aes(x, y)) +
   geom_point(colour = c(2, 4), size = 3) +
-  geom_text(aes(label = c("start\n'fins'", "end\n'head'")), colour = c(2, 4), vjust = -1)
+  geom_text(
+    aes(label = c("start\n'fins'", "end\n'head'")),
+    colour = c(2, 4), vjust = -1
+  )
 ```
 
 ## Aesthetics
@@ -48,7 +51,7 @@ ggplot(faithful, aes(waiting)) +
 The other two are the `stroke_colour` and `stroke_width` aesthetics. These can be used to outline the arrow.
 
 ```{r strokes}
-p + geom_arrow(stroke_colour = "black", stroke_width = 1, 
+p + geom_arrow(stroke_colour = "black", stroke_width = 1,
                colour = "white", linewidth = 5)
 ```
 
@@ -83,7 +86,7 @@ p + geom_arrow(
   arrow_fins = arrow_head_wings(),
   length_head = 10,
   length_fins = 4,
-  length_mid  = unit(10, 'mm')
+  length_mid  = unit(10, "mm")
 )
 ```
 
@@ -105,7 +108,7 @@ You can swap the direction of middle arrows by providing negative numbers to the
 p + geom_arrow(
   arrow_head = NULL,
   arrow_mid  = arrow_head_wings(),
-  mid_place  = c(0.16, -0.33, 0.66, -0.82) 
+  mid_place  = c(0.16, -0.33, 0.66, -0.82)
 )
 ```
 

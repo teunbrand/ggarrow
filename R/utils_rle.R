@@ -33,8 +33,12 @@ new_rle <- function(x = NULL, lengths = NULL, alt = NULL) {
 
 # Basics ------------------------------------------------------------------
 
+rle_runlength <- function(rle) {
+  field(rle, "length")
+}
+
 rle_end <- function(rle) {
-  cumsum(field(rle, "length"))
+  cumsum(rle_runlength(rle))
 }
 
 rle_start <- function(rle) {
@@ -102,5 +106,3 @@ rle_unchop <- function(list, rle) {
 split_rle <- function(x, rle) {
   lapply(rle_idx(rle), function(i) x[i])
 }
-
-

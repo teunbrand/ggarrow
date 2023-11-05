@@ -111,7 +111,6 @@ resect_end <- function(x, y, id, resect, width) {
     # Mark out-of-bound points as NA
     oob <- which(first != final)
     if (length(oob)) {
-      # first  <- intersect(first, oob)
       oob    <- unlist0(Map(`:`, first[oob], final[oob]))
       x[oob] <- NA
       y[oob] <- NA

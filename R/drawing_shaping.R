@@ -24,9 +24,6 @@ shape_shaft <- function(
     return(ans)
   }
 
-  start <- rle_start(id)
-  end   <- rle_end(id)
-
   offset <- extrude_line(x, y, id, width, gp = gp)
 
   offset <- notch_shaft(

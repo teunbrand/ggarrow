@@ -105,7 +105,10 @@ validate_ornament <- function(ornament, n,
 
   # Check lists
   if (is.list(ornament)) {
-    ornament <- lapply(ornament, validate_ornament, n = 1, arg = arg, call = call)
+    ornament <- lapply(
+      ornament, validate_ornament,
+      n = 1, arg = arg, call = call
+    )
   }
   if (is.list(ornament) && length(ornament) == 1L) {
     ornament <- .subset2(ornament, 1L)
@@ -138,9 +141,9 @@ validate_ornament <- function(ornament, n,
 }
 
 validate_matrix_list <- function(
-    list, dim = c(NA, 2), typeof = c("integer", "double"),
-    fun_allowed = TRUE,
-    x_arg = caller_arg(x), call = caller_env()
+  list, dim = c(NA, 2), typeof = c("integer", "double"),
+  fun_allowed = TRUE,
+  x_arg = caller_arg(x), call = caller_env()
 ) {
   if (is.matrix(list)) {
     list <- list(list)

@@ -29,35 +29,35 @@
 #'     curvature = -0.2, length_head = 10
 #'   )
 geom_arrow_curve <- function(
-    mapping   = NULL,
-    data      = NULL,
-    stat      = "identity",
-    position  = "identity",
-    ...,
-    # Curve params
-    curvature = 0.5,
-    angle     = 90,
-    ncp       = 5,
-    # Arrow params
-    arrow_head  = arrow_head_wings(),
-    arrow_fins  = NULL,
-    arrow_mid   = NULL,
-    length      = 4,
-    length_head = NULL,
-    length_fins = NULL,
-    length_mid  = NULL,
-    justify     = 0,
-    force_arrow = FALSE,
-    mid_place   = 0.5,
-    resect      = 0,
-    resect_head = NULL,
-    resect_fins = NULL,
-    lineend     = "butt",
-    linejoin    = "round",
-    linemitre   = 10,
-    na.rm       = FALSE,
-    show.legend = NA,
-    inherit.aes = TRUE
+  mapping   = NULL,
+  data      = NULL,
+  stat      = "identity",
+  position  = "identity",
+  ...,
+  # Curve params
+  curvature = 0.5,
+  angle     = 90,
+  ncp       = 5,
+  # Arrow params
+  arrow_head  = arrow_head_wings(),
+  arrow_fins  = NULL,
+  arrow_mid   = NULL,
+  length      = 4,
+  length_head = NULL,
+  length_fins = NULL,
+  length_mid  = NULL,
+  justify     = 0,
+  force_arrow = FALSE,
+  mid_place   = 0.5,
+  resect      = 0,
+  resect_head = NULL,
+  resect_fins = NULL,
+  lineend     = "butt",
+  linejoin    = "round",
+  linemitre   = 10,
+  na.rm       = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
 ) {
   length <- validate_length(
     length, length_head, length_fins, length_mid

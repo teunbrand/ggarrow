@@ -17,7 +17,7 @@ test_that("arrow theme elements looks like they should", {
       axis.ticks.y = element_arrow(arrow_fins = arrow_head_line(angle = 45)),
       # Variable width lines for the x-axis ticks
       axis.ticks.x = element_arrow(linewidth_head = 3, linewidth_fins = 0),
-      axis.ticks.length = unit(0.5, 'cm'),
+      axis.ticks.length = unit(0.5, "cm"),
       # Arrows for major panel grid
       panel.grid.major = element_arrow(
         arrow_head = "head_wings", arrow_fins = "fins_feather", length = 10
@@ -27,5 +27,3 @@ test_that("arrow theme elements looks like they should", {
     )
   vdiffr::expect_doppelganger("theme lines as arrows", p)
 })
-
-

@@ -69,7 +69,9 @@ scale_arrow_fins_discrete <- function(
 scale_arrow_mid_discrete <- function(
   values = NULL, aesthetics = "arrow_mid", ...
 ) {
-  values <- values %||% c("head_wings", "head_line", "fins_feather", "fins_line")
+  values <- values %||% c(
+    "head_wings", "head_line", "fins_feather", "fins_line"
+  )
   manual_scale(
     aesthetic = aesthetics, values = values,
     ...
@@ -121,7 +123,8 @@ scale_arrow_mid_discrete <- function(
 #'   range = c(20, 80)
 #' )
 #'
-#' # The same goes for other arrow aesthetics, but the `generator()` might differ.
+#' # The same goes for other arrow aesthetics, but the `generator()` might
+#' # differ.
 #' base +
 #'   geom_arrow(
 #'     aes(arrow_fins = as.integer(group), arrow_mid = as.integer(group)),
@@ -130,20 +133,22 @@ scale_arrow_mid_discrete <- function(
 #'   scale_arrow_fins_continuous(map_arg = "height", range = c(0.1, 1)) +
 #'   scale_arrow_mid_continuous(map_arg = "inset")
 scale_arrow_head_continuous <- function(
-    name = waiver(),
-    breaks = waiver(),
-    labels = waiver(),
-    limits = NULL,
-    generator  = arrow_head_wings,
-    map_arg    = "offset",
-    other_args = list(),
-    range = c(10, 80),
-    trans = "identity",
-    guide = "legend"
+  name   = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  generator  = arrow_head_wings,
+  map_arg    = "offset",
+  other_args = list(),
+  range = c(10, 80),
+  trans = "identity",
+  guide = "legend"
 ) {
   continuous_scale(
     "arrow_head", "arrowhead",
-    palette = arg_as_pal(generator, map_arg, other_args, range, caller_arg(generator)),
+    palette = arg_as_pal(
+      generator, map_arg, other_args, range, caller_arg(generator)
+    ),
     name = name, breaks = breaks, labels = labels, limits = limits,
     trans = trans, guide = guide
   )
@@ -152,20 +157,22 @@ scale_arrow_head_continuous <- function(
 #' @export
 #' @rdname continuous_arrow_scales
 scale_arrow_fins_continuous <- function(
-    name = waiver(),
-    breaks = waiver(),
-    labels = waiver(),
-    limits = NULL,
-    generator  = arrow_fins_feather,
-    map_arg    = "indent",
-    other_args = list(),
-    range = c(0, 1),
-    trans = "identity",
-    guide = "legend"
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  generator  = arrow_fins_feather,
+  map_arg    = "indent",
+  other_args = list(),
+  range = c(0, 1),
+  trans = "identity",
+  guide = "legend"
 ) {
   continuous_scale(
     "arrow_fins", "arrowfins",
-    palette = arg_as_pal(generator, map_arg, other_args, range, caller_arg(generator)),
+    palette = arg_as_pal(
+      generator, map_arg, other_args, range, caller_arg(generator)
+    ),
     name = name, breaks = breaks, labels = labels, limits = limits,
     trans = trans, guide = guide
   )
@@ -174,20 +181,22 @@ scale_arrow_fins_continuous <- function(
 #' @export
 #' @rdname continuous_arrow_scales
 scale_arrow_mid_continuous <- function(
-    name = waiver(),
-    breaks = waiver(),
-    labels = waiver(),
-    limits = NULL,
-    generator  = arrow_head_wings,
-    map_arg    = "offset",
-    other_args = list(),
-    range = c(10, 80),
-    trans = "identity",
-    guide = "legend"
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  generator  = arrow_head_wings,
+  map_arg    = "offset",
+  other_args = list(),
+  range = c(10, 80),
+  trans = "identity",
+  guide = "legend"
 ) {
   continuous_scale(
     "arrow_mid", "arrowhead",
-    palette = arg_as_pal(generator, map_arg, other_args, range, caller_arg(generator)),
+    palette = arg_as_pal(
+      generator, map_arg, other_args, range, caller_arg(generator)
+    ),
     name = name, breaks = breaks, labels = labels, limits = limits,
     trans = trans, guide = guide
   )
@@ -198,9 +207,7 @@ scale_arrow_mid_continuous <- function(
 arg_as_pal <- function(generator, map_arg, other_args,
                        range = c(0, 1), gen_name,
                        call = caller_env()) {
-  if (!is.function(generator)) {
-    cli::cli_abort("{.arg generator} must be a {.cls function}.", call = call)
-  }
+  check_function(generator)
   arg_names <- fn_fmls_names(generator)
   if (length(arg_names) == 0) {
     cli::cli_abort("{.fn {gen_name}} must have arguments.", call = call)
@@ -271,7 +278,3 @@ arrow_pal <- function(x) {
 
   validate_matrix_list(x, dim = c(NA, 2), typeof = c("integer", "double"))
 }
-
-
-
-

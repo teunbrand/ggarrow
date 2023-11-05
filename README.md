@@ -34,8 +34,9 @@ devtools::install_github("teunbrand/ggarrow")
 ## Arrows
 
 They’re made for pointing at things. The workhorse functionality is in
-the `geom_arrow()` function that, unsurprisingly, draws arrows. Arrows,
-in contrast to vanilla lines, can have variable widths.
+the `geom_arrow()` function that, unsurprisingly, draws arrows.
+
+### Basic arrows
 
 ``` r
 library(ggarrow)
@@ -45,20 +46,34 @@ library(ggarrow)
 p <- ggplot(whirlpool(5), aes(x, y, colour = group)) +
   coord_equal() +
   guides(colour = "none")
-p + geom_arrow(aes(linewidth = I(arc))) # Identity scale for linewidth
+p + geom_arrow()
 ```
 
 <img src="man/figures/README-basic_example-1.png" width="80%" style="display: block; margin: auto;" />
+
+### Variable width
+
+Arrows, in contrast to vanilla lines, can have variable widths.
+
+``` r
+p + geom_arrow(aes(linewidth = I(arc))) # Identity scale for linewidth
+```
+
+<img src="man/figures/README-variable_width-1.png" width="80%" style="display: block; margin: auto;" />
+
+### Inner arrows
 
 Besides varying linewidths, there is also an option to place arrows
 along the path. You could draw arbitrarily many of these, but I doubt
 that will look pretty.
 
 ``` r
-p + geom_arrow(arrow_mid = arrow_head_wings(), mid_place = c(0.25, 0.5, 0.75))
+p + geom_arrow(arrow_mid = "head_wings", mid_place = c(0.25, 0.5, 0.75))
 ```
 
 <img src="man/figures/README-middle_arrows-1.png" width="80%" style="display: block; margin: auto;" />
+
+### Ornament styles
 
 You can also tweak what the arrows should look like. The example below
 is a bit verbose, but gives an impression of the available options by
@@ -90,6 +105,8 @@ such as `geom_arrow_segment()` and `geom_arrow_curve()`, that add the
 same arrow functionality on top of the `geom_segment()` and
 `geom_curve()` layers.
 
+### Chains
+
 Aside from these, there is also `geom_arrow_chain()`, which has no
 equivalent in vanilla ggplot2. It adds arrows in between points, and
 dodges the endpoints a bit so that they don’t seem to touch. In the
@@ -112,6 +129,35 @@ ggplot(df, aes(x, y, size = size)) +
 ```
 
 <img src="man/figures/README-arrow_chain-1.png" width="80%" style="display: block; margin: auto;" />
+
+### Theme elements
+
+Because arrows are almost drop-in replacements for lines, I also
+included `element_arrow()` as a theme element. With function, you can
+set any line element in the theme to an arrow, with similar
+customisation options as the layers.
+
+``` r
+p + geom_arrow() +
+  theme(
+    axis.line.x = element_arrow(
+      arrow_head = "head_wings", linewidth_head = 1.5, linewidth_fins = 0
+    ),
+    axis.line.y = element_arrow(arrow_head = "head_line"),
+    axis.ticks.length = unit(0.4, "cm"),
+    axis.ticks.x = element_arrow(linewidth_fins = 0, linewidth_head = 2),
+    axis.ticks.y = element_arrow(arrow_fins = "head_line"),
+    panel.grid.major = element_arrow(
+      linewidth_head = 5, linewidth_fins = 0,
+      resect_head = 5, resect_fins = 5, lineend = "round"
+    ),
+    panel.grid.minor = element_arrow(
+      linewidth_head = 0, linewidth_fins = 5
+    )
+  )
+```
+
+<img src="man/figures/README-theme_elements-1.png" width="80%" style="display: block; margin: auto;" />
 
 ## Dependency statement
 

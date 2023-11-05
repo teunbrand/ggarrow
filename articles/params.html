@@ -90,7 +90,10 @@ plot in which we can show what the parameters are doing.</p>
 <span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start\n'fins'"</span>, <span class="st">"end\n'head'"</span><span class="op">)</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start\n'fins'"</span>, <span class="st">"end\n'head'"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">1</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a>
 </h2>
@@ -115,7 +118,7 @@ the linewidth.</p>
 <code>stroke_width</code> aesthetics. These can be used to outline the
 arrow.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>stroke_colour <span class="op">=</span> <span class="st">"black"</span>, stroke_width <span class="op">=</span> <span class="fl">1</span>, </span>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>stroke_colour <span class="op">=</span> <span class="st">"black"</span>, stroke_width <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>               colour <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="params_files/figure-html/strokes-1.png" width="700"></p>
 </div>
@@ -157,7 +160,7 @@ the length in an absolute manner by providing a
 <span>  arrow_fins <span class="op">=</span> <span class="fu"><a href="../reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  length_head <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  length_fins <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>  length_mid  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">10</span>, <span class="st">'mm'</span><span class="op">)</span></span>
+<span>  length_mid  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">10</span>, <span class="st">"mm"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="params_files/figure-html/arrow_sizes-1.png" width="700"></p>
 </div>
@@ -172,7 +175,7 @@ arrows are drawn.</p>
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
 <span>  arrow_head <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  arrow_mid  <span class="op">=</span> <span class="fu"><a href="../reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  mid_place  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.33</span>, <span class="fl">0.66</span><span class="op">)</span> </span>
+<span>  mid_place  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.33</span>, <span class="fl">0.66</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="params_files/figure-html/mid_place-1.png" width="700"></p>
 <p>You can swap the direction of middle arrows by providing negative
@@ -181,7 +184,7 @@ numbers to the <code>mid_place</code> argument.</p>
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
 <span>  arrow_head <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  arrow_mid  <span class="op">=</span> <span class="fu"><a href="../reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  mid_place  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.16</span>, <span class="op">-</span><span class="fl">0.33</span>, <span class="fl">0.66</span>, <span class="op">-</span><span class="fl">0.82</span><span class="op">)</span> </span>
+<span>  mid_place  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.16</span>, <span class="op">-</span><span class="fl">0.33</span>, <span class="fl">0.66</span>, <span class="op">-</span><span class="fl">0.82</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="params_files/figure-html/negative_mid_place-1.png" width="700"></p>
 <p>One alternative to manually specifying positions, is to provide a

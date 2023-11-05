@@ -90,7 +90,10 @@
 <div class="section level2">
 <h2 id="arrows">Arrows<a class="anchor" aria-label="anchor" href="#arrows"></a>
 </h2>
-<p>They’re made for pointing at things. The workhorse functionality is in the <code><a href="reference/geom_arrow.html">geom_arrow()</a></code> function that, unsurprisingly, draws arrows. Arrows, in contrast to vanilla lines, can have variable widths.</p>
+<p>They’re made for pointing at things. The workhorse functionality is in the <code><a href="reference/geom_arrow.html">geom_arrow()</a></code> function that, unsurprisingly, draws arrows.</p>
+<div class="section level3">
+<h3 id="basic-arrows">Basic arrows<a class="anchor" aria-label="anchor" href="#basic-arrows"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://teunbrand.github.io/ggarrow/">ggarrow</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span>
@@ -99,14 +102,30 @@
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="reference/whirlpool.html">whirlpool</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, colour <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
-<span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># Identity scale for linewidth</span></span></code></pre></div>
+<span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-basic_example-1.png" width="80%" style="display: block; margin: auto;"></p>
-<p>Besides varying linewidths, there is also an option to place arrows along the path. You could draw arbitrarily many of these, but I doubt that will look pretty.</p>
+</div>
+<div class="section level3">
+<h3 id="variable-width">Variable width<a class="anchor" aria-label="anchor" href="#variable-width"></a>
+</h3>
+<p>Arrows, in contrast to vanilla lines, can have variable widths.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>arrow_mid <span class="op">=</span> <span class="fu"><a href="reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>, mid_place <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-middle_arrows-1.png" width="80%" style="display: block; margin: auto;"></p>
-<p>You can also tweak what the arrows should look like. The example below is a bit verbose, but gives an impression of the available options by combining different styles of arrow heads and what are termed ‘arrow fins’.</p>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># Identity scale for linewidth</span></span></code></pre></div>
+<p><img src="reference/figures/README-variable_width-1.png" width="80%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="inner-arrows">Inner arrows<a class="anchor" aria-label="anchor" href="#inner-arrows"></a>
+</h3>
+<p>Besides varying linewidths, there is also an option to place arrows along the path. You could draw arbitrarily many of these, but I doubt that will look pretty.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>arrow_mid <span class="op">=</span> <span class="st">"head_wings"</span>, mid_place <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-middle_arrows-1.png" width="80%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="ornament-styles">Ornament styles<a class="anchor" aria-label="anchor" href="#ornament-styles"></a>
+</h3>
+<p>You can also tweak what the arrows should look like. The example below is a bit verbose, but gives an impression of the available options by combining different styles of arrow heads and what are termed ‘arrow fins’.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>arrow_head <span class="op">=</span> <span class="va">group</span>, arrow_fins <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/discrete_arrow_scales.html">scale_arrow_head_discrete</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"head_wings"</span>,</span>
@@ -124,8 +143,12 @@
 <span>  <span class="op">)</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-show_ornaments-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>There are some other geoms that mimic bread-and-butter ggplot2 layers, such as <code><a href="reference/geom_arrow_segment.html">geom_arrow_segment()</a></code> and <code><a href="reference/geom_arrow_curve.html">geom_arrow_curve()</a></code>, that add the same arrow functionality on top of the <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_curve()</a></code> layers.</p>
+</div>
+<div class="section level3">
+<h3 id="chains">Chains<a class="anchor" aria-label="anchor" href="#chains"></a>
+</h3>
 <p>Aside from these, there is also <code><a href="reference/geom_arrow_chain.html">geom_arrow_chain()</a></code>, which has no equivalent in vanilla ggplot2. It adds arrows in between points, and dodges the endpoints a bit so that they don’t seem to touch. In the example below, we can see that we can dodge points of different sizes.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
 <span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.4</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
 <span></span>
@@ -140,6 +163,31 @@
 <span>  <span class="fu"><a href="reference/geom_arrow_chain.html">geom_arrow_chain</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-arrow_chain-1.png" width="80%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="theme-elements">Theme elements<a class="anchor" aria-label="anchor" href="#theme-elements"></a>
+</h3>
+<p>Because arrows are almost drop-in replacements for lines, I also included <code><a href="reference/element_arrow.html">element_arrow()</a></code> as a theme element. With function, you can set any line element in the theme to an arrow, with similar customisation options as the layers.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
+<span>    axis.line.x <span class="op">=</span> <span class="fu"><a href="reference/element_arrow.html">element_arrow</a></span><span class="op">(</span></span>
+<span>      arrow_head <span class="op">=</span> <span class="st">"head_wings"</span>, linewidth_head <span class="op">=</span> <span class="fl">1.5</span>, linewidth_fins <span class="op">=</span> <span class="fl">0</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    axis.line.y <span class="op">=</span> <span class="fu"><a href="reference/element_arrow.html">element_arrow</a></span><span class="op">(</span>arrow_head <span class="op">=</span> <span class="st">"head_line"</span><span class="op">)</span>,</span>
+<span>    axis.ticks.length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
+<span>    axis.ticks.x <span class="op">=</span> <span class="fu"><a href="reference/element_arrow.html">element_arrow</a></span><span class="op">(</span>linewidth_fins <span class="op">=</span> <span class="fl">0</span>, linewidth_head <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    axis.ticks.y <span class="op">=</span> <span class="fu"><a href="reference/element_arrow.html">element_arrow</a></span><span class="op">(</span>arrow_fins <span class="op">=</span> <span class="st">"head_line"</span><span class="op">)</span>,</span>
+<span>    panel.grid.major <span class="op">=</span> <span class="fu"><a href="reference/element_arrow.html">element_arrow</a></span><span class="op">(</span></span>
+<span>      linewidth_head <span class="op">=</span> <span class="fl">5</span>, linewidth_fins <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>      resect_head <span class="op">=</span> <span class="fl">5</span>, resect_fins <span class="op">=</span> <span class="fl">5</span>, lineend <span class="op">=</span> <span class="st">"round"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    panel.grid.minor <span class="op">=</span> <span class="fu"><a href="reference/element_arrow.html">element_arrow</a></span><span class="op">(</span></span>
+<span>      linewidth_head <span class="op">=</span> <span class="fl">0</span>, linewidth_fins <span class="op">=</span> <span class="fl">5</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-theme_elements-1.png" width="80%" style="display: block; margin: auto;"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="dependency-statement">Dependency statement<a class="anchor" aria-label="anchor" href="#dependency-statement"></a>

@@ -224,8 +224,13 @@ arrow_cup <- function(lineend = "round", angle = NULL) {
       return(ans)
     }
 
-    angle <- angle %||% (length / resect)
-
+    angle <- pmin(abs(angle %||% (length / resect)), .twopi)
+    if (abs(angle - .twopi) < sqrt(.Machine$double.eps)) {
+      # To make sure ends meet
+      angle <- .twopi + 0.01 * .twopi
+      # If we have a full circle we needn't bother with lineends
+      lineend <- "butt"
+    }
 
     theta <- seq(-0.5 * angle, 0.5 * angle, length.out = 60)
 

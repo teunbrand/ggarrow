@@ -27,6 +27,27 @@ test_that("continuous arrow scales throw correct errors", {
   )
 })
 
+test_that("scale_resect_continuous gives right scale types", {
+  sc <- scale_resect_continuous()
+  expect_s3_class(sc, "ScaleContinuousIdentity")
+
+  sc <- scale_resect_continuous(range = c(0, 10))
+  expect_false(inherits(sc, "ScaleContinuousIdentity"))
+})
+
+test_that("scale_resect_discrete gives right scale types", {
+
+  # Can't leave empty
+  expect_error(scale_resect_discrete(), "neither")
+  # Or set both
+  expect_error(scale_resect_discrete(values = 1, range = c(0, 1)), "both")
+  # Can't set negative range
+  expect_error(
+    scale_resect_discrete(range = c(-10, -1)),
+    "number larger than or equal to 0"
+  )
+})
+
 test_that("arrow_pal works as intended", {
   # Can find functions in ggarrow
   expect_equal(
@@ -168,4 +189,41 @@ test_that("continuous arrow_mid scales work", {
     )
 
   vdiffr::expect_doppelganger("continuous arrow_mid scale", p)
+})
+
+test_that("resect scales work", {
+
+  df <- data.frame(
+    x = rep(c(0, 1), 4), y = rep(1:4, each = 2),
+    group_num  = rep(c(0, 5, 15, 30), each = 2),
+    group_char = rep(LETTERS[1:4], each = 2)
+  )
+
+  p <- ggplot(df, aes(x, y, group = group_num)) +
+    geom_vline(xintercept = c(0, 1), colour = "red")
+
+
+  vdiffr::expect_doppelganger(
+    "identity scale_resect_continuous",
+    p + geom_arrow(aes(resect_head = group_num)) +
+      scale_resect_continuous()
+  )
+
+  vdiffr::expect_doppelganger(
+    "continous scale_resect_continuous",
+    p + geom_arrow(aes(resect_head = group_num)) +
+      scale_resect_continuous(range = c(10, 20))
+  )
+
+  vdiffr::expect_doppelganger(
+    "ordinal scale_resect_discrete",
+    p + geom_arrow(aes(resect_head = group_char)) +
+      scale_resect_discrete(range = c(0, 10))
+  )
+
+  vdiffr::expect_doppelganger(
+    "manual scale_resect_discrete",
+    p + geom_arrow(aes(resect_head = group_char)) +
+      scale_resect_discrete(values = c(0, 10, 0, 20))
+  )
 })

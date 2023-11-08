@@ -152,6 +152,8 @@ aesthetics default to \code{x} and \code{y} respectively, so only one of \code{x
 \item \code{linewidth}
 \item \code{linewidth_fins}
 \item \code{linewidth_head}
+\item \code{resect_fins}
+\item \code{resect_head}
 \item \code{stroke_colour}
 \item \code{stroke_width}
 }

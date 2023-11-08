@@ -163,6 +163,8 @@ arrow heads or fins.
 \item \code{colour}
 \item \code{group}
 \item \code{linewidth}
+\item \code{resect_fins}
+\item \code{resect_head}
 \item \code{stroke_colour}
 \item \code{stroke_width}
 }

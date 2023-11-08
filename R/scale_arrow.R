@@ -209,7 +209,8 @@ scale_arrow_mid_continuous <- function(
 #' Arrow geoms have a `resect` aesthetic that controls how much an arrow should
 #' be shortened. These scales can help to rescale the output range of resection.
 #'
-#' @inheritDotParams ggplot2::continuous_scale -super -palette
+#' @inheritDotParams ggplot2::continuous_scale -super -palette -scale_name
+#' @inheritDotParams ggplot2::discrete_scale -super -palette -scale_name
 #' @param range A numeric vector of length 2 indicating the minimum and maximum
 #'   size of the resection after transformation in millimetres. `range` is
 #'   mutually exclusive with the `values` argument in discrete scales.

@@ -237,6 +237,8 @@ GeomArrow <- ggproto(
   draw_key = draw_key_arrow
 )
 
+# Helpers -----------------------------------------------------------------
+
 warn_discrete_resect <- function(data, resect) {
   if (!is.null(data$resect_head) && !is.numeric(data$resect_head)) {
     obj <- obj_type_friendly(data$resect_head)

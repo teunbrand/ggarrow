@@ -137,6 +137,27 @@ p + geom_arrow() +
   )
 ```
 
+## Limitations
+
+The current limitations are twofold. The variable width paths don't lend themselves well to jagged paths with short segments. This is because I had to implement linejoins for variable width paths and I barely have high-school level understanding of trigonometry. Consequently, the linejoins look bad with short jagged segments. The other limitation is that there is no good mechanism in place for setting the size of a legend key, so these might be off.
+
+```{r jagged}
+ggplot(economics, aes(date, unemploy)) +
+  geom_arrow(aes(linewidth = date))
+```
+
+The best advice I can give for the jagged linejoins is to smooth the data beforehand.
+
+```{r smoothed}
+ggplot(economics, aes(date, unemploy)) +
+  geom_arrow(
+    stat = "smooth", formula = y ~ x, method = "loess", span = 0.05,
+    aes(linewidth = after_stat(x))
+  )
+```
+
+With regards to the legend-keys, that'll require a change in ggplot2's code.
+
 ## Dependency statement
 
 The {ggarrow} package largely takes on the same dependencies as {ggplot2} to keep it on the lightweight side. However, this package wouldn't work at all without the {polyclip} dependency, which is the only one outside {ggplot2}'s imports.

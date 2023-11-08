@@ -133,7 +133,7 @@ GeomArrowCurve <- ggproto(
     angle       = 90,
     ncp         = 5
   ) {
-
+    data <- warn_discrete_resect(data, resect)
     data$yend <- data$yend %||% data$y
     data$xend <- data$xend %||% data$x
     data$linewidth_head <- data$linewidth_head %||% data$linewidth

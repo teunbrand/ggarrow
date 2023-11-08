@@ -148,26 +148,6 @@ GeomArrow <- ggproto(
     stroke_width  = 0.25
   ),
 
-  setup_data = function(data, params) {
-    if (!is.null(data$resect_head) && !is.numeric(data$resect_head)) {
-      obj <- obj_type_friendly(data$resect_head)
-      cli::cli_abort(c(
-        "The {.field resect_head} aesthetic must be {.cls numeric}, not {obj}.",
-        i = paste0("The function {.fn scale_resect_discrete} might be useful ",
-                   "to translate.")
-      ))
-    }
-    if (!is.null(data$resect_fins) && !is.null(data$resect_fins)) {
-      obj <- obj_type_friendly(data$resect_fins)
-      cli::cli_abort(c(
-        "The {.field resect_fins} aesthetic must be {.cls numeric}, not {obj}.",
-        i = paste0("The function {.fn scale_resect_discrete} might be useful ",
-                   "to translate.")
-      ))
-    }
-    data
-  },
-
   draw_panel = function(
     self, data, panel_params, coord,
     lineend     = "butt",
@@ -181,7 +161,7 @@ GeomArrow <- ggproto(
     mid_place   = 0.5,
     resect      = list(head = 0, fins = 0)
   ) {
-
+    data <- warn_discrete_resect(data, resect)
     if (!anyDuplicated(data$group)) {
       cli::cli_inform(c(paste0(
         "{.fn {snake_class(self)}}: Each group consists of only one ",
@@ -256,3 +236,25 @@ GeomArrow <- ggproto(
 
   draw_key = draw_key_arrow
 )
+
+warn_discrete_resect <- function(data, resect) {
+  if (!is.null(data$resect_head) && !is.numeric(data$resect_head)) {
+    obj <- obj_type_friendly(data$resect_head)
+    cli::cli_warn(c(
+      "The {.field resect_head} aesthetic must be {.cls numeric}, not {obj}.",
+      i = paste0("The function {.fn scale_resect_discrete} might be useful ",
+                 "to translate.")
+    ))
+    data$resect_head <- resect$head
+  }
+  if (!is.null(data$resect_fins) && !is.numeric(data$resect_fins)) {
+    obj <- obj_type_friendly(data$resect_fins)
+    cli::cli_warn(c(
+      "The {.field resect_fins} aesthetic must be {.cls numeric}, not {obj}.",
+      i = paste0("The function {.fn scale_resect_discrete} might be useful ",
+                 "to translate.")
+    ))
+    data$resect_fins <- resect$fins
+  }
+  data
+}

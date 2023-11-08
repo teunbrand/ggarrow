@@ -142,6 +142,7 @@ GeomArrowChain <- ggproto(
     resect_head = 0,
     resect_fins = 0
   ) {
+    data <- warn_discrete_resect(data, resect)
     data$linewidth_head <- data$linewidth_head %||% data$linewidth
     data$linewidth_fins <- data$linewidth_fins %||% data$linewidth
     data$linewidth <- NULL

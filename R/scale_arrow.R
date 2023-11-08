@@ -202,6 +202,113 @@ scale_arrow_mid_continuous <- function(
   )
 }
 
+# Resection scales --------------------------------------------------------
+
+#' Scale for resection
+#'
+#' Arrow geoms have a `resect` aesthetic that controls how much an arrow should
+#' be shortened. These scales can help to rescale the output range of resection.
+#'
+#' @inheritDotParams ggplot2::continuous_scale -super -palette
+#' @param range A numeric vector of length 2 indicating the minimum and maximum
+#'   size of the resection after transformation in millimetres. `range` is
+#'   mutually exclusive with the `values` argument in discrete scales.
+#' @param values (Discrete scale only) A numeric vector to map data values to.
+#'   The values will be matched in order with the limits of the scale, or with
+#'   `breaks` if provided. If this is a named vector, the values will be
+#'   matched based on the names instead. Data values that don't match will be
+#'   given `na.value`. `values` is mutually exclusive with the `range`
+#' @inheritParams ggplot2::continuous_scale
+#'
+#' @details
+#' Conceptually, these scales depart slightly from ggplot2 conventions. The
+#' `scale_resect_continuous()` function returns an identity scale
+#' when `range = NULL` (default) and a typical continuous scale when the
+#' `range` argument is set.
+#' The `scale_resect_discrete()` acts as a manual scale when `values` is set
+#' and as an ordinal scale when `range` is set.
+#'
+#' @return A `<Scale>` that can be added to a plot.
+#' @export
+#' @name scale_resect
+#'
+#' @examples
+#' # A plot with points indicating path ends
+#' p <- ggplot(whirlpool(5), aes(x, y, colour = group)) +
+#'   geom_point(data = ~ subset(.x, arc == ave(arc, group, FUN = max)))
+#'
+#' # Resect scale as an identity scale
+#' p + geom_arrow(aes(resect_head = as.integer(group))) +
+#'   scale_resect_continuous()
+#'
+#' # Resect scale as typical continuous scale
+#' p + geom_arrow(aes(resect_head = as.integer(group))) +
+#'   scale_resect_continuous(range = c(0, 10))
+#'
+#' # Resect scale as manual scale
+#' p + geom_arrow(aes(resect_head = group)) +
+#'   scale_resect_discrete(values = c(10, 5, 0, 5, 10))
+#'
+#' # Resect scale as ordinal scale
+#' p + geom_arrow(aes(resect_head = group)) +
+#'   scale_resect_discrete(range = c(0, 10))
+scale_resect_continuous <- function(
+  ...,
+  range = NULL,
+  aesthetics = c("resect_head", "resect_fins"),
+  guide = "none"
+) {
+  if (is.null(range)) {
+    pal   <- identity_pal()
+    super <- ScaleContinuousIdentity
+  } else {
+    check_number_decimal(range[1], min = 0, allow_infinite = FALSE)
+    check_number_decimal(range[2], min = 0, allow_infinite = FALSE)
+    pal   <- rescale_pal(range)
+    super <- ScaleContinuous
+  }
+  continuous_scale(
+    aesthetics = aesthetics, "resect_scale", palette = pal, guide = guide,
+    ..., super = super
+  )
+}
+
+#' @export
+#' @rdname scale_resect
+scale_resect_discrete <- function(
+  ...,
+  values = NULL,
+  aesthetics = c("resect_head", "resect_fins"),
+  range = NULL,
+  guide = "none"
+) {
+  if (!xor(is.null(values), is.null(range))) {
+    msg <- "Only one of the {.arg range} and {.arg values} must be set."
+    if (is.null(values) && is.null(range)) {
+      msg <- c(msg, i = "Currently, {.emph neither} argument is set.")
+    } else {
+      msg <- c(msg, i = "Currently, {.emph both} arguments are set.")
+    }
+    cli::cli_abort(msg)
+  }
+
+  if (!is.null(range)) {
+    check_number_decimal(range[1], min = 0, allow_infinite = FALSE)
+    check_number_decimal(range[2], min = 0, allow_infinite = FALSE)
+    force(range)
+    discrete_scale(
+      aesthetics = aesthetics, "resect_scale",
+      palette = function(n) {
+        seq(range[1], range[2], length.out = n)
+      },
+      guide = guide,
+      ...
+    )
+  } else {
+    manual_scale(aesthetic = aesthetics, values = values, guide = guide)
+  }
+}
+
 # Helpers -----------------------------------------------------------------
 
 generator_pal <- function(

@@ -62,6 +62,10 @@ geom_arrow_curve <- function(
   length <- validate_length(
     length, length_head, length_fins, length_mid
   )
+  resect_head <- resect_head %||% resect
+  resect_fins <- resect_fins %||% resect
+  check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
+  check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
   layer(
     data        = data,
     mapping     = mapping,
@@ -76,13 +80,12 @@ geom_arrow_curve <- function(
       angle     = angle,
       ncp       = ncp,
 
-      arrow  = list(head = arrow_head,  fins = arrow_fins,  mid  = arrow_mid),
+      arrow  = list(head = arrow_head, fins = arrow_fins, mid  = arrow_mid),
       length      = length,
       justify     = justify,
       force_arrow = force_arrow,
       mid_place   = mid_place,
-      resect_head = resect_head %||% resect,
-      resect_fins = resect_fins %||% resect,
+      resect      = list(head = resect_head, fins = resect_fins),
       lineend     = lineend,
       linejoin    = linejoin,
       linemitre   = linemitre,
@@ -125,12 +128,12 @@ GeomArrowCurve <- ggproto(
     justify     = 0,
     force_arrow = FALSE,
     mid_place   = 0.5,
-    resect_head = 0,
-    resect_fins = 0,
+    resect      = list(head = 0, fins = 0),
     curvature   = 0.5,
     angle       = 90,
     ncp         = 5
   ) {
+
     data$yend <- data$yend %||% data$y
     data$xend <- data$xend %||% data$x
     data$linewidth_head <- data$linewidth_head %||% data$linewidth
@@ -173,8 +176,8 @@ GeomArrowCurve <- ggproto(
       mid_place   = mid_place,
       width_head  = head_width,
       width_fins  = fins_width,
-      resect_head = as_unit(resect_head, "mm"),
-      resect_fins = as_unit(resect_fins, "mm"),
+      resect_head = as_unit(data$resect_head %||% resect$head, "mm"),
+      resect_fins = as_unit(data$resect_fins %||% resect$fins, "mm"),
       gp = gpar(
         col  = data$stroke_colour,
         fill = alpha(data$colour, data$alpha),

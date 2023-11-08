@@ -98,6 +98,10 @@ geom_arrow <- function(
   length <- validate_length(
     length, length_head, length_fins, length_mid
   )
+  resect_head <- resect_head %||% resect
+  resect_fins <- resect_fins %||% resect
+  check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
+  check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
   layer(
     data        = data,
     mapping     = mapping,
@@ -112,8 +116,7 @@ geom_arrow <- function(
       justify     = justify,
       force_arrow = force_arrow,
       mid_place   = mid_place,
-      resect_head = resect_head %||% resect,
-      resect_fins = resect_fins %||% resect,
+      resect      = list(head = resect_head, fins = resect_fins),
       lineend     = lineend,
       linejoin    = linejoin,
       linemitre   = linemitre,
@@ -139,9 +142,31 @@ GeomArrow <- ggproto(
     arrow_head = NULL,
     arrow_fins = NULL,
     arrow_mid  = NULL,
+    resect_head = NULL,
+    resect_fins = NULL,
     stroke_colour = NA,
     stroke_width  = 0.25
   ),
+
+  setup_data = function(data, params) {
+    if (!is.null(data$resect_head) && !is.numeric(data$resect_head)) {
+      obj <- obj_type_friendly(data$resect_head)
+      cli::cli_abort(c(
+        "The {.field resect_head} aesthetic must be {.cls numeric}, not {obj}.",
+        i = paste0("The function {.fn scale_resect_discrete} might be useful ",
+                   "to translate.")
+      ))
+    }
+    if (!is.null(data$resect_fins) && !is.null(data$resect_fins)) {
+      obj <- obj_type_friendly(data$resect_fins)
+      cli::cli_abort(c(
+        "The {.field resect_fins} aesthetic must be {.cls numeric}, not {obj}.",
+        i = paste0("The function {.fn scale_resect_discrete} might be useful ",
+                   "to translate.")
+      ))
+    }
+    data
+  },
 
   draw_panel = function(
     self, data, panel_params, coord,
@@ -154,8 +179,7 @@ GeomArrow <- ggproto(
     justify     = 0,
     force_arrow = FALSE,
     mid_place   = 0.5,
-    resect_head = 0,
-    resect_fins = 0
+    resect      = list(head = 0, fins = 0)
   ) {
 
     if (!anyDuplicated(data$group)) {
@@ -217,8 +241,8 @@ GeomArrow <- ggproto(
       force_arrow = force_arrow,
       mid_place   = mid_place,
       shaft_width = width,
-      resect_head = as_unit(resect_head, "mm"),
-      resect_fins = as_unit(resect_fins, "mm"),
+      resect_head = as_unit(data$resect_head[end]   %||% resect$head, "mm"),
+      resect_fins = as_unit(data$resect_fins[start] %||% resect$fins, "mm"),
       gp = gpar(
         col  = data$stroke_colour[start],
         fill = alpha(data$colour, data$alpha)[start],

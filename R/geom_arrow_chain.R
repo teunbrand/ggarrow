@@ -77,6 +77,10 @@ geom_arrow_chain <- function(
   length <- validate_length(
     length, length_head, length_fins, length_mid
   )
+  resect_head <- resect_head %||% resect
+  resect_fins <- resect_fins %||% resect
+  check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
+  check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
   layer(
     data        = data,
     mapping     = mapping,

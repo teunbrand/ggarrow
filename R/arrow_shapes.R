@@ -68,7 +68,6 @@ arrow_head_wings <- function(
     y = c(0, wings$y[1], inner$y[1], wings$y[2])
   )
   mult <- 1 / ans[1]
-  attr(ans, "front_angle") <- offset
   attr(ans, "notch_angle") <- offset + inset
   ans * mult
 }
@@ -95,7 +94,6 @@ arrow_fins_feather <- function(
 
   resect <- x[4]
   ans <- cbind(x = x - resect, y = y)
-  attr(ans, "front_angle") <- atan2(height, x[3] - x[4])
   angle <- xy_angle(x[c(3, 4, 5)], y[c(3, 4, 5)])
   angle <- norm_angle(diff(angle) + pi) + pi
   attr(ans, "notch_angle") <- angle / 2 + .halfpi

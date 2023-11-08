@@ -87,8 +87,17 @@ resolve_ornament <- function(
       ornament,
       length = as_mm(length), width = width[i], resect = resect
     )
-    resect <- vapply(ornament, attr, numeric(1), "resect")
-    angle  <- vapply(ornament, attr, numeric(1), "notch_angle")
+    attrnames <- names(attributes(ornament[[1]]))
+    if ("resect" %in% attrnames) {
+      resect <- vapply(ornament, attr, numeric(1), "resect")
+    } else {
+      resect <- rep(0, length(ornament))
+    }
+    if ("notch_angle" %in% attrnames) {
+      angle <- vapply(ornament, attr, numeric(1), "notch_angle")
+    } else {
+      angle <- rep(.halfpi, length(ornament))
+    }
     scale  <- rep(1, length(id))
   } else {
     length <- pmax(as_mm(length), width[i] / diff(range(ornament[, "y"])))

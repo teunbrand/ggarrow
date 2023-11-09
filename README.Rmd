@@ -32,6 +32,10 @@ The goal of ggarrow is to draw arrows in [{ggplot2}](https://ggplot2.tidyverse.o
 You can install the development version of ggarrow from [GitHub](https://github.com/) with:
 
 ``` r
+# You can install the package from CRAN
+install.packages("ggarrow")
+
+# Or the development version from GitHub
 # install.packages("devtools")
 devtools::install_github("teunbrand/ggarrow")
 ```

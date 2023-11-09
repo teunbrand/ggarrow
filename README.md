@@ -27,6 +27,10 @@ You can install the development version of ggarrow from
 [GitHub](https://github.com/) with:
 
 ``` r
+# You can install the package from CRAN
+install.packages("ggarrow")
+
+# Or the development version from GitHub
 # install.packages("devtools")
 devtools::install_github("teunbrand/ggarrow")
 ```
@@ -41,7 +45,6 @@ the `geom_arrow()` function that, unsurprisingly, draws arrows.
 ``` r
 library(ggarrow)
 #> Loading required package: ggplot2
-#> Warning: package 'ggplot2' was built under R version 4.3.2
 
 p <- ggplot(whirlpool(5), aes(x, y, colour = group)) +
   coord_equal() +

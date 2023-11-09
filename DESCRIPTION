@@ -34,3 +34,4 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 URL: https://teunbrand.github.io/ggarrow/
+BugReports: https://github.com/teunbrand/ggarrow/issues

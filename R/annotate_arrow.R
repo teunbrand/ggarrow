@@ -10,6 +10,7 @@
 #'   one of these must be specified.
 #'
 #' @inherit geom_arrow return
+#' @return A `<Layer>` ggproto object that can be added to a plot.
 #' @export
 #' @family arrow geoms
 #'

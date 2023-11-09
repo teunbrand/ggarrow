@@ -21,15 +21,16 @@
 #'             in radians of the resected lines. Every element is parallel to
 #'             `id`.
 #' @noRd
+#' @keywords internal
 #' @examples
-#' new <- resect_line(
+#' new <- ggarrow:::resect_line(
 #'   x = c(0, 1, 0, 1),
 #'   y = c(0, 1, 1, 0),
-#'   id = vec_group_rle(c(1, 1, 2, 2)),
+#'   id = ggarrow:::new_rle(c(1, 1, 2, 2)),
 #'   end = c(0.3, 0.1),
 #'   begin = c(0.5, 0.2)
 #' )
-#' grid.polyline(new$x, new$y, rle_inv(new$id))
+#' grid::grid.polyline(new$x, new$y, ggarrow:::rle_inv(new$id))
 resect_line <- function(x, y, id, end = NULL, begin = NULL, width = NULL) {
 
   # Initialise line and angles

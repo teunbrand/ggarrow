@@ -21,9 +21,12 @@
 #' The convention for these functions is that the arrow shaft is fused to the
 #' ornament at the (0,0) point and the ornaments ends at the (1,0) point.
 #'
-#' @return A `<matrix[n, 2]>` with `x` and `y` columns describing a polygon.
+#' @return
+#' One of the following:
+#' * A `<matrix[n, 2]>` with `x` and `y` columns describing a polygon.
 #'   It has a `notch_angle` attribute that is used fusing the fins/head to the
 #'   shaft of the arrow. They can be given to an arrow plotting function.
+#' * A `function` that produces such a matrix.
 #' @name arrow_ornaments
 #'
 #' @examples

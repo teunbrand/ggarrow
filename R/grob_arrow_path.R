@@ -90,6 +90,26 @@ grob_arrow <- function(
   arrow_fins <- validate_ornament(arrow_fins, n)
   arrow_mid  <- validate_ornament(arrow_mid,  n)
 
+  # Detect if linetype is not solid
+  not_solid <- !(gp$lty %||% rep(1, length(id))) %in% c("1", "solid")
+  if (any(not_solid)) {
+    width <- rep_len(shaft_width, sum(field(id, "length")))
+    n_widths <- vapply0(
+      rle_chop(width, id),
+      function(x) sum(diff(as.numeric(x)) > 0.0001),
+      # function(x) length(unique(diff(as.numeric(x)))),
+      integer(1)
+    )
+    if (any(n_widths > 0 & not_solid)) {
+      cli::cli_abort(
+        "Cannot create arrows with varying widths and non-solid linetype."
+      )
+    }
+    width <- convertUnit(width[rle_start(id)], "mm", valueOnly = TRUE)
+    gp$lwd <- gp$lwd %||% rep(1 * .pt, length(id))
+    gp$lwd[not_solid] <- width[not_solid] * .stroke
+  }
+
   grid::gTree(
     x = as_unit(x, default.units),
     y = as_unit(y, default.units),
@@ -162,20 +182,60 @@ makeContent.arrow_path <- function(x) {
   )
 
   # Finish arrow
-  arrow <- combine_arrow(head, fins, shaft, inner)
+  is_polygon <- lapply(shaft, `[[`, i = "poly")
+  is_polygon[lengths(is_polygon) != 1] <- list(TRUE)
+  is_polygon <- unlist(is_polygon)
 
-  if (length(arrow$x) == 0) {
-    ans <- gList(zeroGrob())
+  if (all(is_polygon)) {
+    arrow <- combine_arrow(head, fins, shaft, inner)
+    if (length(arrow$x) == 0) {
+      ans <- gList(zeroGrob())
+    } else {
+      ans <- gList(render_polygon_arrow(arrow, drop_gp(x$gp, line$id)))
+    }
   } else {
-    ans <- gList(pathGrob(
-      x = unit(arrow$x, "mm"),
-      y = unit(arrow$y, "mm"),
-      id.lengths = arrow$id,
-      pathId.lengths = arrow$path_id,
-      rule = "evenodd",
-      gp = drop_gp(x$gp, line$id)
-    ))
+    ans <- individual_arrows(head, fins, shaft, inner, drop_gp(x$gp, line$id))
   }
-
   setChildren(x, ans)
+}
+
+render_polygon_arrow <- function(arrow, gp) {
+  pathGrob(
+    x = unit(arrow$x, "mm"),
+    y = unit(arrow$y, "mm"),
+    id.lengths = arrow$id,
+    pathId.lengths = arrow$path_id,
+    rule = "evenodd",
+    gp = gp
+  )
+}
+
+individual_arrows <- function(
+  head = NULL, fins = NULL, shaft = NULL, inner = NULL, gp = gpar()
+) {
+  grobs <- list()
+  for (i in seq_along(shaft)) {
+    this_gp <- lapply(gp, function(x) x[pmin(length(x), i)])
+    this_gp <- do.call(gpar, this_gp)
+
+    if (shaft[[i]]$poly) {
+      arrow <- combine_arrow(head[i], fins[i], shaft[i], inner[i])
+      grobs[[i]] <- render_polygon_arrow(arrow, this_gp)
+      next
+    }
+
+    decor <- combine_arrow(head[i], fins[i], NULL, inner[i])
+    decor <- render_polygon_arrow(decor, this_gp)
+
+    this_gp$col <- this_gp$fill
+
+    line <- polylineGrob(
+      x = unit(shaft[[i]]$x, "mm"), y = unit(shaft[[i]]$y, "mm"),
+      gp = this_gp
+    )
+
+    grobs[[i]] <- grobTree(decor, line)
+
+  }
+  do.call(gList, grobs)
 }

@@ -35,6 +35,7 @@ draw_key_arrow <- function(data, params, size) {
       col  = data$stroke_colour    %||% NA,
       fill = alpha(data$colour     %||% "black", data$alpha %||% NA),
       lwd  = data$stroke_width     %||% 0.5 * .pt,
+      lty  = data$linetype         %||% 1,
       linejoin  = params$linejoin  %||% "round",
       linemitre = params$linemitre %||% 10
     )

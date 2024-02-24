@@ -88,11 +88,15 @@ along_rle <- function(x, rle) {
 # Splitting ---------------------------------------------------------------
 
 rle_idx <- function(rle, rev = FALSE) {
+  end <- rle_end(rle)
+  start <- rle_start(rle)
   if (rev) {
-    Map(`:`, rle_end(rle), rle_start(rle))
+    ans <- Map(`:`, end, start)
   } else {
-    Map(`:`, rle_start(rle), rle_end(rle))
+    ans <- Map(`:`, start, end)
   }
+  ans[start > end] <- list(integer())
+  ans
 }
 
 rle_chop <- function(x, rle) {

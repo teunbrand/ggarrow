@@ -2,15 +2,64 @@
 
 extrude_line <- function(x, y, id, width, gp = gpar()) {
 
+  # Only extrude solid lines
+  do_extrude <- (gp$lty %||% rep(1, length(id))) %in% c("1", "solid")
+  if (!any(do_extrude)) {
+    ans <- list(
+      x_left = x,
+      y_left = y,
+      id_left = id,
+      x_right = NULL,
+      y_right = NULL,
+      id_right = new_rle(lengths = rep(0, length(id)))
+    )
+    return(ans)
+  }
+
   width <- width / 2
   width <- rep_len(width, sum(field(id, "length")))
 
-  switch(
-    gp$linejoin %||% "mitre",
-    "round" = linejoin_round(x, y, id, width),
-    "bevel" = linejoin_bevel(x, y, id, width),
-    linejoin_mitre(x, y, id, width, mitre = gp$linemitre %||% 10)
-  )
+  if (all(do_extrude)) {
+    ans <- switch(
+      gp$linejoin %||% "mitre",
+      "round" = linejoin_round(x, y, id, width),
+      "bevel" = linejoin_bevel(x, y, id, width),
+      linejoin_mitre(x, y, id, width, mitre = gp$linemitre %||% 10)
+    )
+  } else {
+    # Extrude some but not all
+    extrude <- rep.int(do_extrude, rle_runlength(id))
+    ans <- switch(
+      gp$linejoin %||% "mitre",
+      "round" = linejoin_round(
+        x[extrude], y[extrude], id[do_extrude], width[extrude]
+      ),
+      "bevel" = linejoin_bevel(
+        x[extrude], y[extrude], id[do_extrude], width[extrude]
+      ),
+      linejoin_mitre(
+        x[extrude], y[extrude], id[do_extrude], width[extrude],
+        mitre = gp$linemitre %||% 10
+      )
+    )
+
+    # Combine extruded and not extruded. Not extruded only has 'left'
+    lengs <- rle_runlength(id)
+    lengs[do_extrude] <- rle_runlength(ans$id_left)
+    extruded <- rep(do_extrude, lengs)
+    new_x <- new_y <- rep(NA_real_, sum(lengs))
+    new_x[!extruded] <- x[!extrude]
+    new_x[extruded] <- ans$x_left
+    new_y[!extruded] <- y[!extrude]
+    new_y[extruded] <- ans$y_left
+    new_id <- id # left id
+    field(new_id, "length")[do_extrude] <- field(ans$id_left, "length")
+    ans[c("x_left", "y_left", "id_left")] <- list(new_x, new_y, new_id)
+    new_id <- new_rle(lengths = rep(0, length(id)))
+    field(new_id, "length")[do_extrude] <- field(ans$id_right, "length")
+    ans$id_right <- new_id
+  }
+  ans
 }
 
 # Round -------------------------------------------------------------------

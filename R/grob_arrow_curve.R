@@ -119,5 +119,5 @@ makeContent.curve_arrow <- function(x) {
   ))
   grob <- makeContent(grob)
 
-  setChildren(x, gList(grob$children[[1]]))
+  setChildren(x, grob$children)
 }

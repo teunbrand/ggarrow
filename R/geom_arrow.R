@@ -138,6 +138,7 @@ GeomArrow <- ggproto(
   default_aes = aes(
     colour    = "black",
     linewidth = 1,
+    linetype  = 1,
     alpha     = NA,
     arrow_head = NULL,
     arrow_fins = NULL,
@@ -226,6 +227,7 @@ GeomArrow <- ggproto(
       gp = gpar(
         col  = data$stroke_colour[start],
         fill = alpha(data$colour, data$alpha)[start],
+        lty  = data$linetype[start],
         lwd  = data$stroke_width[start] * .pt,
         linejoin  = linejoin,
         linemitre = linemitre,

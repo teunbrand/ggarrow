@@ -120,6 +120,7 @@ GeomArrowChain <- ggproto(
     linewidth = 1,
     linewidth_head = NULL,
     linewidth_fins = NULL,
+    linetype  = 1,
     arrow_head = NULL,
     arrow_fins = NULL,
     arrow_mid  = NULL,
@@ -220,6 +221,7 @@ GeomArrowChain <- ggproto(
         col  = data$stroke_colour[start],
         fill = alpha(data$colour, data$alpha)[start],
         lwd  = data$stroke_width[start] * .pt,
+        lty  = data$linetype[start],
         linejoin  = linejoin,
         linemitre = linemitre
       )

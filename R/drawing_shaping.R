@@ -53,9 +53,11 @@ notch_shaft <- function(
   if (all(is.na(angle_notch)) || is.null(angle_notch)) {
     return(offset)
   }
-  i <- !is.na(angle_notch)
+  i <- !is.na(angle_notch) &
+    rle_runlength(offset$id_left) > 0 &
+    rle_runlength(offset$id_right) > 0
   angle <- angle_line[i] + pi
-  angle_notch <- angle_notch[i]
+  angle_notch <- rep_len(angle_notch, length(id))[i]
 
   if (type == "head") {
     index_fun <- rle_end
@@ -167,9 +169,13 @@ close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
 
   Map(
     function(xend, yend, xstart, ystart, L, R) {
+      if (length(R) == 0 || length(L) == 0) {
+        return(list(x = offset$x_left[L], y = offset$y_left[L], poly = FALSE))
+      }
       list(
         x = c(offset$x_left[L], xend, offset$x_right[R], xstart),
-        y = c(offset$y_left[L], yend, offset$y_right[R], ystart)
+        y = c(offset$y_left[L], yend, offset$y_right[R], ystart),
+        poly = TRUE
       )
     },
     xend = xend, yend = yend, xstart = xstart, ystart = ystart,

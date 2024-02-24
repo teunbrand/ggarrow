@@ -111,6 +111,7 @@ GeomArrowCurve <- ggproto(
     linewidth = 1,
     linewidth_head = NULL,
     linewidth_fins = NULL,
+    linetype  = 1,
     arrow_head     = NULL,
     arrow_fins     = NULL,
     arrow_mid      = NULL,
@@ -182,6 +183,7 @@ GeomArrowCurve <- ggproto(
         col  = data$stroke_colour,
         fill = alpha(data$colour, data$alpha),
         lwd  = data$stroke_width * .pt,
+        lty  = data$linetype,
         linejoin  = linejoin,
         linemitre = linemitre,
         lineend   = lineend

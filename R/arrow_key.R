@@ -22,7 +22,7 @@ draw_key_arrow <- function(data, params, size) {
     length_fins <- length_fins * width
   }
 
-  grob_arrow(
+  grob <- grob_arrow(
     x = unit(c(0.1, 0.9), "npc"),
     y = unit(c(0.1, 0.9), "npc"),
     arrow_head  = data$arrow_head %||% params$arrow$head,
@@ -39,4 +39,15 @@ draw_key_arrow <- function(data, params, size) {
       linemitre = params$linemitre %||% 10
     )
   )
+
+  # Explanation of magic numbers for future me:
+  # Arrow is placed diagonal so width/height of arrow is length/sqrt(2)
+  # We accommodate both the arrow head and arrow fins, even if absent
+  # 1.25 is for spanning 0.9 - 0.1 = 0.8 npcs: 1 / 0.8 = 1.25 multiplier
+  # 10 is for mm --> cm
+
+  size <- (length_head + length_fins) * 1.25 / (sqrt(2) * 10)
+  attr(grob, "width") <- attr(grob, "height") <- size
+
+  grob
 }

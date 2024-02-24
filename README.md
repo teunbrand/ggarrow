@@ -41,7 +41,6 @@ the `geom_arrow()` function that, unsurprisingly, draws arrows.
 ``` r
 library(ggarrow)
 #> Loading required package: ggplot2
-#> Warning: package 'ggplot2' was built under R version 4.3.2
 
 p <- ggplot(whirlpool(5), aes(x, y, colour = group)) +
   coord_equal() +
@@ -161,19 +160,15 @@ p + geom_arrow() +
 
 ## Limitations
 
-The current limitations are twofold. The variable width paths don’t lend
+The current limitation is that variable width paths don’t lend
 themselves well to jagged paths with short segments. This is because I
 had to implement linejoins for variable width paths and I barely have
 high-school level understanding of trigonometry. Consequently, the
-linejoins look bad with short jagged segments. The other limitation is
-that there is no good mechanism in place for setting the size of a
-legend key, so these might be off.
+linejoins look bad with short jagged segments.
 
 ``` r
 ggplot(economics, aes(date, unemploy)) +
   geom_arrow(aes(linewidth = date))
-#> Warning in angle[which(keep)] <- atan2(y[final] - newy, x[final] - newx):
-#> number of items to replace is not a multiple of replacement length
 ```
 
 <img src="man/figures/README-jagged-1.png" width="80%" style="display: block; margin: auto;" />

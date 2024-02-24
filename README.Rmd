@@ -139,7 +139,7 @@ p + geom_arrow() +
 
 ## Limitations
 
-The current limitations are twofold. The variable width paths don't lend themselves well to jagged paths with short segments. This is because I had to implement linejoins for variable width paths and I barely have high-school level understanding of trigonometry. Consequently, the linejoins look bad with short jagged segments. The other limitation is that there is no good mechanism in place for setting the size of a legend key, so these might be off.
+The current limitation is that variable width paths don't lend themselves well to jagged paths with short segments. This is because I had to implement linejoins for variable width paths and I barely have high-school level understanding of trigonometry. Consequently, the linejoins look bad with short jagged segments.
 
 ```{r jagged}
 ggplot(economics, aes(date, unemploy)) +

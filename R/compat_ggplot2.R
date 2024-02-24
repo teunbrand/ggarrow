@@ -131,14 +131,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
     }
     values
   }
-
-  args <- list2(aesthetics = aesthetic, palette = pal, breaks = breaks,
-                limits = limits, ...)
-  if ("call" %in% fn_fmls_names(discrete_scale)) {
-    args <- c(args, list(call = call))
-  } else {
-    args <- c(args, list(scale_name = "arrow_scale"))
-  }
-  inject(discrete_scale(!!!args))
+  discrete_scale(aesthetics = aesthetic, palette = pal, breaks = breaks,
+                 limits = limits, ...)
 }
 # nocov end

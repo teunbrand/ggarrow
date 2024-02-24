@@ -141,16 +141,16 @@ scale_arrow_head_continuous <- function(
   map_arg    = "offset",
   other_args = list(),
   range = c(10, 80),
-  trans = "identity",
+  transform = "identity",
   guide = "legend"
 ) {
   continuous_scale(
-    "arrow_head", "arrowhead",
+    "arrow_head",
     palette = generator_pal(
       generator, map_arg, other_args, range, caller_arg(generator)
     ),
     name = name, breaks = breaks, labels = labels, limits = limits,
-    trans = trans, guide = guide
+    transform = transform, guide = guide
   )
 }
 
@@ -165,16 +165,16 @@ scale_arrow_fins_continuous <- function(
   map_arg    = "indent",
   other_args = list(),
   range = c(0, 1),
-  trans = "identity",
+  transform = "identity",
   guide = "legend"
 ) {
   continuous_scale(
-    "arrow_fins", "arrowfins",
+    "arrow_fins",
     palette = generator_pal(
       generator, map_arg, other_args, range, caller_arg(generator)
     ),
     name = name, breaks = breaks, labels = labels, limits = limits,
-    trans = trans, guide = guide
+    transform = transform, guide = guide
   )
 }
 
@@ -189,16 +189,16 @@ scale_arrow_mid_continuous <- function(
   map_arg    = "offset",
   other_args = list(),
   range = c(10, 80),
-  trans = "identity",
+  transform = "identity",
   guide = "legend"
 ) {
   continuous_scale(
-    "arrow_mid", "arrowhead",
+    "arrow_mid",
     palette = generator_pal(
       generator, map_arg, other_args, range, caller_arg(generator)
     ),
     name = name, breaks = breaks, labels = labels, limits = limits,
-    trans = trans, guide = guide
+    transform = transform, guide = guide
   )
 }
 
@@ -269,7 +269,7 @@ scale_resect_continuous <- function(
     super <- ScaleContinuous
   }
   continuous_scale(
-    aesthetics = aesthetics, "resect_scale", palette = pal, guide = guide,
+    aesthetics = aesthetics, palette = pal, guide = guide,
     ..., super = super
   )
 }
@@ -298,7 +298,7 @@ scale_resect_discrete <- function(
     check_number_decimal(range[2], min = 0, allow_infinite = FALSE)
     force(range)
     discrete_scale(
-      aesthetics = aesthetics, "resect_scale",
+      aesthetics = aesthetics,
       palette = function(n) {
         seq(range[1], range[2], length.out = n)
       },

@@ -154,15 +154,15 @@ arrow heads or fins.
 
 \code{geom_arrow()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \code{alpha}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
 \item \code{arrow_fins}
 \item \code{arrow_head}
 \item \code{arrow_mid}
-\item \code{colour}
-\item \code{group}
-\item \code{linewidth}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{resect_fins}
 \item \code{resect_head}
 \item \code{stroke_colour}
@@ -192,8 +192,8 @@ ggplot(mtcars, aes(wt, mpg)) +
 \seealso{
 Other arrow geoms: 
 \code{\link{annotate_arrow}()},
+\code{\link{geom_arrow}()},
 \code{\link{geom_arrow_chain}()},
-\code{\link{geom_arrow_segment}()},
-\code{\link{geom_arrow}()}
+\code{\link{geom_arrow_segment}()}
 }
 \concept{arrow geoms}

@@ -16,7 +16,7 @@ scale_arrow_head_continuous(
   map_arg = "offset",
   other_args = list(),
   range = c(10, 80),
-  trans = "identity",
+  transform = "identity",
   guide = "legend"
 )
 
@@ -29,7 +29,7 @@ scale_arrow_fins_continuous(
   map_arg = "indent",
   other_args = list(),
   range = c(0, 1),
-  trans = "identity",
+  transform = "identity",
   guide = "legend"
 )
 
@@ -42,7 +42,7 @@ scale_arrow_mid_continuous(
   map_arg = "offset",
   other_args = list(),
   range = c(10, 80),
-  trans = "identity",
+  transform = "identity",
   guide = "legend"
 )
 }
@@ -56,7 +56,7 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
+\link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
@@ -97,7 +97,7 @@ as \href{arrow_ornament}{ornamantation} functions.}
 
 \item{range}{The range that \code{generator}'s \code{map_arg} may take}
 
-\item{trans}{For continuous scales, the name of a transformation object
+\item{transform}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -105,9 +105,10 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
-transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+are defined in the scales package, and are called \verb{transform_<name>}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[ggplot2:guides]{guides()}} for more information.}

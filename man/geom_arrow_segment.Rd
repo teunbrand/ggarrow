@@ -140,16 +140,16 @@ aesthetics default to \code{x} and \code{y} respectively, so only one of \code{x
 
 \code{geom_arrow_segment()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \strong{\code{xend} \emph{or} \code{yend}}
-\item \code{alpha}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \strong{\code{\link[=aes_position]{xend}} \emph{or} \code{\link[=aes_position]{yend}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
 \item \code{arrow_fins}
 \item \code{arrow_head}
 \item \code{arrow_mid}
-\item \code{colour}
-\item \code{group}
-\item \code{linewidth}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{linewidth_fins}
 \item \code{linewidth_head}
 \item \code{resect_fins}
@@ -189,8 +189,8 @@ p + geom_arrow_segment(
 \seealso{
 Other arrow geoms: 
 \code{\link{annotate_arrow}()},
+\code{\link{geom_arrow}()},
 \code{\link{geom_arrow_chain}()},
-\code{\link{geom_arrow_curve}()},
-\code{\link{geom_arrow}()}
+\code{\link{geom_arrow_curve}()}
 }
 \concept{arrow geoms}

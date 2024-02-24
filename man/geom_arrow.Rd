@@ -141,15 +141,15 @@ at the beginning of a line.
 
 \code{geom_arrow()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{y}}
-\item \code{alpha}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
 \item \code{arrow_fins}
 \item \code{arrow_head}
 \item \code{arrow_mid}
-\item \code{colour}
-\item \code{group}
-\item \code{linewidth}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{resect_fins}
 \item \code{resect_head}
 \item \code{stroke_colour}

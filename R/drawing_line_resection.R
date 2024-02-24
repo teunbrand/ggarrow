@@ -71,7 +71,13 @@ resect_end <- function(x, y, id, resect, width) {
   dist   <- dist_to_end(x, y, id_end, id_leng)
   resect <- rep.int(resect, id_leng)
   cut    <- dist < resect
-  runs   <- vec_group_rle(data_frame0(x = cut, y = rle_inv(id)))
+  runs   <- vec_unrep(data_frame0(cut = cut, id = rle_inv(id)))
+
+  # Mark non-end groups as 'do not cut'
+  runs$key$cut[!(cumsum(runs$times) %in% id_end)] <- FALSE
+  cut <- rep(runs$key$cut, runs$times)
+  runs  <- vec_group_rle(data_frame0(x = cut, y = rle_inv(id)))
+
   final  <- rle_end(runs)
   cut    <- cut[final]
 

@@ -1,4 +1,6 @@
-# ggarrow 0.0.0.9000
+# ggarrow 0.1.0
+
+Initial CRAN submission
 
 ## Geom layers
 

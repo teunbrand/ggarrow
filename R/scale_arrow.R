@@ -88,7 +88,7 @@ scale_arrow_mid_discrete <- function(
 #'
 #' @inheritParams ggplot2::continuous_scale
 #' @param generator A `<function>` that can create an arrow ornament, such
-#'   as [ornamentation][arrow_ornament] functions.
+#'   as [ornamentation][arrow_ornaments] functions.
 #' @param map_arg An argument of the `generator` function to map input to.
 #' @param other_args Additional, fixed, arguments to pass to the `generator`.
 #' @param range The range that `generator`'s `map_arg` may take

@@ -90,7 +90,7 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 }}
 
 \item{generator}{A \verb{<function>} that can create an arrow ornament, such
-as \link[=arrow_ornament]{ornamentation} functions.}
+as \link[=arrow_ornaments]{ornamentation} functions.}
 
 \item{map_arg}{An argument of the \code{generator} function to map input to.}
 

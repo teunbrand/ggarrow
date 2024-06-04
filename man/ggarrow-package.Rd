@@ -14,6 +14,8 @@ A 'ggplot2' extension that adds specialised arrow geometry layers (geoms). It of
 Useful links:
 \itemize{
   \item \url{https://teunbrand.github.io/ggarrow/}
+  \item \url{https://github.com/teunbrand/ggarrow}
+  \item Report bugs at \url{https://github.com/teunbrand/ggarrow/issues}
 }
 
 }

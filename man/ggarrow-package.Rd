@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A 'ggplot2' extension that adds specialised arrow geometry layers (geoms). It offers more arrow options than the standard 'grid' arrows that are built-in many line-based geom layers.
+A 'ggplot2' extension that adds specialised arrow geometry layers. It offers more arrow options than the standard 'grid' arrows that are built-in many line-based geom layers.
 }
 \seealso{
 Useful links:

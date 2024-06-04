@@ -32,4 +32,5 @@ Suggests:
     vdiffr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-URL: https://teunbrand.github.io/ggarrow/
+URL: https://teunbrand.github.io/ggarrow/, https://github.com/teunbrand/ggarrow
+BugReports: https://github.com/teunbrand/ggarrow/issues

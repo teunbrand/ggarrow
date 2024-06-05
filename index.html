@@ -85,12 +85,15 @@
 </div>
 <!-- badges: start -->
 
-<p>The goal of ggarrow is to draw arrows in <a href="https://ggplot2.tidyverse.org/" class="external-link">{ggplot2}</a>. It is a <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="external-link">{ggplot2} extension</a> package that focusses on specialised geometry layers to expand the toolkit of arrows. While you’re reading this, I’ll take this opportunity to inform you that while this package probably works, it is not very polished.</p>
+<p>The goal of ggarrow is to draw arrows in <a href="https://ggplot2.tidyverse.org/" class="external-link">{ggplot2}</a>. It is a <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="external-link">{ggplot2} extension</a> package that focusses on specialised geometry layers to expand the toolkit of arrows.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of ggarrow from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install ggarrow from CRAN</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggarrow"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of ggarrow from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"teunbrand/ggarrow"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -101,7 +104,7 @@
 <div class="section level3">
 <h3 id="basic-arrows">Basic arrows<a class="anchor" aria-label="anchor" href="#basic-arrows"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://teunbrand.github.io/ggarrow/">ggarrow</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span>
 <span></span>
@@ -115,7 +118,7 @@
 <h3 id="variable-width">Variable width<a class="anchor" aria-label="anchor" href="#variable-width"></a>
 </h3>
 <p>Arrows, in contrast to vanilla lines, can have variable widths.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># Identity scale for linewidth</span></span></code></pre></div>
 <p><img src="reference/figures/README-variable_width-1.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
@@ -123,7 +126,7 @@
 <h3 id="inner-arrows">Inner arrows<a class="anchor" aria-label="anchor" href="#inner-arrows"></a>
 </h3>
 <p>Besides varying linewidths, there is also an option to place arrows along the path. You could draw arbitrarily many of these, but I doubt that will look pretty.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>arrow_mid <span class="op">=</span> <span class="st">"head_wings"</span>, mid_place <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-middle_arrows-1.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
@@ -131,7 +134,7 @@
 <h3 id="ornament-styles">Ornament styles<a class="anchor" aria-label="anchor" href="#ornament-styles"></a>
 </h3>
 <p>You can also tweak what the arrows should look like. The example below is a bit verbose, but gives an impression of the available options by combining different styles of arrow heads and what are termed ‘arrow fins’.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>arrow_head <span class="op">=</span> <span class="va">group</span>, arrow_fins <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/discrete_arrow_scales.html">scale_arrow_head_discrete</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"head_wings"</span>,</span>
@@ -154,7 +157,7 @@
 <h3 id="chains">Chains<a class="anchor" aria-label="anchor" href="#chains"></a>
 </h3>
 <p>Aside from these, there is also <code><a href="reference/geom_arrow_chain.html">geom_arrow_chain()</a></code>, which has no equivalent in vanilla ggplot2. It adds arrows in between points, and dodges the endpoints a bit so that they don’t seem to touch. In the example below, we can see that we can dodge points of different sizes.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
 <span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.4</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
 <span></span>
@@ -174,7 +177,7 @@
 <h3 id="theme-elements">Theme elements<a class="anchor" aria-label="anchor" href="#theme-elements"></a>
 </h3>
 <p>Because arrows are almost drop-in replacements for lines, I also included <code><a href="reference/element_arrow.html">element_arrow()</a></code> as a theme element. With function, you can set any line element in the theme to an arrow, with similar customisation options as the layers.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
 <span>    axis.line.x <span class="op">=</span> <span class="fu"><a href="reference/element_arrow.html">element_arrow</a></span><span class="op">(</span></span>
@@ -199,19 +202,19 @@
 <h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h2>
 <p>The current limitation is that variable width paths don’t lend themselves well to jagged paths with short segments. This is because I had to implement linejoins for variable width paths and I barely have high-school level understanding of trigonometry. Consequently, the linejoins look bad with short jagged segments.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">economics</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">unemploy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="va">date</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-jagged-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>The best advice I can give for the jagged linejoins is to smooth the data beforehand.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">economics</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">unemploy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
 <span>    stat <span class="op">=</span> <span class="st">"smooth"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, method <span class="op">=</span> <span class="st">"loess"</span>, span <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-smoothed-1.png" width="80%" style="display: block; margin: auto;"></p>
-<p>With regards to the legend-keys, that’ll require a change in ggplot2’s code.</p>
+<p>A second limitation is that you cannot use variable widths with different linetypes.</p>
 </div>
 <div class="section level2">
 <h2 id="dependency-statement">Dependency statement<a class="anchor" aria-label="anchor" href="#dependency-statement"></a>
@@ -262,6 +265,7 @@
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/teunbrand/ggarrow/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/teunbrand/ggarrow/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/teunbrand/ggarrow?branch=main" class="external-link"><img src="https://codecov.io/gh/teunbrand/ggarrow/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://CRAN.R-project.org/package=ggarrow" class="external-link"><img src="https://www.r-pkg.org/badges/version/ggarrow" alt="CRAN status"></a></li>
 </ul>
 </div>
 

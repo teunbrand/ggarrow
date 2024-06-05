@@ -7,20 +7,25 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-![CRAN status](https://www.r-pkg.org/badges/version/ggarrow)
 [![R-CMD-check](https://github.com/teunbrand/ggarrow/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/teunbrand/ggarrow/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/teunbrand/ggarrow/branch/main/graph/badge.svg)](https://app.codecov.io/gh/teunbrand/ggarrow?branch=main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ggarrow)](https://CRAN.R-project.org/package=ggarrow)
 <!-- badges: end -->
 
 The goal of ggarrow is to draw arrows in
 [{ggplot2}](https://ggplot2.tidyverse.org/). It is a [{ggplot2}
 extension](https://exts.ggplot2.tidyverse.org/gallery/) package that
 focusses on specialised geometry layers to expand the toolkit of arrows.
-While you’re reading this, I’ll take this opportunity to inform you that
-while this package probably works, it is not very polished.
 
 ## Installation
+
+You can install ggarrow from CRAN
+
+``` r
+install.packages("ggarrow")
+```
 
 You can install the development version of ggarrow from
 [GitHub](https://github.com/) with:
@@ -185,8 +190,8 @@ ggplot(economics, aes(date, unemploy)) +
 
 <img src="man/figures/README-smoothed-1.png" width="80%" style="display: block; margin: auto;" />
 
-With regards to the legend-keys, that’ll require a change in ggplot2’s
-code.
+A second limitation is that you cannot use variable widths with
+different linetypes.
 
 ## Dependency statement
 

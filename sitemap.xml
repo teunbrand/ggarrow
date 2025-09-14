@@ -1,90 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/404.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/articles/customisation.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/articles/ggarrow.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/articles/ornaments.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/articles/params.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/index.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/annotate_arrow.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/arrow_ornaments.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/continuous_arrow_scales.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/debug_notching.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/discrete_arrow_scales.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/draw_key_arrow.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/element_arrow.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_chain.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_curve.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_segment.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/ggarrow-package.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/ggarrow_extensions.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/grob_arrow.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/grob_arrow_curve.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/scale_resect.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggarrow/reference/whirlpool.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://teunbrand.github.io/ggarrow/404.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/LICENSE-text.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/LICENSE.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/articles/customisation.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/articles/ggarrow.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/articles/index.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/articles/ornaments.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/articles/params.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/authors.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/index.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/news/index.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/annotate_arrow.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/arrow_ornaments.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/continuous_arrow_scales.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/debug_notching.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/discrete_arrow_scales.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/draw_key_arrow.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/element_arrow.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_chain.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_curve.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/geom_arrow_segment.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/ggarrow-package.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/ggarrow_extensions.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/grob_arrow.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/grob_arrow_curve.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/index.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/scale_resect.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggarrow/reference/whirlpool.html</loc></url>
 </urlset>
+

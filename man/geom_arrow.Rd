@@ -54,7 +54,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -159,12 +159,14 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
 }
 \value{
 A \verb{<Layer>} ggproto object that can be added to a plot.
@@ -178,22 +180,22 @@ at the beginning of a line.
 }
 \section{Aesthetics}{
 
-\code{geom_arrow()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{arrow_fins}
-\item \code{arrow_head}
-\item \code{arrow_mid}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_linetype_size_shape]{linetype}}
-\item \code{\link[=aes_linetype_size_shape]{linewidth}}
-\item \code{resect_fins}
-\item \code{resect_head}
-\item \code{stroke_colour}
-\item \code{stroke_width}
+\code{geom_arrow()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[ggplot2:aes_position]{x}}} \tab   \cr
+• \tab \strong{\code{\link[ggplot2:aes_position]{y}}} \tab   \cr
+• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr
+• \tab \code{arrow_fins} \tab → \code{NULL} \cr
+• \tab \code{arrow_head} \tab → \code{NULL} \cr
+• \tab \code{arrow_mid} \tab → \code{NULL} \cr
+• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{colour}} \tab → \code{"black"} \cr
+• \tab \code{\link[ggplot2:aes_group_order]{group}} \tab → inferred \cr
+• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linetype}} \tab → \code{1} \cr
+• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linewidth}} \tab → \code{1} \cr
+• \tab \code{resect_fins} \tab → \code{NULL} \cr
+• \tab \code{resect_head} \tab → \code{NULL} \cr
+• \tab \code{stroke_colour} \tab → \code{NA} \cr
+• \tab \code{stroke_width} \tab → \code{0.25} \cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

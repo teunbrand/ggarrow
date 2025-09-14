@@ -16,7 +16,7 @@
 #'       * A 2-column `<matrix>` giving a polygon to use as an arrow.
 #'   * `NULL`, which defaults to a built-in palette with a maximum of 3 arrows.
 #' @param aesthetics The names of the aesthetics that this scale works with
-#' @inheritDotParams ggplot2::discrete_scale -aesthetics
+#' @inheritDotParams ggplot2::discrete_scale -aesthetics -minor_breaks
 #'
 #' @return A `<Scale>` that can be added to a plot.
 #' @name discrete_arrow_scales

@@ -60,6 +60,7 @@
 #'   the existence of a blank element among its parents will cause this element
 #'   to be blank as well. If `FALSE`, any blank parent element will be ignored
 #'   when calculating final element state.
+#' @param ... Not currently in use.
 #'
 #' @return An `<element_arrow>` object that can replace `<element_line>` objects
 #'   in [`theme()`][ggplot2::theme].
@@ -113,7 +114,8 @@ element_arrow <- function(
   lineend        = NULL,
   linejoin       = NULL,
   linemitre      = NULL,
-  inherit.blank  = FALSE
+  inherit.blank  = FALSE,
+  ...
 ) {
 
   structure(list(

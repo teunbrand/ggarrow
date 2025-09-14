@@ -27,7 +27,8 @@ element_arrow(
   lineend = NULL,
   linejoin = NULL,
   linemitre = NULL,
-  inherit.blank = FALSE
+  inherit.blank = FALSE,
+  ...
 )
 }
 \arguments{
@@ -102,6 +103,8 @@ inherit the existence of an \verb{<element_blank>} among its parents. If \code{T
 the existence of a blank element among its parents will cause this element
 to be blank as well. If \code{FALSE}, any blank parent element will be ignored
 when calculating final element state.}
+
+\item{...}{Not currently in use.}
 }
 \value{
 An \verb{<element_arrow>} object that can replace \verb{<element_line>} objects

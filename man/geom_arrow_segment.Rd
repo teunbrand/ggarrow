@@ -188,16 +188,16 @@ aesthetics default to \code{x} and \code{y} respectively, so only one of \code{x
 • \tab \code{arrow_fins} \tab → \code{NULL} \cr
 • \tab \code{arrow_head} \tab → \code{NULL} \cr
 • \tab \code{arrow_mid} \tab → \code{NULL} \cr
-• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{colour}} \tab → \code{"black"} \cr
+• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
 • \tab \code{\link[ggplot2:aes_group_order]{group}} \tab → inferred \cr
-• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linetype}} \tab → \code{1} \cr
-• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linewidth}} \tab → \code{1} \cr
+• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
+• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
 • \tab \code{linewidth_fins} \tab → \code{NULL} \cr
 • \tab \code{linewidth_head} \tab → \code{NULL} \cr
 • \tab \code{resect_fins} \tab → \code{NULL} \cr
 • \tab \code{resect_head} \tab → \code{NULL} \cr
-• \tab \code{stroke_colour} \tab → \code{NA} \cr
-• \tab \code{stroke_width} \tab → \code{0.25} \cr
+• \tab \code{stroke_colour} \tab → via \code{theme()} \cr
+• \tab \code{stroke_width} \tab → via \code{theme()} \cr
 }
 The \code{linewidth_fins} and \code{linewidth_head} inherit from \code{linewidth}.  They can be used to seperately control the start- and end-width.
 

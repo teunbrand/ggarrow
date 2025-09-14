@@ -188,14 +188,14 @@ at the beginning of a line.
 • \tab \code{arrow_fins} \tab → \code{NULL} \cr
 • \tab \code{arrow_head} \tab → \code{NULL} \cr
 • \tab \code{arrow_mid} \tab → \code{NULL} \cr
-• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{colour}} \tab → \code{"black"} \cr
+• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
 • \tab \code{\link[ggplot2:aes_group_order]{group}} \tab → inferred \cr
-• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linetype}} \tab → \code{1} \cr
-• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linewidth}} \tab → \code{1} \cr
+• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
+• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
 • \tab \code{resect_fins} \tab → \code{NULL} \cr
 • \tab \code{resect_head} \tab → \code{NULL} \cr
-• \tab \code{stroke_colour} \tab → \code{NA} \cr
-• \tab \code{stroke_width} \tab → \code{0.25} \cr
+• \tab \code{stroke_colour} \tab → via \code{theme()} \cr
+• \tab \code{stroke_width} \tab → via \code{theme()} \cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

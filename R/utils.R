@@ -29,6 +29,9 @@ drop_gp <- function(gp, id) {
   if (all(valid)) {
     return(gp)
   }
+  if (all(!valid)) {
+    return(gpar())
+  }
   valid <- which(valid)
 
   gp <- unclass(gp)

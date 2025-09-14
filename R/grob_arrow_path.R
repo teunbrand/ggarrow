@@ -186,15 +186,27 @@ makeContent.arrow_path <- function(x) {
   is_polygon[lengths(is_polygon) != 1] <- list(TRUE)
   is_polygon <- unlist(is_polygon)
 
+  present <- rep(FALSE, length(line$id))
+  present[lengths(head)  > 0] <- TRUE
+  present[lengths(fins)  > 0] <- TRUE
+  present[lengths(inner) > 0] <- TRUE
+  present[lengths(shaft) > 0] <- TRUE
+
+  gp <- x$gp
+  if (length(line$id) != sum(present)) {
+    gp <- drop_gp(x$gp, line$id)
+  }
+
   if (all(is_polygon)) {
     arrow <- combine_arrow(head, fins, shaft, inner)
     if (length(arrow$x) == 0) {
       ans <- gList(zeroGrob())
     } else {
-      ans <- gList(render_polygon_arrow(arrow, drop_gp(x$gp, line$id)))
+
+      ans <- gList(render_polygon_arrow(arrow, gp))
     }
   } else {
-    ans <- individual_arrows(head, fins, shaft, inner, drop_gp(x$gp, line$id))
+    ans <- individual_arrows(head, fins, shaft, inner, gp)
   }
   setChildren(x, ans)
 }

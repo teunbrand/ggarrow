@@ -1,5 +1,7 @@
 # ggarrow (development version)
 
+This is a small release adapting to new features in ggplot2 4.0.0 and fixing a bug.
+
 * Geom default have been adapted to the dynamic theming in ggplot2 4.0.0.
 * `element_arrow()` is implemented as an S7 class from ggplot2 4.0.0 onwards.
 * Graphical properties are better preserved when arrows are forced (#9).

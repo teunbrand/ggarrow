@@ -227,3 +227,110 @@ element_grob.element_arrow <- function(
     )
   )
 }
+
+S7_element_arrow_properties <- list(
+  linewidth_head = property_nullable(S7::class_numeric),
+  linewidth_fins = property_nullable(S7::class_numeric),
+  stroke_colour  = property_colour(pattern = FALSE),
+  stroke_width   = property_nullable(S7::class_numeric),
+  arrow_head     = property_arrow(),
+  arrow_fins     = property_arrow(),
+  arrow_mid      = property_arrow(),
+  length         = property_length(),
+  length_head    = property_length(),
+  length_mid     = property_length(),
+  resect         = property_length(),
+  resect_head    = property_length(),
+  resect_fins    = property_length(),
+  justify        = S7::new_property(
+    class = S7::new_union(NULL, S7::class_numeric),
+    validator = function(value) {
+      if (is.null(value)) {
+        return(character())
+      }
+      check_restriction(value, n = 1, min = 0, max = 1)
+    }
+  ),
+  force_arrow    = property_boolean(allow_null = TRUE, default = NULL),
+  mid_place      = S7::new_property(
+    class = S7::new_union(NULL, S7::class_numeric, class_unit),
+    validator = function(value) {
+      if (is.null(value)) {
+        return(character())
+      }
+      if (is_bare_numeric(value)) {
+        return(check_restriction(value, n = NA, min = 0, max = 1))
+      } else if (length(value) != 1) {
+        return(as_cli("must be scalar when a {.cls unit}."))
+      }
+      return(character())
+    }
+  ),
+  linemitre = property_nullable(S7::class_numeric)
+)
+
+S7_element_arrow_constructor <- function(
+    colour         = NULL,
+    linewidth      = NULL,
+    linewidth_head = NULL,
+    linewidth_fins = NULL,
+    stroke_colour  = NULL,
+    stroke_width   = NULL,
+    arrow_head     = NULL,
+    arrow_fins     = NULL,
+    arrow_mid      = NULL,
+    length         = NULL,
+    length_head    = NULL,
+    length_fins    = NULL,
+    length_mid     = NULL,
+    resect         = NULL,
+    resect_head    = NULL,
+    resect_fins    = NULL,
+    justify        = NULL,
+    force_arrow    = NULL,
+    mid_place      = NULL,
+    lineend        = NULL,
+    linejoin       = NULL,
+    linemitre      = NULL,
+    inherit.blank  = FALSE,
+    ...
+) {
+  parent <- element_line(
+    colour = colour,
+    linewidth = linewidth,
+    lineend = lineend, linejoin = linejoin,
+    inherit.blank = inherit.blank
+  )
+  S7::new_object(
+    .parent = parent,
+    linewidth_head = linewidth_head,
+    linewidth_fins = linewidth_fins,
+    stroke_colour  = stroke_colour,
+    stroke_width   = stroke_width,
+    arrow_head     = arrow_head,
+    arrow_fins     = arrow_fins,
+    arrow_mid      = arrow_mid,
+    length         = length,
+    length_head    = length_head,
+    length_mid     = length_mid,
+    length_fins    = length_fins,
+    resect         = resect,
+    resect_head    = resect_head,
+    resect_fins    = resect_fins,
+    justify        = justify,
+    force_arrow    = force_arrow,
+    mid_place      = mid_place,
+    linemitre      = linemitre
+  )
+}
+
+S7_merge_method <- function(new, old, ...) {
+  if (!inherits(new, class(old)[1])) {
+    cli::cli_abort("Only elements of the same class can be merged.")
+  }
+  idx <- lengths(S7::props(new)) == 0
+  idx <- names(idx[idx])
+  idx <- intersect(idx, S7::prop_names(old))
+  S7::props(new)[idx] <- S7::props(old, idx)
+  new
+}

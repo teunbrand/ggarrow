@@ -21,6 +21,7 @@ Imports:
     grid,
     polyclip,
     rlang (>= 1.1.0),
+    S7,
     scales,
     utils,
     vctrs

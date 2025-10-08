@@ -147,14 +147,32 @@ p + geom_arrow_chain(size = 3, resect = 0)
 
 ## Other parameters
 
+### `justify`
+
 Sometimes, you've already dodged the object to be pointed at a bit. Now you may find yourself with an arrow that is too short. You can then use `justify = 1` to have the arrow start where the path ends. 
 
 ```{r}
 p + geom_arrow(justify = 1, linewidth = 2)
 ```
 
+### `force_arrow`
+
 Other times, you might find that you have resected your arrow too much. If there is no more space left for placing the arrow, they are omitted by default. To change this, and show arrows despite how short they may be, you can use the `force_arrow` argument. There is no guarantee that it will be placed in a nice position though.
 
 ```{r}
 p + geom_arrow(resect = 100, force_arrow = TRUE)
 ```
+
+### `sep`
+
+When you have overlapping paths for arrows, you can separate out identical paths using the `sep` argument. It will place the different paths at an offset of one another to disentangle them.
+
+```{r}
+p + geom_arrow(
+  # Three arrows with same path, but different groups
+  data = expand.grid(x = 0:1, g = 1:3, y = 0),
+  aes(group = g),
+  sep = 3
+)
+```
+

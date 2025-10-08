@@ -22,6 +22,7 @@ grob_arrow(
   resect_fins = NULL,
   resect_head = NULL,
   force_arrow = FALSE,
+  offset = NULL,
   default.units = "mm",
   name = NULL,
   gp = gpar(),
@@ -76,6 +77,9 @@ respectively and both default to \code{resect}.}
 \item{force_arrow}{A \code{logical(1)} which, if \code{TRUE} an arrow will be drawn
 even when the length of the arrow is shorter than the arrow heads and fins.
 If \code{FALSE}, will drop such arrows.}
+
+\item{offset}{A \code{numeric()} vector giving the offset in millimetres per
+group to displace paths.}
 
 \item{default.units}{A string indicating the default units to use
     if \code{x} or \code{y} are only given as numeric vectors.}

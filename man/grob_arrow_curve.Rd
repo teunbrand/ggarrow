@@ -106,6 +106,8 @@ If \code{FALSE}, will drop such arrows.}
 arrows should be drawn relative to the path's endpoints. A value of \code{0}
 sets the arrow's tips at the path's end, whereas a value of \code{1} sets the
 arrow's base at the path's end.}
+    \item{\code{offset}}{A \code{numeric()} vector giving the offset in millimetres per
+group to displace paths.}
     \item{\code{mid_place}}{Sets the location of middle (interior) arrows, when
 applicable. Can be one of the following:
 \describe{

@@ -42,6 +42,32 @@ check_ornament_matrix <- function(
   }
 }
 
+check_offset <- function(x, n = 1, arg_nm = caller_arg(x), call = caller_env()) {
+  if (is.null(x)) {
+    return(invisible())
+  }
+  if (!is.numeric(x)) {
+    cli::cli_abort(
+      "{.arg {arg_nm}} must be {.cls numeric}, not {.obj_type_friendly {x}}.",
+      call = call
+    )
+  }
+  if (any(!is.finite(x))) {
+    cli::cli_abort(
+      "{.arg {arg_nm}} must have finite values.",
+      call = call
+    )
+  }
+  if (length(x) == n) {
+    return(invisible())
+  }
+  cli::cli_abort(
+    "{.arg {arg_nm}} (n = {length(x)}) must have a value for every group \\
+    (n = {n}).",
+    call = call
+  )
+}
+
 # Validators --------------------------------------------------------------
 
 validate_length <- function(base = NULL, head = NULL, fins = NULL, mid = NULL,

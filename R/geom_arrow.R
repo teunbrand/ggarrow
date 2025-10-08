@@ -91,6 +91,7 @@ geom_arrow <- function(
   lineend     = "butt",
   linejoin    = "round",
   linemitre   = 10,
+  sep         = 0,
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -102,6 +103,7 @@ geom_arrow <- function(
   resect_fins <- resect_fins %||% resect
   check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
   check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
+  check_number_decimal(sep, allow_infinite = FALSE)
   layer(
     data        = data,
     mapping     = mapping,
@@ -121,6 +123,7 @@ geom_arrow <- function(
       linejoin    = linejoin,
       linemitre   = linemitre,
       na.rm       = na.rm,
+      sep         = sep,
       ...
     )
   )
@@ -160,6 +163,7 @@ GeomArrow <- ggproto(
     justify     = 0,
     force_arrow = FALSE,
     mid_place   = 0.5,
+    sep         = 0,
     resect      = list(head = 0, fins = 0)
   ) {
     data <- warn_discrete_resect(data, resect)
@@ -207,6 +211,7 @@ GeomArrow <- ggproto(
       length$fins <- (length$fins %||% 4) * width[start]
     }
 
+    offsets <- seperate_offsets(data$x, data$y, data$group, sep = sep)
     id <- match(data$group, unique(data$group))
     grob_arrow(
       x  = unit(data$x, "native"),
@@ -224,6 +229,7 @@ GeomArrow <- ggproto(
       shaft_width = width,
       resect_head = as_unit(data$resect_head[end]   %||% resect$head, "mm"),
       resect_fins = as_unit(data$resect_fins[start] %||% resect$fins, "mm"),
+      offset      = offsets,
       gp = gpar(
         col  = data$stroke_colour[start],
         fill = alpha(data$colour, data$alpha)[start],

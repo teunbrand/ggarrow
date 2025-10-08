@@ -70,6 +70,7 @@ geom_arrow_chain <- function(
   lineend     = "butt",
   linejoin    = "round",
   linemitre   = 10,
+  sep         = 0,
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -101,6 +102,7 @@ geom_arrow_chain <- function(
       linejoin    = linejoin,
       linemitre   = linemitre,
       na.rm       = na.rm,
+      sep         = sep,
       ...
     )
   )
@@ -141,7 +143,8 @@ GeomArrowChain <- ggproto(
     force_arrow = force_arrow,
     mid_place   = 0.5,
     resect_head = 0,
-    resect_fins = 0
+    resect_fins = 0,
+    sep         = 0
   ) {
     data <- warn_discrete_resect(data, resect)
     data$linewidth_head <- data$linewidth_head %||% data$linewidth
@@ -199,8 +202,9 @@ GeomArrowChain <- ggproto(
     }
 
     size <- data$size
-
+    offsets <- seperate_offsets(data$x, data$y, data$group, sep = sep)
     id <- match(data$group, unique(data$group))
+
     grob_arrow(
       x  = unit(data$x, "native"),
       y  = unit(data$y, "native"),
@@ -217,6 +221,7 @@ GeomArrowChain <- ggproto(
       shaft_width = width,
       resect_head = as_unit(resect_head, "mm") + unit(size[end],   "pt"),
       resect_fins = as_unit(resect_fins, "mm") + unit(size[start], "pt"),
+      offset      = offsets,
       gp = gpar(
         col  = data$stroke_colour[start],
         fill = alpha(data$colour, data$alpha)[start],

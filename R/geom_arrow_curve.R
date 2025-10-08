@@ -55,6 +55,7 @@ geom_arrow_curve <- function(
   lineend     = "butt",
   linejoin    = "round",
   linemitre   = 10,
+  sep         = 0,
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -66,6 +67,11 @@ geom_arrow_curve <- function(
   resect_fins <- resect_fins %||% resect
   check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
   check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
+  arrow <- list(
+    head = arrow_head,
+    fins = arrow_fins,
+    mid  = arrow_mid
+  )
   layer(
     data        = data,
     mapping     = mapping,
@@ -75,12 +81,10 @@ geom_arrow_curve <- function(
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list2(
-
-      curvature = curvature,
-      angle     = angle,
-      ncp       = ncp,
-
-      arrow  = list(head = arrow_head, fins = arrow_fins, mid  = arrow_mid),
+      curvature   = curvature,
+      angle       = angle,
+      ncp         = ncp,
+      arrow       = arrow,
       length      = length,
       justify     = justify,
       force_arrow = force_arrow,
@@ -90,6 +94,7 @@ geom_arrow_curve <- function(
       linejoin    = linejoin,
       linemitre   = linemitre,
       na.rm       = na.rm,
+      sep         = sep,
       ...
     )
   )
@@ -132,7 +137,8 @@ GeomArrowCurve <- ggproto(
     resect      = list(head = 0, fins = 0),
     curvature   = 0.5,
     angle       = 90,
-    ncp         = 5
+    ncp         = 5,
+    sep         = 0
   ) {
     data <- warn_discrete_resect(data, resect)
     data$yend <- data$yend %||% data$y
@@ -159,6 +165,13 @@ GeomArrowCurve <- ggproto(
       length$fins <- (length$fins %||% 4) * fins_width
     }
 
+    offsets <- seperate_offsets(
+      x = vec_interleave(data$x, data$xend),
+      y = vec_interleave(data$y, data$yend),
+      group = rep(seq_len(nrow(data)), each = 2),
+      sep = sep
+    )
+
     grob_arrow_curve(
       unit(data$x, "native"),    unit(data$y, "native"),
       unit(data$xend, "native"), unit(data$yend, "native"),
@@ -179,6 +192,7 @@ GeomArrowCurve <- ggproto(
       width_fins  = fins_width,
       resect_head = as_unit(data$resect_head %||% resect$head, "mm"),
       resect_fins = as_unit(data$resect_fins %||% resect$fins, "mm"),
+      offset      = offsets,
       gp = gpar(
         col  = data$stroke_colour,
         fill = alpha(data$colour, data$alpha),

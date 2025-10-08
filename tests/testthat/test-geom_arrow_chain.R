@@ -15,3 +15,16 @@ test_that("geom_arrow_chain looks alright", {
 
   vdiffr::expect_doppelganger("geom_arrow_chain start", p)
 })
+
+test_that("the `sep` argument works as intended", {
+
+  df <- data.frame(
+    x = c(0, 2, 1, 2, 0, 1, 2),
+    y = c(0, 0, 1.2, 0, 0, 1.2, 0)
+  )
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_arrow_chain(sep = 2, size = 12)
+
+  vdiffr::expect_doppelganger("geom_arrow_chain sep", p)
+})

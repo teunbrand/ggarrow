@@ -217,6 +217,10 @@ touches them.</p>
 <div class="section level2">
 <h2 id="other-parameters">Other parameters<a class="anchor" aria-label="anchor" href="#other-parameters"></a>
 </h2>
+<div class="section level3">
+<h3 id="justify">
+<code>justify</code><a class="anchor" aria-label="anchor" href="#justify"></a>
+</h3>
 <p>Sometimes, you’ve already dodged the object to be pointed at a bit.
 Now you may find yourself with an arrow that is too short. You can then
 use <code>justify = 1</code> to have the arrow start where the path
@@ -224,6 +228,11 @@ ends.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>justify <span class="op">=</span> <span class="fl">1</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="params_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="force_arrow">
+<code>force_arrow</code><a class="anchor" aria-label="anchor" href="#force_arrow"></a>
+</h3>
 <p>Other times, you might find that you have resected your arrow too
 much. If there is no more space left for placing the arrow, they are
 omitted by default. To change this, and show arrows despite how short
@@ -232,6 +241,23 @@ no guarantee that it will be placed in a nice position though.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>resect <span class="op">=</span> <span class="fl">100</span>, force_arrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="params_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="sep">
+<code>sep</code><a class="anchor" aria-label="anchor" href="#sep"></a>
+</h3>
+<p>When you have overlapping paths for arrows, you can separate out
+identical paths using the <code>sep</code> argument. It will place the
+different paths at an offset of one another to disentangle them.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
+<span>  <span class="co"># Three arrows with same path, but different groups</span></span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span>, g <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">g</span><span class="op">)</span>,</span>
+<span>  sep <span class="op">=</span> <span class="fl">3</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="params_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

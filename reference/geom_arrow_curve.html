@@ -73,6 +73,7 @@ arrow heads or fins.</p>
 <span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
 <span>  linejoin <span class="op">=</span> <span class="st">"round"</span>,</span>
 <span>  linemitre <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  sep <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -240,6 +241,12 @@ arrow from the fins side. Both inherit from <code>resect</code>.</p></dd>
 
 <dt id="arg-linemitre">linemitre<a class="anchor" aria-label="anchor" href="#arg-linemitre"></a></dt>
 <dd><p>Line mitre limit (number greater than 1).</p></dd>
+
+
+<dt id="arg-sep">sep<a class="anchor" aria-label="anchor" href="#arg-sep"></a></dt>
+<dd><p>A <code>numeric(1)</code> setting offset spacing in millimetres between arrow
+paths that are identical or identical as inverses. The default, 0, will
+draw paths without offsets. Alternatively, a <code>&lt;</code><code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></code><code>&gt;</code>.</p></dd>
 
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>

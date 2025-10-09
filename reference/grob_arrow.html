@@ -72,6 +72,7 @@ beginning of an arrow line.</p>
 <span>  resect_fins <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  resect_head <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  force_arrow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  default.units <span class="op">=</span> <span class="st">"mm"</span>,</span>
 <span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gp <span class="op">=</span> <span class="fu">gpar</span><span class="op">(</span><span class="op">)</span>,</span>
@@ -154,6 +155,11 @@ respectively and both default to <code>resect</code>.</p></dd>
 <dd><p>A <code>logical(1)</code> which, if <code>TRUE</code> an arrow will be drawn
 even when the length of the arrow is shorter than the arrow heads and fins.
 If <code>FALSE</code>, will drop such arrows.</p></dd>
+
+
+<dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
+<dd><p>A <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code> vector giving the offset in millimetres per
+group to displace paths.</p></dd>
 
 
 <dt id="arg-default-units">default.units<a class="anchor" aria-label="anchor" href="#arg-default-units"></a></dt>

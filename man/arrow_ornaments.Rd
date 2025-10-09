@@ -9,6 +9,8 @@
 \alias{arrow_cup}
 \alias{arrow_head_minimal}
 \alias{arrow_fins_minimal}
+\alias{arrow_head_halfwing}
+\alias{arrow_head_halfline}
 \title{Arrow ornament functions}
 \usage{
 arrow_head_wings(offset = 20, inset = 30)
@@ -24,6 +26,10 @@ arrow_cup(lineend = "round", angle = NULL)
 arrow_head_minimal(angle = 45)
 
 arrow_fins_minimal(angle = 45)
+
+arrow_head_halfwing(offset = 20, inset = 30, direction = 1)
+
+arrow_head_halfline(angle = 30, lineend = "butt", direction = 1)
 }
 \arguments{
 \item{offset, angle}{A \code{numeric(1)} giving an angle in degrees for the angle
@@ -40,6 +46,9 @@ height of the feathers.}
 
 \item{lineend}{A \code{character(1)}, one of \code{"butt"}, \code{"square"}, \code{"round"} or
 \code{"parallel"}. For \code{arrow_cup()}, only \code{"butt"} and \code{"round"} are allowed.}
+
+\item{direction}{A \code{numeric(1)} whose sign determines the side of the shaft
+that the arrowhead is placed on.}
 }
 \value{
 A \verb{<matrix[n, 2]>} with \code{x} and \code{y} columns describing a polygon.
@@ -82,6 +91,10 @@ a triangular point.
 \item \code{arrow_fins_minimal()}: This is a 'fake' arrow head who in practise doesn't draw anything, but
 sets the \code{notch_angle} attribute such that a triangle is taken out of the
 arrow shaft.
+
+\item \code{arrow_head_halfwing()}: This a 'half' version of \code{arrow_head_wings()}.
+
+\item \code{arrow_head_halfline()}: This a 'half' version of \code{arrow_head_line()}.
 
 }}
 \examples{

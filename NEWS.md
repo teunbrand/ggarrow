@@ -1,5 +1,12 @@
 # ggarrow (development version)
 
+* Added the `grob_arrow(offset)` argument for drawing arrows at some offset.
+* Added the `geom_arrow(sep)` parameter, allowing co-located arrows 
+  to be dodged (#8).
+* New asymmetric arrow ornaments (#8):
+    * `arrow_head_halfline()`
+    * `arrow_head_halfwing()`
+
 # ggarrow 0.1.1
 
 This is a small release adapting to new features in ggplot2 4.0.0 and fixing a bug.

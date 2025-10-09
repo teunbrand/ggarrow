@@ -38,6 +38,9 @@
 #'     \item{A `<`[`unit`][grid::unit]`>`}{to fill a path with arrows with
 #'     the provided unit as distance between one arrow to the next.}
 #'   }
+#' @param sep A `numeric(1)` setting offset spacing in millimetres between arrow
+#'   paths that are identical or identical as inverses. The default, 0, will
+#'   draw paths without offsets. Alternatively, a `<`[`unit`][grid::unit]`>`.
 #' @param force_arrow A `logical(1)` which, if `TRUE` an arrow will be drawn
 #'   even when the length of the arrow is shorter than the arrow heads and fins.
 #'   If `FALSE`, will drop such arrows.
@@ -91,6 +94,7 @@ geom_arrow <- function(
   lineend     = "butt",
   linejoin    = "round",
   linemitre   = 10,
+  sep         = 0,
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -102,6 +106,7 @@ geom_arrow <- function(
   resect_fins <- resect_fins %||% resect
   check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
   check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
+  check_number_decimal(sep, allow_infinite = FALSE)
   layer(
     data        = data,
     mapping     = mapping,
@@ -121,6 +126,7 @@ geom_arrow <- function(
       linejoin    = linejoin,
       linemitre   = linemitre,
       na.rm       = na.rm,
+      sep         = sep,
       ...
     )
   )
@@ -160,6 +166,7 @@ GeomArrow <- ggproto(
     justify     = 0,
     force_arrow = FALSE,
     mid_place   = 0.5,
+    sep         = 0,
     resect      = list(head = 0, fins = 0)
   ) {
     data <- warn_discrete_resect(data, resect)
@@ -207,6 +214,7 @@ GeomArrow <- ggproto(
       length$fins <- (length$fins %||% 4) * width[start]
     }
 
+    offsets <- separate_offsets(data$x, data$y, data$group, sep = sep)
     id <- match(data$group, unique(data$group))
     grob_arrow(
       x  = unit(data$x, "native"),
@@ -224,6 +232,7 @@ GeomArrow <- ggproto(
       shaft_width = width,
       resect_head = as_unit(data$resect_head[end]   %||% resect$head, "mm"),
       resect_fins = as_unit(data$resect_fins[start] %||% resect$fins, "mm"),
+      offset      = offsets,
       gp = gpar(
         col  = data$stroke_colour[start],
         fill = alpha(data$colour, data$alpha)[start],

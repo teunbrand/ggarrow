@@ -26,6 +26,7 @@ geom_arrow_segment(
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
+  sep = 0,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -152,6 +153,10 @@ arrow from the fins side. Both inherit from \code{resect}.}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
 
+\item{sep}{A \code{numeric(1)} setting offset spacing in millimetres between arrow
+paths that are identical or identical as inverses. The default, 0, will
+draw paths without offsets. Alternatively, a \code{<}\code{\link[grid:unit]{unit}}\code{>}.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -199,7 +204,7 @@ aesthetics default to \code{x} and \code{y} respectively, so only one of \code{x
 • \tab \code{stroke_colour} \tab → via \code{theme()} \cr
 • \tab \code{stroke_width} \tab → via \code{theme()} \cr
 }
-The \code{linewidth_fins} and \code{linewidth_head} inherit from \code{linewidth}.  They can be used to seperately control the start- and end-width.
+The \code{linewidth_fins} and \code{linewidth_head} inherit from \code{linewidth}.  They can be used to separately control the start- and end-width.
 
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -219,7 +224,7 @@ p + geom_arrow_segment()
 # We can set the linewidth globally
 p + geom_arrow_segment(aes(linewidth = y))
 
-# Or seperately for the head and fins
+# Or separately for the head and fins
 p + geom_arrow_segment(aes(linewidth_head = y, linewidth_fins = 0))
 
 # We can also place arrows in the middle

@@ -29,6 +29,7 @@ geom_arrow_curve(
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
+  sep = 0,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -167,6 +168,10 @@ arrow from the fins side. Both inherit from \code{resect}.}
 \item{linejoin}{Line join style (round, mitre, bevel).}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
+
+\item{sep}{A \code{numeric(1)} setting offset spacing in millimetres between arrow
+paths that are identical or identical as inverses. The default, 0, will
+draw paths without offsets. Alternatively, a \code{<}\code{\link[grid:unit]{unit}}\code{>}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

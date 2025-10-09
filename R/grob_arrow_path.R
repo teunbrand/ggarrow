@@ -29,6 +29,8 @@
 #'   arrows should be drawn relative to the path's endpoints. A value of `0`
 #'   sets the arrow's tips at the path's end, whereas a value of `1` sets the
 #'   arrow's base at the path's end.
+#' @param offset A `numeric()` vector giving the offset in millimetres per
+#'   group to displace paths.
 #' @param mid_place Sets the location of middle (interior) arrows, when
 #'   applicable. Can be one of the following:
 #'   \describe{
@@ -76,6 +78,7 @@ grob_arrow <- function(
   resect_fins   = NULL,
   resect_head   = NULL,
   force_arrow   = FALSE,
+  offset        = NULL,
   default.units = "mm",
   name = NULL,
   gp   = gpar(),
@@ -89,6 +92,7 @@ grob_arrow <- function(
   arrow_head <- validate_ornament(arrow_head, n)
   arrow_fins <- validate_ornament(arrow_fins, n)
   arrow_mid  <- validate_ornament(arrow_mid,  n)
+  check_offset(offset, n)
 
   # Detect if linetype is not solid
   not_solid <- !(gp$lty %||% rep(1, length(id))) %in% c("1", "solid")
@@ -97,7 +101,6 @@ grob_arrow <- function(
     n_widths <- vapply0(
       rle_chop(width, id),
       function(x) sum(diff(as.numeric(x)) > 0.0001),
-      # function(x) length(unique(diff(as.numeric(x)))),
       integer(1)
     )
     if (any(n_widths > 0 & not_solid)) {
@@ -124,6 +127,7 @@ grob_arrow <- function(
     justify     = pmax(pmin(justify, 1), 0),
     mid_place   = mid_place,
     resect      = resect,
+    offset      = offset,
     force_arrow = isTRUE(force_arrow),
     name = name,
     gp   = gp,
@@ -138,10 +142,9 @@ grob_arrow <- function(
 makeContent.arrow_path <- function(x) {
 
   # Extract parameters
-  id     <- x$id_rle
-  xmm    <- as_mm(x$x, "x")
-  ymm    <- as_mm(x$y, "y")
-  width  <- along_rle(as_mm(x$shaft_width), id)
+  id    <- x$id_rle
+  paths <- offset_paths(as_mm(x$x, "x"), as_mm(x$y, "y"), id, as_mm(x$offset))
+  width <- along_rle(as_mm(x$shaft_width), id)
 
   # Set arrow ornaments
   resect <- lapply(x$resect, as_mm)
@@ -155,7 +158,7 @@ makeContent.arrow_path <- function(x) {
   # Trim line to make place for arrow pieces
   resect$fins <- resect$fins + fins$resect * (1 - x$justify)
   resect$head <- resect$head + head$resect * (1 - x$justify)
-  line <- resect_line(xmm, ymm, id, resect$head, resect$fins, width)
+  line <- resect_line(paths$x, paths$y, id, resect$head, resect$fins, width)
 
   # Extrude and notch path
   shaft <- shape_shaft(

@@ -16,6 +16,8 @@
 #'   feather length to offset the notch and the end respectively.
 #' @param lineend A `character(1)`, one of `"butt"`, `"square"`, `"round"` or
 #'   `"parallel"`. For `arrow_cup()`, only `"butt"` and `"round"` are allowed.
+#' @param direction A `numeric(1)` whose sign determines the side of the shaft
+#'   that the arrowhead is placed on.
 #'
 #' @details
 #' The convention for these functions is that the arrow shaft is fused to the
@@ -278,4 +280,93 @@ arrow_fins_minimal <- function(angle = 45) {
   ans <- cbind(x = c(0, 0), y = c(1, -1))
   attr(ans, "notch_angle") <- angle
   ans
+}
+
+#' @export
+#' @describeIn arrow_ornaments
+#' This a 'half' version of `arrow_head_wings()`.
+arrow_head_halfwing <- function(offset = 20, inset = 30, direction = 1) {
+  poly <- arrow_head_wings(offset = offset, inset = inset)
+  poly <- poly[1:3, ]
+
+  direction <- sign(direction)
+  if (direction != 1) {
+    poly[, 2] <- poly[, 2] * -1
+    poly <- poly[3:1, ]
+  }
+  ang <- (180 - offset - inset) * .deg2rad
+
+
+  function(length, width, ...) {
+    # Scale arrowhead by length
+    poly <- poly * length
+    # Scoot over the arrowhead by half the linewidth
+    poly[, 2] <- poly[, 2] - 0.5 * width * direction
+
+    if ((offset + inset) > 90) {
+      # If the wing is obtusely connected to shaft,
+      # make shaft a little longer
+      w <- width * sin(0.5 * pi - ang) / sin(ang)
+      length <- length - w
+      poly[, 1] <- poly[, 1] - w
+    }
+
+    attr(poly, "resect") <- length
+    poly
+  }
+}
+
+#' @export
+#' @describeIn arrow_ornaments
+#' This a 'half' version of `arrow_head_line()`.
+arrow_head_halfline <- function(angle = 30, lineend = "butt", direction = 1) {
+
+  angle <- angle * .deg2rad
+  lineend <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
+  direction <- sign(direction)
+  if (direction == 0) direction <- 1
+
+  function(length, width, ...) {
+
+    if (lineend == "square") {
+      length <- length + 0.5 * width
+    }
+
+    x <- 1 - cos(angle) * length
+    y <- 0 - sin(angle) * length
+
+    norm <- angle + .halfpi
+
+    if (lineend == "parallel") {
+      x <- c(x, x - width / sin(angle))
+      y <- c(y, y)
+    } else if (lineend == "round") {
+      cx <- x + cos(norm) * width / 2
+      cy <- y + sin(norm) * width / 2
+      norm <- seq(norm + pi, norm, length.out = 30)
+      x <- c(x, cx + cos(norm) * width / 2)
+      y <- c(y, cy + sin(norm) * width / 2)
+    } else {
+      x <- c(x, x + cos(norm) * width)
+      y <- c(y, y + sin(norm) * width)
+    }
+
+    n <- length(x)
+    next_len <- y[n] / sin(angle)
+
+    x <- c(x, x[n] + cos(angle - pi) * next_len)
+    y <- c(y, y[n] + sin(angle - pi) * next_len)
+
+    x <- c(1, x)
+    y <- (c(0, y) + 0.5 * width) * direction
+
+    ans <- cbind(x = x, y = y)
+    resect <- x[length(x)]
+    if (angle > 0.5 * pi) {
+      resect <- resect + width
+    }
+    attr(ans, "resect") <- 1 - resect
+    ans[, "x"] <- ans[, "x"] - resect
+    ans
+  }
 }

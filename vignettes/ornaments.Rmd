@@ -478,7 +478,6 @@ The 'line' fins ornament mirrors the 'line' head ornament: it draws two line seg
 ```{r illustrate_fins_line, echo = FALSE}
 arr <- arrow_fins_line()
 arr <- arr(40, 5)
-# arr <- arr * 50
 arrow_grob <- grob_arrow(
   x = unit(c(0.5, 0.7), "npc"),
   y = unit(c(0.5, 0.5), "npc"),
@@ -503,13 +502,11 @@ grid.points(
   gp = gpar(col = 2, alpha = 0.5), pch = 16
 )
 
-angle <- 30 * pi / 180 
+angle <- 30 * pi / 180
 
 grid.lines(
-  x = unit(0.5, "npc")- unit(cos(c(angle, angle, pi)) * c(30, 0, -30), "mm") -
+  x = unit(0.5, "npc") - unit(cos(c(angle, angle, pi)) * c(30, 0, -30), "mm") -
     unit(5, "mm"),
-  # x = unit(0.5, "npc") + unit(cos(c(angle, angle, pi)) * c(30, 0, 30), "mm") +
-    # unit(28.8 - 2.5 / sin(angle), "mm"),
   y = unit(0.5, "npc") + unit(sin(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
   gp = gpar(col = 4)
 )
@@ -536,17 +533,17 @@ grid.text(
   vjust = -1.5
 )
 .halfpi <- 0.5 * pi
-angle <- 30 * pi / 180 
+angle <- 30 * pi / 180
 grid.lines(
-  x = unit(0.5, "npc") - unit(arr[c(3,3,4,4), "x"], "mm") +
+  x = unit(0.5, "npc") - unit(arr[c(3, 3, 4, 4), "x"], "mm") +
     unit(c(0, cos(.halfpi - angle[c(1, 1)]), 0), "cm"),
-  y = unit(0.5, "npc") - unit(arr[c(3,3,4,4), "y"], "mm") -
+  y = unit(0.5, "npc") - unit(arr[c(3, 3, 4, 4), "y"], "mm") -
     unit(c(0, sin(.halfpi - angle[c(1, 1)]), 0), "cm"),
   gp = gpar(col = 2, alpha = 0.5)
 )
 
 grid.text(
-  x = unit(0.5, "npc") - unit(mean(arr[3:4, "x"]), "mm") + 
+  x = unit(0.5, "npc") - unit(mean(arr[3:4, "x"]), "mm") +
     unit(cos(.halfpi - angle) * 1, "cm"),
   y = unit(0.5, "npc") - unit(mean(arr[3:4, "y"]), "mm") -
     unit(sin(.halfpi - angle) * 1, "cm"),
@@ -604,8 +601,6 @@ angle <- .halfpi + angle / 180 * pi
 grid.lines(
   x = unit(0.4, "npc") + unit(c(0, 0, cos(angle)) * 30, "mm"),
   y = unit(0.5, "npc") + unit(c(1, 0, sin(angle)) * 30, "mm"),
-  # x = unit(0.5, "npc") + unit(cos(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
-  # y = unit(0.5, "npc") + unit(sin(c(angle, angle, pi)) * c(30, 0, 30), "mm"),
   gp = gpar(col = alpha(2, 0.5))
 )
 angle <- seq(angle, .halfpi, length.out = 30)
@@ -701,7 +696,7 @@ grid.points(
 )
 grid.polyline(
   x = unit(c(0.4, 0.4, 0.6, 0.6), "npc") - unit(c(0, 20, 0, -20), "mm"),
-  y = unit(c(0.5, 0.5, 0.5, 0.5), "npc"), id.lengths = c(2,2),
+  y = unit(c(0.5, 0.5, 0.5, 0.5), "npc"), id.lengths = c(2, 2),
   gp = gpar(col = 2, alpha = 0.5)
 )
 grid.text(
@@ -714,9 +709,9 @@ grid.text(
 
 angle <- 90 / 180 * pi
 grid.lines(
-  x = unit(0.4, "npc") + unit(c(cos(0.5 * angle + pi) * 40, 0, 
+  x = unit(0.4, "npc") + unit(c(cos(0.5 * angle + pi) * 40, 0,
                                 cos(-0.5 * angle + pi) * 40), "mm"),
-  y = unit(0.5, "npc") + unit(c(sin(0.5 * angle + pi) * 40, 0, 
+  y = unit(0.5, "npc") + unit(c(sin(0.5 * angle + pi) * 40, 0,
                                 sin(-0.5 * angle + pi) * 40), "mm"),
   gp = gpar(col = 4, alpha = 0.5)
 )
@@ -794,7 +789,7 @@ ggplot(mapping = aes(x = c(0, 1))) +
     length_head = 5
   ) +
   annotate(
-    "text", x = 0.5, y = 1.5, 
+    "text", x = 0.5, y = 1.5,
     label = "angle = 90, resect_head = 2.5, lineend = 'butt'"
   ) +
   geom_arrow(
@@ -803,7 +798,7 @@ ggplot(mapping = aes(x = c(0, 1))) +
     length_head = 5
   ) +
   annotate(
-    "text", x = 0.5, y = 0.5, 
+    "text", x = 0.5, y = 0.5,
     label = "angle = 360, resect_head = 2.5"
   ) +
   coord_cartesian(clip = "off") +

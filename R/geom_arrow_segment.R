@@ -11,7 +11,7 @@
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "arrow_segment", extra_note = paste0(
 #'  "The `linewidth_fins` and `linewidth_head` inherit from `linewidth`. ",
-#' " They can be used to seperately control the start- and end-width."
+#' " They can be used to separately control the start- and end-width."
 #' ))
 #' @inherit geom_arrow return
 #' @export
@@ -32,7 +32,7 @@
 #' # We can set the linewidth globally
 #' p + geom_arrow_segment(aes(linewidth = y))
 #'
-#' # Or seperately for the head and fins
+#' # Or separately for the head and fins
 #' p + geom_arrow_segment(aes(linewidth_head = y, linewidth_fins = 0))
 #'
 #' # We can also place arrows in the middle
@@ -62,6 +62,7 @@ geom_arrow_segment <- function(
   lineend     = "butt",
   linejoin    = "round",
   linemitre   = 10,
+  sep         = 0,
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -92,6 +93,7 @@ geom_arrow_segment <- function(
       linejoin    = linejoin,
       linemitre   = linemitre,
       na.rm       = na.rm,
+      sep         = sep,
       ...
     )
   )
@@ -153,7 +155,8 @@ GeomArrowSegment <- ggproto(
     justify     = 0,
     force_arrow = FALSE,
     mid_place   = 0.5,
-    resect      = list(head = 0, fins = 0)
+    resect      = list(head = 0, fins = 0),
+    sep         = 0
   ) {
     data$yend <- data$yend %||% data$y
     data$xend <- data$xend %||% data$x
@@ -188,7 +191,7 @@ GeomArrowSegment <- ggproto(
       linejoin = linejoin, linemitre = linemitre, na.rm = na.rm,
       arrow = arrow, length = length, justify = justify,
       force_arrow = force_arrow, mid_place = mid_place,
-      resect = resect
+      resect = resect, sep = sep
     )
   },
 

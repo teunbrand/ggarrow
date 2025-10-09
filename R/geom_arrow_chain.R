@@ -10,7 +10,7 @@
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "arrow_segment", extra_note = paste0(
 #'  "The `linewidth_fins` and `linewidth_head` inherit from `linewidth`. ",
-#' " They can be used to seperately control the start- and end-width."
+#' " They can be used to separately control the start- and end-width."
 #' ))
 #' @inherit geom_arrow return
 #' @export
@@ -46,7 +46,7 @@
 #' # Linewidths will be interpolated across arrows
 #' p + geom_arrow_chain(aes(linewidth = seq_along(x)))
 #'
-#' # Alternatively, we can set them seperately for starts and ends
+#' # Alternatively, we can set them separately for starts and ends
 #' p + geom_arrow_chain(linewidth_fins = 0, linewidth_head = 3)
 geom_arrow_chain <- function(
   mapping   = NULL,
@@ -70,6 +70,7 @@ geom_arrow_chain <- function(
   lineend     = "butt",
   linejoin    = "round",
   linemitre   = 10,
+  sep         = 0,
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -101,6 +102,7 @@ geom_arrow_chain <- function(
       linejoin    = linejoin,
       linemitre   = linemitre,
       na.rm       = na.rm,
+      sep         = sep,
       ...
     )
   )
@@ -141,7 +143,8 @@ GeomArrowChain <- ggproto(
     force_arrow = force_arrow,
     mid_place   = 0.5,
     resect_head = 0,
-    resect_fins = 0
+    resect_fins = 0,
+    sep         = 0
   ) {
     data <- warn_discrete_resect(data, resect)
     data$linewidth_head <- data$linewidth_head %||% data$linewidth
@@ -199,8 +202,9 @@ GeomArrowChain <- ggproto(
     }
 
     size <- data$size
-
+    offsets <- separate_offsets(data$x, data$y, data$group, sep = sep)
     id <- match(data$group, unique(data$group))
+
     grob_arrow(
       x  = unit(data$x, "native"),
       y  = unit(data$y, "native"),
@@ -217,6 +221,7 @@ GeomArrowChain <- ggproto(
       shaft_width = width,
       resect_head = as_unit(resect_head, "mm") + unit(size[end],   "pt"),
       resect_fins = as_unit(resect_fins, "mm") + unit(size[start], "pt"),
+      offset      = offsets,
       gp = gpar(
         col  = data$stroke_colour[start],
         fill = alpha(data$colour, data$alpha)[start],

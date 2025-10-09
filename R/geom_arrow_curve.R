@@ -165,7 +165,7 @@ GeomArrowCurve <- ggproto(
       length$fins <- (length$fins %||% 4) * fins_width
     }
 
-    offsets <- seperate_offsets(
+    offsets <- separate_offsets(
       x = vec_interleave(data$x, data$xend),
       y = vec_interleave(data$y, data$yend),
       group = rep(seq_len(nrow(data)), each = 2),

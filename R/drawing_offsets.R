@@ -1,6 +1,6 @@
 # Called at the geom level
 # Finds groups of arrows that have the same path and assigns some offset value.
-seperate_offsets <- function(x, y, group, sep = NULL) {
+separate_offsets <- function(x, y, group, sep = NULL) {
   n_groups <- length(unique(group))
   out <- rep(0, n_groups)
   if (is.null(sep) || all(sep == 0)) {

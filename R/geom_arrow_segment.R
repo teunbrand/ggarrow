@@ -11,7 +11,7 @@
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "arrow_segment", extra_note = paste0(
 #'  "The `linewidth_fins` and `linewidth_head` inherit from `linewidth`. ",
-#' " They can be used to seperately control the start- and end-width."
+#' " They can be used to separately control the start- and end-width."
 #' ))
 #' @inherit geom_arrow return
 #' @export
@@ -32,7 +32,7 @@
 #' # We can set the linewidth globally
 #' p + geom_arrow_segment(aes(linewidth = y))
 #'
-#' # Or seperately for the head and fins
+#' # Or separately for the head and fins
 #' p + geom_arrow_segment(aes(linewidth_head = y, linewidth_fins = 0))
 #'
 #' # We can also place arrows in the middle

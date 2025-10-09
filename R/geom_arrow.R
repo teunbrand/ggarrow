@@ -214,7 +214,7 @@ GeomArrow <- ggproto(
       length$fins <- (length$fins %||% 4) * width[start]
     }
 
-    offsets <- seperate_offsets(data$x, data$y, data$group, sep = sep)
+    offsets <- separate_offsets(data$x, data$y, data$group, sep = sep)
     id <- match(data$group, unique(data$group))
     grob_arrow(
       x  = unit(data$x, "native"),

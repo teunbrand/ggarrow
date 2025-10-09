@@ -203,7 +203,7 @@ directed manner.
 • \tab \code{stroke_colour} \tab → via \code{theme()} \cr
 • \tab \code{stroke_width} \tab → via \code{theme()} \cr
 }
-The \code{linewidth_fins} and \code{linewidth_head} inherit from \code{linewidth}.  They can be used to seperately control the start- and end-width.
+The \code{linewidth_fins} and \code{linewidth_head} inherit from \code{linewidth}.  They can be used to separately control the start- and end-width.
 
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -238,7 +238,7 @@ p + geom_arrow_chain(size = 0, resect = 0)
 # Linewidths will be interpolated across arrows
 p + geom_arrow_chain(aes(linewidth = seq_along(x)))
 
-# Alternatively, we can set them seperately for starts and ends
+# Alternatively, we can set them separately for starts and ends
 p + geom_arrow_chain(linewidth_fins = 0, linewidth_head = 3)
 }
 \seealso{

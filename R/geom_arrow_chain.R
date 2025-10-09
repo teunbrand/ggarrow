@@ -10,7 +10,7 @@
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "arrow_segment", extra_note = paste0(
 #'  "The `linewidth_fins` and `linewidth_head` inherit from `linewidth`. ",
-#' " They can be used to seperately control the start- and end-width."
+#' " They can be used to separately control the start- and end-width."
 #' ))
 #' @inherit geom_arrow return
 #' @export
@@ -46,7 +46,7 @@
 #' # Linewidths will be interpolated across arrows
 #' p + geom_arrow_chain(aes(linewidth = seq_along(x)))
 #'
-#' # Alternatively, we can set them seperately for starts and ends
+#' # Alternatively, we can set them separately for starts and ends
 #' p + geom_arrow_chain(linewidth_fins = 0, linewidth_head = 3)
 geom_arrow_chain <- function(
   mapping   = NULL,
@@ -202,7 +202,7 @@ GeomArrowChain <- ggproto(
     }
 
     size <- data$size
-    offsets <- seperate_offsets(data$x, data$y, data$group, sep = sep)
+    offsets <- separate_offsets(data$x, data$y, data$group, sep = sep)
     id <- match(data$group, unique(data$group))
 
     grob_arrow(

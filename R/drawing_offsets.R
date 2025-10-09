@@ -3,7 +3,7 @@
 separate_offsets <- function(x, y, group, sep = NULL) {
   n_groups <- length(unique(group))
   out <- rep(0, n_groups)
-  if (is.null(sep) || all(sep == 0)) {
+  if (is.null(sep) || all(as.numeric(sep) == 0)) {
     return(out)
   }
 
@@ -28,7 +28,10 @@ separate_offsets <- function(x, y, group, sep = NULL) {
   }
 
   # Inverse match get opposite sign
-  signed <- ifelse(matches == id[seq_len(n_groups)], sep, -sep)
+  signed <- ifelse(matches == id[seq_len(n_groups)], 1, -1) * sep
+  if (is.unit(signed)) {
+    out <- unit(rep(0, length.out = length(out)), "mm")
+  }
 
   # Apply separator distance
   dups <- unique(matches[duplicated(matches)])

@@ -40,7 +40,7 @@
 #'   }
 #' @param sep A `numeric(1)` setting offset spacing in millimetres between arrow
 #'   paths that are identical or identical as inverses. The default, 0, will
-#'   draw paths without offsets..
+#'   draw paths without offsets. Alternatively, a `<`[`unit`][grid::unit]`>`.
 #' @param force_arrow A `logical(1)` which, if `TRUE` an arrow will be drawn
 #'   even when the length of the arrow is shorter than the arrow heads and fins.
 #'   If `FALSE`, will drop such arrows.

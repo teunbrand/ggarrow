@@ -171,7 +171,7 @@ arrow from the fins side. Both inherit from \code{resect}.}
 
 \item{sep}{A \code{numeric(1)} setting offset spacing in millimetres between arrow
 paths that are identical or identical as inverses. The default, 0, will
-draw paths without offsets..}
+draw paths without offsets. Alternatively, a \code{<}\code{\link[grid:unit]{unit}}\code{>}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

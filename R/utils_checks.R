@@ -46,13 +46,13 @@ check_offset <- function(x, n = 1, arg_nm = caller_arg(x), call = caller_env()) 
   if (is.null(x)) {
     return(invisible())
   }
-  if (!is.numeric(x)) {
+  if (!(is.numeric(x) || is.unit(x))) {
     cli::cli_abort(
       "{.arg {arg_nm}} must be {.cls numeric}, not {.obj_type_friendly {x}}.",
       call = call
     )
   }
-  if (any(!is.finite(x))) {
+  if (is.numeric(x) && any(!is.finite(x))) {
     cli::cli_abort(
       "{.arg {arg_nm}} must have finite values.",
       call = call

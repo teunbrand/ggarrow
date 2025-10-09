@@ -42,7 +42,12 @@ check_ornament_matrix <- function(
   }
 }
 
-check_offset <- function(x, n = 1, arg_nm = caller_arg(x), call = caller_env()) {
+check_offset <- function(
+  x,
+  n = 1,
+  arg_nm = caller_arg(x),
+  call = caller_env()
+) {
   if (is.null(x)) {
     return(invisible())
   }

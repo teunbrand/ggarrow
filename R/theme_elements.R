@@ -265,37 +265,37 @@ S7_element_arrow_properties <- list(
       } else if (length(value) != 1) {
         return(as_cli("must be scalar when a {.cls unit}."))
       }
-      return(character())
+      character()
     }
   ),
   linemitre = property_nullable(S7::class_numeric)
 )
 
 S7_element_arrow_constructor <- function(
-    colour         = NULL,
-    linewidth      = NULL,
-    linewidth_head = NULL,
-    linewidth_fins = NULL,
-    stroke_colour  = NULL,
-    stroke_width   = NULL,
-    arrow_head     = NULL,
-    arrow_fins     = NULL,
-    arrow_mid      = NULL,
-    length         = NULL,
-    length_head    = NULL,
-    length_fins    = NULL,
-    length_mid     = NULL,
-    resect         = NULL,
-    resect_head    = NULL,
-    resect_fins    = NULL,
-    justify        = NULL,
-    force_arrow    = NULL,
-    mid_place      = NULL,
-    lineend        = NULL,
-    linejoin       = NULL,
-    linemitre      = NULL,
-    inherit.blank  = FALSE,
-    ...
+  colour         = NULL,
+  linewidth      = NULL,
+  linewidth_head = NULL,
+  linewidth_fins = NULL,
+  stroke_colour  = NULL,
+  stroke_width   = NULL,
+  arrow_head     = NULL,
+  arrow_fins     = NULL,
+  arrow_mid      = NULL,
+  length         = NULL,
+  length_head    = NULL,
+  length_fins    = NULL,
+  length_mid     = NULL,
+  resect         = NULL,
+  resect_head    = NULL,
+  resect_fins    = NULL,
+  justify        = NULL,
+  force_arrow    = NULL,
+  mid_place      = NULL,
+  lineend        = NULL,
+  linejoin       = NULL,
+  linemitre      = NULL,
+  inherit.blank  = FALSE,
+  ...
 ) {
   parent <- element_line(
     colour = colour,

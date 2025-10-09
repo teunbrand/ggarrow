@@ -6,7 +6,11 @@ property_nullable <- function(class = S7::class_any, ...) {
   )
 }
 
-property_colour <- function(allow_null = TRUE, pattern = FALSE, default = NULL) {
+property_colour <- function(
+  allow_null = TRUE,
+  pattern = FALSE,
+  default = NULL
+) {
   class <- S7::new_union(
     S7::class_character,
     S7::class_logical
@@ -77,7 +81,7 @@ property_arrow <- function(allow_null = TRUE) {
     if (nrow(value) < 1) {
       return(as_cli("must have at least 1 row when a {.cls matrix}"))
     }
-    return(character())
+    character()
   }
   S7::new_property(
     class = class,

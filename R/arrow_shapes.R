@@ -287,7 +287,6 @@ arrow_fins_minimal <- function(angle = 45) {
 #' This a 'half' version of `arrow_head_wings()`.
 arrow_head_halfwing <- function(offset = 20, inset = 30, direction = 1) {
   poly <- arrow_head_wings(offset = offset, inset = inset)
-  attri <- attributes(poly)
   poly <- poly[1:3, ]
 
   direction <- sign(direction)
@@ -362,14 +361,12 @@ arrow_head_halfline <- function(angle = 30, lineend = "butt", direction = 1) {
     y <- (c(0, y) + 0.5 * width) * direction
 
     ans <- cbind(x = x, y = y)
-
-      resect <- x[length(x)]
-      if (angle > 0.5 * pi) {
-        resect <- resect + width
-      }
-      attr(ans, "resect") <- 1 - resect
-      ans[, "x"] <- ans[, "x"] - resect
-
+    resect <- x[length(x)]
+    if (angle > 0.5 * pi) {
+      resect <- resect + width
+    }
+    attr(ans, "resect") <- 1 - resect
+    ans[, "x"] <- ans[, "x"] - resect
     ans
   }
 }

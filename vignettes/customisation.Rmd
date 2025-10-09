@@ -23,7 +23,7 @@ plot_ornament <- function(ornament) {
   par(pty = "s")
   plot(ornament, type = "n", xlim = c(-1, 1), ylim = c(-1, 1))
   polygon(ornament[, "x"], ornament[, "y"])
-  
+
   # Incoming line
   lines(ggarrow:::debug_notching(orn, 0.2), col = 2)
   # Length measurement
@@ -65,7 +65,7 @@ library(ggarrow)
 ggplot(data = data.frame(x = c(0, 1)), aes(x = x)) +
   geom_arrow(aes(y = c(1, 3)), arrow_head = orn, resect = unit(2, "cm")) +
   geom_arrow(aes(y = c(2, 2)), arrow_fins = orn, length_fins = unit(1, "cm")) +
-  geom_arrow(aes(y = c(3, 1)), arrow_mid  = orn, mid_place = c(0.33, 0.66), 
+  geom_arrow(aes(y = c(3, 1)), arrow_mid  = orn, mid_place = c(0.33, 0.66),
              linewidth = 2)
 ```
 
@@ -84,7 +84,7 @@ If we know the linewidth in advance, you might nudge it manually. Because the de
 
 ```{r}
 magic_number <- 0.7528125
-half_star[, "y"] <- half_star[, "y"] - (1.5/12) * magic_number
+half_star[, "y"] <- half_star[, "y"] - (1.5 / 12) * magic_number
 
 ggplot(data.frame(x = c(0, 1), y = c(1, 1)), aes(x, y)) +
   geom_arrow(arrow_head = half_star, linewidth = 3)

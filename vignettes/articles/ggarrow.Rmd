@@ -54,7 +54,7 @@ ggplot(df, aes(x, head, group = head)) +
   geom_vline(xintercept = c(0, 1), colour = "red") +
   geom_arrow(aes(resect_head = head, resect_fins = fins)) +
   scale_y_continuous(
-    name = "`resect_head`", 
+    name = "`resect_head`",
     breaks = unique(df$head),
     position = "right",
     sec.axis = dup_axis(

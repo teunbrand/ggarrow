@@ -79,6 +79,7 @@ grob_arrow <- function(
   resect_head   = NULL,
   force_arrow   = FALSE,
   offset        = NULL,
+  distort       = NULL,
   default.units = "mm",
   name = NULL,
   gp   = gpar(),
@@ -128,6 +129,7 @@ grob_arrow <- function(
     mid_place   = mid_place,
     resect      = resect,
     offset      = offset,
+    distort     = validate_distortion(distort),
     force_arrow = isTRUE(force_arrow),
     name = name,
     gp   = gp,
@@ -159,6 +161,7 @@ makeContent.arrow_path <- function(x) {
   resect$fins <- resect$fins + fins$resect * (1 - x$justify)
   resect$head <- resect$head + head$resect * (1 - x$justify)
   line <- resect_line(paths$x, paths$y, id, resect$head, resect$fins, width)
+  line <- project_distortion(line, x$distort)
 
   # Extrude and notch path
   shaft <- shape_shaft(

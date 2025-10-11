@@ -27,6 +27,7 @@ geom_arrow_chain(
   linejoin = "round",
   linemitre = 10,
   sep = 0,
+  distort = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -156,6 +157,17 @@ arrow from the fins side. Both inherit from \code{resect}.}
 \item{sep}{A \code{numeric(1)} setting offset spacing in millimetres between arrow
 paths that are identical or identical as inverses. The default, 0, will
 draw paths without offsets. Alternatively, a \code{<}\code{\link[grid:unit]{unit}}\code{>}.}
+
+\item{distort}{A way of specifying a line distortion. A line distortion is not great at
+dealing with paths with pronounced angles. One of the following:
+\itemize{
+\item \code{NULL} to not distort any paths.
+\item A \verb{<matrix[n, 2]>} of x/y coordinates giving one 'oscillation' of a
+distortion in millimetres. The \link[=distortion_functions]{distortion}
+functions create such matrices.
+\item A string, naming one of the \link[=distortion_functions]{distortion} functions
+without the \code{distort_} prefix.
+}}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

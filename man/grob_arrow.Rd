@@ -23,6 +23,7 @@ grob_arrow(
   resect_head = NULL,
   force_arrow = FALSE,
   offset = NULL,
+  distort = NULL,
   default.units = "mm",
   name = NULL,
   gp = gpar(),
@@ -80,6 +81,17 @@ If \code{FALSE}, will drop such arrows.}
 
 \item{offset}{A \code{numeric()} vector giving the offset in millimetres per
 group to displace paths.}
+
+\item{distort}{A way of specifying a line distortion. A line distortion is not great at
+dealing with paths with pronounced angles. One of the following:
+\itemize{
+\item \code{NULL} to not distort any paths.
+\item A \verb{<matrix[n, 2]>} of x/y coordinates giving one 'oscillation' of a
+distortion in millimetres. The \link[=distortion_functions]{distortion}
+functions create such matrices.
+\item A string, naming one of the \link[=distortion_functions]{distortion} functions
+without the \code{distort_} prefix.
+}}
 
 \item{default.units}{A string indicating the default units to use
     if \code{x} or \code{y} are only given as numeric vectors.}

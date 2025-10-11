@@ -41,6 +41,15 @@
 #' @param sep A `numeric(1)` setting offset spacing in millimetres between arrow
 #'   paths that are identical or identical as inverses. The default, 0, will
 #'   draw paths without offsets. Alternatively, a `<`[`unit`][grid::unit]`>`.
+#' @param distort
+#' A way of specifying a line distortion. A line distortion is not great at
+#' dealing with paths with pronounced angles. One of the following:
+#'   * `NULL` to not distort any paths.
+#'   * A `<matrix[n, 2]>` of x/y coordinates giving one 'oscillation' of a
+#'     distortion in millimetres. The [distortion][distortion_functions]
+#'     functions create such matrices.
+#'   * A string, naming one of the [distortion][distortion_functions] functions
+#'     without the `distort_` prefix.
 #' @param force_arrow A `logical(1)` which, if `TRUE` an arrow will be drawn
 #'   even when the length of the arrow is shorter than the arrow heads and fins.
 #'   If `FALSE`, will drop such arrows.

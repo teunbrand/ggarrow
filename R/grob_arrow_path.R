@@ -31,6 +31,15 @@
 #'   arrow's base at the path's end.
 #' @param offset A `numeric()` vector giving the offset in millimetres per
 #'   group to displace paths.
+#' @param distort
+#' A way of specifying a line distortion. A line distortion is not great at
+#' dealing with paths with pronounced angles. One of the following:
+#'   * `NULL` to not distort any paths.
+#'   * A `<matrix[n, 2]>` of x/y coordinates giving one 'oscillation' of a
+#'     distortion in millimetres. The [distortion][distortion_functions]
+#'     functions create such matrices.
+#'   * A string, naming one of the [distortion][distortion_functions] functions
+#'     without the `distort_` prefix.
 #' @param mid_place Sets the location of middle (interior) arrows, when
 #'   applicable. Can be one of the following:
 #'   \describe{

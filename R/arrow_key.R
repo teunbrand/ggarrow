@@ -31,6 +31,7 @@ draw_key_arrow <- function(data, params, size) {
     length_fins = length_fins,
     shaft_width = width,
     force_arrow = TRUE,
+    distort     = params$distort,
     gp = gpar(
       col  = data$stroke_colour    %||% NA,
       fill = alpha(data$colour     %||% "black", data$alpha %||% NA),

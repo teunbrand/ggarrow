@@ -162,6 +162,7 @@ makeContent.arrow_path <- function(x) {
   resect$head <- resect$head + head$resect * (1 - x$justify)
   line <- resect_line(paths$x, paths$y, id, resect$head, resect$fins, width)
   line <- project_distortion(line, x$distort)
+  line <- dedup_line(line)
 
   # Extrude and notch path
   shaft <- shape_shaft(

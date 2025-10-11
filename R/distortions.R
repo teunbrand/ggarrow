@@ -50,8 +50,8 @@ distort_sinewave <- function(length = 4, width = 2, n = 30) {
 #' Follows a triangular waveform.
 distort_sawtooth <- function(length = 4, width = 2) {
   length <- abs(length)
-  x <- c(0, 0.25, 0.75) * length
-  y <- c(0, 1, -1) * width * 0.5
+  x <- c(0, 0.25, 0.75, 1) * length
+  y <- c(0, 1, -1, 0) * width * 0.5
   out <- cbind(x = x, y = y)
   attr(out, "size") <- length
   out
@@ -62,8 +62,8 @@ distort_sawtooth <- function(length = 4, width = 2) {
 #' Follows a square waveform.
 distort_squarewave <- function(length = 4, width = 2) {
   length <- abs(length)
-  x <- c(0, 0, 0.5, 0.5, 1) * length
-  y <- c(0, 0.5, 0.5, -0.5, -0.5) * width
+  x <- c(0, 0, 0.5, 0.5, 1, 1) * length
+  y <- c(0, 0.5, 0.5, -0.5, -0.5, 0) * width
   out <- cbind(x = x, y = y)
   attr(out, "size") <- length
   out
@@ -134,7 +134,7 @@ project_distortion <- function(line, distort) {
   if (empty(distort) ||
       zero_range(range(distort[, 2])) ||
       zero_range(range(distort[, 1]))) {
-    return(line)
+    return(dedup_line(line))
   }
 
   size_distort <- attr(distort, "size") %||% diff(range(distort[, 1]))
@@ -179,7 +179,7 @@ project_distortion <- function(line, distort) {
   angle <- xy_angle(line$x, line$y, norm = TRUE)[before]
   line$x <- x + cos(angle) * dy
   line$y <- y + sin(angle) * dy
-  line$width <- w
   line$id <- new_rle(lengths = n_distort * n_vertex)
+  line$width <- w
   line
 }

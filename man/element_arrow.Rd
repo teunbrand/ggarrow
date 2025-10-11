@@ -27,6 +27,7 @@ element_arrow(
   lineend = NULL,
   linejoin = NULL,
   linemitre = NULL,
+  distort = NULL,
   inherit.blank = FALSE,
   ...
 )
@@ -97,6 +98,17 @@ ornaments. Can be \code{"round"}, \code{"butt"} or \code{"square"}.}
 
 \item{linemitre}{A \code{numeric(1)} greater than 1 setting the path's mitre
 limits.}
+
+\item{distort}{A way of specifying a line distortion. A line distortion is not great at
+dealing with paths with pronounced angles. One of the following:
+\itemize{
+\item \code{NULL} to not distort any paths.
+\item A \verb{<matrix[n, 2]>} of x/y coordinates giving one 'oscillation' of a
+distortion in millimetres. The \link[=distortion_functions]{distortion}
+functions create such matrices.
+\item A string, naming one of the \link[=distortion_functions]{distortion} functions
+without the \code{distort_} prefix.
+}}
 
 \item{inherit.blank}{A \code{logical(1)} indicating if this element should
 inherit the existence of an \verb{<element_blank>} among its parents. If \code{TRUE},

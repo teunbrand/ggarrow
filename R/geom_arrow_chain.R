@@ -57,20 +57,20 @@ geom_arrow_chain <- function(
   arrow_head  = arrow_head_wings(),
   arrow_fins  = NULL,
   arrow_mid   = NULL,
-  length      = 4,
+  length      = 4.0,
   length_head = NULL,
   length_fins = NULL,
   length_mid  = NULL,
-  justify     = 0,
+  justify     = 0.0,
   force_arrow = FALSE,
   mid_place   = 0.5,
-  resect      = 1,
+  resect      = 1.0,
   resect_head = NULL,
   resect_fins = NULL,
   lineend     = "butt",
   linejoin    = "round",
-  linemitre   = 10,
-  sep         = 0,
+  linemitre   = 10.0,
+  sep         = 0.0,
   distort     = NULL,
   na.rm       = FALSE,
   show.legend = NA,
@@ -81,8 +81,8 @@ geom_arrow_chain <- function(
   )
   resect_head <- resect_head %||% resect
   resect_fins <- resect_fins %||% resect
-  check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
-  check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
+  check_number_decimal(resect_head, min = 0.0, allow_infinite = FALSE)
+  check_number_decimal(resect_fins, min = 0.0, allow_infinite = FALSE)
   layer(
     data        = data,
     mapping     = mapping,
@@ -121,10 +121,10 @@ GeomArrowChain <- ggproto(
 
   default_aes = aes(
     colour    = "black",
-    linewidth = 1,
+    linewidth = 1.0,
     linewidth_head = NULL,
     linewidth_fins = NULL,
-    linetype  = 1,
+    linetype  = 1L,
     arrow_head = NULL,
     arrow_fins = NULL,
     arrow_mid  = NULL,
@@ -137,16 +137,16 @@ GeomArrowChain <- ggproto(
 
   draw_panel = function(
     self, data, panel_params, coord,
-    linejoin = "round", linemitre = 10, lineend = "butt",
+    linejoin = "round", linemitre = 10.0, lineend = "butt",
     na.rm       = FALSE,
     arrow       = list(head = arrow_head_wings(), fins = NULL, mid = NULL),
-    length      = list(head = 4, fins = 4, mid = 4),
-    justify     = 0,
+    length      = list(head = 4.0, fins = 4.0, mid = 4.0),
+    justify     = 0.0,
     force_arrow = force_arrow,
     mid_place   = 0.5,
-    resect_head = 0,
-    resect_fins = 0,
-    sep         = 0,
+    resect_head = 0.0,
+    resect_fins = 0.0,
+    sep         = 0.0,
     distort     = NULL
   ) {
     data <- warn_discrete_resect(data, resect)
@@ -164,22 +164,22 @@ GeomArrowChain <- ggproto(
     data <- data[order(data$group), , drop = FALSE]
 
     rows <- ave(seq_len(nrow(data)), data$group, FUN = base::length)
-    data <- data[rows >= 2, , drop = FALSE]
-    if (nrow(data) < 2) {
+    data <- data[rows >= 2L, , drop = FALSE]
+    if (nrow(data) < 2L) {
       return(zeroGrob())
     }
 
     n    <- nrow(data)
-    data <- vec_interleave(data[-n, , drop = FALSE], data[-1, , drop = FALSE])
-    data$group <- rep(seq_len(nrow(data) / 2), each = 2)
+    data <- vec_interleave(data[-n, , drop = FALSE], data[-1L, , drop = FALSE])
+    data$group <- rep(seq_len(nrow(data) / 2.0), each = 2L)
     data <- coord_munch(coord, data, panel_params)
 
     # Attribute check
     attrs <- c("alpha", "colour", "stroke_colour", "stroke_width")
     attrs <- intersect(attrs, names(data))
     constant <- vapply(split(data, data$group), function(df) {
-      nrow(unique0(df[, attrs])) == 1
-    }, logical(1))
+      nrow(unique0(df[, attrs])) == 1L
+    }, logical(1L))
 
     if (!all(constant)) {
       cli::cli_abort(paste0(
@@ -190,7 +190,7 @@ GeomArrowChain <- ggproto(
     }
 
     n <- nrow(data)
-    group_diff <- data$group[-1] != data$group[-n]
+    group_diff <- data$group[-1L] != data$group[-n]
     start <- c(TRUE, group_diff)
     end   <- c(group_diff, TRUE)
 

@@ -3,7 +3,7 @@
 extrude_line <- function(x, y, id, width, gp = gpar()) {
 
   # Only extrude solid lines
-  do_extrude <- (gp$lty %||% rep(1, length(id))) %in% c("1", "solid")
+  do_extrude <- (gp$lty %||% rep(1L, length(id))) %in% c("1", "solid")
   if (!any(do_extrude)) {
     ans <- list(
       x_left = x,
@@ -11,12 +11,12 @@ extrude_line <- function(x, y, id, width, gp = gpar()) {
       id_left = id,
       x_right = NULL,
       y_right = NULL,
-      id_right = new_rle(lengths = rep(0, length(id)))
+      id_right = new_rle(lengths = rep(0L, length(id)))
     )
     return(ans)
   }
 
-  width <- width / 2
+  width <- width / 2.0
   width <- rep_len(width, sum(field(id, "length")))
 
   if (all(do_extrude)) {
@@ -24,7 +24,7 @@ extrude_line <- function(x, y, id, width, gp = gpar()) {
       gp$linejoin %||% "mitre",
       "round" = linejoin_round(x, y, id, width),
       "bevel" = linejoin_bevel(x, y, id, width),
-      linejoin_mitre(x, y, id, width, mitre = gp$linemitre %||% 10)
+      linejoin_mitre(x, y, id, width, mitre = gp$linemitre %||% 10.0)
     )
   } else {
     # Extrude some but not all
@@ -39,7 +39,7 @@ extrude_line <- function(x, y, id, width, gp = gpar()) {
       ),
       linejoin_mitre(
         x[extrude], y[extrude], id[do_extrude], width[extrude],
-        mitre = gp$linemitre %||% 10
+        mitre = gp$linemitre %||% 10.0
       )
     )
 
@@ -55,7 +55,7 @@ extrude_line <- function(x, y, id, width, gp = gpar()) {
     new_id <- id # left id
     field(new_id, "length")[do_extrude] <- field(ans$id_left, "length")
     ans[c("x_left", "y_left", "id_left")] <- list(new_x, new_y, new_id)
-    new_id <- new_rle(lengths = rep(0, length(id)))
+    new_id <- new_rle(lengths = rep(0L, length(id)))
     field(new_id, "length")[do_extrude] <- field(ans$id_right, "length")
     ans$id_right <- new_id
   }
@@ -80,7 +80,7 @@ linejoin_round <- function(x, y, id, lwd, min_arc = 0.1) {
   before[start] <- before[start + 1L]
   after[end]    <- after[end - 1L]
 
-  bisect <- (before + after) / 2
+  bisect <- (before + after) / 2.0
   bislen <- lwd / cos(bisect - after)
 
   ## Join clockwise -------------------------------------------------------
@@ -93,12 +93,12 @@ linejoin_round <- function(x, y, id, lwd, min_arc = 0.1) {
 
   # Initialise segments
   n_seg <- pmax(min_arc, delta) %/% min_arc
-  n_seg[se] <- 1
+  n_seg[se] <- 1.0
   idx <- rep.int(seq_along(n_seg), n_seg)
 
   # Interpolate angle
-  angle <- unlist0(Map(seq, delta, 0, length.out = n_seg)) + after[idx]
-  singles <- n_seg == 1
+  angle <- unlist0(Map(seq, delta, 0.0, length.out = n_seg)) + after[idx]
+  singles <- n_seg == 1.0
   angle[singles[idx]] <- bisect[singles]
 
   # Set lengths
@@ -117,12 +117,12 @@ linejoin_round <- function(x, y, id, lwd, min_arc = 0.1) {
 
   # Initialise segments
   n_seg <- pmax(min_arc, delta) %/% min_arc
-  n_seg[se] <- 1
+  n_seg[se] <- 1.0
   idx <- rep.int(seq_along(n_seg), n_seg)
 
   # Interpolate angle
-  angle <- unlist0(Map(seq, 0, delta, length.out = n_seg)) + before[idx]
-  singles <- n_seg == 1
+  angle <- unlist0(Map(seq, 0.0, delta, length.out = n_seg)) + before[idx]
+  singles <- n_seg == 1.0
   angle[singles[idx]] <- bisect[singles]
 
   # Set lengths
@@ -146,7 +146,7 @@ linejoin_round <- function(x, y, id, lwd, min_arc = 0.1) {
 
 # Mitre -------------------------------------------------------------------
 
-linejoin_mitre <- function(x, y, id, lwd, mitre = 1) {
+linejoin_mitre <- function(x, y, id, lwd, mitre = 1.0) {
 
   start <- rle_start(id)
   end   <- rle_end(id)
@@ -160,19 +160,19 @@ linejoin_mitre <- function(x, y, id, lwd, mitre = 1) {
   before[start] <- before[start + 1L]
   after[end]    <- after[end - 1L]
 
-  bisect <- (before + after) / 2
+  bisect <- (before + after) / 2.0
   bislen <- lwd / cos(bisect - after)
   delta  <- before - after
 
   should_bevel <- (bislen / lwd) > mitre
-  should_bevel[lwd <= 0] <- FALSE
+  should_bevel[lwd <= 0.0] <- FALSE
   should_bevel[se] <- FALSE
 
   ## Join clockwise -------------------------------------------------------
   # Note: this isn't actually clockwise, but seems reasonable to differentiate
   # between directions
 
-  do_bevel <- should_bevel & delta > 0
+  do_bevel <- should_bevel & delta > 0.0
 
   n_seg <- do_bevel + 1L
   idx   <- rep.int(seq_along(n_seg), n_seg)
@@ -190,7 +190,7 @@ linejoin_mitre <- function(x, y, id, lwd, mitre = 1) {
 
   ## Join anti-clockwise --------------------------------------------------
 
-  do_bevel <- should_bevel & delta < 0
+  do_bevel <- should_bevel & delta < 0.0
 
   n_seg <- do_bevel + 1L
   idx   <- rep.int(seq_along(n_seg), n_seg)

@@ -17,10 +17,10 @@ on_load({
   if (exists("element_geom", asNamespace("ggplot2"))) {
     new_defaults <- aes(
       colour        = from_theme(fill %||% ink),
-      linewidth     = from_theme(linewidth * 2),
+      linewidth     = from_theme(linewidth * 2.0),
       linetype      = from_theme(linetype),
       stroke_colour = from_theme(colour %||% NA),
-      stroke_width  = from_theme(borderwidth / 2)
+      stroke_width  = from_theme(borderwidth / 2.0)
     )
     update_geom_defaults(GeomArrow, new_defaults)
     update_geom_defaults(GeomArrowChain, aes(

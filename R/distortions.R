@@ -34,12 +34,12 @@ NULL
 #' @export
 #' @describeIn distortion_functions
 #' Follows a sine waveform.
-distort_sinewave <- function(length = 4, width = 2, n = 30) {
-  check_number_whole(n, min = 1)
+distort_sinewave <- function(length = 4.0, width = 2.0, n = 30L) {
+  check_number_whole(n, min = 1.0)
   length <- abs(length)
-  x <- seq(0, 2 * pi, length.out = n + 1)[-(n + 1)]
+  x <- seq(0.0, 2.0 * pi, length.out = n + 1L)[-(n + 1L)]
   y <- sin(x) * width * 0.5
-  x <- x * length / (2 * pi)
+  x <- x * length / (2.0 * pi)
   out <- cbind(x = x, y = y)
   attr(out, "size") <- length
   out
@@ -48,10 +48,10 @@ distort_sinewave <- function(length = 4, width = 2, n = 30) {
 #' @export
 #' @describeIn distortion_functions
 #' Follows a triangular waveform.
-distort_sawtooth <- function(length = 4, width = 2) {
+distort_sawtooth <- function(length = 4.0, width = 2.0) {
   length <- abs(length)
-  x <- c(0, 0.25, 0.75, 1) * length
-  y <- c(0, 1, -1, 0) * width * 0.5
+  x <- c(0.0, 0.25, 0.75, 1.0) * length
+  y <- c(0.0, 1.0, -1.0, 0.0) * width * 0.5
   out <- cbind(x = x, y = y)
   attr(out, "size") <- length
   out
@@ -60,10 +60,10 @@ distort_sawtooth <- function(length = 4, width = 2) {
 #' @export
 #' @describeIn distortion_functions
 #' Follows a square waveform.
-distort_squarewave <- function(length = 4, width = 2) {
+distort_squarewave <- function(length = 4.0, width = 2.0) {
   length <- abs(length)
-  x <- c(0, 0, 0.5, 0.5, 1, 1) * length
-  y <- c(0, 0.5, 0.5, -0.5, -0.5, 0) * width
+  x <- c(0.0, 0.0, 0.5, 0.5, 1.0, 1.0) * length
+  y <- c(0.0, 0.5, 0.5, -0.5, -0.5, 0.0) * width
   out <- cbind(x = x, y = y)
   attr(out, "size") <- length
   out
@@ -108,20 +108,20 @@ validate_distortion <- function(
     )
   }
   dim <- dim(distortion)
-  if (prod(dim) == 0) {
+  if (prod(dim) == 0.0) {
     cli::cli_abort(
       "{.arg {arg}} cannot be empty.",
       call = call
     )
   }
-  if (dim[2] != 2) {
+  if (dim[2L] != 2L) {
     cli::cli_abort(
       "{.arg {arg}} must have exactly 2 columns, not {dim[2]}.",
       call = call
     )
   }
-  len <- attr(distortion, "size") %||% diff(range(distortion[, 1]))
-  if (zero_range(c(0, len))) {
+  len <- attr(distortion, "size") %||% diff(range(distortion[, 1L]))
+  if (zero_range(c(0.0, len))) {
     cli::cli_abort(
       "The length of the {.arg {arg}} argument is too close to 0.",
       call = call
@@ -132,12 +132,12 @@ validate_distortion <- function(
 
 project_distortion <- function(line, distort) {
   if (empty(distort) ||
-      zero_range(range(distort[, 2])) ||
-      zero_range(range(distort[, 1]))) {
+      zero_range(range(distort[, 2L])) ||
+      zero_range(range(distort[, 1L]))) {
     return(dedup_line(line))
   }
 
-  size_distort <- attr(distort, "size") %||% diff(range(distort[, 1]))
+  size_distort <- attr(distort, "size") %||% diff(range(distort[, 1L]))
   n_vertex <- nrow(distort)
 
   x <- line$x
@@ -157,11 +157,11 @@ project_distortion <- function(line, distort) {
   # compute distortion vertices projected on arc-length
   vertices <-
     # Lay down oscillations for all paths scaled lengthwise to 0-1
-    rep(distort[, 1] / size_distort, sum(n_distort)) *
+    rep(distort[, 1L] / size_distort, sum(n_distort)) *
     # Rescale these to the fitted size
     rep(rep.int(size_fit, n_distort), each = n_vertex) +
     # Increment oscillations within each path
-    rep((sequence(n_distort) - 1) * rep(size_fit, n_distort), each = n_vertex) +
+    rep((sequence(n_distort) - 1L) * rep(size_fit, n_distort), each = n_vertex) +
     # Add path offsets to oscillations
     rep(arc_starts, n_distort * n_vertex)
 
@@ -169,13 +169,13 @@ project_distortion <- function(line, distort) {
   # NOTE: `all.inside` does *NOT* apply within each path, but maybe it should?
   before <- findInterval(vertices, arc_length, all.inside = TRUE)
   delta <- interpol_dist(vertices, before, arc_length)
-  after <- before + 1
-  x <- x[before] * (1 - delta) + x[after] * delta
-  y <- y[before] * (1 - delta) + y[after] * delta
-  w <- w[before] * (1 - delta) + w[after] * delta
+  after <- before + 1L
+  x <- x[before] * (1.0 - delta) + x[after] * delta
+  y <- y[before] * (1.0 - delta) + y[after] * delta
+  w <- w[before] * (1.0 - delta) + w[after] * delta
 
   # Radiate out the y-dimension of the distortion
-  dy <- rep(distort[, 2], sum(n_distort))
+  dy <- rep(distort[, 2L], sum(n_distort))
   angle <- xy_angle(line$x, line$y, norm = TRUE)[before]
   line$x <- x + cos(angle) * dy
   line$y <- y + sin(angle) * dy

@@ -36,26 +36,26 @@ geom_arrow_curve <- function(
   ...,
   # Curve params
   curvature = 0.5,
-  angle     = 90,
-  ncp       = 5,
+  angle     = 90.0,
+  ncp       = 5L,
   # Arrow params
   arrow_head  = arrow_head_wings(),
   arrow_fins  = NULL,
   arrow_mid   = NULL,
-  length      = 4,
+  length      = 4.0,
   length_head = NULL,
   length_fins = NULL,
   length_mid  = NULL,
-  justify     = 0,
+  justify     = 0.0,
   force_arrow = FALSE,
   mid_place   = 0.5,
-  resect      = 0,
+  resect      = 0.0,
   resect_head = NULL,
   resect_fins = NULL,
   lineend     = "butt",
   linejoin    = "round",
-  linemitre   = 10,
-  sep         = 0,
+  linemitre   = 10.0,
+  sep         = 0.0,
   distort     = NULL,
   na.rm       = FALSE,
   show.legend = NA,
@@ -66,8 +66,8 @@ geom_arrow_curve <- function(
   )
   resect_head <- resect_head %||% resect
   resect_fins <- resect_fins %||% resect
-  check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
-  check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
+  check_number_decimal(resect_head, min = 0.0, allow_infinite = FALSE)
+  check_number_decimal(resect_fins, min = 0.0, allow_infinite = FALSE)
   arrow <- list(
     head = arrow_head,
     fins = arrow_fins,
@@ -114,11 +114,11 @@ GeomArrowCurve <- ggproto(
   required_aes = c("x", "y", "xend|yend"),
 
   default_aes = aes(
-    colour    = "black",
-    linewidth = 1,
+    colour         = "black",
+    linewidth      = 1.0,
     linewidth_head = NULL,
     linewidth_fins = NULL,
-    linetype  = 1,
+    linetype       = 1L,
     arrow_head     = NULL,
     arrow_fins     = NULL,
     arrow_mid      = NULL,
@@ -129,18 +129,18 @@ GeomArrowCurve <- ggproto(
 
   draw_panel = function(
     data, panel_params, coord,
-    linejoin = "round", linemitre = 10, lineend = "butt",
+    linejoin = "round", linemitre = 10.0, lineend = "butt",
     na.rm       = FALSE,
     arrow       = list(head = arrow_head_wings(), fins = NULL, mid = NULL),
-    length      = list(head = 4, fins = 4, mid = 4),
-    justify     = 0,
+    length      = list(head = 4.0, fins = 4.0, mid = 4.0),
+    justify     = 0.0,
     force_arrow = FALSE,
     mid_place   = 0.5,
-    resect      = list(head = 0, fins = 0),
+    resect      = list(head = 0.0, fins = 0.0),
     curvature   = 0.5,
-    angle       = 90,
-    ncp         = 5,
-    sep         = 0,
+    angle       = 90.0,
+    ncp         = 5L,
+    sep         = 0.0,
     distort     = NULL
   ) {
     data <- warn_discrete_resect(data, resect)
@@ -160,18 +160,18 @@ GeomArrowCurve <- ggproto(
 
     head_width <- unit(data$linewidth_head * .pt / .stroke, "mm")
     if (!is.unit(length$head)) {
-      length$head <- (length$head %||% 4) * head_width
+      length$head <- (length$head %||% 4.0) * head_width
     }
 
     fins_width <- unit(data$linewidth_fins * .pt / .stroke, "mm")
     if (!is.unit(length$fins)) {
-      length$fins <- (length$fins %||% 4) * fins_width
+      length$fins <- (length$fins %||% 4.0) * fins_width
     }
 
     offsets <- separate_offsets(
       x = vec_interleave(data$x, data$xend),
       y = vec_interleave(data$y, data$yend),
-      group = rep(seq_len(nrow(data)), each = 2),
+      group = rep(seq_len(nrow(data)), each = 2L),
       sep = sep
     )
 
@@ -180,14 +180,14 @@ GeomArrowCurve <- ggproto(
       unit(data$xend, "native"), unit(data$yend, "native"),
       # Curve parameters
       curvature = curvature, angle = angle, ncp = ncp,
-      square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
+      square = FALSE, squareShape = 1L, inflect = FALSE, open = TRUE,
       # Arrow parameters
       arrow_head  = data$arrow_head %||% arrow$head,
       arrow_fins  = data$arrow_fins %||% arrow$fins,
       arrow_mid   = data$arrow_mid  %||% arrow$mid,
       length_head = length$head,
       length_fins = length$fins,
-      length_mid  = length$mid %||% 4,
+      length_mid  = length$mid %||% 4.0,
       justify     = justify,
       force_arrow = force_arrow,
       mid_place   = mid_place,

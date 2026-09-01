@@ -12,9 +12,9 @@ match_id_group <- function(x, id, nm = caller_arg(x)) {
   vec_recycle(x, n, x_arg = nm)
 }
 
-print_head <- function(x, n = 5) {
+print_head <- function(x, n = 5L) {
   out <- as.character(head(x))
-  if (length(x) > 5) {
+  if (length(x) > n) {
     out <- c(out, "...")
   }
   return(out)
@@ -42,16 +42,16 @@ drop_gp <- function(gp, id) {
 
 interpol_dist <- function(x, index, ref) {
   rindex <- ref[index]
-  (x - rindex) / (ref[index + 1] - rindex)
+  (x - rindex) / (ref[index + 1L] - rindex)
 }
 
 linear_interpol <- function(x, index, d) {
-  x[index] * (1 - d) + x[index + 1] * d
+  x[index] * (1.0 - d) + x[index + 1L] * d
 }
 
 polygonise <- function(xy_list) {
   lapply(xy_list, function(mtx) {
-    list(x = mtx[, 1], y = mtx[, 2])
+    list(x = mtx[, 1L], y = mtx[, 2L])
   })
 }
 

@@ -216,12 +216,122 @@ might be expanded in the future, the last argument to the inner function
 should be <code>...</code>.</p>
 </div>
 <div class="section level3">
+<h3 id="shafts">Shafts<a class="anchor" aria-label="anchor" href="#shafts"></a>
+</h3>
+<p>While arrow heads and fins are all the rage, shafts can also be
+customised to some degree.</p>
+<div class="section level4">
+<h4 id="line-types">Line types<a class="anchor" aria-label="anchor" href="#line-types"></a>
+</h4>
+<p>As one might expect from lines in R, you can use different line
+types. They work the same as elsewhere in ggplot2.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/whirlpool.html">whirlpool</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linetype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="customisation_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="700"></p>
+</div>
+<div class="section level4">
+<h4 id="variable-width">Variable width<a class="anchor" aria-label="anchor" href="#variable-width"></a>
+</h4>
+<p>In addition to line types, lines can have variable widths. Contrary
+to <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line()</a></code>, which cuts up lines into segments between
+vertices, <code><a href="../reference/geom_arrow.html">geom_arrow()</a></code> supports veritable variable widths.
+This only works with solid line types. I have not been able to envision
+variable width dashed lines.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"solid"</span> <span class="co"># only supported line type</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="customisation_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="700"></p>
+</div>
+<div class="section level4">
+<h4 id="distortion">Distortion<a class="anchor" aria-label="anchor" href="#distortion"></a>
+</h4>
+<p>A hitherto foreign-ish concept for line types in R is what we here
+call ‘distortions’. These distortions create a line-based pattern that
+repeats along the shaft of an arrow. We have a few named distortions,
+<code>"sinewave"</code>, <code>"sawtooth"</code> and
+<code>"squarewave"</code> that you can use out of the box. Note that
+these are <em>parameters</em> and not <em>aesthetics</em>, so they apply
+to every arrow in the layer.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>distort <span class="op">=</span> <span class="st">"sinewave"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="customisation_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="700">
+These named distortions refer to a family of functions, which you can
+also use to parametrise the distortion. For example, if you want to
+change the wavelength/frequency and amplitude of the sine waves, you’d
+use the function instead of the name.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>distort <span class="op">=</span> <span class="fu"><a href="../reference/distortion_functions.html">distort_sinewave</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fl">2</span>, width <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="customisation_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="700"></p>
+<p>These functions produce 2-column matrices describing oscillations.
+The matrices have a row for each vertex in a distortion. The values in
+these matrices are interpreted in millimetres. The first column in the
+coordinate along the shaft, whereas the second column is the coordinate
+orthogonal to the shaft. We always attempt to smush an exact integer of
+oscillations along the shaft, so please interpret the numbers more as
+suggestions than hard truths.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/distortion_functions.html">distort_sawtooth</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      x  y</span></span>
+<span><span class="co">#&gt; [1,] 0  0</span></span>
+<span><span class="co">#&gt; [2,] 1  1</span></span>
+<span><span class="co">#&gt; [3,] 3 -1</span></span>
+<span><span class="co">#&gt; [4,] 4  0</span></span>
+<span><span class="co">#&gt; attr(,"size")</span></span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+<p>This means that you can substitute our boring templated distortion
+patterns with your own exciting distortions. The distortion
+functionality expects the first coordinate to be at (0, 0) and the last
+coordinate to be at (wavelength, 0). For example we can make this
+oscillation:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">oscillation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, </span>
+<span>  ncol <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">oscillation</span>, type <span class="op">=</span> <span class="st">'l'</span><span class="op">)</span></span></code></pre></div>
+<p><img src="customisation_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="700"></p>
+<p>Which displays thusly:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>distort <span class="op">=</span> <span class="va">oscillation</span><span class="op">)</span></span></code></pre></div>
+<p><img src="customisation_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="700"></p>
+<p>There are two reasons why you might want to pack up your own
+oscillations in a function. The first is that you might want to
+parametrise your oscillations. The second is that you might want to
+refer to these by name. The <code>distort</code> argument recognises a
+<code>distort_</code>-prefix, which you can use to name your own
+oscillations.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">distort_greek</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">size</span> <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>, </span>
+<span>    ncol <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span> <span class="op">*</span> <span class="va">size</span> <span class="op">/</span> <span class="fl">5</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>distort <span class="op">=</span> <span class="st">"greek"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="customisation_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="700"></p>
+</div>
+</div>
+<div class="section level3">
 <h3 id="scales">Scales<a class="anchor" aria-label="anchor" href="#scales"></a>
 </h3>
 <p>The discrete scales in ggarrow can take a mixed list of things that
 may define an arrow. That way, you can just put your own ornaments in a
 list to have it become part of the scale.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/whirlpool.html">whirlpool</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -229,11 +339,11 @@ list to have it become part of the scale.</p>
 <span>  <span class="fu"><a href="../reference/discrete_arrow_scales.html">scale_arrow_head_discrete</a></span><span class="op">(</span></span>
 <span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"head_wings"</span>, <span class="va">orn</span>, <span class="st">"fins_feather"</span>, <span class="va">orn</span>, <span class="st">"cup"</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="customisation_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="customisation_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="700"></p>
 <p>If you start your function name with the <code>arrow_</code>-prefix,
 the ornament can be automatically found if available in the global
 environment.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arrow_star</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span> <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">my_ornament</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -242,7 +352,7 @@ environment.</p>
 <span>  <span class="fu"><a href="../reference/discrete_arrow_scales.html">scale_arrow_head_discrete</a></span><span class="op">(</span></span>
 <span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"head_wings"</span>, <span class="st">"star"</span>, <span class="st">"fins_feather"</span>, <span class="st">"star"</span>, <span class="st">"cup"</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="customisation_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="customisation_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="700"></p>
 <p>While not always very easy to figure out, as different arrowheads are
 discrete, one <em>can</em> in theory also apply a continuous scale to
 arrows. Please note that I sneaked in a <code><a href="https://rdrr.io/r/base/Round.html" class="external-link">round()</a></code> in the
@@ -256,13 +366,13 @@ arrowhead. We should give the function we created as the
 <code>generator</code> argument. The variable part of our function
 argument should be provided as <code>map_arg</code>, and the range of
 values it can take on should be provided as <code>range</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>arrow_head <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span><span class="op">)</span>, resect <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/continuous_arrow_scales.html">scale_arrow_head_continuous</a></span><span class="op">(</span></span>
 <span>    generator <span class="op">=</span> <span class="va">arrow_star</span>, map_arg <span class="op">=</span> <span class="st">"n"</span>,</span>
 <span>    range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="customisation_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="customisation_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

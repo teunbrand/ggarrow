@@ -18,3 +18,8 @@ Useful links:
 
 **Maintainer**: Teun van den Brand <tahvdbrand@gmail.com>
 ([ORCID](https://orcid.org/0000-0002-9335-7468))
+
+Authors:
+
+- Teun van den Brand <tahvdbrand@gmail.com>
+  ([ORCID](https://orcid.org/0000-0002-9335-7468))

@@ -157,6 +157,11 @@ scale_arrow_mid_discrete(values = NULL, aesthetics = "arrow_mid", ...)
   :   For position scales, The position of the axis. `left` or `right`
       for y axes, `top` or `bottom` for x axes.
 
+  `fallback.palette`
+
+  :   Function to use when `palette = NULL` and the palette is not
+      represented in the theme.
+
   `call`
 
   :   The `call` used to construct the scale for reporting messages.

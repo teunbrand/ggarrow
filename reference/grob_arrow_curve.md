@@ -159,6 +159,25 @@ grob_arrow_curve(
   :   A [`numeric()`](https://rdrr.io/r/base/numeric.html) vector giving
       the offset in millimetres per group to displace paths.
 
+  `distort`
+
+  :   **\[experimental\]**
+
+      A way of specifying a line distortion. A line distortion is not
+      great at dealing with paths with pronounced angles. One of the
+      following:
+
+      - `NULL` to not distort any paths.
+
+      - A `<matrix[n, 2]>` of x/y coordinates giving one 'oscillation'
+        of a distortion in millimetres. The
+        [distortion](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+        functions create such matrices.
+
+      - A string, naming one of the
+        [distortion](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+        functions without the `distort_` prefix.
+
   `mid_place`
 
   :   Sets the location of middle (interior) arrows, when applicable.
@@ -203,7 +222,7 @@ grob_arrow_curve(
 ## Value
 
 A `<curve_arrow>` [graphical
-object](https://rdrr.io/r/grid/grid-defunct.html).
+object](https://rdrr.io/r/grid/grid.grob.html).
 
 ## Examples
 

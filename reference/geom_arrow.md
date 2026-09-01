@@ -32,6 +32,7 @@ geom_arrow(
   linejoin = "round",
   linemitre = 10,
   sep = 0,
+  distort = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -52,19 +53,19 @@ geom_arrow(
 
   The data to be displayed in this layer. There are three options:
 
-  If `NULL`, the default, the data is inherited from the plot data as
-  specified in the call to
-  [`ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html).
+  - `NULL` (default): the data is inherited from the plot data as
+    specified in the call to
+    [`ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html).
 
-  A `data.frame`, or other object, will override the plot data. All
-  objects will be fortified to produce a data frame. See
-  [`fortify()`](https://ggplot2.tidyverse.org/reference/fortify.html)
-  for which variables will be created.
+  - A `data.frame`, or other object, will override the plot data. All
+    objects will be fortified to produce a data frame. See
+    [`fortify()`](https://ggplot2.tidyverse.org/reference/fortify.html)
+    for which variables will be created.
 
-  A `function` will be called with a single argument, the plot data. The
-  return value must be a `data.frame`, and will be used as the layer
-  data. A `function` can be created from a `formula` (e.g.
-  `~ head(.x, 10)`).
+  - A `function` will be called with a single argument, the plot data.
+    The return value must be a `data.frame`, and will be used as the
+    layer data. A `function` can be created from a `formula` (e.g.
+    `~ head(.x, 10)`).
 
 - stat:
 
@@ -203,15 +204,15 @@ geom_arrow(
 
 - lineend:
 
-  Line end style (round, butt, square).
+  Line end style, one of `"round"`, `"butt"` or `"square"`.
 
 - linejoin:
 
-  Line join style (round, mitre, bevel).
+  Line join style, one of `"round"`, `"mitre"` or `"bevel"`.
 
 - linemitre:
 
-  Line mitre limit (number greater than 1).
+  Line mitre limit, a number greater than 1.
 
 - sep:
 
@@ -220,6 +221,24 @@ geom_arrow(
   will draw paths without offsets. Alternatively, a
   `<`[`unit`](https://rdrr.io/r/grid/unit.html)`>`.
 
+- distort:
+
+  **\[experimental\]**
+
+  A way of specifying a line distortion. A line distortion is not great
+  at dealing with paths with pronounced angles. One of the following:
+
+  - `NULL` to not distort any paths.
+
+  - A `<matrix[n, 2]>` of x/y coordinates giving one 'oscillation' of a
+    distortion in millimetres. The
+    [distortion](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+    functions create such matrices.
+
+  - A string, naming one of the
+    [distortion](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+    functions without the `distort_` prefix.
+
 - na.rm:
 
   If `FALSE`, the default, missing values are removed with a warning. If
@@ -227,7 +246,7 @@ geom_arrow(
 
 - show.legend:
 
-  logical. Should this layer be included in the legends? `NA`, the
+  Logical. Should this layer be included in the legends? `NA`, the
   default, includes if any aesthetics are mapped. `FALSE` never
   includes, and `TRUE` always includes. It can also be a named logical
   vector to finely select the aesthetics to display. To include legend

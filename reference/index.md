@@ -22,6 +22,10 @@
   [`scale_arrow_fins_discrete()`](https://teunbrand.github.io/ggarrow/reference/discrete_arrow_scales.md)
   [`scale_arrow_mid_discrete()`](https://teunbrand.github.io/ggarrow/reference/discrete_arrow_scales.md)
   : Discrete arrow scales
+- [`distort_sinewave()`](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+  [`distort_sawtooth()`](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+  [`distort_squarewave()`](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+  : Line distortion functions
 - [`draw_key_arrow()`](https://teunbrand.github.io/ggarrow/reference/draw_key_arrow.md)
   : Legend key glyph for arrows
 - [`element_arrow()`](https://teunbrand.github.io/ggarrow/reference/element_arrow.md)

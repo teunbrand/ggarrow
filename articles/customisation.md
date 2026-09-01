@@ -187,6 +187,146 @@ Besides `width` and `length`, the inner function can also receive
 `resect`. Because functionality might be expanded in the future, the
 last argument to the inner function should be `...`.
 
+### Shafts
+
+While arrow heads and fins are all the rage, shafts can also be
+customised to some degree.
+
+#### Line types
+
+As one might expect from lines in R, you can use different line types.
+They work the same as elsewhere in ggplot2.
+
+``` r
+
+p <- ggplot(whirlpool(5), aes(x, y, group = group)) +
+  coord_equal()
+
+p + geom_arrow(aes(linetype = factor(group)))
+```
+
+![](customisation_files/figure-html/unnamed-chunk-12-1.png)
+
+#### Variable width
+
+In addition to line types, lines can have variable widths. Contrary to
+[`geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html),
+which cuts up lines into segments between vertices,
+[`geom_arrow()`](https://teunbrand.github.io/ggarrow/reference/geom_arrow.md)
+supports veritable variable widths. This only works with solid line
+types. I have not been able to envision variable width dashed lines.
+
+``` r
+
+p + 
+  geom_arrow(
+    aes(linewidth = I(arc)),
+    linetype = "solid" # only supported line type
+  )
+```
+
+![](customisation_files/figure-html/unnamed-chunk-13-1.png)
+
+#### Distortion
+
+A hitherto foreign-ish concept for line types in R is what we here call
+‘distortions’. These distortions create a line-based pattern that
+repeats along the shaft of an arrow. We have a few named distortions,
+`"sinewave"`, `"sawtooth"` and `"squarewave"` that you can use out of
+the box. Note that these are *parameters* and not *aesthetics*, so they
+apply to every arrow in the layer.
+
+``` r
+
+p + geom_arrow(distort = "sinewave")
+```
+
+![](customisation_files/figure-html/unnamed-chunk-14-1.png) These named
+distortions refer to a family of functions, which you can also use to
+parametrise the distortion. For example, if you want to change the
+wavelength/frequency and amplitude of the sine waves, you’d use the
+function instead of the name.
+
+``` r
+
+p + geom_arrow(distort = distort_sinewave(length = 2, width = 5))
+```
+
+![](customisation_files/figure-html/unnamed-chunk-15-1.png)
+
+These functions produce 2-column matrices describing oscillations. The
+matrices have a row for each vertex in a distortion. The values in these
+matrices are interpreted in millimetres. The first column in the
+coordinate along the shaft, whereas the second column is the coordinate
+orthogonal to the shaft. We always attempt to smush an exact integer of
+oscillations along the shaft, so please interpret the numbers more as
+suggestions than hard truths.
+
+``` r
+
+distort_sawtooth()
+#>      x  y
+#> [1,] 0  0
+#> [2,] 1  1
+#> [3,] 3 -1
+#> [4,] 4  0
+#> attr(,"size")
+#> [1] 4
+```
+
+This means that you can substitute our boring templated distortion
+patterns with your own exciting distortions. The distortion
+functionality expects the first coordinate to be at (0, 0) and the last
+coordinate to be at (wavelength, 0). For example we can make this
+oscillation:
+
+``` r
+
+oscillation <- matrix(
+  cbind(
+    c(0, 0, 4, 4, 2, 2, 3, 3, 1, 1, 5, 5),
+    c(0, -2, -2, 1, 1, 0, 0, -1, -1, 2, 2, 0)
+  ), 
+  ncol = 2
+)
+
+plot(oscillation, type = 'l')
+```
+
+![](customisation_files/figure-html/unnamed-chunk-17-1.png)
+
+Which displays thusly:
+
+``` r
+
+p + geom_arrow(distort = oscillation)
+```
+
+![](customisation_files/figure-html/unnamed-chunk-18-1.png)
+
+There are two reasons why you might want to pack up your own
+oscillations in a function. The first is that you might want to
+parametrise your oscillations. The second is that you might want to
+refer to these by name. The `distort` argument recognises a
+`distort_`-prefix, which you can use to name your own oscillations.
+
+``` r
+
+distort_greek <- function(size = 5) {
+  matrix(
+    cbind(
+      c(0, 0, 4, 4, 2, 2, 3, 3, 1, 1, 5, 5),
+      c(0, -2, -2, 1, 1, 0, 0, -1, -1, 2, 2, 0)
+    ), 
+    ncol = 2
+  ) * size / 5
+}
+
+p + geom_arrow(distort = "greek")
+```
+
+![](customisation_files/figure-html/unnamed-chunk-19-1.png)
+
 ### Scales
 
 The discrete scales in ggarrow can take a mixed list of things that may
@@ -204,7 +344,7 @@ p + geom_arrow(aes(arrow_head = group), resect = 5) +
   )
 ```
 
-![](customisation_files/figure-html/unnamed-chunk-12-1.png)
+![](customisation_files/figure-html/unnamed-chunk-20-1.png)
 
 If you start your function name with the `arrow_`-prefix, the ornament
 can be automatically found if available in the global environment.
@@ -221,7 +361,7 @@ p + geom_arrow(aes(arrow_head = group), resect = 1) +
   )
 ```
 
-![](customisation_files/figure-html/unnamed-chunk-13-1.png)
+![](customisation_files/figure-html/unnamed-chunk-21-1.png)
 
 While not always very easy to figure out, as different arrowheads are
 discrete, one *can* in theory also apply a continuous scale to arrows.
@@ -247,4 +387,4 @@ p + geom_arrow(aes(arrow_head = as.integer(group)), resect = 5) +
   )
 ```
 
-![](customisation_files/figure-html/unnamed-chunk-14-1.png)
+![](customisation_files/figure-html/unnamed-chunk-22-1.png)

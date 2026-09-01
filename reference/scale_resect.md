@@ -196,6 +196,11 @@ scale_resect_discrete(
   :   For position scales, The position of the axis. `left` or `right`
       for y axes, `top` or `bottom` for x axes.
 
+  `fallback.palette`
+
+  :   Function to use when `palette = NULL` and the palette is not
+      represented in the theme.
+
   `call`
 
   :   The `call` used to construct the scale for reporting messages.

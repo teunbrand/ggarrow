@@ -33,6 +33,7 @@ element_arrow(
   lineend = NULL,
   linejoin = NULL,
   linemitre = NULL,
+  distort = NULL,
   inherit.blank = FALSE,
   ...
 )
@@ -63,11 +64,15 @@ element_arrow(
   Arrow [ornament
   shapes](https://teunbrand.github.io/ggarrow/reference/arrow_ornaments.md)
   for the arrow head, arrow fins and middle arrows respectively. Can be
-  one of the following: \* `NULL` for not drawing the ornament. \* A
-  `<character>` of length 1 naming an ornament constructor without the
-  `"arrow_"`-prefix, like `"head_wings"` or `"fins_feather"`. \* A
-  2-column matrix, such as those built by the [ornament
-  constructors](https://teunbrand.github.io/ggarrow/reference/arrow_ornaments.md).
+  one of the following:
+
+  - `NULL` for not drawing the ornament.
+
+  - A `<character>` of length 1 naming an ornament constructor without
+    the `"arrow_"`-prefix, like `"head_wings"` or `"fins_feather"`.
+
+  - A 2-column matrix, such as those built by the [ornament
+    constructors](https://teunbrand.github.io/ggarrow/reference/arrow_ornaments.md).
 
 - length, length_head, length_fins, length_mid:
 
@@ -132,6 +137,24 @@ element_arrow(
 - linemitre:
 
   A `numeric(1)` greater than 1 setting the path's mitre limits.
+
+- distort:
+
+  **\[experimental\]**
+
+  A way of specifying a line distortion. A line distortion is not great
+  at dealing with paths with pronounced angles. One of the following:
+
+  - `NULL` to not distort any paths.
+
+  - A `<matrix[n, 2]>` of x/y coordinates giving one 'oscillation' of a
+    distortion in millimetres. The
+    [distortion](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+    functions create such matrices.
+
+  - A string, naming one of the
+    [distortion](https://teunbrand.github.io/ggarrow/reference/distortion_functions.md)
+    functions without the `distort_` prefix.
 
 - inherit.blank:
 

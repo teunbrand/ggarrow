@@ -77,6 +77,7 @@ unless one of the <code>arrow_</code> arguments is set.</p>
 <span>  lineend <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  linejoin <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  linemitre <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  distort <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -108,12 +109,12 @@ line respectively.</p></dd>
 <dt id="arg-arrow-head-arrow-fins-arrow-mid">arrow_head, arrow_fins, arrow_mid<a class="anchor" aria-label="anchor" href="#arg-arrow-head-arrow-fins-arrow-mid"></a></dt>
 <dd><p>Arrow
 <a href="arrow_ornaments.html">ornament shapes</a> for the arrow head, arrow fins and
-middle arrows respectively. Can be one of the following:
-* <code>NULL</code> for not drawing the ornament.
-* A <code>&lt;character&gt;</code> of length 1 naming an ornament constructor without the
-<code>"arrow_"</code>-prefix, like <code>"head_wings"</code> or <code>"fins_feather"</code>.
-* A 2-column matrix, such as those built by the
-<a href="arrow_ornaments.html">ornament constructors</a>.</p></dd>
+middle arrows respectively. Can be one of the following:</p><ul><li><p><code>NULL</code> for not drawing the ornament.</p></li>
+<li><p>A <code>&lt;character&gt;</code> of length 1 naming an ornament constructor without the
+<code>"arrow_"</code>-prefix, like <code>"head_wings"</code> or <code>"fins_feather"</code>.</p></li>
+<li><p>A 2-column matrix, such as those built by the
+<a href="arrow_ornaments.html">ornament constructors</a>.</p></li>
+</ul></dd>
 
 
 <dt id="arg-length-length-head-length-fins-length-mid">length, length_head, length_fins, length_mid<a class="anchor" aria-label="anchor" href="#arg-length-length-head-length-fins-length-mid"></a></dt>
@@ -172,6 +173,18 @@ ornaments. Can be <code>"round"</code>, <code>"butt"</code> or <code>"square"</c
 <dt id="arg-linemitre">linemitre<a class="anchor" aria-label="anchor" href="#arg-linemitre"></a></dt>
 <dd><p>A <code>numeric(1)</code> greater than 1 setting the path's mitre
 limits.</p></dd>
+
+
+<dt id="arg-distort">distort<a class="anchor" aria-label="anchor" href="#arg-distort"></a></dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p>
+<p>A way of specifying a line distortion. A line distortion is not great at
+dealing with paths with pronounced angles. One of the following:</p><ul><li><p><code>NULL</code> to not distort any paths.</p></li>
+<li><p>A <code>&lt;matrix[n, 2]&gt;</code> of x/y coordinates giving one 'oscillation' of a
+distortion in millimetres. The <a href="distortion_functions.html">distortion</a>
+functions create such matrices.</p></li>
+<li><p>A string, naming one of the <a href="distortion_functions.html">distortion</a> functions
+without the <code>distort_</code> prefix.</p></li>
+</ul></dd>
 
 
 <dt id="arg-inherit-blank">inherit.blank<a class="anchor" aria-label="anchor" href="#arg-inherit-blank"></a></dt>

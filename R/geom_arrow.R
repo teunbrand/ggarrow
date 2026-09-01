@@ -92,20 +92,20 @@ geom_arrow <- function(
   arrow_head  = arrow_head_wings(),
   arrow_fins  = NULL,
   arrow_mid   = NULL,
-  length      = 4,
+  length      = 4.0,
   length_head = NULL,
   length_fins = NULL,
   length_mid  = NULL,
-  justify     = 0,
+  justify     = 0.0,
   force_arrow = FALSE,
   mid_place   = 0.5,
-  resect      = 0,
+  resect      = 0.0,
   resect_head = NULL,
   resect_fins = NULL,
   lineend     = "butt",
   linejoin    = "round",
-  linemitre   = 10,
-  sep         = 0,
+  linemitre   = 10.0,
+  sep         = 0.0,
   distort     = NULL,
   na.rm       = FALSE,
   show.legend = NA,
@@ -116,8 +116,8 @@ geom_arrow <- function(
   )
   resect_head <- resect_head %||% resect
   resect_fins <- resect_fins %||% resect
-  check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
-  check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
+  check_number_decimal(resect_head, min = 0.0, allow_infinite = FALSE)
+  check_number_decimal(resect_fins, min = 0.0, allow_infinite = FALSE)
   check_number_decimal(sep, allow_infinite = FALSE)
   layer(
     data        = data,
@@ -156,8 +156,8 @@ GeomArrow <- ggproto(
 
   default_aes = aes(
     colour    = "black",
-    linewidth = 1,
-    linetype  = 1,
+    linewidth = 1.0,
+    linetype  = 1L,
     alpha     = NA,
     arrow_head = NULL,
     arrow_fins = NULL,
@@ -172,15 +172,15 @@ GeomArrow <- ggproto(
     self, data, panel_params, coord,
     lineend     = "butt",
     linejoin    = "round",
-    linemitre   = 10,
+    linemitre   = 10.0,
     na.rm       = FALSE,
     arrow       = list(head = arrow_head_wings(), fins = NULL, mid = NULL),
-    length      = list(head = 4, fins = 4, mid = 4),
-    justify     = 0,
+    length      = list(head = 4.0, fins = 4.0, mid = 4.0),
+    justify     = 0.0,
     force_arrow = FALSE,
     mid_place   = 0.5,
-    sep         = 0,
-    resect      = list(head = 0, fins = 0),
+    sep         = 0.0,
+    resect      = list(head = 0.0, fins = 0.0),
     distort     = NULL
   ) {
     data <- warn_discrete_resect(data, resect)
@@ -195,8 +195,8 @@ GeomArrow <- ggproto(
     data <- coord_munch(coord, data, panel_params)
 
     rows <- ave(seq_len(nrow(data)), data$group, FUN = base::length)
-    data <- data[rows >= 2, , drop = FALSE]
-    if (nrow(data) < 2) {
+    data <- data[rows >= 2L, , drop = FALSE]
+    if (nrow(data) < 2L) {
       return(zeroGrob())
     }
 
@@ -204,8 +204,8 @@ GeomArrow <- ggproto(
     attrs <- c("alpha", "colour", "stroke_colour", "stroke_width")
     attrs <- intersect(attrs, names(data))
     constant <- vapply(split(data, data$group), function(df) {
-      nrow(unique0(df[, attrs])) == 1
-    }, logical(1))
+      nrow(unique0(df[, attrs])) == 1L
+    }, logical(1L))
 
     if (!all(constant)) {
       cli::cli_abort(paste0(
@@ -216,16 +216,16 @@ GeomArrow <- ggproto(
     }
 
     n <- nrow(data)
-    group_diff <- data$group[-1] != data$group[-n]
+    group_diff <- data$group[-1L] != data$group[-n]
     start <- c(TRUE, group_diff)
     end   <- c(group_diff, TRUE)
 
     width <- unit(data$linewidth * .pt / .stroke, "mm")
     if (!is.unit(length$head)) {
-      length$head <- (length$head %||% 4) * width[end]
+      length$head <- (length$head %||% 4.0) * width[end]
     }
     if (!is.unit(length$fins)) {
-      length$fins <- (length$fins %||% 4) * width[start]
+      length$fins <- (length$fins %||% 4.0) * width[start]
     }
 
     offsets <- separate_offsets(data$x, data$y, data$group, sep = sep)
@@ -239,7 +239,7 @@ GeomArrow <- ggproto(
       arrow_mid   = data$arrow_mid[start]  %||% arrow$mid,
       length_head = length$head,
       length_fins = length$fins,
-      length_mid  = length$mid %||% 4,
+      length_mid  = length$mid %||% 4.0,
       justify     = justify,
       force_arrow = force_arrow,
       mid_place   = mid_place,

@@ -1,15 +1,14 @@
 arrow <- grob_arrow(
   x = unit(c(0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8), "npc"),
   y = unit(c(0.2, 0.8, 0.2, 0.8, 0.8, 0.2, 0.8, 0.2), "npc"),
-  id.lengths = c(4, 4),
+  id.lengths = c(4L, 4L),
   arrow_head = NULL,
   arrow_fins = NULL,
   gp = gpar(fill = c("dodgerblue", "tomato"), col = "black"),
-  shaft_width = unit(3, "mm")
+  shaft_width = unit(3.0, "mm")
 )
 
 test_that("grob_arrow can draw without arrowheads or -fins", {
-
   my_arrow <- arrow
 
   vdiffr::expect_doppelganger(
@@ -22,10 +21,9 @@ test_that("grob_arrow can draw without arrowheads or -fins", {
 })
 
 test_that("arrow_heads can be placed at the end of a line", {
-
   my_arrow <- arrow
-  my_arrow$arrow_head  <- arrow_head_wings()
-  my_arrow$length_head <- unit(c(5, 10), "mm")
+  my_arrow$arrow_head <- arrow_head_wings()
+  my_arrow$length_head <- unit(c(5.0, 10.0), "mm")
 
   vdiffr::expect_doppelganger(
     "head only",
@@ -37,10 +35,9 @@ test_that("arrow_heads can be placed at the end of a line", {
 })
 
 test_that("arrow_fins can be placed at the beginning of a line", {
-
   my_arrow <- arrow
-  my_arrow$arrow_fins  <- arrow_fins_feather()
-  my_arrow$length_fins <- unit(c(10, 20), "mm")
+  my_arrow$arrow_fins <- arrow_fins_feather()
+  my_arrow$length_fins <- unit(c(10.0, 20.0), "mm")
 
   vdiffr::expect_doppelganger(
     "fins only",
@@ -52,12 +49,11 @@ test_that("arrow_fins can be placed at the beginning of a line", {
 })
 
 test_that("arrow heads and fins can both be placed", {
-
   my_arrow <- arrow
-  my_arrow$arrow_fins  <- arrow_fins_feather()
-  my_arrow$length_fins <- unit(c(10, 20), "mm")
-  my_arrow$arrow_head  <- arrow_head_wings()
-  my_arrow$length_head <- unit(c(5, 10), "mm")
+  my_arrow$arrow_fins <- arrow_fins_feather()
+  my_arrow$length_fins <- unit(c(10.0, 20.0), "mm")
+  my_arrow$arrow_head <- arrow_head_wings()
+  my_arrow$length_head <- unit(c(5.0, 10.0), "mm")
 
   vdiffr::expect_doppelganger(
     "head and fins",
@@ -69,14 +65,14 @@ test_that("arrow heads and fins can both be placed", {
 })
 
 test_that("arrows can have variable widths", {
-
   my_arrow <- arrow
-  my_arrow$arrow_fins  <- arrow_fins_feather()
-  my_arrow$length_fins <- unit(c(10, 20), "mm")
-  my_arrow$arrow_head  <- arrow_head_wings()
-  my_arrow$length_head <- unit(c(5, 10), "mm")
+  my_arrow$arrow_fins <- arrow_fins_feather()
+  my_arrow$length_fins <- unit(c(10.0, 20.0), "mm")
+  my_arrow$arrow_head <- arrow_head_wings()
+  my_arrow$length_head <- unit(c(5.0, 10.0), "mm")
   my_arrow$shaft_width <- unit(
-    c(2, 4, 6, 8, 8, 6, 4, 2), "mm"
+    c(2.0, 4.0, 6.0, 8.0, 8.0, 6.0, 4.0, 2.0),
+    "mm"
   )
 
   vdiffr::expect_doppelganger(
@@ -89,10 +85,9 @@ test_that("arrows can have variable widths", {
 })
 
 test_that("inner arrows can be drawn at positions", {
-
   my_arrow <- arrow
   my_arrow$arrow_mid <- arrow_head_wings()
-  my_arrow$length_mid <- unit(10, "mm")
+  my_arrow$length_mid <- unit(10.0, "mm")
   my_arrow$mid_place <- c(0.25, 0.5, 0.75)
 
   vdiffr::expect_doppelganger(
@@ -105,11 +100,10 @@ test_that("inner arrows can be drawn at positions", {
 })
 
 test_that("inner arrows can be drawn at distance", {
-
   my_arrow <- arrow
   my_arrow$arrow_mid <- arrow_head_wings()
-  my_arrow$length_mid <- unit(10, "mm")
-  my_arrow$mid_place <- unit(2, "cm")
+  my_arrow$length_mid <- unit(10.0, "mm")
+  my_arrow$mid_place <- unit(2.0, "cm")
 
   vdiffr::expect_doppelganger(
     "inner distance",

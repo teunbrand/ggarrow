@@ -10,12 +10,12 @@
 #'
 #' @examples
 #' whirlpool()
-whirlpool <- function(n = 5, detail = 100) {
-  t <- seq(1, 0, length.out = detail) * pi
+whirlpool <- function(n = 5L, detail = 100L) {
+  t <- seq(1.0, 0.0, length.out = detail) * pi
 
   seg <- 0.25 + seq_along(t) / length(t)
 
-  offsets <- seq(0, 1, length.out = n + 1)[-(n + 1)] * 2 * pi
+  offsets <- seq(0.0, 1.0, length.out = n + 1L)[-(n + 1L)] * 2.0 * pi
 
   t <- outer(t, offsets, FUN = `+`)
 

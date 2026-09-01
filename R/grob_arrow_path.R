@@ -72,20 +72,20 @@
 #' # Drawing the arrow
 #' grid::grid.newpage(); grid::grid.draw(arrow)
 grob_arrow <- function(
-  x = unit(c(0, 1), "npc"),
-  y = unit(c(0, 1), "npc"),
+  x = unit(c(0.0, 1.0), "npc"),
+  y = unit(c(0.0, 1.0), "npc"),
   id            = NULL,
   id.lengths    = NULL,
   arrow_head    = arrow_head_wings(),
   arrow_fins    = NULL,
   arrow_mid     = NULL,
-  length_head   = unit(5, "mm"),
+  length_head   = unit(5.0, "mm"),
   length_fins   = NULL,
   length_mid    = NULL,
-  justify       = 0,
-  shaft_width   = unit(1, "mm"),
+  justify       = 0.0,
+  shaft_width   = unit(1.0, "mm"),
   mid_place     = 0.5,
-  resect        = unit(0, "mm"),
+  resect        = unit(0.0, "mm"),
   resect_fins   = NULL,
   resect_head   = NULL,
   force_arrow   = FALSE,
@@ -107,21 +107,21 @@ grob_arrow <- function(
   check_offset(offset, n)
 
   # Detect if linetype is not solid
-  not_solid <- !(gp$lty %||% rep(1, length(id))) %in% c("1", "solid")
+  not_solid <- !(gp$lty %||% rep(1L, length(id))) %in% c("1", "solid")
   if (any(not_solid)) {
     width <- rep_len(shaft_width, sum(field(id, "length")))
     n_widths <- vapply0(
       rle_chop(width, id),
       function(x) sum(diff(as.numeric(x)) > 0.0001),
-      integer(1)
+      integer(1L)
     )
-    if (any(n_widths > 0 & not_solid)) {
+    if (any(n_widths > 0L & not_solid)) {
       cli::cli_abort(
         "Cannot create arrows with varying widths and non-solid linetype."
       )
     }
     width <- convertUnit(width[rle_start(id)], "mm", valueOnly = TRUE)
-    gp$lwd <- gp$lwd %||% rep(1 * .pt, length(id))
+    gp$lwd <- gp$lwd %||% rep(1.0 * .pt, length(id))
     gp$lwd[not_solid] <- width[not_solid] * .stroke
   }
 
@@ -136,7 +136,7 @@ grob_arrow <- function(
     length_head = as_unit(length_head, default.units),
     length_fins = as_unit(length_fins %||% length_head, default.units),
     length_mid  = length_mid %||% as_unit(length_head,  default.units),
-    justify     = pmax(pmin(justify, 1), 0),
+    justify     = pmax(pmin(justify, 1.0), 0.0),
     mid_place   = mid_place,
     resect      = resect,
     offset      = offset,
@@ -169,8 +169,8 @@ makeContent.arrow_path <- function(x) {
   )
 
   # Trim line to make place for arrow pieces
-  resect$fins <- resect$fins + fins$resect * (1 - x$justify)
-  resect$head <- resect$head + head$resect * (1 - x$justify)
+  resect$fins <- resect$fins + fins$resect * (1.0 - x$justify)
+  resect$head <- resect$head + head$resect * (1.0 - x$justify)
   line <- resect_line(paths$x, paths$y, id, resect$head, resect$fins, width)
   line <- project_distortion(line, x$distort)
   line <- dedup_line(line)
@@ -201,14 +201,14 @@ makeContent.arrow_path <- function(x) {
 
   # Finish arrow
   is_polygon <- lapply(shaft, `[[`, i = "poly")
-  is_polygon[lengths(is_polygon) != 1] <- list(TRUE)
+  is_polygon[lengths(is_polygon) != 1L] <- list(TRUE)
   is_polygon <- unlist(is_polygon)
 
   present <- rep(FALSE, length(line$id))
-  present[lengths(head)  > 0] <- TRUE
-  present[lengths(fins)  > 0] <- TRUE
-  present[lengths(inner) > 0] <- TRUE
-  present[lengths(shaft) > 0] <- TRUE
+  present[lengths(head)  > 0L] <- TRUE
+  present[lengths(fins)  > 0L] <- TRUE
+  present[lengths(inner) > 0L] <- TRUE
+  present[lengths(shaft) > 0L] <- TRUE
 
   gp <- x$gp
   if (length(line$id) != sum(present)) {
@@ -217,7 +217,7 @@ makeContent.arrow_path <- function(x) {
 
   if (all(is_polygon)) {
     arrow <- combine_arrow(head, fins, shaft, inner)
-    if (length(arrow$x) == 0) {
+    if (length(arrow$x) == 0L) {
       ans <- gList(zeroGrob())
     } else {
 

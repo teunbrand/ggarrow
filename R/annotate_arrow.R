@@ -48,14 +48,14 @@ annotate_arrow <- function(
   }
   position <- list(x = x, xmin = xmin, xmax = xmax, xend = xend,
                    y = y, ymin = ymin, ymax = ymax, yend = yend)
-  position <- position[lengths(position) > 0]
+  position <- position[lengths(position) > 0L]
 
   aesthetics <- c(position, list2(...))
   lengths    <- lengths(aesthetics)
-  arrow_nms <- c("arrow_head", "arrow_fins", "arrow_mid")
+  arrow_nms  <- c("arrow_head", "arrow_fins", "arrow_mid")
   length_nms <- c("length_head", "length_fins", "length_mid")
   n <- vec_unique(lengths)
-  if (length(n) > 1) {
+  if (length(n) > 1L) {
     # Don't count length/arrow args
     lengths[names(aesthetics) %in% c(arrow_nms, length_nms)] <- 1L
     n <- vec_unique(lengths)
@@ -74,8 +74,8 @@ annotate_arrow <- function(
                   fins = args$arrow_fins,
                   mid = args$arrow_mid)
     args  <- args[setdiff(names(args), arrow_nms)]
-    arrow <- arrow[lengths(arrow) > 0]
-    if (length(arrow) > 0) {
+    arrow <- arrow[lengths(arrow) > 0L]
+    if (length(arrow) > 0L) {
       args$arrow <- arrow
     }
   }
@@ -84,8 +84,8 @@ annotate_arrow <- function(
                    fins = args$length_fins,
                    mid  = args$length_mid)
     args   <- args[setdiff(names(args), length_nms)]
-    length <- length[lengths(length) > 0]
-    if (length(length) > 0) {
+    length <- length[lengths(length) > 0L]
+    if (length(length) > 0L) {
       args$length <- length
     }
   }

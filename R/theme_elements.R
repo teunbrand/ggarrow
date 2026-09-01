@@ -159,7 +159,7 @@ element_arrow <- function(
 #' @export
 #' @method element_grob element_arrow
 element_grob.element_arrow <- function(
-  element, x = 0:1, y = 0:1,
+  element, x = 0L:1L, y = 0L:1L,
   colour      = NULL, stroke_colour  = NULL, stroke_width   = NULL,
   linewidth   = NULL, linewidth_head = NULL, linewidth_fins = NULL,
   arrow_head  = NULL, arrow_fins     = NULL, arrow_mid      = NULL,
@@ -180,24 +180,24 @@ element_grob.element_arrow <- function(
   }
 
   # Fill in width defaults
-  width      <- linewidth      %||% element$linewidth      %||% 1
+  width      <- linewidth      %||% element$linewidth      %||% 1.0
   width_head <- linewidth_head %||% element$linewidth_head %||% width
   width_fins <- linewidth_fins %||% element$linewidth_fins %||% width
 
   # Resolve id, dropping empty groups
   id <- rle_subset(validate_id(id, id.lengths, length(x)), keep)
-  id <- id[field(id, "length") > 0]
+  id <- id[field(id, "length") > 0L]
   id.lengths <- field(id, "length")
 
   # Interpolate width from start to end
   width_prop <- seq_len(rle_length(id)) - rep(rle_start(id), id.lengths)
-  width_prop <- width_prop / rep(id.lengths - 1, id.lengths)
-  width_head <- rep(rep(width_head, length.out = length(id)), id.lengths)
-  width_fins <- rep(rep(width_fins, length.out = length(id)), id.lengths)
-  width      <- width_prop * width_head + (1 - width_prop) * width_fins
+  width_prop <- width_prop / rep(id.lengths - 1.0, id.lengths)
+  width_head <- rep(rep_len(width_head, length(id)), id.lengths)
+  width_fins <- rep(rep_len(width_fins, length(id)), id.lengths)
+  width      <- width_prop * width_head + (1.0 - width_prop) * width_fins
 
   # Fill in resect defaults
-  resect      <- resect      %||% element$resect      %||% 0
+  resect      <- resect      %||% element$resect      %||% 0.0
   resect_head <- resect_head %||% element$resect_head %||% resect
   resect_fins <- resect_fins %||% element$resect_fins %||% resect
 
@@ -225,7 +225,7 @@ element_grob.element_arrow <- function(
     length_head = length$head,
     length_fins = length$fins,
     length_mid  = length$mid,
-    justify     = justify     %||% element$justify     %||% 0,
+    justify     = justify     %||% element$justify %||% 0.0,
     force_arrow = force_arrow %||% element$force_arrow,
     mid_place   = mid_place   %||% element$mid_place,
     shaft_width = unit(width * .pt / .stroke, "mm"),
@@ -238,7 +238,7 @@ element_grob.element_arrow <- function(
       lwd  = stroke_width   %||% element$stroke_width  %||% 0.25,
       linejoin = linejoin   %||% element$linejoin      %||% "round",
       lineend  = lineend    %||% element$lineend       %||% "butt",
-      linemitre = linemitre %||% element$linemitre     %||% 10
+      linemitre = linemitre %||% element$linemitre     %||% 10.0
     )
   )
 }
@@ -263,7 +263,7 @@ S7_element_arrow_properties <- list(
       if (is.null(value)) {
         return(character())
       }
-      check_restriction(value, n = 1, min = 0, max = 1)
+      check_restriction(value, n = 1L, min = 0.0, max = 1.0)
     }
   ),
   force_arrow    = property_boolean(allow_null = TRUE, default = NULL),
@@ -274,8 +274,8 @@ S7_element_arrow_properties <- list(
         return(character())
       }
       if (is_bare_numeric(value)) {
-        return(check_restriction(value, n = NA, min = 0, max = 1))
-      } else if (length(value) != 1) {
+        return(check_restriction(value, n = NA, min = 0.0, max = 1.0))
+      } else if (length(value) != 1L) {
         return(as_cli("must be scalar when a {.cls unit}."))
       }
       character()
@@ -343,10 +343,10 @@ S7_element_arrow_constructor <- function(
 }
 
 S7_merge_method <- function(new, old, ...) {
-  if (!inherits(new, class(old)[1])) {
+  if (!inherits(new, class(old)[1L])) {
     cli::cli_abort("Only elements of the same class can be merged.")
   }
-  idx <- lengths(S7::props(new)) == 0
+  idx <- lengths(S7::props(new)) == 0L
   idx <- names(idx[idx])
   idx <- intersect(idx, S7::prop_names(old))
   S7::props(new)[idx] <- S7::props(old, idx)

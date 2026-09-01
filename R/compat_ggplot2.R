@@ -4,7 +4,7 @@ data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 
 snake_class <- function(x) {
-  snakeize(class(x)[1])
+  snakeize(class(x)[1L])
 }
 
 snakeize <- function(x) {
@@ -14,8 +14,8 @@ snakeize <- function(x) {
   chartr(upper_ascii, lower_ascii, x)
 }
 
-upper_ascii <- paste0(LETTERS, collapse = "")
-lower_ascii <- paste0(letters, collapse = "")
+upper_ascii <- paste(LETTERS, collapse = "")
+lower_ascii <- paste(letters, collapse = "")
 
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
@@ -58,7 +58,7 @@ cases <- function(x, fun) {
 
 is_finite <- function(x) {
   if (typeof(x) == "list") {
-    !vapply(x, is.null, logical(1))
+    !vapply(x, is.null, logical(1L))
   } else {
     is.finite(x)
   }
@@ -66,21 +66,21 @@ is_finite <- function(x) {
 
 is_complete <- function(x) {
   if (typeof(x) == "list") {
-    !vapply(x, is.null, logical(1))
+    !vapply(x, is.null, logical(1L))
   } else {
     !is.na(x)
   }
 }
 
 empty <- function(df) {
-  is.null(df) || prod(dim(df)) == 0 || inherits(df, "waiver")
+  is.null(df) || prod(dim(df)) == 0.0 || inherits(df, "waiver")
 }
 
 rename <- function(x, replace) {
   current  <- names(x)
   previous <- names(replace)
   missing  <- setdiff(previous, current)
-  if (length(missing) > 0) {
+  if (length(missing) > 0L) {
     replace  <- replace[!previous %in% missing]
     previous <- names(replace)
   }
@@ -102,7 +102,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
     force(aesthetic)
     limits <- function(x) {
       x <- intersect(x, c(names(values), NA)) %||% character()
-      if (length(x) < 1) {
+      if (length(x) < 1L) {
         cli::cli_warn(paste0(
           "No shared levels found between {.code names(values)} of the manual ",
           "scale and the data's {.field {aesthetic}} values."

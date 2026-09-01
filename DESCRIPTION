@@ -18,6 +18,7 @@ Depends:
 Imports: 
     cli,
     grid,
+    lifecycle,
     polyclip,
     rlang (>= 1.1.0),
     S7,

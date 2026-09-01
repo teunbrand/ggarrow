@@ -10,6 +10,10 @@
   ([\#8](https://github.com/teunbrand/ggarrow/issues/8)):
   - [`arrow_head_halfline()`](https://teunbrand.github.io/ggarrow/reference/arrow_ornaments.md)
   - [`arrow_head_halfwing()`](https://teunbrand.github.io/ggarrow/reference/arrow_ornaments.md)
+- Fixed bug where numeric `resect_fins` aesthetic in
+  [`geom_arrow_segment()`](https://teunbrand.github.io/ggarrow/reference/geom_arrow_segment.md)
+  might have flunked a type check
+  ([\#15](https://github.com/teunbrand/ggarrow/issues/15))
 
 ## ggarrow 0.1.1
 

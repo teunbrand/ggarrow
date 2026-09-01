@@ -11,7 +11,6 @@ test_that("geom_arrow looks alright", {
 })
 
 test_that("geom_arrow can mix linetypes", {
-
   # Linewidth is allowed to vary if the linetype is solid
   p <- ggplot(whirlpool(), aes(x, y, colour = group)) +
     geom_arrow(
@@ -26,6 +25,4 @@ test_that("geom_arrow can mix linetypes", {
       aes(linewidth = arc, linetype = group)
     )
   expect_error(ggplotGrob(p), "with varying widths")
-
-
 })

@@ -1,5 +1,4 @@
 test_that("geom_arrow_chain looks alright", {
-
   t <- seq(0.0, 2.0 * pi, length.out = 15L)
   l <- rep(c(1.0, 0.4), length.out = 15L)
 
@@ -17,7 +16,6 @@ test_that("geom_arrow_chain looks alright", {
 })
 
 test_that("the `sep` argument works as intended", {
-
   df <- data.frame(
     x = c(0.0, 2.0, 1.0, 2.0, 0.0, 1.0, 2.0),
     y = c(0.0, 0.0, 1.2, 0.0, 0.0, 1.2, 0.0)

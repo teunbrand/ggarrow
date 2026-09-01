@@ -1,4 +1,3 @@
-
 arrow <- grob_arrow(
   x = unit(c(0.2, 0.6, 0.7, 0.8), "npc"),
   y = unit(c(0.2, 0.8, 0.2, 0.8), "npc"),
@@ -13,9 +12,8 @@ line <- polylineGrob(
 )
 
 test_that("linejoin_round works", {
-
   my_arrow <- arrow
-  my_line  <- line
+  my_line <- line
 
   my_arrow$gp$linejoin <- my_line$gp$linejoin <- "round"
 
@@ -31,9 +29,9 @@ test_that("linejoin_round works", {
 
 test_that("linejoin_mitre works", {
   my_arrow <- arrow
-  my_line  <- line
+  my_line <- line
 
-  my_arrow$gp$linejoin  <- my_line$gp$linejoin <- "mitre"
+  my_arrow$gp$linejoin <- my_line$gp$linejoin <- "mitre"
   my_arrow$gp$linemitre <- my_line$gp$linemitre <- 3.0
 
   vdiffr::expect_doppelganger(
@@ -48,9 +46,9 @@ test_that("linejoin_mitre works", {
 
 test_that("linejoin_bevel works", {
   my_arrow <- arrow
-  my_line  <- line
+  my_line <- line
 
-  my_arrow$gp$linejoin  <- my_line$gp$linejoin <- "bevel"
+  my_arrow$gp$linejoin <- my_line$gp$linejoin <- "bevel"
 
   vdiffr::expect_doppelganger(
     "linejoin bevel",
@@ -67,7 +65,7 @@ test_that("can use rounded lineends", {
   my_line <- line
 
   my_arrow$arrow_head <- NULL
-  my_arrow$gp$lineend  <- my_line$gp$lineend  <- "round"
+  my_arrow$gp$lineend <- my_line$gp$lineend <- "round"
   my_arrow$gp$linejoin <- my_line$gp$linejoin <- "mitre"
 
   vdiffr::expect_doppelganger(

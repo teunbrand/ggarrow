@@ -52,7 +52,7 @@ annotate_arrow <- function(
 
   aesthetics <- c(position, list2(...))
   lengths    <- lengths(aesthetics)
-  arrow_nms <- c("arrow_head", "arrow_fins", "arrow_mid")
+  arrow_nms  <- c("arrow_head", "arrow_fins", "arrow_mid")
   length_nms <- c("length_head", "length_fins", "length_mid")
   n <- vec_unique(lengths)
   if (length(n) > 1L) {

@@ -1,5 +1,4 @@
 test_that("rle creation works", {
-
   x <- new_rle(c(1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L))
   expect_equal(field(x, "length"), c(3L, 3L, 3L))
   expect_equal(field(x, "group"), c(1L, 2L, 1L))
@@ -14,7 +13,6 @@ test_that("rle creation works", {
 })
 
 test_that("various rle utilities work", {
-
   x <- new_rle(rep.int(1L:5L, 5L:1L))
 
   # rle length
@@ -31,10 +29,9 @@ test_that("various rle utilities work", {
 
   # rle validation
   y <- x
-  field(y, "group")  <- c(1L, NA, 3L, 4L, NA)
+  field(y, "group") <- c(1L, NA, 3L, 4L, NA)
   field(y, "length") <- c(5L, 4L, 3L, 0L, 0L)
   expect_equal(rle_valid(y), c(TRUE, FALSE, TRUE, FALSE, FALSE))
-
 
   # Create index with rle
   expect_equal(
@@ -52,14 +49,17 @@ test_that("various rle utilities work", {
   expect_equal(
     split_rle(y, x),
     list(
-      LETTERS[1L:5L], LETTERS[6L:9L], LETTERS[10L:12L], LETTERS[13L:14L], LETTERS[15L]
+      LETTERS[1L:5L],
+      LETTERS[6L:9L],
+      LETTERS[10L:12L],
+      LETTERS[13L:14L],
+      LETTERS[15L]
     )
   )
 })
 
 
 test_that("rle subsetting works", {
-
   x <- new_rle(lengths = rep(3L, 3L))
 
   test <- rle_subset(x, c(2L, 4L, 6L, 7L, 8L, 9L))

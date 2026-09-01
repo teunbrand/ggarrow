@@ -1,17 +1,23 @@
 test_that("arrow theme elements looks like they should", {
   p <- ggplot() +
-    xlim(0.0, 1.0) + ylim(0.0, 1.0) +
+    xlim(0.0, 1.0) +
+    ylim(0.0, 1.0) +
     theme(
       axis.line = element_line(colour = "red"),
       # Proper arrow with variable width for x-axis line
       axis.line.x = element_arrow(
-        arrow_head = "head_wings", linewidth_head = 2.0, linewidth_fins = 0.0,
+        arrow_head = "head_wings",
+        linewidth_head = 2.0,
+        linewidth_fins = 0.0,
         colour = "black"
       ),
       # Just a variable width line for the y-axis line
       axis.line.y = element_arrow(
-        linewidth_head = 0.0, linewidth_fins = 5.0, lineend = "round",
-        stroke_colour = "black", stroke_width = 1.0
+        linewidth_head = 0.0,
+        linewidth_fins = 5.0,
+        lineend = "round",
+        stroke_colour = "black",
+        stroke_width = 1.0
       ),
       # Arrows for the y-axis ticks
       axis.ticks.y = element_arrow(arrow_fins = arrow_head_line(angle = 45.0)),
@@ -20,7 +26,9 @@ test_that("arrow theme elements looks like they should", {
       axis.ticks.length = unit(0.5, "cm"),
       # Arrows for major panel grid
       panel.grid.major = element_arrow(
-        arrow_head = "head_wings", arrow_fins = "fins_feather", length = 10.0
+        arrow_head = "head_wings",
+        arrow_fins = "fins_feather",
+        length = 10.0
       ),
       # Shortened lines for the minor panel grid
       panel.grid.minor = element_arrow(resect = 20.0)

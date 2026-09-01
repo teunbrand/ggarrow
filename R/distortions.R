@@ -97,13 +97,15 @@ validate_distortion <- function(
   # Check matrix distortions
   if (!is.matrix(distortion)) {
     cli::cli_abort(
-      "{.arg {arg}} must be a {.cls matrix}, not {.obj_type_friendly {distortion}}.",
+      "{.arg {arg}} must be a {.cls matrix}, \\
+      not {.obj_type_friendly {distortion}}.",
       call = call
     )
   }
   if (!typeof(distortion) %in% c("integer", "double")) {
     cli::cli_abort(
-      "{.arg {arg}} must have a numeric type, not {.cls {typeof(distortion)}} type.",
+      "{.arg {arg}} must have a numeric type, \\
+      not {.cls {typeof(distortion)}} type.",
       call = call
     )
   }
@@ -161,7 +163,10 @@ project_distortion <- function(line, distort) {
     # Rescale these to the fitted size
     rep(rep.int(size_fit, n_distort), each = n_vertex) +
     # Increment oscillations within each path
-    rep((sequence(n_distort) - 1L) * rep(size_fit, n_distort), each = n_vertex) +
+    rep(
+      (sequence(n_distort) - 1L) * rep(size_fit, n_distort),
+      each = n_vertex
+    ) +
     # Add path offsets to oscillations
     rep(arc_starts, n_distort * n_vertex)
 

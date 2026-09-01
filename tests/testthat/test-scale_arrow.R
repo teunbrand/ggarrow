@@ -1,5 +1,4 @@
 test_that("continuous arrow scales throw correct errors", {
-
   f <- "text"
   expect_error(
     scale_arrow_head_continuous(generator = f),
@@ -17,7 +16,9 @@ test_that("continuous arrow scales throw correct errors", {
   )
   expect_warning(
     scale_arrow_head_continuous(
-      generator = f, map_arg = "a", other_args = list(foo = "bar")
+      generator = f,
+      map_arg = "a",
+      other_args = list(foo = "bar")
     ),
     "has unknown arguments"
   )
@@ -36,7 +37,6 @@ test_that("scale_resect_continuous gives right scale types", {
 })
 
 test_that("scale_resect_discrete gives right scale types", {
-
   # Can't leave empty
   expect_error(scale_resect_discrete(), "neither")
   # Or set both
@@ -115,12 +115,12 @@ test_that("discrete arrow_head scales work", {
 })
 
 test_that("discrete arrow_fins scales work", {
-
   p <- ggplot(df, aes(x, y, colour = group)) +
     geom_arrow(
       aes(arrow_fins = group),
       length_fins = unit(1.0, "cm"),
-      linewidth = 3.0, arrow_head = NULL
+      linewidth = 3.0,
+      arrow_head = NULL
     ) +
     scale_arrow_fins_discrete(
       values = list("head_wings", NULL, arrow_fins_feather())
@@ -130,12 +130,12 @@ test_that("discrete arrow_fins scales work", {
 })
 
 test_that("discrete arrow_mid scales work", {
-
   p <- ggplot(df, aes(x, y, colour = group)) +
     geom_arrow(
       aes(arrow_mid = group),
       length_mid = unit(1.0, "cm"),
-      linewidth = 3.0, arrow_head = NULL
+      linewidth = 3.0,
+      arrow_head = NULL
     ) +
     scale_arrow_mid_discrete(
       values = list("head_wings", NULL, arrow_head_line())
@@ -152,7 +152,8 @@ test_that("continuous arrow_head scales work", {
       linewidth = 3.0
     ) +
     scale_arrow_head_continuous(
-      generator = arrow_head_line, map_arg = "angle",
+      generator = arrow_head_line,
+      map_arg = "angle",
       range = c(30.0, 60.0)
     )
 
@@ -160,15 +161,16 @@ test_that("continuous arrow_head scales work", {
 })
 
 test_that("continuous arrow_fins scales work", {
-
   p <- ggplot(df, aes(x, y, colour = group)) +
     geom_arrow(
       aes(arrow_fins = y),
       length_fins = unit(1.0, "cm"),
-      linewidth = 3.0, arrow_head = NULL
+      linewidth = 3.0,
+      arrow_head = NULL
     ) +
     scale_arrow_fins_continuous(
-      generator = arrow_fins_line, map_arg = "angle",
+      generator = arrow_fins_line,
+      map_arg = "angle",
       range = c(30.0, 60.0)
     )
 
@@ -176,15 +178,16 @@ test_that("continuous arrow_fins scales work", {
 })
 
 test_that("continuous arrow_mid scales work", {
-
   p <- ggplot(df, aes(x, y, colour = group)) +
     geom_arrow(
       aes(arrow_mid = y),
       length_mid = unit(1.0, "cm"),
-      linewidth = 3.0, arrow_head = NULL
+      linewidth = 3.0,
+      arrow_head = NULL
     ) +
     scale_arrow_mid_continuous(
-      generator = arrow_fins_feather, map_arg = "height",
+      generator = arrow_fins_feather,
+      map_arg = "height",
       range = c(0.3, 0.9)
     )
 
@@ -192,38 +195,39 @@ test_that("continuous arrow_mid scales work", {
 })
 
 test_that("resect scales work", {
-
   df <- data.frame(
-    x = rep(c(0.0, 1.0), 4L), y = rep(1L:4L, each = 2L),
-    group_num  = rep(c(0.0, 5.0, 15.0, 30.0), each = 2L),
+    x = rep(c(0.0, 1.0), 4L),
+    y = rep(1L:4L, each = 2L),
+    group_num = rep(c(0.0, 5.0, 15.0, 30.0), each = 2L),
     group_char = rep(LETTERS[1L:4L], each = 2L)
   )
 
   p <- ggplot(df, aes(x, y, group = group_num)) +
     geom_vline(xintercept = c(0.0, 1.0), colour = "red")
 
-
   vdiffr::expect_doppelganger(
     "identity scale_resect_continuous",
-    p + geom_arrow(aes(resect_head = group_num)) +
-      scale_resect_continuous()
+    p + geom_arrow(aes(resect_head = group_num)) + scale_resect_continuous()
   )
 
   vdiffr::expect_doppelganger(
     "continous scale_resect_continuous",
-    p + geom_arrow(aes(resect_head = group_num)) +
+    p +
+      geom_arrow(aes(resect_head = group_num)) +
       scale_resect_continuous(range = c(10.0, 20.0))
   )
 
   vdiffr::expect_doppelganger(
     "ordinal scale_resect_discrete",
-    p + geom_arrow(aes(resect_head = group_char)) +
+    p +
+      geom_arrow(aes(resect_head = group_char)) +
       scale_resect_discrete(range = c(0.0, 10.0))
   )
 
   vdiffr::expect_doppelganger(
     "manual scale_resect_discrete",
-    p + geom_arrow(aes(resect_head = group_char)) +
+    p +
+      geom_arrow(aes(resect_head = group_char)) +
       scale_resect_discrete(values = c(0.0, 10.0, 0.0, 20.0))
   )
 })

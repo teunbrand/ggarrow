@@ -319,8 +319,11 @@ arrow_head_halfwing <- function(offset = 20.0, inset = 30.0, direction = 1L) {
 #' @export
 #' @describeIn arrow_ornaments
 #' This a 'half' version of `arrow_head_line()`.
-arrow_head_halfline <- function(angle = 30.0, lineend = "butt", direction = 1L) {
-
+arrow_head_halfline <- function(
+  angle = 30.0,
+  lineend = "butt",
+  direction = 1L
+) {
   angle <- angle * .deg2rad
   lineend <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
   direction <- sign(direction)

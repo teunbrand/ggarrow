@@ -1,4 +1,3 @@
-
 test_that("grob_arrow errors with fewer than two points per group", {
   expect_error(
     grob_arrow(
@@ -11,14 +10,14 @@ test_that("grob_arrow errors with fewer than two points per group", {
 })
 
 arrow <- grob_arrow(
-  x = unit(c(0.33, 0.33, 0.66, 0.66), "npc") + unit(c(0.0, 10.0, 0.0, 10.0), "mm"),
+  x = unit(c(0.33, 0.33, 0.66, 0.66), "npc") +
+    unit(c(0.0, 10.0, 0.0, 10.0), "mm"),
   y = unit(c(0.5, 0.5, 0.5, 0.5), "npc") + unit(c(0.0, 10.0, 0.0, 10.0), "mm"),
   id.lengths = c(2L, 2L),
   gp = gpar(fill = c("dodgerblue", "tomato"))
 )
 
 test_that("positive control: arrows can be drawn", {
-
   my_arrow <- arrow
 
   vdiffr::expect_doppelganger(
@@ -31,7 +30,6 @@ test_that("positive control: arrows can be drawn", {
 })
 
 test_that("negative control: resected arrows are discarded", {
-
   my_arrow <- arrow
   my_arrow$resect$fins <- my_arrow$resect$head <- unit(c(15.0, 15.0), "mm")
 
@@ -45,7 +43,6 @@ test_that("negative control: resected arrows are discarded", {
 })
 
 test_that("discarded arrows preserve graphical parameters", {
-
   my_arrow <- arrow
   my_arrow$resect$fins <- my_arrow$resect$head <- unit(c(15.0, 0.0), "mm")
   my_arrow$shaft_width <- unit(c(0.5, 0.5, 2.0, 2.0), "mm")
@@ -67,5 +64,4 @@ test_that("discarded arrows preserve graphical parameters", {
       grid.draw(my_arrow)
     }
   )
-
 })

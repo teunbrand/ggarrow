@@ -141,7 +141,46 @@ resolve_inner <- function(
   arc_length <- arc_length(x, y, start, id_length)
   n_places <- length(placement)
 
-  if (!is.unit(placement)) {
+  if (is.unit(placement)) {
+    sign <- sign(as.numeric(placement))
+    placement <- abs(placement)
+
+    temp_width <- (width[start] + width[end]) / 2.0
+    if (!is.unit(length)) {
+      length <- length * temp_width
+    }
+    if (is.function(ornament)) {
+      ornament <- Map(ornament, length = length, width = temp_width)
+      length   <- vapply(ornament, attr, numeric(1L), "resect")
+      ornament <- lapply(ornament, function(o) {
+        o[, "x"] <- o[, "x"] - 0.5 * (attr(o[, "x"], "resect") %||% 1.0)
+        o
+      })
+      scale <- 1.0
+    } else {
+      thickness <- diff(range(ornament[, "y"]))
+      length <- pmax(as_mm(length), temp_width / thickness)
+      scale <- length
+    }
+
+    placement  <- as_mm(placement)
+    sum_length <- length + placement
+    arc_end    <- arc_length[end]
+    n_arrow    <- arc_end %/% sum_length
+    remain     <- arc_end - sum_length * (n_arrow - 1.0) + length
+
+    split_arc <- rle_chop(arc_length, id)
+    pos <- lapply(seq_along(id), function(i) {
+      pos <- sum_length[i] * 0L:(n_arrow[i] - 1L) + 0.5 * remain[i]
+      unname(cbind(pos - 0.5 * length[i], pos, pos + 0.5 * length[i]))
+    })
+
+    index <- lapply(seq_along(id), function(i) {
+      idx <- findInterval(pos[[i]], split_arc[[i]], all.inside = TRUE)
+      `dim<-`(idx + start[i] - 1L, dim(pos[[1L]]))
+    })
+    pos <- do.call(rbind, pos)
+  } else {
     placement <- placement[order(abs(placement))]
     sign <- sign(placement)
     placement <- abs(placement)
@@ -190,45 +229,6 @@ resolve_inner <- function(
       x <- findInterval(pos[index[[i]], ], split_arc[[i]], all.inside = TRUE)
       `dim<-`(x, c(length(idx), 3L)) + start[i] - 1L
     })
-  } else {
-    sign <- sign(as.numeric(placement))
-    placement <- abs(placement)
-
-    temp_width <- (width[start] + width[end]) / 2.0
-    if (!is.unit(length)) {
-      length <- length * temp_width
-    }
-    if (is.function(ornament)) {
-      ornament <- Map(ornament, length = length, width = temp_width)
-      length   <- vapply(ornament, attr, numeric(1L), "resect")
-      ornament <- lapply(ornament, function(o) {
-        o[, "x"] <- o[, "x"] - 0.5 * (attr(o[, "x"], "resect") %||% 1.0)
-        o
-      })
-      scale <- 1.0
-    } else {
-      thickness <- diff(range(ornament[, "y"]))
-      length <- pmax(as_mm(length), temp_width / thickness)
-      scale <- length
-    }
-
-    placement  <- as_mm(placement)
-    sum_length <- length + placement
-    arc_end    <- arc_length[end]
-    n_arrow    <- arc_end %/% sum_length
-    remain     <- arc_end - sum_length * (n_arrow - 1.0) + length
-
-    split_arc <- rle_chop(arc_length, id)
-    pos <- lapply(seq_along(id), function(i) {
-      pos <- sum_length[i] * 0L:(n_arrow[i] - 1L) + 0.5 * remain[i]
-      unname(cbind(pos - 0.5 * length[i], pos, pos + 0.5 * length[i]))
-    })
-
-    index <- lapply(seq_along(id), function(i) {
-      idx <- findInterval(pos[[i]], split_arc[[i]], all.inside = TRUE)
-      `dim<-`(idx + start[i] - 1L, dim(pos[[1L]]))
-    })
-    pos <- do.call(rbind, pos)
   }
 
   index <- do.call(rbind, index)

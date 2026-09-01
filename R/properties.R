@@ -52,6 +52,44 @@ property_choice <- function(options, allow_null = FALSE, default = NULL) {
   )
 }
 
+property_distort <- function() {
+  S7::new_property(
+    class = S7::new_union(
+      NULL,
+      S7::class_character,
+      S7::class_numeric,
+      S7::class_function
+    ),
+    validator = function(value) {
+      if (is.null(value) || is.function(value)) {
+        return(character())
+      }
+      if (is.character(value)) {
+        if (length(value) != 1) {
+          "must be scalar when {.cls character}."
+        }
+        pattern <- paste0("distort_", value)
+        fun <- get0(pattern, global_env(), mode = "function") %||%
+          get0(pattern, asNamespace("ggarrow"), mode = "function")
+        if (!is.function(fun)) {
+          return(as_cli("must point to a {.code distort_*()} family function."))
+        }
+        return(character())
+      }
+      if (!is.matrix(value)) {
+        return(as_cli("must be a {.cls matrix}."))
+      }
+      if (ncol(value) != 2) {
+        return(as_cli("must have 2 columns when a {.cls matrix}."))
+      }
+      if (nrow(value) < 1) {
+        return(as_cli("must have at least 1 row when a {.cls matrix}"))
+      }
+      character()
+    }
+  )
+}
+
 property_arrow <- function(allow_null = TRUE) {
   class <- S7::new_union(
     S7::class_character,

@@ -41,6 +41,17 @@
 #' @param sep A `numeric(1)` setting offset spacing in millimetres between arrow
 #'   paths that are identical or identical as inverses. The default, 0, will
 #'   draw paths without offsets. Alternatively, a `<`[`unit`][grid::unit]`>`.
+#' @param distort
+#' `r lifecycle::badge('experimental')`
+#'
+#' A way of specifying a line distortion. A line distortion is not great at
+#' dealing with paths with pronounced angles. One of the following:
+#'   * `NULL` to not distort any paths.
+#'   * A `<matrix[n, 2]>` of x/y coordinates giving one 'oscillation' of a
+#'     distortion in millimetres. The [distortion][distortion_functions]
+#'     functions create such matrices.
+#'   * A string, naming one of the [distortion][distortion_functions] functions
+#'     without the `distort_` prefix.
 #' @param force_arrow A `logical(1)` which, if `TRUE` an arrow will be drawn
 #'   even when the length of the arrow is shorter than the arrow heads and fins.
 #'   If `FALSE`, will drop such arrows.
@@ -95,6 +106,7 @@ geom_arrow <- function(
   linejoin    = "round",
   linemitre   = 10,
   sep         = 0,
+  distort     = NULL,
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -125,8 +137,9 @@ geom_arrow <- function(
       lineend     = lineend,
       linejoin    = linejoin,
       linemitre   = linemitre,
-      na.rm       = na.rm,
       sep         = sep,
+      distort     = distort,
+      na.rm       = na.rm,
       ...
     )
   )
@@ -167,7 +180,8 @@ GeomArrow <- ggproto(
     force_arrow = FALSE,
     mid_place   = 0.5,
     sep         = 0,
-    resect      = list(head = 0, fins = 0)
+    resect      = list(head = 0, fins = 0),
+    distort     = NULL
   ) {
     data <- warn_discrete_resect(data, resect)
     if (!anyDuplicated(data$group)) {
@@ -233,6 +247,7 @@ GeomArrow <- ggproto(
       resect_head = as_unit(data$resect_head[end]   %||% resect$head, "mm"),
       resect_fins = as_unit(data$resect_fins[start] %||% resect$fins, "mm"),
       offset      = offsets,
+      distort     = distort,
       gp = gpar(
         col  = data$stroke_colour[start],
         fill = alpha(data$colour, data$alpha)[start],

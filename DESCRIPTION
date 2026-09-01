@@ -13,12 +13,12 @@ Description: A 'ggplot2' extension that adds specialised arrow geometry layers.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Depends: 
     ggplot2 (>= 3.5.0)
 Imports: 
     cli,
     grid,
+    lifecycle,
     polyclip,
     rlang (>= 1.1.0),
     S7,
@@ -35,3 +35,4 @@ Config/testthat/edition: 3
 VignetteBuilder: knitr
 URL: https://teunbrand.github.io/ggarrow/, https://github.com/teunbrand/ggarrow
 BugReports: https://github.com/teunbrand/ggarrow/issues
+Config/roxygen2/version: 8.1.0

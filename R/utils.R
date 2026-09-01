@@ -55,6 +55,23 @@ polygonise <- function(xy_list) {
   })
 }
 
+dedup_line <- function(line, tolerance = sqrt(.Machine$double.eps)) {
+
+  dups <- c(
+    FALSE,
+    abs(diff(line$x)) < tolerance &
+    abs(diff(line$y)) < tolerance
+  )
+  # Exclude first vertices as duplicates
+  dups[rle_start(line$id)] <- FALSE
+
+  line$x <- line$x[!dups]
+  line$y <- line$y[!dups]
+  line$width <- line$width[!dups]
+  line$id <- rle_subset(line$id, !dups)
+  line
+}
+
 # Coercions ---------------------------------------------------------------
 
 as_unit <- function(x, unit) {

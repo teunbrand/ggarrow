@@ -31,6 +31,17 @@
 #'   arrow's base at the path's end.
 #' @param offset A `numeric()` vector giving the offset in millimetres per
 #'   group to displace paths.
+#' @param distort
+#' `r lifecycle::badge('experimental')`
+#'
+#' A way of specifying a line distortion. A line distortion is not great at
+#' dealing with paths with pronounced angles. One of the following:
+#'   * `NULL` to not distort any paths.
+#'   * A `<matrix[n, 2]>` of x/y coordinates giving one 'oscillation' of a
+#'     distortion in millimetres. The [distortion][distortion_functions]
+#'     functions create such matrices.
+#'   * A string, naming one of the [distortion][distortion_functions] functions
+#'     without the `distort_` prefix.
 #' @param mid_place Sets the location of middle (interior) arrows, when
 #'   applicable. Can be one of the following:
 #'   \describe{
@@ -79,6 +90,7 @@ grob_arrow <- function(
   resect_head   = NULL,
   force_arrow   = FALSE,
   offset        = NULL,
+  distort       = NULL,
   default.units = "mm",
   name = NULL,
   gp   = gpar(),
@@ -128,6 +140,7 @@ grob_arrow <- function(
     mid_place   = mid_place,
     resect      = resect,
     offset      = offset,
+    distort     = validate_distortion(distort),
     force_arrow = isTRUE(force_arrow),
     name = name,
     gp   = gp,
@@ -159,6 +172,8 @@ makeContent.arrow_path <- function(x) {
   resect$fins <- resect$fins + fins$resect * (1 - x$justify)
   resect$head <- resect$head + head$resect * (1 - x$justify)
   line <- resect_line(paths$x, paths$y, id, resect$head, resect$fins, width)
+  line <- project_distortion(line, x$distort)
+  line <- dedup_line(line)
 
   # Extrude and notch path
   shaft <- shape_shaft(

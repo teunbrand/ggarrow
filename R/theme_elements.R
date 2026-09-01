@@ -49,6 +49,17 @@
 #'     at relative positions along the arc-length of the (resected) path.
 #'   * A [`<unit>`][grid::unit] to fill a path with ornaments with th provided
 #'     unit as spacing between one ornament to the next.
+#' @param distort
+#' `r lifecycle::badge('experimental')`
+#'
+#' A way of specifying a line distortion. A line distortion is not great at
+#' dealing with paths with pronounced angles. One of the following:
+#'   * `NULL` to not distort any paths.
+#'   * A `<matrix[n, 2]>` of x/y coordinates giving one 'oscillation' of a
+#'     distortion in millimetres. The [distortion][distortion_functions]
+#'     functions create such matrices.
+#'   * A string, naming one of the [distortion][distortion_functions] functions
+#'     without the `distort_` prefix.
 #' @param lineend A `character(1)` setting the style of the line ends without
 #'   ornaments. Can be `"round"`, `"butt"` or `"square"`.
 #' @param linejoin A `character(1)` setting the style of path corners. Can be
@@ -156,7 +167,8 @@ element_grob.element_arrow <- function(
   resect_head = NULL, resect_fins    = NULL, resect         = NULL,
   justify     = NULL, force_arrow    = NULL, mid_place      = NULL,
   lineend     = NULL, linejoin       = NULL, linemitre      = NULL,
-  length = NULL, default.units = "npc", id = NULL, id.lengths = NULL,
+  distort     = NULL, length = NULL,
+  default.units = "npc", id = NULL, id.lengths = NULL,
   ...
 ) {
   keep <- rep(TRUE, length(x))
@@ -219,6 +231,7 @@ element_grob.element_arrow <- function(
     shaft_width = unit(width * .pt / .stroke, "mm"),
     resect_fins = as_unit(resect_fins, "mm"),
     resect_head = as_unit(resect_head, "mm"),
+    distort     = distort %||% element$distort,
     gp = gpar(
       col  = stroke_colour  %||% element$stroke_colour %||% NA,
       fill = colour         %||% element$colour        %||% "black",
@@ -268,7 +281,8 @@ S7_element_arrow_properties <- list(
       character()
     }
   ),
-  linemitre = property_nullable(S7::class_numeric)
+  linemitre = property_nullable(S7::class_numeric),
+  distort   = property_distort()
 )
 
 S7_element_arrow_constructor <- function(
@@ -294,6 +308,7 @@ S7_element_arrow_constructor <- function(
   lineend        = NULL,
   linejoin       = NULL,
   linemitre      = NULL,
+  distort        = NULL,
   inherit.blank  = FALSE,
   ...
 ) {
@@ -322,7 +337,8 @@ S7_element_arrow_constructor <- function(
     justify        = justify,
     force_arrow    = force_arrow,
     mid_place      = mid_place,
-    linemitre      = linemitre
+    linemitre      = linemitre,
+    distort        = distort
   )
 }
 

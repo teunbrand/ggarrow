@@ -85,7 +85,7 @@ grob_arrow_curve(
 \item{vp}{A Grid viewport object (or NULL).}
 
 \item{...}{
-  Arguments passed on to \code{\link[=grob_arrow]{grob_arrow}}
+  Arguments passed on to \code{\link{grob_arrow}}
   \describe{
     \item{\code{arrow_head,arrow_fins,arrow_mid}}{A \verb{<matrix[n, 2]>}, such as those
 returned by \link[=arrow_ornaments]{arrow ornament} functions, giving arrow
@@ -108,6 +108,18 @@ sets the arrow's tips at the path's end, whereas a value of \code{1} sets the
 arrow's base at the path's end.}
     \item{\code{offset}}{A \code{numeric()} vector giving the offset in millimetres per
 group to displace paths.}
+    \item{\code{distort}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+A way of specifying a line distortion. A line distortion is not great at
+dealing with paths with pronounced angles. One of the following:
+\itemize{
+\item \code{NULL} to not distort any paths.
+\item A \verb{<matrix[n, 2]>} of x/y coordinates giving one 'oscillation' of a
+distortion in millimetres. The \link[=distortion_functions]{distortion}
+functions create such matrices.
+\item A string, naming one of the \link[=distortion_functions]{distortion} functions
+without the \code{distort_} prefix.
+}}
     \item{\code{mid_place}}{Sets the location of middle (interior) arrows, when
 applicable. Can be one of the following:
 \describe{
@@ -131,7 +143,7 @@ width of the arrow's shaft at the \verb{(x1, y1)} and \verb{(x2, y2)} location
 respectively.}
 }
 \value{
-A \verb{<curve_arrow>} \link[grid:grid.grob]{graphical object}.
+A \verb{<curve_arrow>} \link[grid:grob]{graphical object}.
 }
 \description{
 Creates a graphical object that draws curved arrows.

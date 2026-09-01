@@ -27,6 +27,7 @@ element_arrow(
   lineend = NULL,
   linejoin = NULL,
   linemitre = NULL,
+  distort = NULL,
   inherit.blank = FALSE,
   ...
 )
@@ -46,11 +47,13 @@ line respectively.}
 \item{arrow_head, arrow_fins, arrow_mid}{Arrow
 \link[=arrow_ornaments]{ornament shapes} for the arrow head, arrow fins and
 middle arrows respectively. Can be one of the following:
-* \code{NULL} for not drawing the ornament.
-* A \verb{<character>} of length 1 naming an ornament constructor without the
+\itemize{
+\item \code{NULL} for not drawing the ornament.
+\item A \verb{<character>} of length 1 naming an ornament constructor without the
 \code{"arrow_"}-prefix, like \code{"head_wings"} or \code{"fins_feather"}.
-* A 2-column matrix, such as those built by the
-\link[=arrow_ornaments]{ornament constructors}.}
+\item A 2-column matrix, such as those built by the
+\link[=arrow_ornaments]{ornament constructors}.
+}}
 
 \item{length, length_head, length_fins, length_mid}{Determines the size of
 the arrow ornaments. \code{length} sets the default length, whereas
@@ -98,6 +101,19 @@ ornaments. Can be \code{"round"}, \code{"butt"} or \code{"square"}.}
 \item{linemitre}{A \code{numeric(1)} greater than 1 setting the path's mitre
 limits.}
 
+\item{distort}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+A way of specifying a line distortion. A line distortion is not great at
+dealing with paths with pronounced angles. One of the following:
+\itemize{
+\item \code{NULL} to not distort any paths.
+\item A \verb{<matrix[n, 2]>} of x/y coordinates giving one 'oscillation' of a
+distortion in millimetres. The \link[=distortion_functions]{distortion}
+functions create such matrices.
+\item A string, naming one of the \link[=distortion_functions]{distortion} functions
+without the \code{distort_} prefix.
+}}
+
 \item{inherit.blank}{A \code{logical(1)} indicating if this element should
 inherit the existence of an \verb{<element_blank>} among its parents. If \code{TRUE},
 the existence of a blank element among its parents will cause this element
@@ -112,7 +128,7 @@ in \code{\link[ggplot2:theme]{theme()}}.
 }
 \description{
 Using the \link[ggplot2:theme]{theme} system, draws arrows in places where
-\code{\link[ggplot2:element]{element_line()}} are valid theme elements. Note
+\code{\link[ggplot2:element_line]{element_line()}} are valid theme elements. Note
 that the default use of \code{element_arrow()} does \emph{not} actually draw an arrow
 unless one of the \code{arrow_} arguments is set.
 }

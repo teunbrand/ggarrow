@@ -17,3 +17,27 @@ test_that("geom_arrow_segments looks alright", {
   vdiffr::expect_doppelganger("geom_arrow_segment quiver", p)
 
 })
+
+test_that("the distort argument works", {
+
+  mapping <- aes(x = x, y = y, xend = xend, yend = yend)
+
+  p <- ggplot() +
+    geom_arrow_segment(
+      data = data.frame(x = 0, xend = 1, y = 0, yend = 1.2),
+      aes(!!!mapping, colour = "sinewave"), distort = "sinewave"
+    ) +
+    geom_arrow_segment(
+      data = data.frame(x = 1, xend = 2, y = 1.2, yend = 0),
+      aes(!!!mapping, colour = "sawtooth"), distort = "sawtooth"
+    ) +
+    geom_arrow_segment(
+      data = data.frame(x = 0, xend = 2, y = 0, yend = 0),
+      aes(!!!mapping, colour = "squarewave"), distort = "squarewave"
+    ) +
+    theme(
+      legend.key.size = unit(1, "cm")
+    )
+
+  vdiffr::expect_doppelganger("geom_arrow_segment distortion", p)
+})

@@ -56,6 +56,7 @@ geom_arrow_curve <- function(
   linejoin    = "round",
   linemitre   = 10,
   sep         = 0,
+  distort     = NULL,
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -93,8 +94,9 @@ geom_arrow_curve <- function(
       lineend     = lineend,
       linejoin    = linejoin,
       linemitre   = linemitre,
-      na.rm       = na.rm,
       sep         = sep,
+      distort     = distort,
+      na.rm       = na.rm,
       ...
     )
   )
@@ -138,7 +140,8 @@ GeomArrowCurve <- ggproto(
     curvature   = 0.5,
     angle       = 90,
     ncp         = 5,
-    sep         = 0
+    sep         = 0,
+    distort     = NULL
   ) {
     data <- warn_discrete_resect(data, resect)
     data$yend <- data$yend %||% data$y
@@ -193,6 +196,7 @@ GeomArrowCurve <- ggproto(
       resect_head = as_unit(data$resect_head %||% resect$head, "mm"),
       resect_fins = as_unit(data$resect_fins %||% resect$fins, "mm"),
       offset      = offsets,
+      distort     = distort,
       gp = gpar(
         col  = data$stroke_colour,
         fill = alpha(data$colour, data$alpha),

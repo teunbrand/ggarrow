@@ -1,6 +1,11 @@
 test_that("geom_arrow looks alright", {
   p <- ggplot(whirlpool(), aes(x, y, colour = group, linewidth = arc)) +
-    geom_arrow(length_head = unit(10, "mm"))
+    geom_arrow(length_head = unit(10, "mm")) +
+    guides(
+      # For snapshot consistency
+      linewidth = guide_legend(order = 1),
+      colour = guide_legend(order = 2)
+    )
 
   vdiffr::expect_doppelganger("geom_arrow whirlpool", p)
 })

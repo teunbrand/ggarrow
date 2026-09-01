@@ -6,6 +6,8 @@
 * New asymmetric arrow ornaments (#8):
     * `arrow_head_halfline()`
     * `arrow_head_halfwing()`
+* Fixed bug where numeric `resect_fins` aesthetic in `geom_arrow_segment()` 
+  might have flunked a type check (#15)
 
 # ggarrow 0.1.1
 

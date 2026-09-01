@@ -261,7 +261,8 @@ example_plot +
 
 ### Minimal
 
-The 'minimal' ornament isn't truly an ornament, but determines how the arrow shaft gets notched. Therefore, it is independent of any `length_head` you might set, and is only dependent on the `angle` argument and the `linewidth` aesthetic.
+The 'minimal' ornament isn't truly an ornament, but determines how the arrow shaft gets notched. 
+Therefore, it is independent of any `length_head` you might set, and is only dependent on the `angle` argument and the `linewidth` aesthetic.
 
 ```{r illustrate_head_minimal, echo = FALSE}
 arrow_grob <- grob_arrow(
@@ -349,7 +350,10 @@ grid.text(
 
 ### Feather
 
-The 'feather' ornament places two trapeziums on either side of the line, and can be called using the `arrow_fins_feather()` function. Contrary to many other ornaments, the feather ornament isn't defined by any angle. It is instead defined by the 'height' of the trapezium and the distances along the path from the inner start and end points to the outer ones called 'indent'  and 'outdent'. The `length_fins` argument determines the total width of the trapezium.
+The 'feather' ornament places two trapeziums on either side of the line, and can be called using the `arrow_fins_feather()` function. 
+Contrary to many other ornaments, the feather ornament isn't defined by any angle. 
+It is instead defined by the 'height' of the trapezium and the distances along the path from the inner start and end points to the outer ones called 'indent'  and 'outdent'. 
+The `length_fins` argument determines the total width of the trapezium.
 
 ```{r illustrate_fins_feather, echo = FALSE}
 arr <- arrow_fins_feather()
@@ -473,7 +477,10 @@ example_plot +
 
 ### Line
 
-The 'line' fins ornament mirrors the 'line' head ornament: it draws two line segments departing from the line end and can be set using the `arrow_fins_line()` function. Again the `linewidth` aesthetic determines the thickness of the departing line, in that the line width is the same between the path and the ornament. This size of the arrow is determined by the `length_fins` argument, but in contrast to `arrow_fins_line()`, the `length_fins` argument applies to the inner edge. Also in contrast, the `angle` is measured from the extended path to the lines, rather than from the path itself.
+The 'line' fins ornament mirrors the 'line' head ornament: it draws two line segments departing from the line end and can be set using the `arrow_fins_line()` function. 
+Again, the `linewidth` aesthetic determines the thickness of the departing line, in that the line width is the same between the path and the ornament. 
+This size of the arrow is determined by the `length_fins` argument, but in contrast to `arrow_fins_line()`, the `length_fins` argument applies to the inner edge. 
+Also in contrast, the `angle` is measured from the extended path to the lines, rather than from the path itself.
 
 ```{r illustrate_fins_line, echo = FALSE}
 arr <- arrow_fins_line()
@@ -554,7 +561,8 @@ grid.text(
 grid.draw(arrow_grob)
 ``` 
 
-Another notable difference is that in `arrow_fins_line()` the most extreme parts are at the path's end and don't protrude beyond. For comparison, take a look at the 5th example in `arrow_head_line()` and the first 4 examples below:
+Another notable difference is that in `arrow_fins_line()` the most extreme parts are at the path's end and don't protrude beyond. 
+For comparison, take a look at the 5th example in `arrow_head_line()` and the first 4 examples below:
 
 ```{r, echo=FALSE}
 angle   <- c(30, 30, 30, 30, 135)
@@ -580,7 +588,8 @@ example_plot +
 
 ### Minimal
 
-The 'minimal' fin ornament again isn't truly an ornament, but it determines how the arrow shaft gets notched. Like `arrow_head_minimal()`, `arrow_fins_minimal()` doesn't depend on any `length_fins` you might set and only depends on the `angle` argument and the `linewidth` aesthetic. The only difference between `arrow_head_minimal()` and `arrow_fins_minimal()`, is what part is considered the `angle`.
+The 'minimal' fin ornament again isn't truly an ornament, but it determines how the arrow shaft gets notched. Like `arrow_head_minimal()`, `arrow_fins_minimal()` doesn't depend on any `length_fins` you might set and only depends on the `angle` argument and the `linewidth` aesthetic. 
+The only difference between `arrow_head_minimal()` and `arrow_fins_minimal()`, is what part is considered the `angle`.
 
 ```{r illustrate_fins_minimal, echo = FALSE}
 angle <- 45
@@ -665,7 +674,11 @@ ggplot(mapping = aes(x = c(0, 1))) +
 
 ### Cups
 
-Not more suitable for arrow head than for fins, the 'cup' ornament may fit both ends of a path. The cup shape can be specified using the `arrow_cup()` function and it follows a circular arc around the endpoint of a path at some distance given by the `resect` parameter. There are two ways these cups can be specified. The first one is by the angle or the arc, which can be given by using the `arrow_cup(angle = ...)` function. If the angle is left as `NULL`, the ornament looks for the `length_{head/fins}` and uses that as the arc-length to draw the arc, which is the second specification.
+Not more suitable for arrow head than for fins, the 'cup' ornament may fit both ends of a path. 
+The cup shape can be specified using the `arrow_cup()` function and it follows a circular arc around the endpoint of a path at some distance given by the `resect` parameter. 
+There are two ways these cups can be specified. 
+The first one is by the angle or the arc, which can be given by using the `arrow_cup(angle = ...)` function. 
+If the angle is left as `NULL`, the ornament looks for the `length_{head/fins}` and uses that as the arc-length to draw the arc, which is the second specification.
 
 
 ```{r illustrate_cups, echo = FALSE}

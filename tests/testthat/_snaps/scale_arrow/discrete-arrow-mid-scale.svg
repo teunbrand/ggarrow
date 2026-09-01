@@ -28,7 +28,7 @@
 <g clip-path='url(#cpMzUuMjR8NjQ2LjQ2fDIyLjc4fDU0NS4xMQ==)'>
 <rect x='35.24' y='22.78' width='611.22' height='522.33' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <path d='M 346.23 524.57 L 618.67 524.57 L 618.67 518.17 L 346.23 518.17 L 314.21 506.52 L 323.99 518.17 L 63.02 518.17 L 63.02 524.57 L 323.99 524.57 L 314.21 536.22 Z' style='fill-rule: evenodd; fill: #F8766D; stroke-width: 0.53; stroke: none; stroke-linecap: butt;' />
-<path d='M 63.02 287.15 L 618.67 287.15 L 618.67 283.95 L 618.67 280.75 L 63.02 280.75 L 63.02 283.95 Z' style='fill-rule: evenodd; fill: #00BA38; stroke-width: 0.53; stroke: none; stroke-linecap: butt;' />
+<path d='M 63.02 287.15 L 618.67 287.15 L 618.67 280.75 L 63.02 280.75 Z' style='fill-rule: evenodd; fill: #00BA38; stroke-width: 0.53; stroke: none; stroke-linecap: butt;' />
 <path d='M 346.69 49.73 L 618.67 49.73 L 618.67 43.32 L 346.69 43.32 L 327.69 32.35 L 324.48 37.90 L 333.89 43.32 L 63.02 43.32 L 63.02 49.73 L 333.89 49.73 L 324.48 55.15 L 327.69 60.70 Z' style='fill-rule: evenodd; fill: #619CFF; stroke-width: 0.53; stroke: none; stroke-linecap: butt;' />
 <rect x='35.24' y='22.78' width='611.22' height='522.33' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
@@ -58,11 +58,11 @@
 <rect x='657.42' y='208.38' width='57.10' height='151.14' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='657.42' y='217.09' style='font-size: 11.00px; font-family: sans;' textLength='28.14px' lengthAdjust='spacingAndGlyphs'>group</text>
 <rect x='657.42' y='223.71' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 664.21 266.72 L 700.42 230.50 L 698.16 228.24 L 695.89 225.98 L 659.68 262.19 L 661.94 264.45 Z' style='fill-rule: evenodd; fill: #F8766D; stroke-width: 0.53; stroke: none;' />
+<path d='M 664.21 266.72 L 700.42 230.50 L 695.89 225.98 L 659.68 262.19 Z' style='fill-rule: evenodd; fill: #F8766D; stroke-width: 0.53; stroke: none;' />
 <rect x='657.42' y='268.98' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 664.21 311.99 L 700.42 275.77 L 698.16 273.51 L 695.89 271.24 L 659.68 307.46 L 661.94 309.72 Z' style='fill-rule: evenodd; fill: #00BA38; stroke-width: 0.53; stroke: none;' />
+<path d='M 664.21 311.99 L 700.42 275.77 L 695.89 271.24 L 659.68 307.46 Z' style='fill-rule: evenodd; fill: #00BA38; stroke-width: 0.53; stroke: none;' />
 <rect x='657.42' y='314.25' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 664.21 357.25 L 700.42 321.04 L 698.16 318.78 L 695.89 316.51 L 659.68 352.73 L 661.94 354.99 Z' style='fill-rule: evenodd; fill: #619CFF; stroke-width: 0.53; stroke: none;' />
+<path d='M 664.21 357.25 L 700.42 321.04 L 695.89 316.51 L 659.68 352.73 Z' style='fill-rule: evenodd; fill: #619CFF; stroke-width: 0.53; stroke: none;' />
 <text x='708.16' y='249.37' style='font-size: 8.80px; font-family: sans;' textLength='5.87px' lengthAdjust='spacingAndGlyphs'>A</text>
 <text x='708.16' y='294.64' style='font-size: 8.80px; font-family: sans;' textLength='5.87px' lengthAdjust='spacingAndGlyphs'>B</text>
 <text x='708.16' y='339.91' style='font-size: 8.80px; font-family: sans;' textLength='6.36px' lengthAdjust='spacingAndGlyphs'>C</text>

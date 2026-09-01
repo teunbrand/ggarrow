@@ -167,6 +167,20 @@ close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
     yend[empty_end] <- split(cy + sin(angle) * width / 2, idrep)
   }
 
+  # Prevent vertex duplications
+  if (lineend != "round") {
+    if (any(empty_start)) {
+      xstart <- as.list(xstart)
+      ystart <- as.list(ystart)
+      xstart[empty_start] <- ystart[empty_start] <- list(numeric(0))
+    }
+    if (any(empty_end)) {
+      xend <- as.list(xend)
+      yend <- as.list(yend)
+      xend[empty_end] <- yend[empty_end] <- list(numeric(0))
+    }
+  }
+
   Map(
     function(xend, yend, xstart, ystart, L, R) {
       if (length(R) == 0 || length(L) == 0) {

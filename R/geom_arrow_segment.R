@@ -137,7 +137,7 @@ GeomArrowSegment <- ggproto(
                    "to translate.")
       ))
     }
-    if (!is.null(data$resect_fins) && !is.null(data$resect_fins)) {
+    if (!is.null(data$resect_fins) && !is.numeric(data$resect_fins)) {
       obj <- obj_type_friendly(data$resect_fins)
       cli::cli_abort(c(
         "The {.field resect_fins} aesthetic must be {.cls numeric}, not {obj}.",

@@ -30,7 +30,8 @@ p <- ggplot(data.frame(x = c(0, 1), y = 0), aes(x, y)) +
 
 ## Aesthetics
 
-There are 3 aesthetics that depart from the typical `geom_path()` behaviour. The first one is the `linewidth` aesthetic, in that it can vary within a path.
+There are 3 aesthetics that depart from the typical `geom_path()` behaviour. 
+The first one is the `linewidth` aesthetic, in that it can vary within a path.
 
 ```{r vary_linewidth}
 p + geom_arrow(linewidth = c(0, 3))
@@ -48,7 +49,8 @@ ggplot(faithful, aes(waiting)) +
 ```
 
 
-The other two are the `stroke_colour` and `stroke_width` aesthetics. These can be used to outline the arrow.
+The other two are the `stroke_colour` and `stroke_width` aesthetics. 
+These can be used to outline the arrow.
 
 ```{r strokes}
 p + geom_arrow(stroke_colour = "black", stroke_width = 1,
@@ -77,7 +79,9 @@ p + geom_arrow(
 
 ### Setting sizes
 
-The arrow sizes can be controlled by the `length_head`, `length_fins` and `length_mid` arguments. You can use a plain `<numeric>` to have the arrow size be relative to the `linewidth` aesthetic. Alternatively, you set the length in an absolute manner by providing a `<grid::unit>` object.
+The arrow sizes can be controlled by the `length_head`, `length_fins` and `length_mid` arguments. 
+You can use a plain `<numeric>` to have the arrow size be relative to the `linewidth` aesthetic. 
+Alternatively, you set the length in an absolute manner by providing a `<grid::unit>` object.
 
 ```{r arrow_sizes}
 p + geom_arrow(
@@ -92,7 +96,9 @@ p + geom_arrow(
 
 ### Middle arrows
 
-Middle arrows needn't be on the middle. You can control where they are placed using the `mid_place` argument. It accepts input between [0-1], and represents the distance along the path where the arrows are drawn.
+Middle arrows needn't be on the middle. 
+You can control where they are placed using the `mid_place` argument. 
+It accepts input between [0-1], and represents the distance along the path where the arrows are drawn.
 
 ```{r mid_place}
 p + geom_arrow(
@@ -139,7 +145,8 @@ You can also control independently for the head and fins of the arrow how much r
 p + geom_arrow(resect_head = 10, resect_fins = 3)
 ```
 
-A geom that does this automatically is `geom_arrow_chain()`. Normally, it has a default `resect` value of 1 millimeter, but if you turn this off and set the `size` appropriate for the start and end points we've drawn, you can see that it doesn't overlap the points, but barely touches them.
+A geom that does this automatically is `geom_arrow_chain()`. 
+Normally, it has a default `resect` value of 1 millimeter, but if you turn this off and set the `size` appropriate for the start and end points we've drawn, you can see that it doesn't overlap the points, but barely touches them.
 
 ```{r}
 p + geom_arrow_chain(size = 3, resect = 0)
@@ -149,7 +156,9 @@ p + geom_arrow_chain(size = 3, resect = 0)
 
 ### `justify`
 
-Sometimes, you've already dodged the object to be pointed at a bit. Now you may find yourself with an arrow that is too short. You can then use `justify = 1` to have the arrow start where the path ends. 
+Sometimes, you've already dodged the object to be pointed at a bit. 
+Now you may find yourself with an arrow that is too short. 
+You can then use `justify = 1` to have the arrow start where the path ends. 
 
 ```{r}
 p + geom_arrow(justify = 1, linewidth = 2)
@@ -157,7 +166,10 @@ p + geom_arrow(justify = 1, linewidth = 2)
 
 ### `force_arrow`
 
-Other times, you might find that you have resected your arrow too much. If there is no more space left for placing the arrow, they are omitted by default. To change this, and show arrows despite how short they may be, you can use the `force_arrow` argument. There is no guarantee that it will be placed in a nice position though.
+Other times, you might find that you have resected your arrow too much. 
+If there is no more space left for placing the arrow, they are omitted by default. 
+To change this, and show arrows despite how short they may be, you can use the `force_arrow` argument. 
+There is no guarantee that it will be placed in a nice position though.
 
 ```{r}
 p + geom_arrow(resect = 100, force_arrow = TRUE)
@@ -165,7 +177,8 @@ p + geom_arrow(resect = 100, force_arrow = TRUE)
 
 ### `sep`
 
-When you have overlapping paths for arrows, you can separate out identical paths using the `sep` argument. It will place the different paths at an offset of one another to disentangle them.
+When you have overlapping paths for arrows, you can separate out identical paths using the `sep` argument. 
+It will place the different paths at an offset of one another to disentangle them.
 
 ```{r}
 p + geom_arrow(

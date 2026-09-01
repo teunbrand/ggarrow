@@ -17,7 +17,7 @@ print_head <- function(x, n = 5L) {
   if (length(x) > n) {
     out <- c(out, "...")
   }
-  return(out)
+  out
 }
 
 list_setdiff <- function(x, y) {

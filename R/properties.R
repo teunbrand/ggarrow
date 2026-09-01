@@ -153,7 +153,7 @@ check_restriction <- function(value, n = NA, min = 0.0, max = 1.0) {
   if (any(value > max)) {
     return(paste0("must be at most ", max, "."))
   }
-  return(character())
+  character()
 }
 
 property_boolean <- function(allow_null = FALSE, default = TRUE) {

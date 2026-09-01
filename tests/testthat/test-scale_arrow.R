@@ -50,7 +50,7 @@ test_that("scale_resect_discrete gives right scale types", {
 
 test_that("arrow_pal works as intended", {
   # Can find functions in ggarrow
-  expect_equal(
+  expect_identical(
     arrow_pal("head_wings"),
     list(arrow_head_wings())
   )
@@ -65,7 +65,7 @@ test_that("arrow_pal works as intended", {
 
   # Can find functions in global environment
   env_bind(global_env(), arrow_foobar = function() matrix(1L:4L, ncol = 2L))
-  expect_equal(
+  expect_identical(
     arrow_pal("foobar"),
     list(matrix(1L:4L, ncol = 2L))
   )

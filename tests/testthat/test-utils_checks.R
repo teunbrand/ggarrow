@@ -6,7 +6,7 @@ test_that("validate_length works as intended", {
     mid = 1.0,
     default = 10.0
   )
-  expect_equal(ans, list(head = 5.0, fins = 10.0, mid = 1.0))
+  expect_identical(ans, list(head = 5.0, fins = 10.0, mid = 1.0))
 
   ans <- validate_length(
     NULL,
@@ -15,7 +15,7 @@ test_that("validate_length works as intended", {
     mid = unit(1.0, "inch"),
     default = unit(5.0, "pt")
   )
-  expect_equal(
+  expect_identical(
     ans,
     list(head = unit(5.0, "mm"), fins = unit(5.0, "pt"), mid = unit(1.0, "in"))
   )

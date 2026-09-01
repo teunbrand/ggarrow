@@ -22,8 +22,8 @@ extrude_line <- function(x, y, id, width, gp = gpar()) {
   if (all(do_extrude)) {
     ans <- switch(
       gp$linejoin %||% "mitre",
-      "round" = linejoin_round(x, y, id, width),
-      "bevel" = linejoin_bevel(x, y, id, width),
+      round = linejoin_round(x, y, id, width),
+      bevel = linejoin_bevel(x, y, id, width),
       linejoin_mitre(x, y, id, width, mitre = gp$linemitre %||% 10.0)
     )
   } else {
@@ -31,10 +31,10 @@ extrude_line <- function(x, y, id, width, gp = gpar()) {
     extrude <- rep.int(do_extrude, rle_runlength(id))
     ans <- switch(
       gp$linejoin %||% "mitre",
-      "round" = linejoin_round(
+      round = linejoin_round(
         x[extrude], y[extrude], id[do_extrude], width[extrude]
       ),
-      "bevel" = linejoin_bevel(
+      bevel = linejoin_bevel(
         x[extrude], y[extrude], id[do_extrude], width[extrude]
       ),
       linejoin_mitre(

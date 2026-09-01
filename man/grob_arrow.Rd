@@ -105,7 +105,7 @@ without the \code{distort_} prefix.
 \item{vp}{A Grid viewport object (or NULL).}
 }
 \value{
-A \verb{<arrow_path>} \link[grid:grid.grob]{graphical object}.
+A \verb{<arrow_path>} \link[grid:grob]{graphical object}.
 }
 \description{
 Creates a graphical object that draws arrows. An arrow typically consists of

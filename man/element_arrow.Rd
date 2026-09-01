@@ -47,11 +47,13 @@ line respectively.}
 \item{arrow_head, arrow_fins, arrow_mid}{Arrow
 \link[=arrow_ornaments]{ornament shapes} for the arrow head, arrow fins and
 middle arrows respectively. Can be one of the following:
-* \code{NULL} for not drawing the ornament.
-* A \verb{<character>} of length 1 naming an ornament constructor without the
+\itemize{
+\item \code{NULL} for not drawing the ornament.
+\item A \verb{<character>} of length 1 naming an ornament constructor without the
 \code{"arrow_"}-prefix, like \code{"head_wings"} or \code{"fins_feather"}.
-* A 2-column matrix, such as those built by the
-\link[=arrow_ornaments]{ornament constructors}.}
+\item A 2-column matrix, such as those built by the
+\link[=arrow_ornaments]{ornament constructors}.
+}}
 
 \item{length, length_head, length_fins, length_mid}{Determines the size of
 the arrow ornaments. \code{length} sets the default length, whereas
@@ -124,7 +126,7 @@ in \code{\link[ggplot2:theme]{theme()}}.
 }
 \description{
 Using the \link[ggplot2:theme]{theme} system, draws arrows in places where
-\code{\link[ggplot2:element]{element_line()}} are valid theme elements. Note
+\code{\link[ggplot2:element_line]{element_line()}} are valid theme elements. Note
 that the default use of \code{element_arrow()} does \emph{not} actually draw an arrow
 unless one of the \code{arrow_} arguments is set.
 }

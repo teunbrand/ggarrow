@@ -24,36 +24,36 @@ annotate_arrow(
 \item{x, y, xmin, ymin, xmax, ymax, xend, yend}{Positioning aesthetics. At least
 one of these must be specified.}
 
-\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
-arguments broadly fall into one of 4 categories below. Notably, further
-arguments to the \code{position} argument, or aesthetics that are required
-can \emph{not} be passed through \code{...}. Unknown arguments that are not part
-of the 4 categories below are ignored.
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These arguments
+broadly fall into one of 4 categories below. Notably, further arguments to
+the \code{position} argument, or aesthetics that are required can
+\emph{not} be passed through \code{...}. Unknown arguments that are not part of the 4
+categories below are ignored.
 \itemize{
 \item Static aesthetics that are not mapped to a scale, but are at a fixed
-value and apply to the layer as a whole. For example, \code{colour = "red"}
-or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
-section that lists the available options. The 'required' aesthetics
-cannot be passed on to the \code{params}. Please note that while passing
-unmapped aesthetics as vectors is technically possible, the order and
-required length is not guaranteed to be parallel to the input data.
+value and apply to the layer as a whole. For example, \code{colour = "red"} or
+\code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics} section
+that lists the available options. The 'required' aesthetics cannot be
+passed on to the \code{params}. Please note that while passing unmapped
+aesthetics as vectors is technically possible, the order and required
+length is not guaranteed to be parallel to the input data.
 \item When constructing a layer using
-a \verb{stat_*()} function, the \code{...} argument can be used to pass on
-parameters to the \code{geom} part of the layer. An example of this is
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{geom} part of the layer. An example of this is
 \code{stat_density(geom = "area", outline.type = "both")}. The geom's
 documentation lists which parameters it can accept.
 \item Inversely, when constructing a layer using a
 \verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
 to the \code{stat} part of the layer. An example of this is
-\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
-lists which parameters it can accept.
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation lists
+which parameters it can accept.
 \item The \code{key_glyph} argument of \code{\link[ggplot2:layer]{layer()}} may also be passed on through
 \code{...}. This can be one of the functions described as
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
-a warning. If \code{TRUE}, missing values are silently removed.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
+\code{TRUE}, missing values are silently removed.}
 }
 \value{
 A \verb{<Layer>} ggproto object that can be added to a plot.
@@ -80,10 +80,10 @@ ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() +
   annotate_arrow("text", x = 4, y = 25, label = "Some text")
 }
 \seealso{
-Other arrow geoms: 
-\code{\link{geom_arrow}()},
-\code{\link{geom_arrow_chain}()},
-\code{\link{geom_arrow_curve}()},
-\code{\link{geom_arrow_segment}()}
+Other arrow geoms:
+\code{\link[=geom_arrow]{geom_arrow()}},
+\code{\link[=geom_arrow_chain]{geom_arrow_chain()}},
+\code{\link[=geom_arrow_curve]{geom_arrow_curve()}},
+\code{\link[=geom_arrow_segment]{geom_arrow_segment()}}
 }
 \concept{arrow geoms}

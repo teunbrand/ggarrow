@@ -85,7 +85,7 @@ grob_arrow_curve(
 \item{vp}{A Grid viewport object (or NULL).}
 
 \item{...}{
-  Arguments passed on to \code{\link[=grob_arrow]{grob_arrow}}
+  Arguments passed on to \code{\link{grob_arrow}}
   \describe{
     \item{\code{arrow_head,arrow_fins,arrow_mid}}{A \verb{<matrix[n, 2]>}, such as those
 returned by \link[=arrow_ornaments]{arrow ornament} functions, giving arrow
@@ -141,7 +141,7 @@ width of the arrow's shaft at the \verb{(x1, y1)} and \verb{(x2, y2)} location
 respectively.}
 }
 \value{
-A \verb{<curve_arrow>} \link[grid:grid.grob]{graphical object}.
+A \verb{<curve_arrow>} \link[grid:grob]{graphical object}.
 }
 \description{
 Creates a graphical object that draws curved arrows.

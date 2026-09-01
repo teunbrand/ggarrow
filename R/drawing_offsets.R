@@ -30,7 +30,7 @@ separate_offsets <- function(x, y, group, sep = NULL) {
   # Inverse match get opposite sign
   signed <- ifelse(matches == id[seq_len(n_groups)], 1.0, -1.0) * sep
   if (is.unit(signed)) {
-    out <- unit(rep(0.0, length.out = length(out)), "mm")
+    out <- unit(rep_len(0.0, length(out)), "mm")
   }
 
   # Apply separator distance

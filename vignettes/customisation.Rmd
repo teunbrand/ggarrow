@@ -41,7 +41,7 @@ In principle, extending ornaments is as straightforward as being able to constru
 ```{r}
 my_ornament <- function(n = 5) {
   t <- seq(0, 2 * pi, length.out = n * 2 + 1)[-(n * 2 + 1)]
-  l <- rep(c(1, 0.4), length.out = length(t))
+  l <- rep_len(c(1, 0.4), length(t))
 
   cbind(
     x = cos(t) * l,

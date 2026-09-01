@@ -1,6 +1,6 @@
 test_that("geom_arrow_chain looks alright", {
   t <- seq(0.0, 2.0 * pi, length.out = 15L)
-  l <- rep(c(1.0, 0.4), length.out = 15L)
+  l <- rep_len(c(1.0, 0.4), 15L)
 
   df <- data.frame(
     x = cos(t) * l,

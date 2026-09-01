@@ -192,8 +192,8 @@ element_grob.element_arrow <- function(
   # Interpolate width from start to end
   width_prop <- seq_len(rle_length(id)) - rep(rle_start(id), id.lengths)
   width_prop <- width_prop / rep(id.lengths - 1.0, id.lengths)
-  width_head <- rep(rep(width_head, length.out = length(id)), id.lengths)
-  width_fins <- rep(rep(width_fins, length.out = length(id)), id.lengths)
+  width_head <- rep(rep_len(width_head, length(id)), id.lengths)
+  width_fins <- rep(rep_len(width_fins, length(id)), id.lengths)
   width      <- width_prop * width_head + (1.0 - width_prop) * width_fins
 
   # Fill in resect defaults

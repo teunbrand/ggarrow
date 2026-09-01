@@ -5,7 +5,7 @@ place_arrow <- function(
     return(arrow)
   }
   # Recycle size
-  size  <- rep(size, length.out = length(id))
+  size  <- rep_len(size, length(id))
   valid <- rle_valid(id)
   if (is.list(arrow)) {
     valid <- valid & lengths(arrow) > 0.0

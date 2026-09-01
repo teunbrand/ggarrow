@@ -81,7 +81,7 @@ along_rle <- function(x, rle) {
   if (length(x) == length(rle)) {
     x <- rep.int(x, field(rle, "length"))
   } else {
-    rep(x, length.out = n)
+    rep_len(x, n)
   }
 }
 

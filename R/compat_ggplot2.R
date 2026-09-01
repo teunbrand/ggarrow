@@ -14,8 +14,8 @@ snakeize <- function(x) {
   chartr(upper_ascii, lower_ascii, x)
 }
 
-upper_ascii <- paste0(LETTERS, collapse = "")
-lower_ascii <- paste0(letters, collapse = "")
+upper_ascii <- paste(LETTERS, collapse = "")
+lower_ascii <- paste(letters, collapse = "")
 
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {

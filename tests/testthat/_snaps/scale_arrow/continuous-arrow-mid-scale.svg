@@ -58,15 +58,15 @@
 <rect x='651.54' y='82.06' width='62.98' height='241.67' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='651.54' y='90.78' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>y</text>
 <rect x='651.54' y='97.40' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 658.33 140.40 L 694.54 104.19 L 692.28 101.92 L 690.02 99.66 L 653.80 135.87 L 656.07 138.14 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
+<path d='M 658.33 140.40 L 694.54 104.19 L 690.02 99.66 L 653.80 135.87 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
 <rect x='651.54' y='142.66' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 658.33 185.67 L 694.54 149.45 L 692.28 147.19 L 690.02 144.93 L 653.80 181.14 L 656.07 183.41 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
+<path d='M 658.33 185.67 L 694.54 149.45 L 690.02 144.93 L 653.80 181.14 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
 <rect x='651.54' y='187.93' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 658.33 230.94 L 694.54 194.72 L 692.28 192.46 L 690.02 190.20 L 653.80 226.41 L 656.07 228.67 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
+<path d='M 658.33 230.94 L 694.54 194.72 L 690.02 190.20 L 653.80 226.41 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
 <rect x='651.54' y='233.20' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 658.33 276.21 L 694.54 239.99 L 692.28 237.73 L 690.02 235.46 L 653.80 271.68 L 656.07 273.94 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
+<path d='M 658.33 276.21 L 694.54 239.99 L 690.02 235.46 L 653.80 271.68 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
 <rect x='651.54' y='278.47' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 658.33 321.47 L 694.54 285.26 L 692.28 283.00 L 690.02 280.73 L 653.80 316.95 L 656.07 319.21 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
+<path d='M 658.33 321.47 L 694.54 285.26 L 690.02 280.73 L 653.80 316.95 Z' style='fill-rule: evenodd; fill: #000000; stroke-width: 0.53; stroke: none;' />
 <text x='702.29' y='123.06' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.0</text>
 <text x='702.29' y='168.33' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.5</text>
 <text x='702.29' y='213.59' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.0</text>
@@ -75,11 +75,11 @@
 <rect x='651.54' y='334.70' width='57.10' height='151.14' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='651.54' y='343.41' style='font-size: 11.00px; font-family: sans;' textLength='28.14px' lengthAdjust='spacingAndGlyphs'>group</text>
 <rect x='651.54' y='350.03' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 658.33 393.03 L 694.54 356.82 L 692.28 354.56 L 690.02 352.29 L 653.80 388.51 L 656.07 390.77 Z' style='fill-rule: evenodd; fill: #F8766D; stroke-width: 0.53; stroke: none;' />
+<path d='M 658.33 393.03 L 694.54 356.82 L 690.02 352.29 L 653.80 388.51 Z' style='fill-rule: evenodd; fill: #F8766D; stroke-width: 0.53; stroke: none;' />
 <rect x='651.54' y='395.30' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 658.33 438.30 L 694.54 402.09 L 692.28 399.82 L 690.02 397.56 L 653.80 433.77 L 656.07 436.04 Z' style='fill-rule: evenodd; fill: #00BA38; stroke-width: 0.53; stroke: none;' />
+<path d='M 658.33 438.30 L 694.54 402.09 L 690.02 397.56 L 653.80 433.77 Z' style='fill-rule: evenodd; fill: #00BA38; stroke-width: 0.53; stroke: none;' />
 <rect x='651.54' y='440.56' width='45.27' height='45.27' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 658.33 483.57 L 694.54 447.36 L 692.28 445.09 L 690.02 442.83 L 653.80 479.04 L 656.07 481.31 Z' style='fill-rule: evenodd; fill: #619CFF; stroke-width: 0.53; stroke: none;' />
+<path d='M 658.33 483.57 L 694.54 447.36 L 690.02 442.83 L 653.80 479.04 Z' style='fill-rule: evenodd; fill: #619CFF; stroke-width: 0.53; stroke: none;' />
 <text x='702.29' y='375.69' style='font-size: 8.80px; font-family: sans;' textLength='5.87px' lengthAdjust='spacingAndGlyphs'>A</text>
 <text x='702.29' y='420.96' style='font-size: 8.80px; font-family: sans;' textLength='5.87px' lengthAdjust='spacingAndGlyphs'>B</text>
 <text x='702.29' y='466.23' style='font-size: 8.80px; font-family: sans;' textLength='6.36px' lengthAdjust='spacingAndGlyphs'>C</text>

@@ -80,7 +80,7 @@ the first column and <code>y</code> as the second column.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_ornament</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span> <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span>, length.out <span class="op">=</span> <span class="va">n</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="va">n</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
-<span>  <span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.4</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">cos</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">*</span> <span class="va">l</span>,</span>
@@ -241,7 +241,7 @@ vertices, <code><a href="../reference/geom_arrow.html">geom_arrow()</a></code> s
 This only works with solid line types. I have not been able to envision
 variable width dashed lines.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> </span>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    linetype <span class="op">=</span> <span class="st">"solid"</span> <span class="co"># only supported line type</span></span>
@@ -294,11 +294,11 @@ oscillation:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>, </span>
+<span>  <span class="op">)</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">oscillation</span>, type <span class="op">=</span> <span class="st">'l'</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">oscillation</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="customisation_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="700"></p>
 <p>Which displays thusly:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -316,7 +316,7 @@ oscillations.</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>, </span>
+<span>    <span class="op">)</span>,</span>
 <span>    ncol <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span> <span class="op">*</span> <span class="va">size</span> <span class="op">/</span> <span class="fl">5</span></span>
 <span><span class="op">}</span></span>
@@ -337,7 +337,7 @@ list to have it become part of the scale.</p>
 <span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>arrow_head <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, resect <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/discrete_arrow_scales.html">scale_arrow_head_discrete</a></span><span class="op">(</span></span>
-<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"head_wings"</span>, <span class="va">orn</span>, <span class="st">"fins_feather"</span>, <span class="va">orn</span>, <span class="st">"cup"</span><span class="op">)</span>,</span>
+<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"head_wings"</span>, <span class="va">orn</span>, <span class="st">"fins_feather"</span>, <span class="va">orn</span>, <span class="st">"cup"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="customisation_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="700"></p>
 <p>If you start your function name with the <code>arrow_</code>-prefix,
@@ -350,7 +350,7 @@ environment.</p>
 <span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>arrow_head <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, resect <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/discrete_arrow_scales.html">scale_arrow_head_discrete</a></span><span class="op">(</span></span>
-<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"head_wings"</span>, <span class="st">"star"</span>, <span class="st">"fins_feather"</span>, <span class="st">"star"</span>, <span class="st">"cup"</span><span class="op">)</span>,</span>
+<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"head_wings"</span>, <span class="st">"star"</span>, <span class="st">"fins_feather"</span>, <span class="st">"star"</span>, <span class="st">"cup"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="customisation_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="700"></p>
 <p>While not always very easy to figure out, as different arrowheads are

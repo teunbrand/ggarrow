@@ -15,7 +15,7 @@ column and `y` as the second column.
 
 my_ornament <- function(n = 5) {
   t <- seq(0, 2 * pi, length.out = n * 2 + 1)[-(n * 2 + 1)]
-  l <- rep(c(1, 0.4), length.out = length(t))
+  l <- rep_len(c(1, 0.4), length(t))
 
   cbind(
     x = cos(t) * l,
@@ -218,7 +218,7 @@ types. I have not been able to envision variable width dashed lines.
 
 ``` r
 
-p + 
+p +
   geom_arrow(
     aes(linewidth = I(arc)),
     linetype = "solid" # only supported line type
@@ -286,11 +286,11 @@ oscillation <- matrix(
   cbind(
     c(0, 0, 4, 4, 2, 2, 3, 3, 1, 1, 5, 5),
     c(0, -2, -2, 1, 1, 0, 0, -1, -1, 2, 2, 0)
-  ), 
+  ),
   ncol = 2
 )
 
-plot(oscillation, type = 'l')
+plot(oscillation, type = "l")
 ```
 
 ![](customisation_files/figure-html/unnamed-chunk-17-1.png)
@@ -317,7 +317,7 @@ distort_greek <- function(size = 5) {
     cbind(
       c(0, 0, 4, 4, 2, 2, 3, 3, 1, 1, 5, 5),
       c(0, -2, -2, 1, 1, 0, 0, -1, -1, 2, 2, 0)
-    ), 
+    ),
     ncol = 2
   ) * size / 5
 }
@@ -340,7 +340,7 @@ p <- ggplot(whirlpool(5), aes(x, y, group = group)) +
 
 p + geom_arrow(aes(arrow_head = group), resect = 5) +
   scale_arrow_head_discrete(
-    values = list("head_wings", orn, "fins_feather", orn, "cup"),
+    values = list("head_wings", orn, "fins_feather", orn, "cup")
   )
 ```
 
@@ -357,7 +357,7 @@ arrow_star <- function(n = 5) {
 
 p + geom_arrow(aes(arrow_head = group), resect = 1) +
   scale_arrow_head_discrete(
-    values = c("head_wings", "star", "fins_feather", "star", "cup"),
+    values = c("head_wings", "star", "fins_feather", "star", "cup")
   )
 ```
 

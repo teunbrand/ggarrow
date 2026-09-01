@@ -57,7 +57,7 @@ check_offset <- function(
       call = call
     )
   }
-  if (is.numeric(x) && any(!is.finite(x))) {
+  if (is.numeric(x) && !all(is.finite(x))) {
     cli::cli_abort(
       "{.arg {arg_nm}} must have finite values.",
       call = call

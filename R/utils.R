@@ -29,7 +29,7 @@ drop_gp <- function(gp, id) {
   if (all(valid)) {
     return(gp)
   }
-  if (all(!valid)) {
+  if (!any(valid)) {
     return(gpar())
   }
   valid <- which(valid)

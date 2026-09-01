@@ -202,7 +202,7 @@ This only works with solid line types.
 I have not been able to envision variable width dashed lines.
 
 ```{r}
-p + 
+p +
   geom_arrow(
     aes(linewidth = I(arc)),
     linetype = "solid" # only supported line type
@@ -245,11 +245,11 @@ oscillation <- matrix(
   cbind(
     c(0, 0, 4, 4, 2, 2, 3, 3, 1, 1, 5, 5),
     c(0, -2, -2, 1, 1, 0, 0, -1, -1, 2, 2, 0)
-  ), 
+  ),
   ncol = 2
 )
 
-plot(oscillation, type = 'l')
+plot(oscillation, type = "l")
 ```
 
 Which displays thusly:
@@ -269,7 +269,7 @@ distort_greek <- function(size = 5) {
     cbind(
       c(0, 0, 4, 4, 2, 2, 3, 3, 1, 1, 5, 5),
       c(0, -2, -2, 1, 1, 0, 0, -1, -1, 2, 2, 0)
-    ), 
+    ),
     ncol = 2
   ) * size / 5
 }

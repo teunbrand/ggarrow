@@ -94,7 +94,7 @@ test_that("arrow_pal works as intended", {
 
 # Visual tests ------------------------------------------------------------
 
-df <- data.frame(
+df <- data_frame0(
   x = c(0.0, 1.0, 0.0, 1.0, 0.0, 1.0),
   y = c(1.0, 1.0, 2.0, 2.0, 3.0, 3.0),
   group = c("A", "A", "B", "B", "C", "C")

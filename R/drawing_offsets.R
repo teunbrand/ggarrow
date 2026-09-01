@@ -13,7 +13,7 @@ separate_offsets <- function(x, y, group, sep = NULL) {
   # We also want to match groups that have perfectly inverse paths
   groups <- data_frame0(
     x = c(x, lapply(x, rev)),
-    y = c(y, lapply(y, rev)),
+    y = c(y, lapply(y, rev))
   )
   id <- vec_group_id(groups)
 

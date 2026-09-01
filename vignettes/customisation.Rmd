@@ -288,7 +288,7 @@ p <- ggplot(whirlpool(5), aes(x, y, group = group)) +
 
 p + geom_arrow(aes(arrow_head = group), resect = 5) +
   scale_arrow_head_discrete(
-    values = list("head_wings", orn, "fins_feather", orn, "cup"),
+    values = list("head_wings", orn, "fins_feather", orn, "cup")
   )
 ```
 
@@ -301,7 +301,7 @@ arrow_star <- function(n = 5) {
 
 p + geom_arrow(aes(arrow_head = group), resect = 1) +
   scale_arrow_head_discrete(
-    values = c("head_wings", "star", "fins_feather", "star", "cup"),
+    values = c("head_wings", "star", "fins_feather", "star", "cup")
   )
 ```
 

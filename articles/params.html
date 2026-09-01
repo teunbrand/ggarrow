@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Arrow parameters • ggarrow</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Arrow parameters">
 </head>
@@ -88,7 +88,7 @@ plot in which we can show what the parameters are doing.</p>
 <code>linewidth</code> aesthetic, in that it can vary within a path.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/vary_linewidth-1.png" width="700"></p>
+<p><img src="params_files/figure-html/vary_linewidth-1.png" class="r-plt" alt="" width="700"></p>
 <p>This all means that you could in theory display a kernel density
 estimate using an arrow, by remapping a computed density aesthetic to
 the linewidth.</p>
@@ -99,14 +99,14 @@ the linewidth.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span>
 <span>        linewidth <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_scale</a></span><span class="op">(</span><span class="va">ndensity</span> <span class="op">*</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/complicated%20linewidth-1.png" width="700"></p>
+<p><img src="params_files/figure-html/complicated%20linewidth-1.png" class="r-plt" alt="" width="700"></p>
 <p>The other two are the <code>stroke_colour</code> and
 <code>stroke_width</code> aesthetics. These can be used to outline the
 arrow.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>stroke_colour <span class="op">=</span> <span class="st">"black"</span>, stroke_width <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>               colour <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/strokes-1.png" width="700"></p>
+<p><img src="params_files/figure-html/strokes-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="heads-fins-and-middle-arrows">Heads, fins and middle arrows<a class="anchor" aria-label="anchor" href="#heads-fins-and-middle-arrows"></a>
@@ -128,7 +128,7 @@ the <code>arrow_mid</code> follows the forward orientation.</p>
 <span>  arrow_mid  <span class="op">=</span> <span class="fu"><a href="../reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  arrow_fins <span class="op">=</span> <span class="fu"><a href="../reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/arrow_parts-1.png" width="700"></p>
+<p><img src="params_files/figure-html/arrow_parts-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="setting-sizes">Setting sizes<a class="anchor" aria-label="anchor" href="#setting-sizes"></a>
@@ -148,7 +148,7 @@ the length in an absolute manner by providing a
 <span>  length_fins <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  length_mid  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">10</span>, <span class="st">"mm"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/arrow_sizes-1.png" width="700"></p>
+<p><img src="params_files/figure-html/arrow_sizes-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="middle-arrows">Middle arrows<a class="anchor" aria-label="anchor" href="#middle-arrows"></a>
@@ -163,7 +163,7 @@ arrows are drawn.</p>
 <span>  arrow_mid  <span class="op">=</span> <span class="fu"><a href="../reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  mid_place  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.33</span>, <span class="fl">0.66</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/mid_place-1.png" width="700"></p>
+<p><img src="params_files/figure-html/mid_place-1.png" class="r-plt" alt="" width="700"></p>
 <p>You can swap the direction of middle arrows by providing negative
 numbers to the <code>mid_place</code> argument.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -172,7 +172,7 @@ numbers to the <code>mid_place</code> argument.</p>
 <span>  arrow_mid  <span class="op">=</span> <span class="fu"><a href="../reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  mid_place  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.16</span>, <span class="op">-</span><span class="fl">0.33</span>, <span class="fl">0.66</span>, <span class="op">-</span><span class="fl">0.82</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/negative_mid_place-1.png" width="700"></p>
+<p><img src="params_files/figure-html/negative_mid_place-1.png" class="r-plt" alt="" width="700"></p>
 <p>One alternative to manually specifying positions, is to provide a
 distance between subsequent arrows. You can do this by giving a
 <code>&lt;grid::unit&gt;</code> instead of a
@@ -184,7 +184,7 @@ middle arrows, you can set this to a negative unit.</p>
 <span>  arrow_mid  <span class="op">=</span> <span class="fu"><a href="../reference/arrow_ornaments.html">arrow_head_wings</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  mid_place  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="st">"cm"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p><img src="params_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -197,13 +197,13 @@ make it a bit shorter near the ends. You can provide the
 heads and the fins of the arrow.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>resect <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="params_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
 <p>You can also control independently for the head and fins of the arrow
 how much resection is to be done with the <code>resect_head</code> and
 <code>resect_fins</code> arguments.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>resect_head <span class="op">=</span> <span class="fl">10</span>, resect_fins <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="params_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
 <p>A geom that does this automatically is
 <code><a href="../reference/geom_arrow_chain.html">geom_arrow_chain()</a></code>. Normally, it has a default
 <code>resect</code> value of 1 millimeter, but if you turn this off and
@@ -212,7 +212,7 @@ drawn, you can see that it doesn’t overlap the points, but barely
 touches them.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow_chain.html">geom_arrow_chain</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span>, resect <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="params_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="other-parameters">Other parameters<a class="anchor" aria-label="anchor" href="#other-parameters"></a>
@@ -227,7 +227,7 @@ use <code>justify = 1</code> to have the arrow start where the path
 ends.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>justify <span class="op">=</span> <span class="fl">1</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="params_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="force_arrow">
@@ -240,7 +240,7 @@ they may be, you can use the <code>force_arrow</code> argument. There is
 no guarantee that it will be placed in a nice position though.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>resect <span class="op">=</span> <span class="fl">100</span>, force_arrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="params_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="sep">
@@ -256,7 +256,7 @@ different paths at an offset of one another to disentangle them.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">g</span><span class="op">)</span>,</span>
 <span>  sep <span class="op">=</span> <span class="fl">3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="params_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="params_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -270,7 +270,7 @@ different paths at an offset of one another to disentangle them.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

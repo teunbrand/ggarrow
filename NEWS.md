@@ -3,6 +3,7 @@
 * Added the `grob_arrow(offset)` argument for drawing arrows at some offset.
 * Added the `geom_arrow(sep)` parameter, allowing co-located arrows 
   to be dodged (#8).
+* Added the `grob_arrow(distort)` argument for using patterned lines (#6).
 * New asymmetric arrow ornaments (#8):
     * `arrow_head_halfline()`
     * `arrow_head_halfwing()`

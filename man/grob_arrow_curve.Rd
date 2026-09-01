@@ -108,7 +108,9 @@ sets the arrow's tips at the path's end, whereas a value of \code{1} sets the
 arrow's base at the path's end.}
     \item{\code{offset}}{A \code{numeric()} vector giving the offset in millimetres per
 group to displace paths.}
-    \item{\code{distort}}{A way of specifying a line distortion. A line distortion is not great at
+    \item{\code{distort}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+A way of specifying a line distortion. A line distortion is not great at
 dealing with paths with pronounced angles. One of the following:
 \itemize{
 \item \code{NULL} to not distort any paths.

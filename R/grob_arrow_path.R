@@ -32,6 +32,8 @@
 #' @param offset A `numeric()` vector giving the offset in millimetres per
 #'   group to displace paths.
 #' @param distort
+#' `r lifecycle::badge('experimental')`
+#'
 #' A way of specifying a line distortion. A line distortion is not great at
 #' dealing with paths with pronounced angles. One of the following:
 #'   * `NULL` to not distort any paths.

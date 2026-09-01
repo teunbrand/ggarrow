@@ -153,7 +153,9 @@ arrow from the fins side. Both inherit from \code{resect}.}
 paths that are identical or identical as inverses. The default, 0, will
 draw paths without offsets. Alternatively, a \code{<}\code{\link[grid:unit]{unit}}\code{>}.}
 
-\item{distort}{A way of specifying a line distortion. A line distortion is not great at
+\item{distort}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+A way of specifying a line distortion. A line distortion is not great at
 dealing with paths with pronounced angles. One of the following:
 \itemize{
 \item \code{NULL} to not distort any paths.

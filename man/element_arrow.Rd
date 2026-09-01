@@ -101,7 +101,9 @@ ornaments. Can be \code{"round"}, \code{"butt"} or \code{"square"}.}
 \item{linemitre}{A \code{numeric(1)} greater than 1 setting the path's mitre
 limits.}
 
-\item{distort}{A way of specifying a line distortion. A line distortion is not great at
+\item{distort}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+A way of specifying a line distortion. A line distortion is not great at
 dealing with paths with pronounced angles. One of the following:
 \itemize{
 \item \code{NULL} to not distort any paths.

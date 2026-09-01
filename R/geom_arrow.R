@@ -42,6 +42,8 @@
 #'   paths that are identical or identical as inverses. The default, 0, will
 #'   draw paths without offsets. Alternatively, a `<`[`unit`][grid::unit]`>`.
 #' @param distort
+#' `r lifecycle::badge('experimental')`
+#'
 #' A way of specifying a line distortion. A line distortion is not great at
 #' dealing with paths with pronounced angles. One of the following:
 #'   * `NULL` to not distort any paths.

@@ -50,6 +50,8 @@
 #'   * A [`<unit>`][grid::unit] to fill a path with ornaments with th provided
 #'     unit as spacing between one ornament to the next.
 #' @param distort
+#' `r lifecycle::badge('experimental')`
+#'
 #' A way of specifying a line distortion. A line distortion is not great at
 #' dealing with paths with pronounced angles. One of the following:
 #'   * `NULL` to not distort any paths.

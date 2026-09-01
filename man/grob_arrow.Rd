@@ -82,7 +82,9 @@ If \code{FALSE}, will drop such arrows.}
 \item{offset}{A \code{numeric()} vector giving the offset in millimetres per
 group to displace paths.}
 
-\item{distort}{A way of specifying a line distortion. A line distortion is not great at
+\item{distort}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+A way of specifying a line distortion. A line distortion is not great at
 dealing with paths with pronounced angles. One of the following:
 \itemize{
 \item \code{NULL} to not distort any paths.

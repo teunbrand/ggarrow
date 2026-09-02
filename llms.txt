@@ -43,7 +43,9 @@ p <- ggplot(whirlpool(5), aes(x, y, colour = group)) +
 p + geom_arrow()
 ```
 
-![](reference/figures/README-basic_example-1.png)
+![Five lines spiral outwards from the center. The lines each have
+different colours and all have an arrowhead at the outside
+end.](reference/figures/README-basic_example-1.png)
 
 ### Variable width
 
@@ -54,7 +56,10 @@ Arrows, in contrast to vanilla lines, can have variable widths.
 p + geom_arrow(aes(linewidth = I(arc))) # Identity scale for linewidth
 ```
 
-![](reference/figures/README-variable_width-1.png)
+![Five lines spiral outwards from the center. The lines each have
+different colours and all have an arrowhead at the outside end. The
+thickness of the lines increases steadily going outwards, and the
+arrowhead is larger.](reference/figures/README-variable_width-1.png)
 
 ### Inner arrows
 
@@ -67,7 +72,9 @@ that will look pretty.
 p + geom_arrow(arrow_mid = "head_wings", mid_place = c(0.25, 0.5, 0.75))
 ```
 
-![](reference/figures/README-middle_arrows-1.png)
+![Five lines spiral outwards from the center. The lines each have
+different colours and each has four arrowheads spaced along the
+line.](reference/figures/README-middle_arrows-1.png)
 
 ### Ornament styles
 
@@ -95,7 +102,10 @@ p + geom_arrow(aes(arrow_head = group, arrow_fins = group), linewidth = 2) +
   ), guide = "none")
 ```
 
-![](reference/figures/README-show_ornaments-1.png)
+![Five lines spiral outwards from the center. The lines each have
+different colours, each have different shape at the start and yet a
+different shape at the
+end.](reference/figures/README-show_ornaments-1.png)
 
 There are some other geoms that mimic bread-and-butter ggplot2 layers,
 such as
@@ -134,7 +144,10 @@ ggplot(df, aes(x, y, size = size)) +
   coord_equal()
 ```
 
-![](reference/figures/README-arrow_chain-1.png)
+![Ten red points form the vertices of a five-pointed star. The inner
+points are smaller than the outer points. The inner points are connected
+to the outer points by arrows that do not touch the
+points.](reference/figures/README-arrow_chain-1.png)
 
 ### Theme elements
 
@@ -165,7 +178,12 @@ p + geom_arrow() +
   )
 ```
 
-![](reference/figures/README-theme_elements-1.png)
+![Five lines spiral outwards from the center. The y-axis line and
+tickmarks are displayed by line arrows. The x-axis line by a solid arrow
+with variable width, and the x-axis tickmarks by triangles. The
+background grid has lines of increasing with alternating in opposite
+directions, both horizontally and
+vertically.](reference/figures/README-theme_elements-1.png)
 
 ## Limitations
 
@@ -181,7 +199,10 @@ ggplot(economics, aes(date, unemploy)) +
   geom_arrow(aes(linewidth = date))
 ```
 
-![](reference/figures/README-jagged-1.png)
+![The plot displays employment data over time as an arrow of increasing
+width. In areas where datapoints are placed closely together, the arrow
+line displays visual artefacts resembling partial circles and jagged
+edges.](reference/figures/README-jagged-1.png)
 
 The best advice I can give for the jagged linejoins is to smooth the
 data beforehand.
@@ -195,7 +216,9 @@ ggplot(economics, aes(date, unemploy)) +
   )
 ```
 
-![](reference/figures/README-smoothed-1.png)
+![The plot displays employment data over time as an arrow of increasing
+width. The arrow line has no visual artefacts, but has lost some detail
+of the orginal data.](reference/figures/README-smoothed-1.png)
 
 A second limitation is that you cannot use variable widths with
 different linetypes.

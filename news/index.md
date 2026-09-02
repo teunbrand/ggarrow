@@ -2,11 +2,16 @@
 
 ## ggarrow (development version)
 
-- Added the `grob_arrow(offset)` argument for drawing arrows at some
-  offset.
-- Added the `geom_arrow(sep)` parameter, allowing co-located arrows to
-  be dodged ([\#8](https://github.com/teunbrand/ggarrow/issues/8)).
-- Added the `grob_arrow(distort)` argument for using patterned lines
+This is a minor release introducing a few new features.
+
+- The `grob_arrow(offset)` argument can draw the arrows at some distance
+  from the original path. Note that this isn’t exposed in layers
+  ([\#8](https://github.com/teunbrand/ggarrow/issues/8)).
+- `geom_arrow(sep)` uses the `grob_arrow(offset)` to display co-located
+  arrows in a dodged fashion
+  ([\#8](https://github.com/teunbrand/ggarrow/issues/8)).
+- `grob_arrow(distort)` is an experimental way to draw patterned lines.
+  It is exposed in layers via the `geom_arrow(distort)` parameter too
   ([\#6](https://github.com/teunbrand/ggarrow/issues/6)).
 - New asymmetric arrow ornaments
   ([\#8](https://github.com/teunbrand/ggarrow/issues/8)):
@@ -15,7 +20,7 @@
 - Fixed bug where numeric `resect_fins` aesthetic in
   [`geom_arrow_segment()`](https://teunbrand.github.io/ggarrow/reference/geom_arrow_segment.md)
   might have flunked a type check
-  ([\#15](https://github.com/teunbrand/ggarrow/issues/15))
+  ([\#15](https://github.com/teunbrand/ggarrow/issues/15)).
 
 ## ggarrow 0.1.1
 

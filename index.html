@@ -91,7 +91,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-basic_example-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-basic_example-1.png" alt="Five lines spiral outwards from the center. The lines each have different colours and all have an arrowhead at the outside end." width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="variable-width">Variable width<a class="anchor" aria-label="anchor" href="#variable-width"></a>
@@ -99,7 +99,7 @@
 <p>Arrows, in contrast to vanilla lines, can have variable widths.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># Identity scale for linewidth</span></span></code></pre></div>
-<p><img src="reference/figures/README-variable_width-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-variable_width-1.png" alt="Five lines spiral outwards from the center. The lines each have different colours and all have an arrowhead at the outside end. The thickness of the lines increases steadily going outwards, and the arrowhead is larger." width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="inner-arrows">Inner arrows<a class="anchor" aria-label="anchor" href="#inner-arrows"></a>
@@ -107,7 +107,7 @@
 <p>Besides varying linewidths, there is also an option to place arrows along the path. You could draw arbitrarily many of these, but I doubt that will look pretty.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span>arrow_mid <span class="op">=</span> <span class="st">"head_wings"</span>, mid_place <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-middle_arrows-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-middle_arrows-1.png" alt="Five lines spiral outwards from the center. The lines each have different colours and each has four arrowheads spaced along the line." width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="ornament-styles">Ornament styles<a class="anchor" aria-label="anchor" href="#ornament-styles"></a>
@@ -129,7 +129,7 @@
 <span>    <span class="fu"><a href="reference/arrow_ornaments.html">arrow_fins_line</a></span><span class="op">(</span><span class="fl">90</span><span class="op">)</span>,</span>
 <span>    <span class="st">"fins_minimal"</span></span>
 <span>  <span class="op">)</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-show_ornaments-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-show_ornaments-1.png" alt="Five lines spiral outwards from the center. The lines each have different colours, each have different shape at the start and yet a different shape at the end." width="80%" style="display: block; margin: auto;"></p>
 <p>There are some other geoms that mimic bread-and-butter ggplot2 layers, such as <code><a href="reference/geom_arrow_segment.html">geom_arrow_segment()</a></code> and <code><a href="reference/geom_arrow_curve.html">geom_arrow_curve()</a></code>, that add the same arrow functionality on top of the <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_curve()</a></code> layers.</p>
 </div>
 <div class="section level3">
@@ -150,7 +150,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_arrow_chain.html">geom_arrow_chain</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-arrow_chain-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-arrow_chain-1.png" alt="Ten red points form the vertices of a five-pointed star. The inner points are smaller than the outer points. The inner points are connected to the outer points by arrows that do not touch the points." width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="theme-elements">Theme elements<a class="anchor" aria-label="anchor" href="#theme-elements"></a>
@@ -174,7 +174,7 @@
 <span>      linewidth_head <span class="op">=</span> <span class="fl">0</span>, linewidth_fins <span class="op">=</span> <span class="fl">5</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-theme_elements-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-theme_elements-1.png" alt="Five lines spiral outwards from the center. The y-axis line and tickmarks are displayed by line arrows. The x-axis line by a solid arrow with variable width, and the x-axis tickmarks by triangles. The background grid has lines of increasing with alternating in opposite directions, both horizontally and vertically." width="80%" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -184,7 +184,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">economics</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">unemploy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_arrow.html">geom_arrow</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="va">date</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-jagged-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-jagged-1.png" alt="The plot displays employment data over time as an arrow of increasing width. In areas where datapoints are placed closely together, the arrow line displays visual artefacts resembling partial circles and jagged edges." width="80%" style="display: block; margin: auto;"></p>
 <p>The best advice I can give for the jagged linejoins is to smooth the data beforehand.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">economics</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">unemploy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -192,7 +192,7 @@
 <span>    stat <span class="op">=</span> <span class="st">"smooth"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, method <span class="op">=</span> <span class="st">"loess"</span>, span <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-smoothed-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-smoothed-1.png" alt="The plot displays employment data over time as an arrow of increasing width. The arrow line has no visual artefacts, but has lost some detail of the orginal data." width="80%" style="display: block; margin: auto;"></p>
 <p>A second limitation is that you cannot use variable widths with different linetypes.</p>
 </div>
 <div class="section level2">

@@ -49,20 +49,20 @@ geom_arrow_segment <- function(
   arrow_head  = arrow_head_wings(),
   arrow_fins  = NULL,
   arrow_mid   = NULL,
-  length      = 4,
+  length      = 4.0,
   length_head = NULL,
   length_fins = NULL,
   length_mid  = NULL,
-  justify     = 0,
+  justify     = 0.0,
   force_arrow = FALSE,
   mid_place   = 0.5,
-  resect      = 0,
+  resect      = 0.0,
   resect_head = NULL,
   resect_fins = NULL,
   lineend     = "butt",
   linejoin    = "round",
-  linemitre   = 10,
-  sep         = 0,
+  linemitre   = 10.0,
+  sep         = 0.0,
   distort     = NULL,
   na.rm       = FALSE,
   show.legend = NA,
@@ -73,8 +73,8 @@ geom_arrow_segment <- function(
   )
   resect_head <- resect_head %||% resect
   resect_fins <- resect_fins %||% resect
-  check_number_decimal(resect_head, min = 0, allow_infinite = FALSE)
-  check_number_decimal(resect_fins, min = 0, allow_infinite = FALSE)
+  check_number_decimal(resect_head, min = 0.0, allow_infinite = FALSE)
+  check_number_decimal(resect_fins, min = 0.0, allow_infinite = FALSE)
   layer(
     data        = data,
     mapping     = mapping,
@@ -114,10 +114,10 @@ GeomArrowSegment <- ggproto(
 
   default_aes = aes(
     colour    = "black",
-    linewidth = 1,
+    linewidth = 1.0,
     linewidth_head = NULL,
     linewidth_fins = NULL,
-    linetype  = 1,
+    linetype  = 1L,
     arrow_head     = NULL,
     arrow_fins     = NULL,
     arrow_mid      = NULL,
@@ -150,15 +150,15 @@ GeomArrowSegment <- ggproto(
 
   draw_panel = function(
     self, data, panel_params, coord,
-    linejoin = "round", linemitre = 10, lineend = "butt",
+    linejoin = "round", linemitre = 10.0, lineend = "butt",
     na.rm       = FALSE,
     arrow       = list(head = arrow_head_wings(), fins = NULL, mid = NULL),
-    length      = list(head = 4, fins = 4, mid = 4),
-    justify     = 0,
+    length      = list(head = 4.0, fins = 4.0, mid = 4.0),
+    justify     = 0.0,
     force_arrow = FALSE,
     mid_place   = 0.5,
-    resect      = list(head = 0, fins = 0),
-    sep         = 0,
+    resect      = list(head = 0.0, fins = 0.0),
+    sep         = 0.0,
     distort     = NULL
   ) {
     data$yend <- data$yend %||% data$y

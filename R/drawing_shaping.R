@@ -54,8 +54,8 @@ notch_shaft <- function(
     return(offset)
   }
   i <- !is.na(angle_notch) &
-    rle_runlength(offset$id_left) > 0 &
-    rle_runlength(offset$id_right) > 0
+    rle_runlength(offset$id_left) > 0L &
+    rle_runlength(offset$id_right) > 0L
   angle <- angle_line[i] + pi
   angle_notch <- rep_len(angle_notch, length(id))[i]
 
@@ -90,7 +90,7 @@ combine_arrow <- function(head, fins, shaft, inner = NULL) {
   arrow <- polygon_union(fins,  arrow)
   arrow <- polygon_union(inner, arrow)
 
-  if (is_named(arrow[[1]])) {
+  if (is_named(arrow[[1L]])) {
     x <- lapply(arrow, `[[`, "x")
     y <- lapply(arrow, `[[`, "y")
     lens <- lengths(x)
@@ -130,7 +130,7 @@ close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
     cy <- ystart[empty_start]
     angle <- outer(
       norm_angle(angle_line$first[empty_start]),
-      seq(-.halfpi, .halfpi, length.out = 30),
+      seq(-.halfpi, .halfpi, length.out = 30L),
       FUN = `+`
     )
     left  <- rle_start(offset$id_left)[empty_start]
@@ -139,11 +139,11 @@ close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
       offset$x_left[left] - offset$x_right[right],
       offset$y_left[left] - offset$y_right[right]
     )
-    idrep  <- rep(seq_along(id)[empty_start], 30)
+    idrep  <- rep(seq_along(id)[empty_start], 30L)
     xstart <- as.list(xstart)
     ystart <- as.list(ystart)
-    xstart[empty_start] <- split(cx + cos(angle) * width / 2, idrep)
-    ystart[empty_start] <- split(cy + sin(angle) * width / 2, idrep)
+    xstart[empty_start] <- split(cx + cos(angle) * width / 2.0, idrep)
+    ystart[empty_start] <- split(cy + sin(angle) * width / 2.0, idrep)
   }
 
   if (any(empty_end) && lineend == "round") {
@@ -151,7 +151,7 @@ close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
     cy <- yend[empty_end]
     angle <- outer(
       norm_angle(angle_line$last[empty_end]),
-      seq(-.halfpi, .halfpi, length.out = 30),
+      seq(-.halfpi, .halfpi, length.out = 30L),
       FUN = `+`
     )
     left  <- rle_end(offset$id_left)[empty_end]
@@ -160,11 +160,11 @@ close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
       offset$x_left[left] - offset$x_right[right],
       offset$y_left[left] - offset$y_right[right]
     )
-    idrep <- rep(seq_along(id)[empty_end], 30)
+    idrep <- rep(seq_along(id)[empty_end], 30L)
     xend <- as.list(xend)
     yend <- as.list(yend)
-    xend[empty_end] <- split(cx + cos(angle) * width / 2, idrep)
-    yend[empty_end] <- split(cy + sin(angle) * width / 2, idrep)
+    xend[empty_end] <- split(cx + cos(angle) * width / 2.0, idrep)
+    yend[empty_end] <- split(cy + sin(angle) * width / 2.0, idrep)
   }
 
   # Prevent vertex duplications
@@ -172,18 +172,18 @@ close_offset <- function(offset, x, y, angle_line, empty_start, empty_end,
     if (any(empty_start)) {
       xstart <- as.list(xstart)
       ystart <- as.list(ystart)
-      xstart[empty_start] <- ystart[empty_start] <- list(numeric(0))
+      xstart[empty_start] <- ystart[empty_start] <- list(numeric(0L))
     }
     if (any(empty_end)) {
       xend <- as.list(xend)
       yend <- as.list(yend)
-      xend[empty_end] <- yend[empty_end] <- list(numeric(0))
+      xend[empty_end] <- yend[empty_end] <- list(numeric(0L))
     }
   }
 
   Map(
     function(xend, yend, xstart, ystart, L, R) {
-      if (length(R) == 0 || length(L) == 0) {
+      if (length(R) == 0L || length(L) == 0L) {
         return(list(x = offset$x_left[L], y = offset$y_left[L], poly = FALSE))
       }
       list(
@@ -206,7 +206,7 @@ polygon_union <- function(A, B) {
     return(A)
   }
   list <- Map(inner_polygon_union, A = A, B = B)
-  named <- vapply(list, is_named, logical(1))
+  named <- vapply(list, is_named, logical(1L))
   if (all(named) || !any(named)) {
     return(list)
   }
@@ -241,12 +241,12 @@ inner_polygon_union <- function(A, B) {
 #' NULL
 debug_notching <- function(ornament, width = 0.2) {
   line <- resect_line(
-    x = c(-2, 0), y = c(0, 0), new_rle(lengths = 2),
+    x = c(-2.0, 0.0), y = c(0.0, 0.0), new_rle(lengths = 2L),
     end = attr(ornament, "resect")
   )
   shape_shaft(
     x = line$x, y = line$y, id = line$id,
-    width = rep(width, 2), angle_line = line$angle,
+    width = rep(width, 2L), angle_line = line$angle,
     last_angle = attr(ornament, "notch_angle")
-  )[[1]]
+  )[[1L]]
 }

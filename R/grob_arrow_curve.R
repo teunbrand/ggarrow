@@ -29,20 +29,20 @@
 grob_arrow_curve <- function(
   x1, y1, x2, y2,
   default.units = "mm",
-  curvature     = 1,
-  angle         = 90,
-  ncp           = 1,
+  curvature     = 1.0,
+  angle         = 90.0,
+  ncp           = 1L,
   shape         = 0.5,
   square        = TRUE,
-  squareShape   = 1,
+  squareShape   = 1L,
   inflect       = FALSE,
   open          = TRUE,
   name          = NULL,
   gp            = gpar(),
   vp            = NULL,
   ...,
-  width_head    = unit(1, "mm"),
-  width_fins    = unit(1, "mm")
+  width_head    = unit(1.0, "mm"),
+  width_fins    = unit(1.0, "mm")
 ) {
 
   params <- list(..., width_head = width_head, width_fins = width_fins, gp = gp)
@@ -76,7 +76,7 @@ makeContent.curve_arrow <- function(x) {
   # Extract relevant bits
   params <- x$params
   curve  <- x$curve
-  curve  <- makeContent(curve)$children[[1]]
+  curve  <- makeContent(curve)$children[[1L]]
 
   # Get points from curve
   if (inherits(curve, "xspline")) {
@@ -84,14 +84,14 @@ makeContent.curve_arrow <- function(x) {
     pts <- if (all(c("x", "y") %in% names(pts))) list(pts) else pts
     xx  <- do.call(unit.c, lapply(pts, `[[`, i = "x"))
     yy  <- do.call(unit.c, lapply(pts, `[[`, i = "y"))
-    id  <- vapply(pts, function(x) length(x$x), integer(1))
+    id  <- vapply(pts, function(x) length(x$x), integer(1L))
     id  <- rep(seq_along(id), id)
   } else if (inherits(curve, "segments")) {
     xx <- unit.c(curve$x0, curve$x1)
     yy <- unit.c(curve$y0, curve$y1)
     i  <- seq_along(curve$x0)
-    id <- rep(i, each = 2)
-    i  <- `dim<-`(rbind(i, i + max(i), deparse.level = 0), NULL)
+    id <- rep(i, each = 2L)
+    i  <- `dim<-`(rbind(i, i + max(i), deparse.level = 0L), NULL)
     xx <- xx[i]
     yy <- yy[i]
   }
@@ -104,9 +104,9 @@ makeContent.curve_arrow <- function(x) {
   # Interpolate width along arc-length
   arc <- arc_length(as_mm(xx), as_mm(yy), start = start, length = leng)
   norm <- arc / arc[rep.int(end, leng)]
-  width_head <- rep(as_mm(params$width_head %||% 1), leng)
-  width_fins <- rep(as_mm(params$width_fins %||% 1), leng)
-  width <- unit(width_fins * (1 - norm) + width_head * norm, "mm")
+  width_head <- rep(as_mm(params$width_head %||% 1.0), leng)
+  width_fins <- rep(as_mm(params$width_fins %||% 1.0), leng)
+  width <- unit(width_fins * (1.0 - norm) + width_head * norm, "mm")
 
   # Remove old width parametrisation
   params$width_head <- NULL

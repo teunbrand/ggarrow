@@ -45,19 +45,19 @@ NULL
 #' wingtip. Then `offset` is the angle at corner A and `inset` is the angle at
 #' corner C.
 arrow_head_wings <- function(
-  offset = 20,
-  inset  = 30
+  offset = 20.0,
+  inset  = 30.0
 ) {
   offset <- offset * .deg2rad
   inset  <- inset  * .deg2rad
 
-  wing_angle   <- c(-1, 1) * offset
-  inner_angle  <- wing_angle + pi + c(-1, 1) * inset
+  wing_angle   <- c(-1.0, 1.0) * offset
+  inner_angle  <- wing_angle + pi + c(-1.0, 1.0) * inset
   inner_length <- sin(offset) / sin(pi - inset - offset)
 
   wings <- list(
-    x = 1 + cos(wing_angle),
-    y = 0 + sin(wing_angle)
+    x = 1.0 + cos(wing_angle),
+    y = 0.0 + sin(wing_angle)
   )
 
   inner <- list(
@@ -66,10 +66,10 @@ arrow_head_wings <- function(
   )
 
   ans <- cbind(
-    x = c(1, wings$x[1], inner$x[1], wings$x[2]) - inner$x[1],
-    y = c(0, wings$y[1], inner$y[1], wings$y[2])
+    x = c(1.0, wings$x[1L], inner$x[1L], wings$x[2L]) - inner$x[1L],
+    y = c(0.0, wings$y[1L], inner$y[1L], wings$y[2L])
   )
-  mult <- 1 / ans[1]
+  mult <- 1.0 / ans[1L]
   attr(ans, "notch_angle") <- offset + inset
   ans * mult
 }
@@ -87,27 +87,27 @@ arrow_fins_feather <- function(
   height  = 0.5
 ) {
   dent <- c(
-    pmin(indent, c(0, 0, 0)),
-    -pmin(outdent, c(0, 0, 0))
-  )[c(1:2, 4:6, 3)]
+    pmin(indent, c(0.0, 0.0, 0.0)),
+    -pmin(outdent, c(0.0, 0.0, 0.0))
+  )[c(1L:2L, 4L:6L, 3L)]
 
-  x <- c(1 - indent, 1, 0 + outdent, 0, 0 + outdent, 1) + dent
-  y <- c(0, 1, 1, 0, -1, -1) * height / 2
+  x <- c(1.0 - indent, 1.0, 0.0 + outdent, 0.0, 0.0 + outdent, 1.0) + dent
+  y <- c(0.0, 1.0, 1.0, 0.0, -1.0, -1.0) * height / 2.0
 
-  resect <- x[4]
+  resect <- x[4L]
   ans <- cbind(x = x - resect, y = y)
-  angle <- xy_angle(x[c(3, 4, 5)], y[c(3, 4, 5)])
+  angle <- xy_angle(x[3L:5L], y[3L:5L])
   angle <- norm_angle(diff(angle) + pi) + pi
-  attr(ans, "notch_angle") <- angle / 2 + .halfpi
-  attr(ans, "resect") <- 1 - resect
-  attr(ans, "length") <- 1
+  attr(ans, "notch_angle") <- angle / 2.0 + .halfpi
+  attr(ans, "resect") <- 1.0 - resect
+  attr(ans, "length") <- 1.0
   ans
 }
 
 #' @export
 #' @describeIn arrow_ornaments
 #' A line as an arrow head.
-arrow_head_line <- function(angle = 30, lineend = "butt") {
+arrow_head_line <- function(angle = 30.0, lineend = "butt") {
   angle <- angle * .deg2rad
   lineend  <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
 
@@ -117,19 +117,19 @@ arrow_head_line <- function(angle = 30, lineend = "butt") {
       length <- length + 0.5 * width
     }
 
-    x <- 1 - cos(angle) * length
-    y <- 0 - sin(angle) * length
+    x <- 1.0 - cos(angle) * length
+    y <- 0.0 - sin(angle) * length
 
     norm <- angle + .halfpi
     if (lineend == "parallel") {
       x <- c(x, x + width / sin(angle))
       y <- c(y, y)
     } else if (lineend == "round") {
-      cx <- x + cos(norm) * width / 2
-      cy <- y + sin(norm) * width / 2
-      norm <- seq(norm + pi, norm, length.out = 30)
-      x <- c(x, cx + cos(norm) * width / 2)
-      y <- c(y, cy + sin(norm) * width / 2)
+      cx <- x + cos(norm) * width / 2.0
+      cy <- y + sin(norm) * width / 2.0
+      norm <- seq(norm + pi, norm, length.out = 30L)
+      x <- c(x, cx + cos(norm) * width / 2.0)
+      y <- c(y, cy + sin(norm) * width / 2.0)
     } else {
       x <- c(x, x + cos(norm) * width)
       y <- c(y, y + sin(norm) * width)
@@ -141,13 +141,13 @@ arrow_head_line <- function(angle = 30, lineend = "butt") {
     x <- c(x, x[n] + cos(angle - pi) * next_len)
     y <- c(y, y[n] + sin(angle - pi) * next_len)
 
-    x <- c(1, x, x[rev(seq_len(n))])
-    y <- c(0, y, -y[rev(seq_len(n))])
+    x <- c(1.0, x, x[rev(seq_len(n))])
+    y <- c(0.0, y, -y[rev(seq_len(n))])
 
     ans <- cbind(x = x, y = y)
     attr(ans, "notch_angle") <- angle
-    attr(ans, "resect") <- (1 - x[n + 2])
-    ans[, "x"] <- ans[, "x"] - x[n + 2]
+    attr(ans, "resect") <- (1.0 - x[n + 2L])
+    ans[, "x"] <- ans[, "x"] - x[n + 2L]
 
     ans
   }
@@ -156,7 +156,7 @@ arrow_head_line <- function(angle = 30, lineend = "butt") {
 #' @export
 #' @describeIn arrow_ornaments
 #' A line as an arrow fin.
-arrow_fins_line <- function(angle = 30, lineend = "butt") {
+arrow_fins_line <- function(angle = 30.0, lineend = "butt") {
   angle <- pi + angle * .deg2rad
   lineend  <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
 
@@ -166,8 +166,8 @@ arrow_fins_line <- function(angle = 30, lineend = "butt") {
       length <- length + 0.5 * width
     }
 
-    x <- 1 - cos(angle) * length
-    y <- 0 - sin(angle) * length
+    x <- 1.0 - cos(angle) * length
+    y <- 0.0 - sin(angle) * length
 
     norm <- angle + .halfpi
 
@@ -175,11 +175,11 @@ arrow_fins_line <- function(angle = 30, lineend = "butt") {
       x <- c(x, x + width / sin(angle))
       y <- c(y, y)
     } else if (lineend == "round") {
-      cx <- x + cos(norm) * width / 2
-      cy <- y + sin(norm) * width / 2
-      norm <- seq(norm + pi, norm, length.out = 30)
-      x <- c(x, cx + cos(norm) * width / 2)
-      y <- c(y, cy + sin(norm) * width / 2)
+      cx <- x + cos(norm) * width / 2.0
+      cy <- y + sin(norm) * width / 2.0
+      norm <- seq(norm + pi, norm, length.out = 30L)
+      x <- c(x, cx + cos(norm) * width / 2.0)
+      y <- c(y, cy + sin(norm) * width / 2.0)
     } else {
       x <- c(x, x + cos(norm) * width)
       y <- c(y, y + sin(norm) * width)
@@ -191,14 +191,14 @@ arrow_fins_line <- function(angle = 30, lineend = "butt") {
     x <- c(x, x[n] + cos(angle - pi) * next_len)
     y <- c(y, y[n] + sin(angle - pi) * next_len)
 
-    x <- c(1, x, x[rev(seq_len(n))])
-    y <- c(0, y, -y[rev(seq_len(n))])
+    x <- c(1.0, x, x[rev(seq_len(n))])
+    y <- c(0.0, y, -y[rev(seq_len(n))])
 
     ans <- cbind(x = x, y = y)
     attr(ans, "notch_angle") <- -angle
-    attr(ans, "resect") <- max(x) - 1
-    ans[, "x"] <- ans[, "x"] - 1
-    attr(ans, "length") <- 1
+    attr(ans, "resect") <- max(x) - 1.0
+    ans[, "x"] <- ans[, "x"] - 1.0
+    attr(ans, "length") <- 1.0
 
     ans
   }
@@ -217,8 +217,8 @@ arrow_cup <- function(lineend = "round", angle = NULL) {
 
   function(length, width, resect, ...) {
 
-    if (resect == 0) {
-      ans <- cbind(x = c(0, 0), y = c(1, -1))
+    if (resect == 0.0) {
+      ans <- cbind(x = c(0.0, 0.0), y = c(1.0, -1.0))
       attr(ans, "resect") <- resect
       attr(ans, "notch_angle") <- .halfpi
       return(ans)
@@ -232,28 +232,28 @@ arrow_cup <- function(lineend = "round", angle = NULL) {
       lineend <- "butt"
     }
 
-    theta <- seq(-0.5 * angle, 0.5 * angle, length.out = 60)
+    theta <- seq(-0.5 * angle, 0.5 * angle, length.out = 60L)
 
-    r <- resect + c(0, 1) * width
+    r <- resect + c(0.0, 1.0) * width
 
     x <- resect - outer(cos(theta), r)
     y <- outer(sin(theta), r)
 
     if (lineend == "round") {
-      cx <- (x[1, 1] + x[1, 2]) / 2
-      cy <- (y[1, 1] + y[1, 2]) / 2
-      norm <- seq(.twopi, pi, length.out = 20)[-c(1, 20)] + 0.5 * angle
+      cx <- (x[1L, 1L] + x[1L, 2L]) / 2.0
+      cy <- (y[1L, 1L] + y[1L, 2L]) / 2.0
+      norm <- seq(.twopi, pi, length.out = 20L)[-c(1L, 20L)] + 0.5 * angle
       cx <- cx + cos(norm) * width * 0.5
       cy <- cy + sin(norm) * width * 0.5
     } else {
       cx <- cy <- numeric()
     }
-    x <- c(x[, 1],  cx, rev(x[, 2]), rev(cx))
-    y <- c(y[, 1], -cy, rev(y[, 2]), rev(cy))
+    x <- c(x[, 1L],  cx, rev(x[, 2L]), rev(cx))
+    y <- c(y[, 1L], -cy, rev(y[, 2L]), rev(cy))
 
     ans <- cbind(x = x, y = y)
     attr(ans, "notch_angle") <- .halfpi
-    attr(ans, "resect") <- 0
+    attr(ans, "resect") <- 0.0
     ans
   }
 }
@@ -263,9 +263,9 @@ arrow_cup <- function(lineend = "round", angle = NULL) {
 #' This is a 'fake' arrow head who in practice doesn't draw anything, but
 #' sets the `notch_angle` attribute such that the arrow shaft is whittled into
 #' a triangular point.
-arrow_head_minimal <- function(angle = 45) {
+arrow_head_minimal <- function(angle = 45.0) {
   angle <- angle * .deg2rad
-  ans <- cbind(x = c(0, 0), y = c(1, -1))
+  ans <- cbind(x = c(0.0, 0.0), y = c(1.0, -1.0))
   attr(ans, "notch_angle") <- angle
   ans
 }
@@ -275,9 +275,9 @@ arrow_head_minimal <- function(angle = 45) {
 #' This is a 'fake' arrow head who in practise doesn't draw anything, but
 #' sets the `notch_angle` attribute such that a triangle is taken out of the
 #' arrow shaft.
-arrow_fins_minimal <- function(angle = 45) {
+arrow_fins_minimal <- function(angle = 45.0) {
   angle <- (angle * .deg2rad) + .halfpi
-  ans <- cbind(x = c(0, 0), y = c(1, -1))
+  ans <- cbind(x = c(0.0, 0.0), y = c(1.0, -1.0))
   attr(ans, "notch_angle") <- angle
   ans
 }
@@ -285,30 +285,30 @@ arrow_fins_minimal <- function(angle = 45) {
 #' @export
 #' @describeIn arrow_ornaments
 #' This a 'half' version of `arrow_head_wings()`.
-arrow_head_halfwing <- function(offset = 20, inset = 30, direction = 1) {
+arrow_head_halfwing <- function(offset = 20.0, inset = 30.0, direction = 1L) {
   poly <- arrow_head_wings(offset = offset, inset = inset)
-  poly <- poly[1:3, ]
+  poly <- poly[1L:3L, ]
 
   direction <- sign(direction)
-  if (direction != 1) {
-    poly[, 2] <- poly[, 2] * -1
-    poly <- poly[3:1, ]
+  if (direction != 1L) {
+    poly[, 2L] <- poly[, 2L] * -1.0
+    poly <- poly[3L:1L, ]
   }
-  ang <- (180 - offset - inset) * .deg2rad
+  ang <- (180.0 - offset - inset) * .deg2rad
 
 
   function(length, width, ...) {
     # Scale arrowhead by length
     poly <- poly * length
     # Scoot over the arrowhead by half the linewidth
-    poly[, 2] <- poly[, 2] - 0.5 * width * direction
+    poly[, 2L] <- poly[, 2L] - 0.5 * width * direction
 
-    if ((offset + inset) > 90) {
+    if ((offset + inset) > 90.0) {
       # If the wing is obtusely connected to shaft,
       # make shaft a little longer
       w <- width * sin(0.5 * pi - ang) / sin(ang)
       length <- length - w
-      poly[, 1] <- poly[, 1] - w
+      poly[, 1L] <- poly[, 1L] - w
     }
 
     attr(poly, "resect") <- length
@@ -319,12 +319,15 @@ arrow_head_halfwing <- function(offset = 20, inset = 30, direction = 1) {
 #' @export
 #' @describeIn arrow_ornaments
 #' This a 'half' version of `arrow_head_line()`.
-arrow_head_halfline <- function(angle = 30, lineend = "butt", direction = 1) {
-
+arrow_head_halfline <- function(
+  angle = 30.0,
+  lineend = "butt",
+  direction = 1L
+) {
   angle <- angle * .deg2rad
   lineend <- arg_match0(lineend, c("butt", "round", "parallel", "square"))
   direction <- sign(direction)
-  if (direction == 0) direction <- 1
+  if (direction == 0L) direction <- 1L
 
   function(length, width, ...) {
 
@@ -332,8 +335,8 @@ arrow_head_halfline <- function(angle = 30, lineend = "butt", direction = 1) {
       length <- length + 0.5 * width
     }
 
-    x <- 1 - cos(angle) * length
-    y <- 0 - sin(angle) * length
+    x <- 1.0 - cos(angle) * length
+    y <- 0.0 - sin(angle) * length
 
     norm <- angle + .halfpi
 
@@ -341,11 +344,11 @@ arrow_head_halfline <- function(angle = 30, lineend = "butt", direction = 1) {
       x <- c(x, x - width / sin(angle))
       y <- c(y, y)
     } else if (lineend == "round") {
-      cx <- x + cos(norm) * width / 2
-      cy <- y + sin(norm) * width / 2
-      norm <- seq(norm + pi, norm, length.out = 30)
-      x <- c(x, cx + cos(norm) * width / 2)
-      y <- c(y, cy + sin(norm) * width / 2)
+      cx <- x + cos(norm) * width / 2.0
+      cy <- y + sin(norm) * width / 2.0
+      norm <- seq(norm + pi, norm, length.out = 30L)
+      x <- c(x, cx + cos(norm) * width / 2.0)
+      y <- c(y, cy + sin(norm) * width / 2.0)
     } else {
       x <- c(x, x + cos(norm) * width)
       y <- c(y, y + sin(norm) * width)
@@ -357,15 +360,15 @@ arrow_head_halfline <- function(angle = 30, lineend = "butt", direction = 1) {
     x <- c(x, x[n] + cos(angle - pi) * next_len)
     y <- c(y, y[n] + sin(angle - pi) * next_len)
 
-    x <- c(1, x)
-    y <- (c(0, y) + 0.5 * width) * direction
+    x <- c(1.0, x)
+    y <- (c(0.0, y) + 0.5 * width) * direction
 
     ans <- cbind(x = x, y = y)
     resect <- x[length(x)]
     if (angle > 0.5 * pi) {
       resect <- resect + width
     }
-    attr(ans, "resect") <- 1 - resect
+    attr(ans, "resect") <- 1.0 - resect
     ans[, "x"] <- ans[, "x"] - resect
     ans
   }

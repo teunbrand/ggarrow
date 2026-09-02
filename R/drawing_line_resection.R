@@ -37,8 +37,8 @@ resect_line <- function(x, y, id, end = NULL, begin = NULL, width = NULL) {
   end_angle <- begin_angle <- NULL
 
   # Don't resect negative numbers
-  end   <- pmax(end, 0)
-  begin <- pmax(begin, 0)
+  end   <- pmax(end, 0.0)
+  begin <- pmax(begin, 0.0)
 
   line <- resect_end(line$x, line$y, line$id, end, line$width)
   end_angle <- line$angle
@@ -55,10 +55,10 @@ resect_end <- function(x, y, id, resect, width) {
 
   # Calculate default angle
   id_end <- rle_end(id)
-  angle  <- atan2(y[id_end] - y[id_end - 1], x[id_end] - x[id_end - 1])
+  angle  <- atan2(y[id_end] - y[id_end - 1L], x[id_end] - x[id_end - 1L])
 
   # Early exit when no resection needs to be performed
-  if (!any(resect > 0)) {
+  if (!any(resect > 0.0)) {
     ans <- list(x = x, y = y, id = id, width = width, angle = angle)
     return(ans)
   }
@@ -105,13 +105,13 @@ resect_end <- function(x, y, id, resect, width) {
     keep <- rle_end(id) %in% final
   }
 
-  if (length(first) > 0) {
+  if (length(first) > 0L) {
 
     # Interpolate points
     resect <- resect[first]
-    dist   <- interpol_dist(resect, first - 1, dist)
-    newx   <- linear_interpol(x, first - 1, dist)
-    newy   <- linear_interpol(y, first - 1, dist)
+    dist   <- interpol_dist(resect, first - 1L, dist)
+    newx   <- linear_interpol(x, first - 1L, dist)
+    newy   <- linear_interpol(y, first - 1L, dist)
     angle[which(keep)] <- atan2(y[final] - newy, x[final] - newx)
 
     # Mark out-of-bound points as NA
@@ -145,11 +145,11 @@ resect_end <- function(x, y, id, resect, width) {
 
 # Resecting the start is the same as resecting the end in reverse
 resect_start <- function(x, y, id, resect, width) {
-  if (!any(resect > 0)) {
+  if (!any(resect > 0.0)) {
     start <- rle_start(id)
     ans <- list(
       x = x, y = y, id = id, width = width,
-      angle = atan2(y[start] - y[start + 1], x[start] - x[start + 1])
+      angle = atan2(y[start] - y[start + 1L], x[start] - x[start + 1L])
     )
     return(ans)
   }

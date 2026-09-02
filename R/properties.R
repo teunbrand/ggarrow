@@ -65,7 +65,7 @@ property_distort <- function() {
         return(character())
       }
       if (is.character(value)) {
-        if (length(value) != 1) {
+        if (length(value) != 1L) {
           "must be scalar when {.cls character}."
         }
         pattern <- paste0("distort_", value)
@@ -79,10 +79,10 @@ property_distort <- function() {
       if (!is.matrix(value)) {
         return(as_cli("must be a {.cls matrix}."))
       }
-      if (ncol(value) != 2) {
+      if (ncol(value) != 2L) {
         return(as_cli("must have 2 columns when a {.cls matrix}."))
       }
-      if (nrow(value) < 1) {
+      if (nrow(value) < 1L) {
         return(as_cli("must have at least 1 row when a {.cls matrix}"))
       }
       character()
@@ -104,7 +104,7 @@ property_arrow <- function(allow_null = TRUE) {
     if (is.null(value) || is.function(value)) {
       return(character())
     }
-    if (is.character(value) && length(value) != 1) {
+    if (is.character(value) && length(value) != 1L) {
       return(as_cli("must be scalar when {.cls character}."))
     }
     if (!is.numeric(value)) {
@@ -113,10 +113,10 @@ property_arrow <- function(allow_null = TRUE) {
     if (!is.matrix(value)) {
       return(as_cli("must be a {.cls matrix} when {.cls numeric}."))
     }
-    if (ncol(value) != 2) {
+    if (ncol(value) != 2L) {
       return(as_cli("must have 2 columns when a {.cls matrix}."))
     }
-    if (nrow(value) < 1) {
+    if (nrow(value) < 1L) {
       return(as_cli("must have at least 1 row when a {.cls matrix}"))
     }
     character()
@@ -143,7 +143,7 @@ property_length <- function(allow_null = TRUE, ...) {
   )
 }
 
-check_restriction <- function(value, n = NA, min = 0, max = 1L) {
+check_restriction <- function(value, n = NA, min = 0.0, max = 1.0) {
   if (!is.na(n) && !length(value) %in% n) {
     return(paste0("must have length ", n, "."))
   }
@@ -153,7 +153,7 @@ check_restriction <- function(value, n = NA, min = 0, max = 1L) {
   if (any(value > max)) {
     return(paste0("must be at most ", max, "."))
   }
-  return(character())
+  character()
 }
 
 property_boolean <- function(allow_null = FALSE, default = TRUE) {

@@ -13,8 +13,8 @@
 draw_key_arrow <- function(data, params, size) {
 
   width <- unit(data$linewidth * .pt / .stroke, "mm")
-  length_head <- params$length_head %||% 4
-  length_fins <- params$length_fins %||% 4
+  length_head <- params$length_head %||% 4.0
+  length_fins <- params$length_fins %||% 4.0
   if (!is.unit(length_head)) {
     length_head <- length_head * width
   }
@@ -36,9 +36,9 @@ draw_key_arrow <- function(data, params, size) {
       col  = data$stroke_colour    %||% NA,
       fill = alpha(data$colour     %||% "black", data$alpha %||% NA),
       lwd  = data$stroke_width     %||% 0.5 * .pt,
-      lty  = data$linetype         %||% 1,
+      lty  = data$linetype         %||% 1L,
       linejoin  = params$linejoin  %||% "round",
-      linemitre = params$linemitre %||% 10
+      linemitre = params$linemitre %||% 10.0
     )
   )
 
@@ -48,7 +48,7 @@ draw_key_arrow <- function(data, params, size) {
   # 1.25 is for spanning 0.9 - 0.1 = 0.8 npcs: 1 / 0.8 = 1.25 multiplier
   # 10 is for mm --> cm
 
-  size <- (length_head + length_fins) * 1.25 / (sqrt(2) * 10)
+  size <- (length_head + length_fins) * 1.25 / (sqrt(2.0) * 10.0)
   attr(grob, "width") <- attr(grob, "height") <- size
 
   grob

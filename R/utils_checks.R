@@ -2,7 +2,7 @@
 
 is_constant <- function(x) {
   if (is.list(x)) {
-    ans <- vapply0(x, is_constant, logical(1))
+    ans <- vapply0(x, is_constant, logical(1L))
     return(ans)
   }
   if (length(x) == 1L) {
@@ -20,7 +20,7 @@ check_ornament_length <- function(x, arg_nm = caller_arg(x),
                                   call = caller_env()) {
   check_number_decimal(
     x,
-    min = 0,
+    min = 0.0,
     allow_infinite = FALSE,
     allow_na       = FALSE,
     allow_null     = FALSE,
@@ -34,7 +34,7 @@ check_ornament_matrix <- function(
   if (!is.matrix(x)) {
     return(x)
   }
-  if (ncol(x) != 2) {
+  if (ncol(x) != 2L) {
     cli::cli_abort("{.arg {arg_nm}} must have 2 columns.", call = call)
   }
   if (!typeof(x) %in% c("integer", "double")) {
@@ -44,7 +44,7 @@ check_ornament_matrix <- function(
 
 check_offset <- function(
   x,
-  n = 1,
+  n = 1L,
   arg_nm = caller_arg(x),
   call = caller_env()
 ) {
@@ -57,7 +57,7 @@ check_offset <- function(
       call = call
     )
   }
-  if (is.numeric(x) && any(!is.finite(x))) {
+  if (is.numeric(x) && !all(is.finite(x))) {
     cli::cli_abort(
       "{.arg {arg_nm}} must have finite values.",
       call = call
@@ -76,7 +76,7 @@ check_offset <- function(
 # Validators --------------------------------------------------------------
 
 validate_length <- function(base = NULL, head = NULL, fins = NULL, mid = NULL,
-                            default = 4, call = caller_env()) {
+                            default = 4.0, call = caller_env()) {
   base <- base %||% default
   check_ornament_length(base, arg_nm = "length",      call = call)
   head <- head %||% base
@@ -109,8 +109,8 @@ validate_id <- function(id = NULL, id.lengths = NULL, alt = NULL,
     id <- new_rle(id, id.lengths, alt)
   }
 
-  if (any(field(id, "length") < 2)) {
-    n <- sum(field(id, "length") < 2)
+  if (any(field(id, "length") < 2L)) {
+    n <- sum(field(id, "length") < 2L)
     cli::cli_abort(c(
       "{.fn {fun_nm}} cannot draw arrows with fewer than two points per group.",
       i = "There {?is/are} {n} group{?s} with fewer than two points."
@@ -137,8 +137,8 @@ validate_ornament_character <- function(x) {
   if (!is.character(x)) {
     return(x)
   }
-  if (length(unique(x)) == 1) {
-    x <- x[1]
+  if (length(unique(x)) == 1L) {
+    x <- x[1L]
   }
   arrow_pal(x)
 }
@@ -149,7 +149,7 @@ validate_ornament_list <- function(
   if (!is.list(x)) {
     return(x)
   }
-  x <- lapply(x, validate_ornament, n = 1, arg = arg, call = call)
+  x <- lapply(x, validate_ornament, n = 1L, arg = arg, call = call)
   if (length(x) == 1L) {
     x <- .subset2(x, 1L)
   }
@@ -180,17 +180,17 @@ validate_ornament <- function(ornament, n,
     return(ornament)
   }
   # Check lengths
-  if (length(ornament) %in% c(1, n)) {
+  if (length(ornament) %in% c(1L, n)) {
     return(ornament)
   }
-  if (n == 1) {
+  if (n == 1L) {
     cli::cli_abort("{.arg {arg}} must have length 1.", call = call)
   }
   cli::cli_abort("{.arg {arg}} must have length 1 or {n}", call = call)
 }
 
 validate_matrix_list <- function(
-  list, dim = c(NA, 2), typeof = c("integer", "double"),
+  list, dim = c(NA, 2L), typeof = c("integer", "double"),
   fun_allowed = TRUE,
   x_arg = caller_arg(x), call = caller_env()
 ) {
@@ -228,29 +228,29 @@ validate_matrix_list <- function(
     }
   }
 
-  if (sum(length(not_matrix), length(not_dim), length(not_typeof)) == 0) {
+  if (sum(length(not_matrix), length(not_dim), length(not_typeof)) == 0L) {
     return(list)
   }
   msg <- "{.arg {x_arg}} is not a list of valid matrices."
   n_not_matrix <- length(not_matrix)
-  if (n_not_matrix > 0) {
+  if (n_not_matrix > 0L) {
     msg <- c(msg, i = paste0(
       "{cli::qty(n_not_matrix)}Element{?s} {.and {not_matrix}}",
       "{cli::qty(n_not_matrix)} {?is/are} not {?a / }matri{?x/ces}."
     ))
   }
   n_not_dim <- length(not_dim)
-  if (n_not_dim > 0) {
+  if (n_not_dim > 0L) {
     dim <- as.character(dim)
     dim[is.na(dim)] <- c("n", "m")[is.na(dim)]
-    dim <- paste0("[", dim[1], ", ", dim[2], "]")
+    dim <- paste0("[", dim[1L], ", ", dim[2L], "]")
     msg <- c(msg, i = paste0(
       "{cli::qty(n_not_dim)}Element{?s} {.and {not_dim}} ",
       "{cli::qty(n_not_dim)}{?does/do} not have dimension {.field {dim}}."
     ))
   }
   n_not_typeof <- length(not_typeof)
-  if (n_not_typeof > 0) {
+  if (n_not_typeof > 0L) {
     msg <- c(msg, i = paste0(
       "{cli::qty(n_not_typeof)}Element{?s} {.and {not_typeof}} ",
       "{cli::qty(n_not_typeof)}{?does/do} not have the type {.cls {typeof}}."

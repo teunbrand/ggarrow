@@ -5,10 +5,10 @@ place_arrow <- function(
     return(arrow)
   }
   # Recycle size
-  size  <- rep(size, length.out = length(id))
+  size  <- rep_len(size, length(id))
   valid <- rle_valid(id)
   if (is.list(arrow)) {
-    valid <- valid & lengths(arrow) > 0
+    valid <- valid & lengths(arrow) > 0.0
   }
 
   # If there are invalid lines, try again without these
@@ -47,8 +47,8 @@ resolve_ornament <- function(
 ) {
 
   if (is.null(ornament)) {
-    ans <- list(ornament = NULL, length = rep(0, length(id)),
-                resect = rep(0, length(id)), angle = NA, scale = NA)
+    ans <- list(ornament = NULL, length = rep(0.0, length(id)),
+                resect = rep(0.0, length(id)), angle = NA, scale = NA)
     return(ans)
   }
   if (is.list(ornament)) {
@@ -63,14 +63,14 @@ resolve_ornament <- function(
     )
     ornament <- list(
       ornament = lapply(ornament, .subset2, "ornament"),
-      length   = vapply(ornament, .subset2, numeric(1), "length"),
-      scale    = vapply(ornament, .subset2, numeric(1), "scale"),
-      resect   = vapply(ornament, .subset2, numeric(1), "resect"),
-      angle    = vapply(ornament, .subset2, numeric(1), "angle")
+      length   = vapply(ornament, .subset2, numeric(1L), "length"),
+      scale    = vapply(ornament, .subset2, numeric(1L), "scale"),
+      resect   = vapply(ornament, .subset2, numeric(1L), "resect"),
+      angle    = vapply(ornament, .subset2, numeric(1L), "angle")
     )
     ornament$ornament <- lapply(ornament$ornament, function(x) {
-      if (is.list(x) && length(x) == 1) {
-        return(.subset2(x, 1))
+      if (is.list(x) && length(x) == 1L) {
+        return(.subset2(x, 1L))
       }
       x
     })
@@ -87,22 +87,22 @@ resolve_ornament <- function(
       ornament,
       length = as_mm(length), width = width[i], resect = resect
     )
-    attrnames <- names(attributes(ornament[[1]]))
+    attrnames <- names(attributes(ornament[[1L]]))
     if ("resect" %in% attrnames) {
-      resect <- vapply(ornament, attr, numeric(1), "resect")
+      resect <- vapply(ornament, attr, numeric(1L), "resect")
     } else {
-      resect <- rep(0, length(ornament))
+      resect <- rep(0.0, length(ornament))
     }
     if ("notch_angle" %in% attrnames) {
-      angle <- vapply(ornament, attr, numeric(1), "notch_angle")
+      angle <- vapply(ornament, attr, numeric(1L), "notch_angle")
     } else {
       angle <- rep(.halfpi, length(ornament))
     }
-    scale  <- rep(1, length(id))
+    scale  <- rep(1.0, length(id))
   } else {
     length <- pmax(as_mm(length), width[i] / diff(range(ornament[, "y"])))
     length <- (attr(ornament, "length") %||% max(ornament[, "x"])) * length
-    resect <- (attr(ornament, "resect") %||% 1) * length
+    resect <- (attr(ornament, "resect") %||% 1.0) * length
     angle  <- attr(ornament, "notch_angle") %||% .halfpi
     scale  <- length
   }
@@ -129,7 +129,7 @@ resolve_inner <- function(
       width = rle_chop(width, id),
       MoreArgs = list(placement = placement)
     )
-    i <- lengths(ornament) > 0
+    i <- lengths(ornament) > 0.0
     ornament[i] <- unlist(ornament[i], recursive = FALSE)
     return(ornament)
   }
@@ -141,7 +141,46 @@ resolve_inner <- function(
   arc_length <- arc_length(x, y, start, id_length)
   n_places <- length(placement)
 
-  if (!is.unit(placement)) {
+  if (is.unit(placement)) {
+    sign <- sign(as.numeric(placement))
+    placement <- abs(placement)
+
+    temp_width <- (width[start] + width[end]) / 2.0
+    if (!is.unit(length)) {
+      length <- length * temp_width
+    }
+    if (is.function(ornament)) {
+      ornament <- Map(ornament, length = length, width = temp_width)
+      length   <- vapply(ornament, attr, numeric(1L), "resect")
+      ornament <- lapply(ornament, function(o) {
+        o[, "x"] <- o[, "x"] - 0.5 * (attr(o[, "x"], "resect") %||% 1.0)
+        o
+      })
+      scale <- 1.0
+    } else {
+      thickness <- diff(range(ornament[, "y"]))
+      length <- pmax(as_mm(length), temp_width / thickness)
+      scale <- length
+    }
+
+    placement  <- as_mm(placement)
+    sum_length <- length + placement
+    arc_end    <- arc_length[end]
+    n_arrow    <- arc_end %/% sum_length
+    remain     <- arc_end - sum_length * (n_arrow - 1.0) + length
+
+    split_arc <- rle_chop(arc_length, id)
+    pos <- lapply(seq_along(id), function(i) {
+      pos <- sum_length[i] * 0L:(n_arrow[i] - 1L) + 0.5 * remain[i]
+      unname(cbind(pos - 0.5 * length[i], pos, pos + 0.5 * length[i]))
+    })
+
+    index <- lapply(seq_along(id), function(i) {
+      idx <- findInterval(pos[[i]], split_arc[[i]], all.inside = TRUE)
+      `dim<-`(idx + start[i] - 1L, dim(pos[[1L]]))
+    })
+    pos <- do.call(rbind, pos)
+  } else {
     placement <- placement[order(abs(placement))]
     sign <- sign(placement)
     placement <- abs(placement)
@@ -163,12 +202,12 @@ resolve_inner <- function(
 
     if (is.function(ornament)) {
       ornament <- Map(ornament, length = as_mm(length), width = width)
-      length   <- vapply(ornament, attr, numeric(1), "resect")
+      length   <- vapply(ornament, attr, numeric(1L), "resect")
       ornament <- lapply(ornament, function(o) {
-        o[, "x"] <- o[, "x"] - 0.5 * (attr(o[, "x"], "resect") %||% 1)
+        o[, "x"] <- o[, "x"] - 0.5 * (attr(o[, "x"], "resect") %||% 1.0)
         o
       })
-      scale <- 1
+      scale <- 1.0
     } else {
       if (!is.unit(length)) {
         length <- length * width
@@ -178,9 +217,9 @@ resolve_inner <- function(
       scale <- length
     }
 
-    pos <- outer(length, c(-0.5, 0, 0.5))
-    pos[] <- pos * rep(width, 3)
-    pos[] <- pos + rep(arc, 3)
+    pos <- outer(length, c(-0.5, 0.0, 0.5))
+    pos[] <- pos * rep(width, 3L)
+    pos[] <- pos + rep(arc, 3L)
 
     index <- rep(seq_along(id), each = n_places)
     index <- split(seq_len(nrow(pos)), index)
@@ -188,47 +227,8 @@ resolve_inner <- function(
     index <- lapply(seq_along(id), function(i) {
       idx <- index[[i]]
       x <- findInterval(pos[index[[i]], ], split_arc[[i]], all.inside = TRUE)
-      `dim<-`(x, c(length(idx), 3)) + start[i] - 1L
+      `dim<-`(x, c(length(idx), 3L)) + start[i] - 1L
     })
-  } else {
-    sign <- sign(as.numeric(placement))
-    placement <- abs(placement)
-
-    temp_width <- (width[start] + width[end]) / 2
-    if (!is.unit(length)) {
-      length <- length * temp_width
-    }
-    if (is.function(ornament)) {
-      ornament <- Map(ornament, length = length, width = temp_width)
-      length   <- vapply(ornament, attr, numeric(1), "resect")
-      ornament <- lapply(ornament, function(o) {
-        o[, "x"] <- o[, "x"] - 0.5 * (attr(o[, "x"], "resect") %||% 1)
-        o
-      })
-      scale <- 1
-    } else {
-      thickness <- diff(range(ornament[, "y"]))
-      length <- pmax(as_mm(length), temp_width / thickness)
-      scale <- length
-    }
-
-    placement  <- as_mm(placement)
-    sum_length <- length + placement
-    arc_end    <- arc_length[end]
-    n_arrow    <- arc_end %/% sum_length
-    remain     <- arc_end - sum_length * (n_arrow - 1) + length
-
-    split_arc <- rle_chop(arc_length, id)
-    pos <- lapply(seq_along(id), function(i) {
-      pos <- sum_length[i] * 0:(n_arrow[i] - 1) + 0.5 * remain[i]
-      unname(cbind(pos - 0.5 * length[i], pos, pos + 0.5 * length[i]))
-    })
-
-    index <- lapply(seq_along(id), function(i) {
-      idx <- findInterval(pos[[i]], split_arc[[i]], all.inside = TRUE)
-      `dim<-`(idx + start[i] - 1L, dim(pos[[1]]))
-    })
-    pos <- do.call(rbind, pos)
   }
 
   index <- do.call(rbind, index)
@@ -236,15 +236,16 @@ resolve_inner <- function(
   new_x <- linear_interpol(x, index, d)
   new_y <- linear_interpol(y, index, d)
 
-  dx <- new_x[, 3] - new_x[, 1]
-  dy <- new_y[, 3] - new_y[, 1]
+  dx <- new_x[, 3L] - new_x[, 1L]
+  dy <- new_y[, 3L] - new_y[, 1L]
   angle <- atan2(dy, dx)
   if (!is.null(sign)) {
-    angle[sign == -1] <- norm_angle(angle[sign == -1] + pi)
+    i <- sign == -1.0
+    angle[i] <- norm_angle(angle[i] + pi)
   }
 
   arrow <- rotate_scale(ornament, angle)
-  arrow <- scale_translate(arrow, new_x[, 2], new_y[, 2], scale)
+  arrow <- scale_translate(arrow, new_x[, 2L], new_y[, 2L], scale)
 
   arrow <- polygonise(arrow)
   split(arrow, rep(seq_along(id), n_arrow))

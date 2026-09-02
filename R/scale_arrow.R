@@ -140,7 +140,7 @@ scale_arrow_head_continuous <- function(
   generator  = arrow_head_wings,
   map_arg    = "offset",
   other_args = list(),
-  range = c(10, 80),
+  range = c(10.0, 80.0),
   transform = "identity",
   guide = "legend"
 ) {
@@ -164,7 +164,7 @@ scale_arrow_fins_continuous <- function(
   generator  = arrow_fins_feather,
   map_arg    = "indent",
   other_args = list(),
-  range = c(0, 1),
+  range = c(0.0, 1.0),
   transform = "identity",
   guide = "legend"
 ) {
@@ -188,7 +188,7 @@ scale_arrow_mid_continuous <- function(
   generator  = arrow_head_wings,
   map_arg    = "offset",
   other_args = list(),
-  range = c(10, 80),
+  range = c(10.0, 80.0),
   transform = "identity",
   guide = "legend"
 ) {
@@ -263,8 +263,8 @@ scale_resect_continuous <- function(
     pal   <- identity_pal()
     super <- ScaleContinuousIdentity
   } else {
-    check_number_decimal(range[1], min = 0, allow_infinite = FALSE)
-    check_number_decimal(range[2], min = 0, allow_infinite = FALSE)
+    check_number_decimal(range[1L], min = 0.0, allow_infinite = FALSE)
+    check_number_decimal(range[2L], min = 0.0, allow_infinite = FALSE)
     pal   <- rescale_pal(range)
     super <- ScaleContinuous
   }
@@ -294,13 +294,13 @@ scale_resect_discrete <- function(
   }
 
   if (!is.null(range)) {
-    check_number_decimal(range[1], min = 0, allow_infinite = FALSE)
-    check_number_decimal(range[2], min = 0, allow_infinite = FALSE)
+    check_number_decimal(range[1L], min = 0.0, allow_infinite = FALSE)
+    check_number_decimal(range[2L], min = 0.0, allow_infinite = FALSE)
     force(range)
     discrete_scale(
       aesthetics = aesthetics,
       palette = function(n) {
-        seq(range[1], range[2], length.out = n)
+        seq(range[1L], range[2L], length.out = n)
       },
       guide = guide,
       ...
@@ -314,12 +314,12 @@ scale_resect_discrete <- function(
 
 generator_pal <- function(
   generator, map_arg, other_args,
-  range = c(0, 1), gen_name,
+  range = c(0.0, 1.0), gen_name,
   call = caller_env()
 ) {
   check_function(generator)
   arg_names <- fn_fmls_names(generator)
-  if (length(arg_names) == 0) {
+  if (length(arg_names) == 0L) {
     cli::cli_abort("{.fn {gen_name}} must have arguments.", call = call)
   }
   if (!map_arg %in% arg_names) {
@@ -331,14 +331,14 @@ generator_pal <- function(
   if (!"..." %in% arg_names) {
     extra <- setdiff(names(other_args), arg_names)
     other_args <- other_args[intersect(names(other_args), arg_names)]
-    if (length(extra) > 0) {
+    if (length(extra) > 0L) {
       cli::cli_warn(c(
         "{.arg other_args} has unknown arguments of {.fn {gen_name}}.",
         i = "{.and {.field {extra}}} {?has/have} been dropped."
       ))
     }
   }
-  if (!is.numeric(range) || length(range) != 2 || !all(is.finite(range))) {
+  if (!is.numeric(range) || length(range) != 2L || !all(is.finite(range))) {
     cli::cli_abort(
       "{.arg range} must be a finite numeric vector of length 2.",
       call = call
@@ -347,10 +347,10 @@ generator_pal <- function(
   force(other_args)
 
   function(x) {
-    if (length(x) == 0) {
+    if (length(x) == 0L) {
       return(NULL)
     }
-    x <- rescale(x, to = range, from = c(0, 1))
+    x <- rescale(x, to = range, from = c(0.0, 1.0))
     lapply(x, function(input) {
       exec(
         generator,
@@ -366,7 +366,7 @@ arrow_pal <- function(x) {
   if (is.character(x)) {
     x <- as.list(x)
   }
-  is_char <- vapply(x, is.character, logical(1))
+  is_char <- vapply(x, is.character, logical(1L))
   x[is_char] <- lapply(x[is_char], function(name) {
 
     pattern <- paste0("arrow_", name)
@@ -386,5 +386,5 @@ arrow_pal <- function(x) {
     fun()
   })
 
-  validate_matrix_list(x, dim = c(NA, 2), typeof = c("integer", "double"))
+  validate_matrix_list(x, dim = c(NA, 2L), typeof = c("integer", "double"))
 }

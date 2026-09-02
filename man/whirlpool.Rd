@@ -4,7 +4,7 @@
 \alias{whirlpool}
 \title{Whirlpool data}
 \usage{
-whirlpool(n = 5, detail = 100)
+whirlpool(n = 5L, detail = 100L)
 }
 \arguments{
 \item{n}{The number of streams in the whirlpool.}

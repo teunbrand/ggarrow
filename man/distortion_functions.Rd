@@ -7,7 +7,7 @@
 \alias{distort_squarewave}
 \title{Line distortion functions}
 \usage{
-distort_sinewave(length = 4, width = 2, n = 30)
+distort_sinewave(length = 4, width = 2, n = 30L)
 
 distort_sawtooth(length = 4, width = 2)
 

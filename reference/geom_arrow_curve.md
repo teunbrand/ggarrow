@@ -14,7 +14,7 @@ geom_arrow_curve(
   ...,
   curvature = 0.5,
   angle = 90,
-  ncp = 5,
+  ncp = 5L,
   arrow_head = arrow_head_wings(),
   arrow_fins = NULL,
   arrow_mid = NULL,

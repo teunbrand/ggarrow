@@ -21,9 +21,9 @@ arrow_head_minimal(angle = 45)
 
 arrow_fins_minimal(angle = 45)
 
-arrow_head_halfwing(offset = 20, inset = 30, direction = 1)
+arrow_head_halfwing(offset = 20, inset = 30, direction = 1L)
 
-arrow_head_halfline(angle = 30, lineend = "butt", direction = 1)
+arrow_head_halfline(angle = 30, lineend = "butt", direction = 1L)
 ```
 
 ## Arguments

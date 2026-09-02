@@ -6,7 +6,7 @@ with.
 ## Usage
 
 ``` r
-whirlpool(n = 5, detail = 100)
+whirlpool(n = 5L, detail = 100L)
 ```
 
 ## Arguments

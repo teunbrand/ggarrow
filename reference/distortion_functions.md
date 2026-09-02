@@ -7,7 +7,7 @@ will be repeated to distort a line.
 ## Usage
 
 ``` r
-distort_sinewave(length = 4, width = 2, n = 30)
+distort_sinewave(length = 4, width = 2, n = 30L)
 
 distort_sawtooth(length = 4, width = 2)
 

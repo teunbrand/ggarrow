@@ -2,3 +2,7 @@ url: https://teunbrand.github.io/ggarrow/
 template:
   bootstrap: 5
 
+news:
+  releases:
+  - text: "Version 0.2.0"
+    href: https://teunbrand.github.io/teunbrand_blog/posts/2026-09-02-ggarrow-0-2-0/

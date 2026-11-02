@@ -191,8 +191,8 @@ GeomArrowSegment <- ggproto(
 
     GeomArrow$draw_panel(
       pieces, panel_params, coord,
-      linejoin = linejoin, linemitre = linemitre, na.rm = na.rm,
-      arrow = arrow, length = length, justify = justify,
+      linejoin = linejoin, linemitre = linemitre, lineend = lineend,
+      na.rm = na.rm, arrow = arrow, length = length, justify = justify,
       force_arrow = force_arrow, mid_place = mid_place,
       resect = resect, sep = sep, distort = distort
     )

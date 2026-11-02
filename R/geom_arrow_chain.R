@@ -232,7 +232,8 @@ GeomArrowChain <- ggproto(
         lwd  = data$stroke_width[start] * .pt,
         lty  = data$linetype[start],
         linejoin  = linejoin,
-        linemitre = linemitre
+        linemitre = linemitre,
+        lineend   = lineend
       )
     )
   }

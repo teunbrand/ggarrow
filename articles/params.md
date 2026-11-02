@@ -9,7 +9,6 @@ what the parameters are doing.
 
 library(ggarrow)
 #> Loading required package: ggplot2
-#> Overwriting method merge_element(<ggarrow::element_arrow>, <ANY>)
 
 p <- ggplot(data.frame(x = c(0, 1), y = 0), aes(x, y)) +
   geom_point(colour = c(2, 4), size = 3) +

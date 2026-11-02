@@ -2,7 +2,15 @@
 
 ## ggarrow (development version)
 
-- Updates for compatibility with S7 \> 0.2.2.
+This is a patch release anticipating changes in S7.
+
+- Updates for compatibility with S7 \> 0.2.2
+  ([\#20](https://github.com/teunbrand/ggarrow/issues/20)).
+- Fixed bug where `lineend` went missing in
+  [`geom_arrow_chain()`](https://teunbrand.github.io/ggarrow/reference/geom_arrow_chain.md)
+  and
+  [`geom_arrow_segment()`](https://teunbrand.github.io/ggarrow/reference/geom_arrow_segment.md)
+  ([\#21](https://github.com/teunbrand/ggarrow/issues/21)).
 
 ## ggarrow 0.2.0
 

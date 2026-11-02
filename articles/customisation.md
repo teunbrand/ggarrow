@@ -33,7 +33,6 @@ Also, the tip of the ornament is expected to be at the (1,0) coordinate.
 orn <- my_ornament(5)
 
 plot_ornament(orn)
-#> Overwriting method merge_element(<ggarrow::element_arrow>, <ANY>)
 ```
 
 ![](customisation_files/figure-html/unnamed-chunk-4-1.png)

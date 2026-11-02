@@ -16,7 +16,6 @@ Science](https://r4ds.had.co.nz/data-visualisation.html).
 
 library(ggarrow)
 #> Loading required package: ggplot2
-#> Overwriting method merge_element(<ggarrow::element_arrow>, <ANY>)
 
 whirlpool <- whirlpool(3)
 

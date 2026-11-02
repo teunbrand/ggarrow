@@ -319,7 +319,7 @@ S7_element_arrow_constructor <- function(
     inherit.blank = inherit.blank
   )
   S7::new_object(
-    .parent = parent,
+    parent,
     linewidth_head = linewidth_head,
     linewidth_fins = linewidth_fins,
     stroke_colour  = stroke_colour,

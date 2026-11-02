@@ -1,5 +1,7 @@
 # ggarrow (development version)
 
+* Updates for compatibility with S7 > 0.2.2.
+
 # ggarrow 0.2.0
 
 This is a minor release introducing a few new features.

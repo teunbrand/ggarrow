@@ -4,6 +4,8 @@ Arrow ornaments come in two main varieties: head ornaments and fins
 ornaments. These are respectively placed at the end and start of a line.
 This vignette introduces the built-in arrow ornaments.
 
+    #> Overwriting method merge_element(<ggarrow::element_arrow>, <ANY>)
+
 ## Head ornaments
 
 Head ornaments are the ‘arrowhead’ ornaments at the end of a line.

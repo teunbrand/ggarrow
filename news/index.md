@@ -1,5 +1,7 @@
 # Changelog
 
+## ggarrow (development version)
+
 ## ggarrow 0.2.1
 
 CRAN release: 2026-11-02

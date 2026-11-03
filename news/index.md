@@ -1,6 +1,8 @@
 # Changelog
 
-## ggarrow (development version)
+## ggarrow 0.2.1
+
+CRAN release: 2026-11-02
 
 This is a patch release anticipating changes in S7.
 
